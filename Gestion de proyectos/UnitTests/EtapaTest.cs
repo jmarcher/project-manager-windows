@@ -15,6 +15,7 @@ namespace UnitTests
             etapa.MarcarFinalizada();
             Assert.True(etapa.Finalizada);
         }
+		
         [Fact]
         public void MarcarEtapaComoFinalizadaConTareaSinFinalizar()
         {
@@ -24,6 +25,7 @@ namespace UnitTests
             etapa.MarcarFinalizada();
             Assert.False(etapa.Finalizada);
         }
+		
         [Fact]
         public void MarcarEtapaComoFinalizadaConTareaConYSinFinalizar()
         {
