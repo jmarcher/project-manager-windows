@@ -21,7 +21,33 @@ namespace Dominio
         {
             Etapas = new List<Etapa>();
         }
+        public void AgregarEtapa(Etapa etapa)
+        {
+            Etapas.Add(etapa);
+        }
 
+        public Boolean ContieneEtapa(Etapa etapa)
+        {
+            return Etapas.Contains(etapa);
+        }
+
+        public override bool Equals(object obj)
+        {
+            Proyecto p = (Proyecto)obj;
+            return p.Id == this.Id;
+        }
+
+        public int CalcularDuracion()
+        {
+            int sumaDuracion = 0;
+            foreach (Etapa e in Etapas)
+            {
+                sumaDuracion += e.CalcularDuracion();
+            }
+            return sumaDuracion;
+        }
+
+       
        
     
     }
