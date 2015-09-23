@@ -47,8 +47,47 @@ namespace Dominio
             return sumaDuracion;
         }
 
-       
+        public DateTime ObtenerFechaFinalizacion()
+        {
+
+            DateTime fecha = new DateTime();
+            foreach (Etapa e in Etapas)
+            {
+                if (DateTime.Compare(e.ObtenerFechaFinalizacion(), fecha) > 0)
+                {
+                    fecha = e.ObtenerFechaFinalizacion();
+                }
+            }
+            return fecha;
+        }
+
+        public void MarcarFinalizado()
+        {
+            if (TodasEtapasFinalizadas())
+                Finalizado = true;
+        }
+        private bool TodasEtapasFinalizadas()
+        {
+            bool retorno = true;
+            foreach (Etapa e in Etapas)
+            {
+                retorno = retorno && e.Finalizada;
+
+            }
+            return retorno;
+        }
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(this.Nombre);
+            sb.Append(Espacio);
+            sb.Append(this.Objetivo);
+            sb.Append(Espacio);
+            sb.Append(this.Finalizado);
+            return sb.ToString();
+        }
        
     
     }
 }
+ 
