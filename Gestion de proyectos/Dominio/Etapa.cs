@@ -11,6 +11,7 @@ namespace Dominio
         public int Id { get; set; }
         public List<Tarea> Tareas { get; set; }
         public bool Finalizada { get; private set; }
+        public DateTime FechaFinalizacion { get; private set; }
 
         public Etapa()
         {
@@ -42,8 +43,7 @@ namespace Dominio
 
         public DateTime ObtenerFechaFinalizacion()
         {
-            DateTime fecha = Tareas.First().FInicio;
-            fecha = fecha.AddDays(Tareas.First().DuracionPendiente);
+            DateTime fecha = new DateTime();
             foreach(Tarea t in Tareas)
             {
                 DateTime fechaActual = t.FInicio;
@@ -57,7 +57,10 @@ namespace Dominio
         }
         public void MarcarFinalizada() {
             if (TodasTareasFinalizadas())
+            {
                 Finalizada = true;
+                FechaFinalizacion = DateTime.Now;
+            }
         }
         private bool TodasTareasFinalizadas()
         {
@@ -68,7 +71,7 @@ namespace Dominio
 
             }
             return retorno;
-        }    
-    
+        }
+
     }
 }
