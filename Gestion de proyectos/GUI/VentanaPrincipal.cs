@@ -81,5 +81,11 @@ namespace GUI
             VentanaDetallesProyecto ventana = new VentanaDetallesProyecto(p);
             ventana.Show();
         }
+
+        private void buttonAgregarNuevoProyecto_Click(object sender, EventArgs e)
+        {
+            VentanaAltaDeProyecto ventanaAlta = new VentanaAltaDeProyecto();
+            ventanaAlta.Show();
+        }
     }
 }
