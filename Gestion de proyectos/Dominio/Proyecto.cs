@@ -13,7 +13,7 @@ namespace Dominio
 
         public String Nombre { get; set; }
         public String Objetivo { get; set; }
-        public DateTime fechaFinalizado { get; set; }
+        public DateTime FechaFinalizado { get; set; }
         public bool Finalizado { get; private set; }
         public List<Etapa> Etapas{get; set;}
 
@@ -21,6 +21,16 @@ namespace Dominio
         {
             Etapas = new List<Etapa>();
         }
+        public Proyecto(String nombre,String objetivo)
+        {
+            Nombre = nombre;
+            Objetivo = objetivo;
+            FechaFinalizado = DateTime.MinValue;
+            Etapas = new List<Etapa>();
+            Finalizado = false;
+
+        }
+       
         public void AgregarEtapa(Etapa etapa)
         {
             Etapas.Add(etapa);

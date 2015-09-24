@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Dominio;
 
 namespace GUI
 {
@@ -15,6 +16,15 @@ namespace GUI
         public VentanaAltaDeProyecto()
         {
             InitializeComponent();
+            InicializarComboPrioridad();
+        }
+
+        private void InicializarComboPrioridad()
+        {
+            comboBoxPrioridadNuevoProyecto.Items.Clear();
+            comboBoxPrioridadNuevoProyecto.Items.Add("Alta");
+            comboBoxPrioridadNuevoProyecto.Items.Add("Media");
+            comboBoxPrioridadNuevoProyecto.Items.Add("Baja");
         }
 
         private void buttonSiguienteNuevoProyecto_Click(object sender, EventArgs e)
@@ -47,7 +57,17 @@ namespace GUI
 
         private void buttonGuardarNuevoProyecto_Click(object sender, EventArgs e)
         {
+            try
+            {
+                Proyecto nuevoProyecto = new Proyecto(this.textBoxNombreDelNuevoProyecto.Text, this.richTextBoxObjetivoDelNuevoProyecto.Text);
+                Etapa etapaNuevoProyecto = new Etapa(this.textBoxNombreEtapaNuevoProyecto.Text, Int32.Parse(this.textBoxIdEtapaNuevoProyecto.Text));
+                Tarea tareaNuevoProyecto = new Tarea(this.textBoxNombreTareaNuevoProyecto.Text,this.textBoxObjetivoTareaNuevoProyecto.Text,this.richTextBoxDescripcionTareaNuevoProyecto.Text,this.monthCalendarFechaInicioTareaNuevoProyecto.SelectionRange.Start,Int32.Parse(this.textBoxDuracionPendienteNuevoProyecto.Text),this.comboBoxPrioridadNuevoProyecto.SelectedItem.ToString());
+            
+            }
+            catch (FormatException f)
+            {
 
+            }
         }
     }
 }

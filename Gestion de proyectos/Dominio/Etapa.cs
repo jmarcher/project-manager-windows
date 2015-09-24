@@ -19,6 +19,14 @@ namespace Dominio
             Finalizada = false;
             Tareas = new List<Tarea>();
         }
+        public Etapa(String nombre , int id)
+        {
+            Nombre = nombre;
+            Id = id;
+            Finalizada = false;
+            Tareas = new List<Tarea>();
+            FechaFinalizacion = DateTime.MinValue;
+        }
 
         public override bool Equals(object obj)
         {

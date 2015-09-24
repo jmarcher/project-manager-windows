@@ -35,29 +35,29 @@
             this.buttonSiguienteNuevoProyecto = new System.Windows.Forms.Button();
             this.buttonAtrasNuevoProyecto = new System.Windows.Forms.Button();
             this.panelEtapaDeNuevoProyecto = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBoxNombreEtapaNuevoProyecto = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.buttonSiguienteEtapaNuevoProyecto = new System.Windows.Forms.Button();
-            this.buttonAtrasEtapaNuevoProyecto = new System.Windows.Forms.Button();
             this.panelTareaNuevoProyecto = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.comboBoxPrioridadNuevoProyecto = new System.Windows.Forms.ComboBox();
-            this.monthCalendarFechaInicioTareaNuevoProyecto = new System.Windows.Forms.MonthCalendar();
-            this.textBoxNombreTareaNuevoProyecto = new System.Windows.Forms.TextBox();
-            this.textBoxObjetivoTareaNuevoProyecto = new System.Windows.Forms.TextBox();
-            this.richTextBoxDescripcionTareaNuevoProyecto = new System.Windows.Forms.RichTextBox();
-            this.textBoxDuracionPendienteNuevoProyecto = new System.Windows.Forms.TextBox();
-            this.buttonGuardarNuevoProyecto = new System.Windows.Forms.Button();
             this.buttonAtrasTareaNuevoProyecto = new System.Windows.Forms.Button();
+            this.buttonGuardarNuevoProyecto = new System.Windows.Forms.Button();
+            this.textBoxDuracionPendienteNuevoProyecto = new System.Windows.Forms.TextBox();
+            this.richTextBoxDescripcionTareaNuevoProyecto = new System.Windows.Forms.RichTextBox();
+            this.textBoxObjetivoTareaNuevoProyecto = new System.Windows.Forms.TextBox();
+            this.textBoxNombreTareaNuevoProyecto = new System.Windows.Forms.TextBox();
+            this.monthCalendarFechaInicioTareaNuevoProyecto = new System.Windows.Forms.MonthCalendar();
+            this.comboBoxPrioridadNuevoProyecto = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.buttonAtrasEtapaNuevoProyecto = new System.Windows.Forms.Button();
+            this.buttonSiguienteEtapaNuevoProyecto = new System.Windows.Forms.Button();
+            this.textBoxIdEtapaNuevoProyecto = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxNombreEtapaNuevoProyecto = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panelEtapaDeNuevoProyecto.SuspendLayout();
             this.panelTareaNuevoProyecto.SuspendLayout();
             this.SuspendLayout();
@@ -120,7 +120,7 @@
             this.panelEtapaDeNuevoProyecto.Controls.Add(this.panelTareaNuevoProyecto);
             this.panelEtapaDeNuevoProyecto.Controls.Add(this.buttonAtrasEtapaNuevoProyecto);
             this.panelEtapaDeNuevoProyecto.Controls.Add(this.buttonSiguienteEtapaNuevoProyecto);
-            this.panelEtapaDeNuevoProyecto.Controls.Add(this.textBox1);
+            this.panelEtapaDeNuevoProyecto.Controls.Add(this.textBoxIdEtapaNuevoProyecto);
             this.panelEtapaDeNuevoProyecto.Controls.Add(this.label5);
             this.panelEtapaDeNuevoProyecto.Controls.Add(this.textBoxNombreEtapaNuevoProyecto);
             this.panelEtapaDeNuevoProyecto.Controls.Add(this.label4);
@@ -131,68 +131,6 @@
             this.panelEtapaDeNuevoProyecto.Size = new System.Drawing.Size(907, 523);
             this.panelEtapaDeNuevoProyecto.TabIndex = 6;
             this.panelEtapaDeNuevoProyecto.Visible = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 74);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(215, 17);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Ingrese un nombre para la etapa";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(350, 9);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(298, 25);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Creación de una nueva Etapa";
-            // 
-            // textBoxNombreEtapaNuevoProyecto
-            // 
-            this.textBoxNombreEtapaNuevoProyecto.Location = new System.Drawing.Point(234, 76);
-            this.textBoxNombreEtapaNuevoProyecto.Name = "textBoxNombreEtapaNuevoProyecto";
-            this.textBoxNombreEtapaNuevoProyecto.Size = new System.Drawing.Size(256, 22);
-            this.textBoxNombreEtapaNuevoProyecto.TabIndex = 2;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 104);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(92, 17);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Ingrese un ID";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(234, 105);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(256, 22);
-            this.textBox1.TabIndex = 4;
-            // 
-            // buttonSiguienteEtapaNuevoProyecto
-            // 
-            this.buttonSiguienteEtapaNuevoProyecto.Location = new System.Drawing.Point(795, 481);
-            this.buttonSiguienteEtapaNuevoProyecto.Name = "buttonSiguienteEtapaNuevoProyecto";
-            this.buttonSiguienteEtapaNuevoProyecto.Size = new System.Drawing.Size(100, 30);
-            this.buttonSiguienteEtapaNuevoProyecto.TabIndex = 5;
-            this.buttonSiguienteEtapaNuevoProyecto.Text = "Siguiente";
-            this.buttonSiguienteEtapaNuevoProyecto.UseVisualStyleBackColor = true;
-            this.buttonSiguienteEtapaNuevoProyecto.Click += new System.EventHandler(this.buttonSiguienteEtapaNuevoProyecto_Click);
-            // 
-            // buttonAtrasEtapaNuevoProyecto
-            // 
-            this.buttonAtrasEtapaNuevoProyecto.Location = new System.Drawing.Point(689, 481);
-            this.buttonAtrasEtapaNuevoProyecto.Name = "buttonAtrasEtapaNuevoProyecto";
-            this.buttonAtrasEtapaNuevoProyecto.Size = new System.Drawing.Size(100, 30);
-            this.buttonAtrasEtapaNuevoProyecto.TabIndex = 6;
-            this.buttonAtrasEtapaNuevoProyecto.Text = "Atras";
-            this.buttonAtrasEtapaNuevoProyecto.UseVisualStyleBackColor = true;
-            this.buttonAtrasEtapaNuevoProyecto.Click += new System.EventHandler(this.buttonAtrasEtapaNuevoProyecto_Click);
             // 
             // panelTareaNuevoProyecto
             // 
@@ -218,112 +156,15 @@
             this.panelTareaNuevoProyecto.TabIndex = 7;
             this.panelTareaNuevoProyecto.Visible = false;
             // 
-            // label6
+            // buttonAtrasTareaNuevoProyecto
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(350, 9);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(226, 25);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Creación de una tarea";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 40);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(127, 17);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Ingrese un nombre";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(15, 71);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(128, 17);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "Ingrese un objetivo";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 104);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(159, 17);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "Ingrese una descripción";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 216);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(178, 17);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "Ingrese una fecha de inicio";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(19, 443);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(196, 17);
-            this.label11.TabIndex = 5;
-            this.label11.Text = "Ingrese la duración pendiente";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(19, 481);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(152, 17);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "Seleccione la prioridad";
-            // 
-            // comboBoxPrioridadNuevoProyecto
-            // 
-            this.comboBoxPrioridadNuevoProyecto.FormattingEnabled = true;
-            this.comboBoxPrioridadNuevoProyecto.Location = new System.Drawing.Point(232, 481);
-            this.comboBoxPrioridadNuevoProyecto.Name = "comboBoxPrioridadNuevoProyecto";
-            this.comboBoxPrioridadNuevoProyecto.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxPrioridadNuevoProyecto.TabIndex = 7;
-            // 
-            // monthCalendarFechaInicioTareaNuevoProyecto
-            // 
-            this.monthCalendarFechaInicioTareaNuevoProyecto.Location = new System.Drawing.Point(229, 219);
-            this.monthCalendarFechaInicioTareaNuevoProyecto.Name = "monthCalendarFechaInicioTareaNuevoProyecto";
-            this.monthCalendarFechaInicioTareaNuevoProyecto.TabIndex = 8;
-            // 
-            // textBoxNombreTareaNuevoProyecto
-            // 
-            this.textBoxNombreTareaNuevoProyecto.Location = new System.Drawing.Point(235, 40);
-            this.textBoxNombreTareaNuevoProyecto.Name = "textBoxNombreTareaNuevoProyecto";
-            this.textBoxNombreTareaNuevoProyecto.Size = new System.Drawing.Size(290, 22);
-            this.textBoxNombreTareaNuevoProyecto.TabIndex = 9;
-            // 
-            // textBoxObjetivoTareaNuevoProyecto
-            // 
-            this.textBoxObjetivoTareaNuevoProyecto.Location = new System.Drawing.Point(235, 70);
-            this.textBoxObjetivoTareaNuevoProyecto.Name = "textBoxObjetivoTareaNuevoProyecto";
-            this.textBoxObjetivoTareaNuevoProyecto.Size = new System.Drawing.Size(290, 22);
-            this.textBoxObjetivoTareaNuevoProyecto.TabIndex = 10;
-            // 
-            // richTextBoxDescripcionTareaNuevoProyecto
-            // 
-            this.richTextBoxDescripcionTareaNuevoProyecto.Location = new System.Drawing.Point(235, 98);
-            this.richTextBoxDescripcionTareaNuevoProyecto.Name = "richTextBoxDescripcionTareaNuevoProyecto";
-            this.richTextBoxDescripcionTareaNuevoProyecto.Size = new System.Drawing.Size(290, 96);
-            this.richTextBoxDescripcionTareaNuevoProyecto.TabIndex = 11;
-            this.richTextBoxDescripcionTareaNuevoProyecto.Text = "";
-            // 
-            // textBoxDuracionPendienteNuevoProyecto
-            // 
-            this.textBoxDuracionPendienteNuevoProyecto.Location = new System.Drawing.Point(229, 438);
-            this.textBoxDuracionPendienteNuevoProyecto.Name = "textBoxDuracionPendienteNuevoProyecto";
-            this.textBoxDuracionPendienteNuevoProyecto.Size = new System.Drawing.Size(290, 22);
-            this.textBoxDuracionPendienteNuevoProyecto.TabIndex = 12;
+            this.buttonAtrasTareaNuevoProyecto.Location = new System.Drawing.Point(689, 481);
+            this.buttonAtrasTareaNuevoProyecto.Name = "buttonAtrasTareaNuevoProyecto";
+            this.buttonAtrasTareaNuevoProyecto.Size = new System.Drawing.Size(100, 30);
+            this.buttonAtrasTareaNuevoProyecto.TabIndex = 14;
+            this.buttonAtrasTareaNuevoProyecto.Text = "Atras";
+            this.buttonAtrasTareaNuevoProyecto.UseVisualStyleBackColor = true;
+            this.buttonAtrasTareaNuevoProyecto.Click += new System.EventHandler(this.buttonAtrasTareaNuevoProyecto_Click);
             // 
             // buttonGuardarNuevoProyecto
             // 
@@ -335,15 +176,174 @@
             this.buttonGuardarNuevoProyecto.UseVisualStyleBackColor = true;
             this.buttonGuardarNuevoProyecto.Click += new System.EventHandler(this.buttonGuardarNuevoProyecto_Click);
             // 
-            // buttonAtrasTareaNuevoProyecto
+            // textBoxDuracionPendienteNuevoProyecto
             // 
-            this.buttonAtrasTareaNuevoProyecto.Location = new System.Drawing.Point(689, 481);
-            this.buttonAtrasTareaNuevoProyecto.Name = "buttonAtrasTareaNuevoProyecto";
-            this.buttonAtrasTareaNuevoProyecto.Size = new System.Drawing.Size(100, 30);
-            this.buttonAtrasTareaNuevoProyecto.TabIndex = 14;
-            this.buttonAtrasTareaNuevoProyecto.Text = "Atras";
-            this.buttonAtrasTareaNuevoProyecto.UseVisualStyleBackColor = true;
-            this.buttonAtrasTareaNuevoProyecto.Click += new System.EventHandler(this.buttonAtrasTareaNuevoProyecto_Click);
+            this.textBoxDuracionPendienteNuevoProyecto.Location = new System.Drawing.Point(229, 438);
+            this.textBoxDuracionPendienteNuevoProyecto.Name = "textBoxDuracionPendienteNuevoProyecto";
+            this.textBoxDuracionPendienteNuevoProyecto.Size = new System.Drawing.Size(290, 22);
+            this.textBoxDuracionPendienteNuevoProyecto.TabIndex = 12;
+            // 
+            // richTextBoxDescripcionTareaNuevoProyecto
+            // 
+            this.richTextBoxDescripcionTareaNuevoProyecto.Location = new System.Drawing.Point(235, 98);
+            this.richTextBoxDescripcionTareaNuevoProyecto.Name = "richTextBoxDescripcionTareaNuevoProyecto";
+            this.richTextBoxDescripcionTareaNuevoProyecto.Size = new System.Drawing.Size(290, 96);
+            this.richTextBoxDescripcionTareaNuevoProyecto.TabIndex = 11;
+            this.richTextBoxDescripcionTareaNuevoProyecto.Text = "";
+            // 
+            // textBoxObjetivoTareaNuevoProyecto
+            // 
+            this.textBoxObjetivoTareaNuevoProyecto.Location = new System.Drawing.Point(235, 70);
+            this.textBoxObjetivoTareaNuevoProyecto.Name = "textBoxObjetivoTareaNuevoProyecto";
+            this.textBoxObjetivoTareaNuevoProyecto.Size = new System.Drawing.Size(290, 22);
+            this.textBoxObjetivoTareaNuevoProyecto.TabIndex = 10;
+            // 
+            // textBoxNombreTareaNuevoProyecto
+            // 
+            this.textBoxNombreTareaNuevoProyecto.Location = new System.Drawing.Point(235, 40);
+            this.textBoxNombreTareaNuevoProyecto.Name = "textBoxNombreTareaNuevoProyecto";
+            this.textBoxNombreTareaNuevoProyecto.Size = new System.Drawing.Size(290, 22);
+            this.textBoxNombreTareaNuevoProyecto.TabIndex = 9;
+            // 
+            // monthCalendarFechaInicioTareaNuevoProyecto
+            // 
+            this.monthCalendarFechaInicioTareaNuevoProyecto.Location = new System.Drawing.Point(229, 219);
+            this.monthCalendarFechaInicioTareaNuevoProyecto.Name = "monthCalendarFechaInicioTareaNuevoProyecto";
+            this.monthCalendarFechaInicioTareaNuevoProyecto.TabIndex = 8;
+            // 
+            // comboBoxPrioridadNuevoProyecto
+            // 
+            this.comboBoxPrioridadNuevoProyecto.FormattingEnabled = true;
+            this.comboBoxPrioridadNuevoProyecto.Location = new System.Drawing.Point(232, 481);
+            this.comboBoxPrioridadNuevoProyecto.Name = "comboBoxPrioridadNuevoProyecto";
+            this.comboBoxPrioridadNuevoProyecto.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxPrioridadNuevoProyecto.TabIndex = 7;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(19, 481);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(152, 17);
+            this.label12.TabIndex = 6;
+            this.label12.Text = "Seleccione la prioridad";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(19, 443);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(196, 17);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "Ingrese la duración pendiente";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(12, 216);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(178, 17);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Ingrese una fecha de inicio";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 104);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(159, 17);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "Ingrese una descripción";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(15, 71);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(128, 17);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Ingrese un objetivo";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(15, 40);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(127, 17);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Ingrese un nombre";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(350, 9);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(226, 25);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Creación de una tarea";
+            // 
+            // buttonAtrasEtapaNuevoProyecto
+            // 
+            this.buttonAtrasEtapaNuevoProyecto.Location = new System.Drawing.Point(689, 481);
+            this.buttonAtrasEtapaNuevoProyecto.Name = "buttonAtrasEtapaNuevoProyecto";
+            this.buttonAtrasEtapaNuevoProyecto.Size = new System.Drawing.Size(100, 30);
+            this.buttonAtrasEtapaNuevoProyecto.TabIndex = 6;
+            this.buttonAtrasEtapaNuevoProyecto.Text = "Atras";
+            this.buttonAtrasEtapaNuevoProyecto.UseVisualStyleBackColor = true;
+            this.buttonAtrasEtapaNuevoProyecto.Click += new System.EventHandler(this.buttonAtrasEtapaNuevoProyecto_Click);
+            // 
+            // buttonSiguienteEtapaNuevoProyecto
+            // 
+            this.buttonSiguienteEtapaNuevoProyecto.Location = new System.Drawing.Point(795, 481);
+            this.buttonSiguienteEtapaNuevoProyecto.Name = "buttonSiguienteEtapaNuevoProyecto";
+            this.buttonSiguienteEtapaNuevoProyecto.Size = new System.Drawing.Size(100, 30);
+            this.buttonSiguienteEtapaNuevoProyecto.TabIndex = 5;
+            this.buttonSiguienteEtapaNuevoProyecto.Text = "Siguiente";
+            this.buttonSiguienteEtapaNuevoProyecto.UseVisualStyleBackColor = true;
+            this.buttonSiguienteEtapaNuevoProyecto.Click += new System.EventHandler(this.buttonSiguienteEtapaNuevoProyecto_Click);
+            // 
+            // textBoxIdEtapaNuevoProyecto
+            // 
+            this.textBoxIdEtapaNuevoProyecto.Location = new System.Drawing.Point(234, 105);
+            this.textBoxIdEtapaNuevoProyecto.Name = "textBoxIdEtapaNuevoProyecto";
+            this.textBoxIdEtapaNuevoProyecto.Size = new System.Drawing.Size(256, 22);
+            this.textBoxIdEtapaNuevoProyecto.TabIndex = 4;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 104);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(92, 17);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Ingrese un ID";
+            // 
+            // textBoxNombreEtapaNuevoProyecto
+            // 
+            this.textBoxNombreEtapaNuevoProyecto.Location = new System.Drawing.Point(234, 76);
+            this.textBoxNombreEtapaNuevoProyecto.Name = "textBoxNombreEtapaNuevoProyecto";
+            this.textBoxNombreEtapaNuevoProyecto.Size = new System.Drawing.Size(256, 22);
+            this.textBoxNombreEtapaNuevoProyecto.TabIndex = 2;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(350, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(298, 25);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Creación de una nueva Etapa";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 74);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(215, 17);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Ingrese un nombre para la etapa";
             // 
             // VentanaAltaDeProyecto
             // 
@@ -380,7 +380,7 @@
         private System.Windows.Forms.TextBox textBoxNombreEtapaNuevoProyecto;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxIdEtapaNuevoProyecto;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonAtrasEtapaNuevoProyecto;
         private System.Windows.Forms.Button buttonSiguienteEtapaNuevoProyecto;

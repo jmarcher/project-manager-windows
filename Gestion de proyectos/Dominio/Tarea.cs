@@ -67,6 +67,35 @@ namespace Dominio
             Nombre = "[Nombre por defecto]";
             Finalizada = false;
         }
+        public Tarea(String nombre,String objetivo,String descripcion, DateTime fechaI,int duracion,String prioridad)
+        {
+            Antecesoras = new List<Tarea>();
+            Subtareas = new List<Tarea>();
+            DefinirPrioridad(prioridad);
+            _FInicio = fechaI;
+            _FFinalizacion = DateTime.MinValue;
+            Nombre = nombre;
+            Objetivo = objetivo;
+            Descripcion = descripcion;
+            Finalizada = false;
+            DuracionPendiente = duracion;
+        }
+
+        private void DefinirPrioridad(String prioridad)
+        {
+            if (prioridad.Equals("Alta"))
+            {
+                Prioridad = PRIORIDAD_ALTA;
+            }
+            else if (prioridad.Equals("Media"))
+            {
+                Prioridad = PRIORIDAD_MEDIA;
+            }
+            else if (prioridad.Equals("Baja"))
+            {
+                Prioridad = PRIORIDAD_BAJA;
+            }
+        }
 
         private int CalcularDuracionSubtareas()
         {
