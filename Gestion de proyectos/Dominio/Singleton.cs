@@ -6,18 +6,39 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    class Singleton
+   public class Singleton
     {
         private static Singleton instanciaSingleton = null;
         private List<Proyecto> listaProyectos;
-       
-        public static Singleton GetInstance()
+
+        private  Singleton() 
         {
-            if (instanciaSingleton == null)
-            {
-                instanciaSingleton = new Singleton();
-            }
-            return instanciaSingleton;
+            this.listaProyectos = new List<Proyecto>();
         }
-    }
+        public void agregarProyecto(Proyecto nuevo) 
+        {
+            this.listaProyectos.Add(nuevo);
+        }
+        public void agregarListaProyecto(List<Proyecto> nuevo)
+        {
+            this.listaProyectos=nuevo;
+        }
+        public List<Proyecto> devolverListaProyectos()
+        {
+            return this.listaProyectos;
+        }
+       
+       
+        public static Singleton Instance
+        {
+            get
+            {
+                if (instanciaSingleton == null)
+                instanciaSingleton = new Singleton();
+ 
+                return instanciaSingleton;
+            }
+        }
+    }   
 }
+

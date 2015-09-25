@@ -14,15 +14,18 @@ namespace GUI
 {
     public partial class VentanaPrincipal : Form
     {
-        private List<Proyecto> Proyectos;
+        Singleton patron = Singleton.Instance;
+        List<Proyecto> Proyectos;
 
         public VentanaPrincipal()
         {
             InitializeComponent();
             try
             {
+
                 DatosDePrueba dp = new DatosDePrueba();
-                Proyectos = dp.ObtenerUnaListaProyectos();
+                patron.agregarListaProyecto(dp.ObtenerUnaListaProyectos());
+                Proyectos = patron.devolverListaProyectos();
                 configurarListViewProyectos();
                 actualizarLista();
             }
@@ -85,7 +88,15 @@ namespace GUI
         private void buttonAgregarNuevoProyecto_Click(object sender, EventArgs e)
         {
             VentanaAltaDeProyecto ventanaAlta = new VentanaAltaDeProyecto();
-            ventanaAlta.Show();
+            ventanaAlta.ShowDialog();
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (!(frm.GetType() == typeof(VentanaAltaDeProyecto)))
+                {
+                    this.actualizarLista();
+                    break;
+                }
+            }
         }
     }
 }

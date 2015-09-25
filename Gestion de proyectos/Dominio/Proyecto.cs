@@ -75,6 +75,7 @@ namespace Dominio
         {
             if (TodasEtapasFinalizadas())
                 Finalizado = true;
+            FechaFinalizado = ObtenerFechaFinalizacion();
         }
         private bool TodasEtapasFinalizadas()
         {

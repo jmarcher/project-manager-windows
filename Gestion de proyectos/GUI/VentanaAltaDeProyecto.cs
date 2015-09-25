@@ -59,13 +59,15 @@ namespace GUI
         {
             try
             {
-                Proyecto nuevoProyecto = new Proyecto(this.textBoxNombreDelNuevoProyecto.Text, this.richTextBoxObjetivoDelNuevoProyecto.Text);
+                Tarea tareaNuevoProyecto = new Tarea(this.textBoxNombreTareaNuevoProyecto.Text, this.textBoxObjetivoTareaNuevoProyecto.Text, this.richTextBoxDescripcionTareaNuevoProyecto.Text, this.monthCalendarFechaInicioTareaNuevoProyecto.SelectionRange.Start, Int32.Parse(this.textBoxDuracionPendienteNuevoProyecto.Text), this.comboBoxPrioridadNuevoProyecto.SelectedItem.ToString());
                 Etapa etapaNuevoProyecto = new Etapa(this.textBoxNombreEtapaNuevoProyecto.Text, Int32.Parse(this.textBoxIdEtapaNuevoProyecto.Text));
-                Tarea tareaNuevoProyecto = new Tarea(this.textBoxNombreTareaNuevoProyecto.Text,this.textBoxObjetivoTareaNuevoProyecto.Text,this.richTextBoxDescripcionTareaNuevoProyecto.Text,this.monthCalendarFechaInicioTareaNuevoProyecto.SelectionRange.Start,Int32.Parse(this.textBoxDuracionPendienteNuevoProyecto.Text),this.comboBoxPrioridadNuevoProyecto.SelectedItem.ToString());
+                Proyecto nuevoProyecto = new Proyecto(this.textBoxNombreDelNuevoProyecto.Text, this.richTextBoxObjetivoDelNuevoProyecto.Text);
+               
+              
                 etapaNuevoProyecto.AgregarTarea(tareaNuevoProyecto);
                 nuevoProyecto.AgregarEtapa(etapaNuevoProyecto);
+                Singleton.Instance.agregarProyecto(nuevoProyecto);
                 this.Close();
-               
             }
             catch (FormatException f)
             {
