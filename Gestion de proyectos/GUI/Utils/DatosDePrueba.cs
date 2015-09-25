@@ -9,16 +9,17 @@ namespace GUI.Utils
 {
     public class DatosDePrueba
     {
+        private Random random;
         private List<Proyecto> Proyectos { get; set; }
         public DatosDePrueba()
         {
             Proyectos = new List<Proyecto>();
+            random = new Random(DateTime.Now.Millisecond);
         }
 
         public List<Proyecto> ObtenerUnaListaProyectos()
         {
-            Random r = new Random();
-            for (int i = 0; i < r.Next(30, 35); i++)
+            for (int i = 0; i < random.Next(30, 35); i++)
             {
                 Proyectos.Add(CrearProyectoAleatorio());
             }
@@ -27,60 +28,58 @@ namespace GUI.Utils
 
         private Tarea CrearTareaAleatoria(DateTime fecha, bool agregarSubTareas = false)
         {
-            Random r = new Random();
-            Tarea t = new Tarea()
+            Tarea tarea = new Tarea()
             {
-                Nombre = "Tarea Nro: "+r.Next(1,3000),
-                FInicio =fecha.CompareTo(DateTime.Now)==0 ? fecha : fecha.AddDays(r.Next(1,30)),
+                Nombre = "Tarea Nro: "+random.Next(1,3000),
+                FInicio =fecha.CompareTo(DateTime.Now)==0 ? fecha : fecha.AddDays(random.Next(1,30)),
                 Objetivo = "Objetivo",
-                Prioridad = r.Next(0,2),
+                Prioridad = random.Next(0,2),
                 
             };
             if(agregarSubTareas){
-                GenerarSubtareas(r, t);
+                GenerarSubtareas(random, tarea);
             }
-            return t;
+            return tarea;
         }
 
-        private void GenerarSubtareas(Random r, Tarea t)
+        private void GenerarSubtareas(Random random, Tarea tarea)
         {
-            for (int i = 0; i < r.Next(0, 5); i++)
+            for (int i = 0; i < random.Next(0, 5); i++)
             {
                 bool agregarMas = false;
-                if (r.Next(1, 10) > 8) agregarMas = true;
-                t.AgregarSubtarea(CrearTareaAleatoria(t.FInicio, agregarMas));
+                if (random.Next(1, 10) > 8) agregarMas = true;
+                tarea.AgregarSubtarea(CrearTareaAleatoria(tarea.FInicio, agregarMas));
             }
         }
 
         private Etapa CrearEtapaAleatoria()
         {
-            Random r = new Random();
-            Etapa e = new Etapa()
+            Etapa etapa = new Etapa()
             {
-                Nombre = "Etapa Nro: "+r.Next(1,3000),
+                Nombre = "Etapa Nro: "+random.Next(1,3000),
                 Id = GenerarIdUnico(),
                 
             };
 
-            AgregarTareasAEtapa(r, e);
-            return e;
+            AgregarTareasAEtapa(random, etapa);
+            return etapa;
         }
 
-        private void AgregarTareasAEtapa(Random r, Etapa e)
+        private void AgregarTareasAEtapa(Random random, Etapa etapa)
         {
-            for (int i = 0; i < r.Next(1, 25); i++)
+            for (int i = 0; i < random.Next(1, 25); i++)
             {
-                e.AgregarTarea(CrearTareaAleatoria(DateTime.Now,true));
+                etapa.AgregarTarea(CrearTareaAleatoria(DateTime.Now,true));
             }
         }
 
         private int GenerarIdUnico()
         {
-            long i = 1;
+            long identificador = 1;
 
-            foreach (byte b in Guid.NewGuid().ToByteArray())
+            foreach (byte byteEntrada in Guid.NewGuid().ToByteArray())
             {
-                i *= ((int)b + 1);
+                identificador *= ((int)byteEntrada + 1);
             }
 
             int Numero = (int)((DateTime.Now.Ticks / 10) % 1000000000);
@@ -90,23 +89,22 @@ namespace GUI.Utils
 
         private Proyecto CrearProyectoAleatorio()
         {
-            Random r = new Random();
-            Proyecto p = new Proyecto()
+            Proyecto proyecto = new Proyecto()
             {
-                Nombre = "Proyecto Nro: "+r.Next(1,3000),
-                Objetivo = "Objetivo Nro: "+r.Next(1,35),
+                Nombre = "Proyecto Nro: "+random.Next(1,3000),
+                Objetivo = "Objetivo Nro: "+random.Next(1,35),
                 Id = GenerarIdUnico()
             };
 
-            AgregarEtapasAProyecto(r, p);
-            return p;
+            AgregarEtapasAProyecto(random, proyecto);
+            return proyecto;
         }
 
-        private void AgregarEtapasAProyecto(Random r, Proyecto p)
+        private void AgregarEtapasAProyecto(Random random, Proyecto proyecto)
         {
-            for (int i = 0; i < r.Next(4, 30); i++)
+            for (int i = 0; i < random.Next(4, 30); i++)
             {
-                p.AgregarEtapa(CrearEtapaAleatoria());
+                proyecto.AgregarEtapa(CrearEtapaAleatoria());
             }
         }
     }
