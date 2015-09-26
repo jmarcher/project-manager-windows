@@ -58,9 +58,10 @@ namespace GUI
         {
             ListViewItem listViewItem = new ListViewItem();
             listViewItem.Text = (etapa.Id) + "";
-            listViewItem.SubItems.Add(etapa.Nombre);
-            listViewItem.SubItems.Add(etapa.Tareas.Count.ToString());
-            listViewItem.SubItems.Add(etapa.Finalizada ? etapa.FechaFinalizacion.ToString() : "");
+            listViewItem.SubItems[0].Tag = "int";
+            listViewItem.SubItems.Add(etapa.Nombre).Tag = "string";
+            listViewItem.SubItems.Add(etapa.Tareas.Count.ToString()).Tag = "int";
+            listViewItem.SubItems.Add(etapa.Finalizada ? etapa.FechaFinalizacion.ToString() : "").Tag = "DateTime";
             return listViewItem;
         }
 
@@ -97,6 +98,7 @@ namespace GUI
             }
 
             etapasListView.Sort();
+            etapasListView.SetSortIcon(lvwColumnSorter.SortColumn, lvwColumnSorter.Order);
         }
 
         private void eliminarButton_Click(object sender, EventArgs e)
@@ -132,6 +134,11 @@ namespace GUI
         private bool HayEtapaSeleccionada()
         {
             return etapasListView.SelectedItems.Count > 0;
+        }
+
+        private void VentanaDetallesProyecto_Load(object sender, EventArgs e)
+        {
+            etapasListView_ColumnClick(null, new ColumnClickEventArgs(0));
         }
     }
 }
