@@ -75,15 +75,7 @@ namespace GUI.Utils
 
         private int GenerarIdUnico()
         {
-            long identificador = 1;
-
-            foreach (byte byteEntrada in Guid.NewGuid().ToByteArray())
-            {
-                identificador *= ((int)byteEntrada + 1);
-            }
-
-            int Numero = (int)((DateTime.Now.Ticks / 10) % 1000000000);
-
+            int Numero = (int)((random.Next(444, 0983098093) / 10) % 10000);
             return Numero;
         }
 

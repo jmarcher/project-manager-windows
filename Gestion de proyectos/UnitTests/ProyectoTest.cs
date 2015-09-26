@@ -24,6 +24,41 @@ namespace UnitTests
         }
 
         [Fact]
+        public void EliminarEtapa()
+        {
+            Proyecto proyecto = new Proyecto()
+            {
+                Id = 1,
+                Nombre = "Proyecto"
+            };
+            Etapa etapa = new Etapa()
+            {
+                Id = 1,
+                Nombre = "Etapa"
+            };
+            proyecto.AgregarEtapa(etapa);
+            proyecto.QuitarEtapa(etapa);
+            Assert.False(proyecto.PerteneceEtapa(etapa));
+        }
+
+        [Fact]
+        public void EliminarEtapaQueNoPertenece()
+        {
+            Proyecto proyecto = new Proyecto()
+            {
+                Id = 1,
+                Nombre = "Proyecto"
+            };
+            Etapa etapa = new Etapa()
+            {
+                Id = 1,
+                Nombre = "Etapa"
+            };
+            proyecto.QuitarEtapa(etapa);
+            Assert.False(proyecto.PerteneceEtapa(etapa));
+        }
+
+        [Fact]
         public void DosProyectosSonDistintos()
         {
             Proyecto proyectoUno = new Proyecto()
@@ -62,6 +97,7 @@ namespace UnitTests
 
             Assert.Equal(10, proyecto.CalcularDuracion());
         }
+
         [Fact]
         public void FechaFinalizacionCorrecta()
         {
@@ -125,6 +161,7 @@ namespace UnitTests
             proyecto.MarcarFinalizado();
             Assert.True(proyecto.Finalizado);
         }
+
         [Fact]
         public void MarcarProyectoComoFinalizadoConEtapaSinFinalizar()
         {

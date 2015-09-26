@@ -54,13 +54,14 @@ namespace GUI
             }
         }
 
-        private static ListViewItem CrearNuevoItemListView(Etapa e)
+        private static ListViewItem CrearNuevoItemListView(Etapa etapa)
         {
-            ListViewItem lvi = new ListViewItem();
-            lvi.Text = e.Nombre;
-            lvi.SubItems.Add(e.Tareas.Count.ToString());
-            lvi.SubItems.Add(e.Finalizada ? e.FechaFinalizacion.ToString() : "");
-            return lvi;
+            ListViewItem listViewItem = new ListViewItem();
+            listViewItem.Text = (etapa.Id) + "";
+            listViewItem.SubItems.Add(etapa.Nombre);
+            listViewItem.SubItems.Add(etapa.Tareas.Count.ToString());
+            listViewItem.SubItems.Add(etapa.Finalizada ? etapa.FechaFinalizacion.ToString() : "");
+            return listViewItem;
         }
 
         private void InicializarLista()
@@ -70,6 +71,7 @@ namespace GUI
             etapasListView.FullRowSelect = true;
             etapasListView.GridLines = true;
             etapasListView.Sorting = SortOrder.Ascending;
+            etapasListView.Columns.Add("Id", 40, HorizontalAlignment.Left);
             etapasListView.Columns.Add("Nombre", 100, HorizontalAlignment.Left);
             etapasListView.Columns.Add("Cant. Tareas", 50, HorizontalAlignment.Left);
             etapasListView.Columns.Add("Fecha finalización", 140, HorizontalAlignment.Left);
@@ -95,6 +97,41 @@ namespace GUI
             }
 
             etapasListView.Sort();
+        }
+
+        private void eliminarButton_Click(object sender, EventArgs e)
+        {
+            if (HayEtapaSeleccionada() && CartelConfirmacionEliminacionAceptado())
+            {
+                proyecto.QuitarEtapa(EtapaSeleccionada());
+                ActualizarLista();
+            }
+        }
+
+        private Etapa EtapaSeleccionada()
+        {
+            Etapa etapa = new Etapa()
+            {
+                Id = GetSelectedId()
+            };
+            return etapa;
+        }
+
+        private bool CartelConfirmacionEliminacionAceptado()
+        {
+            DialogResult dialogResult = MessageBox.Show("¿Seguro desea eliminar esta etapa?",
+                "Eliminar etapa", MessageBoxButtons.YesNo);
+            return dialogResult == DialogResult.Yes;
+        }
+
+        private int GetSelectedId()
+        {
+            return Int32.Parse(etapasListView.SelectedItems[0].Text);
+        }
+
+        private bool HayEtapaSeleccionada()
+        {
+            return etapasListView.SelectedItems.Count > 0;
         }
     }
 }

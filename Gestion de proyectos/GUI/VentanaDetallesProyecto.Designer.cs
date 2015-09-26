@@ -32,6 +32,7 @@
             this.etapasListView = new System.Windows.Forms.ListView();
             this.verDetallesButton = new System.Windows.Forms.Button();
             this.editarButton = new System.Windows.Forms.Button();
+            this.eliminarButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -75,11 +76,22 @@
             this.editarButton.Text = "Editar";
             this.editarButton.UseVisualStyleBackColor = true;
             // 
+            // eliminarButton
+            // 
+            this.eliminarButton.Location = new System.Drawing.Point(16, 313);
+            this.eliminarButton.Name = "eliminarButton";
+            this.eliminarButton.Size = new System.Drawing.Size(75, 23);
+            this.eliminarButton.TabIndex = 4;
+            this.eliminarButton.Text = "Elminar";
+            this.eliminarButton.UseVisualStyleBackColor = true;
+            this.eliminarButton.Click += new System.EventHandler(this.eliminarButton_Click);
+            // 
             // VentanaDetallesProyecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(535, 345);
+            this.Controls.Add(this.eliminarButton);
             this.Controls.Add(this.editarButton);
             this.Controls.Add(this.verDetallesButton);
             this.Controls.Add(this.etapasListView);
@@ -97,5 +109,6 @@
         private System.Windows.Forms.ListView etapasListView;
         private System.Windows.Forms.Button verDetallesButton;
         private System.Windows.Forms.Button editarButton;
+        private System.Windows.Forms.Button eliminarButton;
     }
 }

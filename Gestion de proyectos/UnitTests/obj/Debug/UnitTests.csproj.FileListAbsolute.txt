@@ -32,3 +32,20 @@ C:\Users\Joaquin\Documents\diseño de aplicaciones\Gestion de proyectos\UnitTest
 C:\Users\Joaquin\Documents\diseño de aplicaciones\Gestion de proyectos\UnitTests\obj\Debug\UnitTests.csprojResolveAssemblyReference.cache
 C:\Users\Joaquin\Documents\diseño de aplicaciones\Gestion de proyectos\UnitTests\obj\Debug\UnitTests.dll
 C:\Users\Joaquin\Documents\diseño de aplicaciones\Gestion de proyectos\UnitTests\obj\Debug\UnitTests.pdb
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\bin\Debug\xunit.abstractions.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\bin\Debug\xunit.runner.visualstudio.testadapter.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\bin\Debug\xunit.runner.utility.desktop.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\bin\Debug\xunit.execution.desktop.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\bin\Debug\UnitTests.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\bin\Debug\UnitTests.pdb
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\bin\Debug\Dominio.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\bin\Debug\xunit.assert.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\bin\Debug\xunit.core.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\bin\Debug\Dominio.pdb
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\bin\Debug\xunit.assert.pdb
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\bin\Debug\xunit.assert.xml
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\bin\Debug\xunit.core.pdb
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\bin\Debug\xunit.core.xml
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\obj\Debug\UnitTests.csprojResolveAssemblyReference.cache
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\obj\Debug\UnitTests.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\UnitTests\obj\Debug\UnitTests.pdb
