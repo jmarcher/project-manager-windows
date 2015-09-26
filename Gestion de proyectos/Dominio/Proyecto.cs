@@ -13,6 +13,8 @@ namespace Dominio
 
         public String Nombre { get; set; }
         public String Objetivo { get; set; }
+        public int Duracion { get; set; }
+        public DateTime FechaInicio { get; set; }
         public DateTime FechaFinalizado { get; set; }
         public bool Finalizado { get; private set; }
         public List<Etapa> Etapas{get; set;}
@@ -21,10 +23,11 @@ namespace Dominio
         {
             Etapas = new List<Etapa>();
         }
-        public Proyecto(String nombre,String objetivo)
+        public Proyecto(String nombre,String objetivo,DateTime fechaI)
         {
             Nombre = nombre;
             Objetivo = objetivo;
+            FechaInicio = fechaI;
             FechaFinalizado = DateTime.MinValue;
             Etapas = new List<Etapa>();
             Finalizado = false;
@@ -75,7 +78,6 @@ namespace Dominio
         {
             if (TodasEtapasFinalizadas())
                 Finalizado = true;
-            FechaFinalizado = ObtenerFechaFinalizacion();
         }
         private bool TodasEtapasFinalizadas()
         {
@@ -87,6 +89,16 @@ namespace Dominio
             }
             return retorno;
         }
+        
+        public void InsertarFechaFin() 
+        {
+            FechaFinalizado = ObtenerFechaFinalizacion();
+        }
+        public void InsertarDuracion()
+        {
+           Duracion  = CalcularDuracion();
+        }
+        
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

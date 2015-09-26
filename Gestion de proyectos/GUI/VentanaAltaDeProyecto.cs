@@ -25,6 +25,7 @@ namespace GUI
             comboBoxPrioridadNuevoProyecto.Items.Add("Alta");
             comboBoxPrioridadNuevoProyecto.Items.Add("Media");
             comboBoxPrioridadNuevoProyecto.Items.Add("Baja");
+            comboBoxPrioridadNuevoProyecto.SelectedIndex = 0;
         }
 
         private void buttonSiguienteNuevoProyecto_Click(object sender, EventArgs e)
@@ -59,20 +60,30 @@ namespace GUI
         {
             try
             {
-                Tarea tareaNuevoProyecto = new Tarea(this.textBoxNombreTareaNuevoProyecto.Text, this.textBoxObjetivoTareaNuevoProyecto.Text, this.richTextBoxDescripcionTareaNuevoProyecto.Text, this.monthCalendarFechaInicioTareaNuevoProyecto.SelectionRange.Start, Int32.Parse(this.textBoxDuracionPendienteNuevoProyecto.Text), this.comboBoxPrioridadNuevoProyecto.SelectedItem.ToString());
-                Etapa etapaNuevoProyecto = new Etapa(this.textBoxNombreEtapaNuevoProyecto.Text, Int32.Parse(this.textBoxIdEtapaNuevoProyecto.Text));
-                Proyecto nuevoProyecto = new Proyecto(this.textBoxNombreDelNuevoProyecto.Text, this.richTextBoxObjetivoDelNuevoProyecto.Text);
-               
-              
-                etapaNuevoProyecto.AgregarTarea(tareaNuevoProyecto);
-                nuevoProyecto.AgregarEtapa(etapaNuevoProyecto);
-                Singleton.Instance.agregarProyecto(nuevoProyecto);
+                crearNuevoProyecto();
                 this.Close();
             }
             catch (FormatException f)
             {
                 Console.WriteLine("error no se ingreso un numero");
             }
+        }
+
+        private void crearNuevoProyecto()
+        {
+            Tarea tareaNuevoProyecto = new Tarea(this.textBoxNombreTareaNuevoProyecto.Text, this.textBoxObjetivoTareaNuevoProyecto.Text, this.richTextBoxDescripcionTareaNuevoProyecto.Text, this.monthCalendarFechaInicioTareaNuevoProyecto.SelectionRange.Start,this.monthCalendarFechaFinTareaNuevoProyecto.SelectionRange.Start, Int32.Parse(this.textBoxDuracionPendienteNuevoProyecto.Text), this.comboBoxPrioridadNuevoProyecto.SelectedItem.ToString());
+            Etapa etapaNuevoProyecto = new Etapa(this.textBoxNombreEtapaNuevoProyecto.Text, Int32.Parse(this.textBoxIdEtapaNuevoProyecto.Text),this.monthCalendarFechaInicioEtapa.SelectionStart);
+            Proyecto nuevoProyecto = new Proyecto(this.textBoxNombreDelNuevoProyecto.Text, this.richTextBoxObjetivoDelNuevoProyecto.Text,this.monthCalendarFechaInicioProyecto.SelectionStart);
+
+            etapaNuevoProyecto.AgregarTarea(tareaNuevoProyecto);
+            etapaNuevoProyecto.InsertarFechaFinalizacion();
+            etapaNuevoProyecto.InsertarDuracion();
+
+            nuevoProyecto.AgregarEtapa(etapaNuevoProyecto);
+            nuevoProyecto.InsertarDuracion();
+            nuevoProyecto.InsertarFechaFin();
+            Singleton.Instance.agregarProyecto(nuevoProyecto);
+
         }
     }
 }
