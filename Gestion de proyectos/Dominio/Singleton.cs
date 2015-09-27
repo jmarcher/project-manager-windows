@@ -28,7 +28,6 @@ namespace Dominio
             return this.listaProyectos;
         }
        
-       
         public static Singleton Instance
         {
             get

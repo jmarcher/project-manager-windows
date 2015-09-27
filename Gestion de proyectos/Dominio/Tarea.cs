@@ -143,6 +143,8 @@ namespace Dominio
 
         public override bool Equals(object obj)
         {
+            if (Convert.IsDBNull(obj))
+                return false;
             Tarea t = (Tarea)obj;
             return t.Nombre.Equals(this.Nombre)
                 && t.FInicio.Equals(this.FInicio)
@@ -179,6 +181,11 @@ namespace Dominio
                    
             }
             return retorno;
+        }
+
+        public override string ToString()
+        {
+            return Nombre + "["+Descripcion+"]";
         }
         
     }
