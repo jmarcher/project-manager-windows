@@ -112,11 +112,7 @@ namespace GUI
 
         private Etapa EtapaSeleccionada()
         {
-            Etapa etapa = new Etapa()
-            {
-                Id = GetSelectedId()
-            };
-            return etapa;
+            return proyecto.Etapas.Find(x => x.Id == GetSelectedId());
         }
 
         private bool CartelConfirmacionEliminacionAceptado()
@@ -139,6 +135,15 @@ namespace GUI
         private void VentanaDetallesProyecto_Load(object sender, EventArgs e)
         {
             etapasListView_ColumnClick(null, new ColumnClickEventArgs(0));
+        }
+
+        private void editarButton_Click(object sender, EventArgs e)
+        {
+            if (HayEtapaSeleccionada())
+            {
+                VentanaEtapa ventanaEtapa = new VentanaEtapa(EtapaSeleccionada());
+                ventanaEtapa.Show();
+            }
         }
     }
 }
