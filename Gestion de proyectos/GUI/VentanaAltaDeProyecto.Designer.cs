@@ -36,6 +36,8 @@
             this.buttonAtrasNuevoProyecto = new System.Windows.Forms.Button();
             this.panelEtapaDeNuevoProyecto = new System.Windows.Forms.Panel();
             this.panelTareaNuevoProyecto = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
+            this.monthCalendarFechaFinTareaNuevoProyecto = new System.Windows.Forms.MonthCalendar();
             this.buttonAtrasTareaNuevoProyecto = new System.Windows.Forms.Button();
             this.buttonGuardarNuevoProyecto = new System.Windows.Forms.Button();
             this.textBoxDuracionPendienteNuevoProyecto = new System.Windows.Forms.TextBox();
@@ -58,6 +60,10 @@
             this.textBoxNombreEtapaNuevoProyecto = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.monthCalendarFechaInicioEtapa = new System.Windows.Forms.MonthCalendar();
+            this.label14 = new System.Windows.Forms.Label();
+            this.monthCalendarFechaInicioProyecto = new System.Windows.Forms.MonthCalendar();
+            this.label15 = new System.Windows.Forms.Label();
             this.panelEtapaDeNuevoProyecto.SuspendLayout();
             this.panelTareaNuevoProyecto.SuspendLayout();
             this.SuspendLayout();
@@ -91,7 +97,7 @@
             // 
             this.richTextBoxObjetivoDelNuevoProyecto.Location = new System.Drawing.Point(252, 104);
             this.richTextBoxObjetivoDelNuevoProyecto.Name = "richTextBoxObjetivoDelNuevoProyecto";
-            this.richTextBoxObjetivoDelNuevoProyecto.Size = new System.Drawing.Size(447, 273);
+            this.richTextBoxObjetivoDelNuevoProyecto.Size = new System.Drawing.Size(447, 133);
             this.richTextBoxObjetivoDelNuevoProyecto.TabIndex = 3;
             this.richTextBoxObjetivoDelNuevoProyecto.Text = "";
             // 
@@ -119,6 +125,8 @@
             // 
             this.panelEtapaDeNuevoProyecto.Controls.Add(this.panelTareaNuevoProyecto);
             this.panelEtapaDeNuevoProyecto.Controls.Add(this.buttonAtrasEtapaNuevoProyecto);
+            this.panelEtapaDeNuevoProyecto.Controls.Add(this.label14);
+            this.panelEtapaDeNuevoProyecto.Controls.Add(this.monthCalendarFechaInicioEtapa);
             this.panelEtapaDeNuevoProyecto.Controls.Add(this.buttonSiguienteEtapaNuevoProyecto);
             this.panelEtapaDeNuevoProyecto.Controls.Add(this.textBoxIdEtapaNuevoProyecto);
             this.panelEtapaDeNuevoProyecto.Controls.Add(this.label5);
@@ -134,6 +142,8 @@
             // 
             // panelTareaNuevoProyecto
             // 
+            this.panelTareaNuevoProyecto.Controls.Add(this.label13);
+            this.panelTareaNuevoProyecto.Controls.Add(this.monthCalendarFechaFinTareaNuevoProyecto);
             this.panelTareaNuevoProyecto.Controls.Add(this.buttonAtrasTareaNuevoProyecto);
             this.panelTareaNuevoProyecto.Controls.Add(this.buttonGuardarNuevoProyecto);
             this.panelTareaNuevoProyecto.Controls.Add(this.textBoxDuracionPendienteNuevoProyecto);
@@ -155,6 +165,21 @@
             this.panelTareaNuevoProyecto.Size = new System.Drawing.Size(907, 523);
             this.panelTareaNuevoProyecto.TabIndex = 7;
             this.panelTareaNuevoProyecto.Visible = false;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(340, 192);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(216, 17);
+            this.label13.TabIndex = 16;
+            this.label13.Text = "Ingrese una fecha de finalizacion";
+            // 
+            // monthCalendarFechaFinTareaNuevoProyecto
+            // 
+            this.monthCalendarFechaFinTareaNuevoProyecto.Location = new System.Drawing.Point(340, 218);
+            this.monthCalendarFechaFinTareaNuevoProyecto.Name = "monthCalendarFechaFinTareaNuevoProyecto";
+            this.monthCalendarFechaFinTareaNuevoProyecto.TabIndex = 15;
             // 
             // buttonAtrasTareaNuevoProyecto
             // 
@@ -187,7 +212,7 @@
             // 
             this.richTextBoxDescripcionTareaNuevoProyecto.Location = new System.Drawing.Point(235, 98);
             this.richTextBoxDescripcionTareaNuevoProyecto.Name = "richTextBoxDescripcionTareaNuevoProyecto";
-            this.richTextBoxDescripcionTareaNuevoProyecto.Size = new System.Drawing.Size(290, 96);
+            this.richTextBoxDescripcionTareaNuevoProyecto.Size = new System.Drawing.Size(290, 80);
             this.richTextBoxDescripcionTareaNuevoProyecto.TabIndex = 11;
             this.richTextBoxDescripcionTareaNuevoProyecto.Text = "";
             // 
@@ -207,7 +232,7 @@
             // 
             // monthCalendarFechaInicioTareaNuevoProyecto
             // 
-            this.monthCalendarFechaInicioTareaNuevoProyecto.Location = new System.Drawing.Point(229, 219);
+            this.monthCalendarFechaInicioTareaNuevoProyecto.Location = new System.Drawing.Point(9, 218);
             this.monthCalendarFechaInicioTareaNuevoProyecto.Name = "monthCalendarFechaInicioTareaNuevoProyecto";
             this.monthCalendarFechaInicioTareaNuevoProyecto.TabIndex = 8;
             // 
@@ -240,7 +265,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 216);
+            this.label10.Location = new System.Drawing.Point(12, 192);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(178, 17);
             this.label10.TabIndex = 4;
@@ -345,6 +370,36 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Ingrese un nombre para la etapa";
             // 
+            // monthCalendarFechaInicioEtapa
+            // 
+            this.monthCalendarFechaInicioEtapa.Location = new System.Drawing.Point(234, 159);
+            this.monthCalendarFechaInicioEtapa.Name = "monthCalendarFechaInicioEtapa";
+            this.monthCalendarFechaInicioEtapa.TabIndex = 8;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(18, 159);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(182, 17);
+            this.label14.TabIndex = 9;
+            this.label14.Text = "Ingrese una fecha de Inicio ";
+            // 
+            // monthCalendarFechaInicioProyecto
+            // 
+            this.monthCalendarFechaInicioProyecto.Location = new System.Drawing.Point(252, 249);
+            this.monthCalendarFechaInicioProyecto.Name = "monthCalendarFechaInicioProyecto";
+            this.monthCalendarFechaInicioProyecto.TabIndex = 7;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(15, 249);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(178, 17);
+            this.label15.TabIndex = 8;
+            this.label15.Text = "Ingrese una fecha de inicio";
+            // 
             // VentanaAltaDeProyecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -352,6 +407,8 @@
             this.ClientSize = new System.Drawing.Size(907, 523);
             this.Controls.Add(this.panelEtapaDeNuevoProyecto);
             this.Controls.Add(this.buttonAtrasNuevoProyecto);
+            this.Controls.Add(this.monthCalendarFechaInicioProyecto);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.buttonSiguienteNuevoProyecto);
             this.Controls.Add(this.richTextBoxObjetivoDelNuevoProyecto);
             this.Controls.Add(this.label2);
@@ -400,5 +457,11 @@
         private System.Windows.Forms.TextBox textBoxNombreTareaNuevoProyecto;
         private System.Windows.Forms.MonthCalendar monthCalendarFechaInicioTareaNuevoProyecto;
         private System.Windows.Forms.ComboBox comboBoxPrioridadNuevoProyecto;
+        private System.Windows.Forms.MonthCalendar monthCalendarFechaFinTareaNuevoProyecto;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.MonthCalendar monthCalendarFechaInicioEtapa;
+        private System.Windows.Forms.MonthCalendar monthCalendarFechaInicioProyecto;
+        private System.Windows.Forms.Label label15;
     }
 }

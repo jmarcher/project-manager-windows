@@ -41,7 +41,6 @@ namespace GUI
             listViewProyectos.View = View.Details;
             listViewProyectos.FullRowSelect = true;
             listViewProyectos.GridLines = true;
-            listViewProyectos.Sorting = SortOrder.Ascending;
 
             listViewProyectos.Columns.Add("Nombre", 100, HorizontalAlignment.Left);
             listViewProyectos.Columns.Add("Objetivo", 200, HorizontalAlignment.Left);

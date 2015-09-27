@@ -67,13 +67,13 @@ namespace Dominio
             Nombre = "[Nombre por defecto]";
             Finalizada = false;
         }
-        public Tarea(String nombre,String objetivo,String descripcion, DateTime fechaI,int duracion,String prioridad)
+        public Tarea(String nombre, String objetivo, String descripcion, DateTime fechaI, DateTime fechaF, int duracion, String prioridad)
         {
             Antecesoras = new List<Tarea>();
             Subtareas = new List<Tarea>();
             DefinirPrioridad(prioridad);
             _FInicio = fechaI;
-            _FFinalizacion = DateTime.MinValue;
+            _FFinalizacion = fechaF;
             Nombre = nombre;
             Objetivo = objetivo;
             Descripcion = descripcion;

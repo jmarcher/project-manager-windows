@@ -9,20 +9,22 @@ namespace Dominio
     {
         public String Nombre { get; set; }
         public int Id { get; set; }
+        public int DuracionPendiente { get; set; }
         public List<Tarea> Tareas { get; set; }
         public bool Finalizada { get; private set; }
         public DateTime FechaFinalizacion { get; private set; }
-
+        public DateTime FechaInicio { get;set; }
         public Etapa()
         {
             Nombre = "[Nombre por defecto]";
             Finalizada = false;
             Tareas = new List<Tarea>();
         }
-        public Etapa(String nombre , int id)
+        public Etapa(String nombre , int id , DateTime fechaI)
         {
             Nombre = nombre;
             Id = id;
+            FechaInicio = fechaI;
             Finalizada = false;
             Tareas = new List<Tarea>();
             FechaFinalizacion = DateTime.MinValue;
@@ -80,6 +82,13 @@ namespace Dominio
             }
             return retorno;
         }
-
+        public void InsertarFechaFinalizacion()
+        {
+            FechaFinalizacion = ObtenerFechaFinalizacion();
+        }
+        public void InsertarDuracion()
+        {
+            DuracionPendiente = CalcularDuracion();
+        }
     }
 }
