@@ -143,6 +143,10 @@ namespace Dominio
 
         public override bool Equals(object obj)
         {
+            if(obj == DBNull.Value || obj == null)
+            {
+                return false;
+            }
             Tarea t = (Tarea)obj;
             return t.Nombre.Equals(this.Nombre)
                 && t.FInicio.Equals(this.FInicio)

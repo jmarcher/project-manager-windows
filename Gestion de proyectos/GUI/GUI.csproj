@@ -62,6 +62,12 @@
     <Compile Include="VentanaDetallesProyecto.Designer.cs">
       <DependentUpon>VentanaDetallesProyecto.cs</DependentUpon>
     </Compile>
+    <Compile Include="VentanaEtapa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentanaEtapa.Designer.cs">
+      <DependentUpon>VentanaEtapa.cs</DependentUpon>
+    </Compile>
     <Compile Include="VentanaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaDetallesProyecto.resx">
       <DependentUpon>VentanaDetallesProyecto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VentanaEtapa.resx">
+      <DependentUpon>VentanaEtapa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaPrincipal.resx">
       <DependentUpon>VentanaPrincipal.cs</DependentUpon>
