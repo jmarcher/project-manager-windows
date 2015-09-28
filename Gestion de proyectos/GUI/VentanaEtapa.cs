@@ -18,7 +18,12 @@ namespace GUI
 
         private void VentanaEtapa_Load(object sender, EventArgs e)
         {
-            this.Text = "Detalles de la etapa: "+Etapa.Nombre + "(id: "+ Etapa.Id+")";
+            this.Text = "Detalles de la etapa: " + Etapa.Nombre + "(id: " + Etapa.Id + ")";
+            AsignarTextoAControles();
+        }
+
+        private void AsignarTextoAControles()
+        {
             idTextBox.Text = Etapa.Id.ToString();
             nombreTextBox.Text = Etapa.Nombre;
             marcarFinalizadaCheckBox.Checked = Etapa.Finalizada;
