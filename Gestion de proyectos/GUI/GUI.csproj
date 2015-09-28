@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Utils\DatosDePrueba.cs" />
     <Compile Include="Utils\ListViewColumnSorter.cs" />
+    <Compile Include="Utils\VisualHelper.cs" />
     <Compile Include="VentanaAltaDeProyecto.cs">
       <SubType>Form</SubType>
     </Compile>
