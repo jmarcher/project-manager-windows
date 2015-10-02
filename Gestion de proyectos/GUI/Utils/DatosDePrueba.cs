@@ -57,7 +57,7 @@ namespace GUI.Utils
             Etapa etapa = new Etapa()
             {
                 Nombre = "Etapa Nro: "+random.Next(1,3000),
-                Id = GenerarIdUnico(),
+                Identificacion = GenerarIdUnico(),
                 
             };
 

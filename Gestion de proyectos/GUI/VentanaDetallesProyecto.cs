@@ -57,11 +57,11 @@ namespace GUI
         private static ListViewItem CrearNuevoItemListView(Etapa etapa)
         {
             ListViewItem listViewItem = new ListViewItem();
-            listViewItem.Text = (etapa.Id) + "";
+            listViewItem.Text = (etapa.Identificacion) + "";
             listViewItem.SubItems[0].Tag = "int";
             listViewItem.SubItems.Add(etapa.Nombre).Tag = "string";
             listViewItem.SubItems.Add(etapa.Tareas.Count.ToString()).Tag = "int";
-            listViewItem.SubItems.Add(etapa.Finalizada ? etapa.FechaFinalizacion.ToString() : "").Tag = "DateTime";
+            listViewItem.SubItems.Add(etapa.EstaFinalizada ? etapa.FechaFinalizacion.ToString() : "").Tag = "DateTime";
             return listViewItem;
         }
 
@@ -112,7 +112,7 @@ namespace GUI
 
         private Etapa EtapaSeleccionada()
         {
-            return proyecto.Etapas.Find(x => x.Id == GetSelectedId());
+            return proyecto.Etapas.Find(x => x.Identificacion == GetSelectedId());
         }
 
         private bool CartelConfirmacionEliminacionAceptado()

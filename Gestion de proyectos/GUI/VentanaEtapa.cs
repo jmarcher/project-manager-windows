@@ -18,15 +18,15 @@ namespace GUI
 
         private void VentanaEtapa_Load(object sender, EventArgs e)
         {
-            this.Text = "Detalles de la etapa: " + Etapa.Nombre + "(id: " + Etapa.Id + ")";
+            this.Text = "Detalles de la etapa: " + Etapa.Nombre + "(id: " + Etapa.Identificacion + ")";
             AsignarTextoAControles();
         }
 
         private void AsignarTextoAControles()
         {
-            idTextBox.Text = Etapa.Id.ToString();
+            idTextBox.Text = Etapa.Identificacion.ToString();
             nombreTextBox.Text = Etapa.Nombre;
-            marcarFinalizadaCheckBox.Checked = Etapa.Finalizada;
+            marcarFinalizadaCheckBox.Checked = Etapa.EstaFinalizada;
             fechaInicioTextBox.Text = Etapa.FechaInicio.ToString();
             fechaFinalizacionTextBox.Text = Etapa.FechaFinalizacion.ToString();
             AsignarListaNumerosDuracionPendiente();

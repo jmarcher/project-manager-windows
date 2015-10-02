@@ -94,7 +94,7 @@ namespace Dominio
             bool retorno = true;
             foreach (Etapa e in Etapas)
             {
-                retorno = retorno && e.Finalizada;
+                retorno = retorno && e.EstaFinalizada;
 
             }
             return retorno;

@@ -8,40 +8,32 @@ namespace Dominio
     public class Etapa
     {
         public String Nombre { get; set; }
-        public int Id { get; set; }
+        public int Identificacion { get; set; }
         public int DuracionPendiente { get; set; }
         public List<Tarea> Tareas { get; set; }
-        public bool Finalizada { get; private set; }
+        public bool EstaFinalizada { get; private set; }
         public DateTime FechaFinalizacion { get; private set; }
         public DateTime FechaInicio { get;set; }
         public Etapa()
         {
             Nombre = "[Nombre por defecto]";
-            Finalizada = false;
+            EstaFinalizada = false;
             Tareas = new List<Tarea>();
         }
-        public Etapa(String nombre , int id , DateTime fechaI)
-        {
-            Nombre = nombre;
-            Id = id;
-            FechaInicio = fechaI;
-            Finalizada = false;
-            Tareas = new List<Tarea>();
-            FechaFinalizacion = DateTime.MinValue;
-        }
+        
 
         public override bool Equals(object obj)
         {
-            Etapa e = (Etapa)obj;
-            return e.Id == this.Id;
+            Etapa etapa = (Etapa)obj;
+            return etapa.Identificacion == this.Identificacion;
         }
 
         public int CalcularDuracion()
         {
             int SumaDuracion = 0;
-            foreach (Tarea t in Tareas)
+            foreach (Tarea tarea in Tareas)
             {
-                SumaDuracion += t.CalcularDuracion();
+                SumaDuracion += tarea.CalcularDuracion();
             }
             return SumaDuracion;
         }
@@ -53,34 +45,34 @@ namespace Dominio
 
         public DateTime ObtenerFechaFinalizacion()
         {
-            DateTime fecha = new DateTime();
-            foreach(Tarea t in Tareas)
+            DateTime fechaRetorno = new DateTime();
+            foreach(Tarea tarea in Tareas)
             {
-                DateTime fechaActual = t.FechaInicio;
-                fechaActual = fechaActual.AddDays(t.DuracionPendiente);
+                DateTime fechaActual = tarea.FechaInicio;
+                fechaActual = fechaActual.AddDays(tarea.DuracionPendiente);
 
-                if (DateTime.Compare(fechaActual, fecha) > 0)
-                    fecha = fechaActual;
+                if (DateTime.Compare(fechaActual, fechaRetorno) > 0)
+                    fechaRetorno = fechaActual;
             }
            
-            return fecha;
+            return fechaRetorno;
         }
         public void MarcarFinalizada() {
             if (TodasTareasFinalizadas())
             {
-                Finalizada = true;
+                EstaFinalizada = true;
                 FechaFinalizacion = DateTime.Now;
             }
         }
         private bool TodasTareasFinalizadas()
         {
-            bool retorno = true;
-            foreach (Tarea t in Tareas)
+            bool valorRetorno = true;
+            foreach (Tarea tarea in Tareas)
             {
-                retorno = retorno && t.EstaFinalizada;
+                valorRetorno = valorRetorno && tarea.EstaFinalizada;
 
             }
-            return retorno;
+            return valorRetorno;
         }
         public void InsertarFechaFinalizacion()
         {

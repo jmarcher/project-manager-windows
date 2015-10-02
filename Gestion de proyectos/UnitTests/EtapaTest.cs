@@ -13,7 +13,7 @@ namespace UnitTests
             Etapa etapa = new Etapa();
             etapa.AgregarTarea(tarea);
             etapa.MarcarFinalizada();
-            Assert.True(etapa.Finalizada);
+            Assert.True(etapa.EstaFinalizada);
         }
 		
         [Fact]
@@ -23,7 +23,7 @@ namespace UnitTests
             Etapa etapa = new Etapa();
             etapa.AgregarTarea(tarea);
             etapa.MarcarFinalizada();
-            Assert.False(etapa.Finalizada);
+            Assert.False(etapa.EstaFinalizada);
         }
 		
         [Fact]
@@ -36,7 +36,7 @@ namespace UnitTests
             etapa.AgregarTarea(tareaNoFinalizada);
             etapa.AgregarTarea(tareaFinalizada);
             etapa.MarcarFinalizada();
-            Assert.False(etapa.Finalizada);
+            Assert.False(etapa.EstaFinalizada);
         }
     }
 }

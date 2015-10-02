@@ -33,7 +33,7 @@ namespace UnitTests
             };
             Etapa etapa = new Etapa()
             {
-                Id = 1,
+                Identificacion = 1,
                 Nombre = "Etapa"
             };
             proyecto.AgregarEtapa(etapa);
@@ -51,7 +51,7 @@ namespace UnitTests
             };
             Etapa etapa = new Etapa()
             {
-                Id = 1,
+                Identificacion = 1,
                 Nombre = "Etapa"
             };
             proyecto.QuitarEtapa(etapa);
