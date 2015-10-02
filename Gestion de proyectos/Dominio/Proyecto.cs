@@ -8,30 +8,20 @@ namespace Dominio
 {
     public class Proyecto
     {
-        public static string Espacio = " ";
-        public int Id { get; set; }
+        public const string ESPACIO = " ";
+        public int Identificador { get; set; }
+        public int Duracion { get; set; }
 
         public String Nombre { get; set; }
         public String Objetivo { get; set; }
-        public int Duracion { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFinalizado { get; set; }
-        public bool Finalizado { get; private set; }
+        public bool EstaFinalizado { get; private set; }
         public List<Etapa> Etapas{get; set;}
 
         public Proyecto()
         {
             Etapas = new List<Etapa>();
-        }
-        public Proyecto(String nombre,String objetivo,DateTime fechaI)
-        {
-            Nombre = nombre;
-            Objetivo = objetivo;
-            FechaInicio = fechaI;
-            FechaFinalizado = DateTime.MinValue;
-            Etapas = new List<Etapa>();
-            Finalizado = false;
-
         }
        
         public void AgregarEtapa(Etapa etapa)
@@ -56,16 +46,16 @@ namespace Dominio
 
         public override bool Equals(object obj)
         {
-            Proyecto p = (Proyecto)obj;
-            return p.Id == this.Id;
+            Proyecto proyecto = (Proyecto)obj;
+            return proyecto.Identificador == this.Identificador;
         }
 
         public int CalcularDuracion()
         {
             int sumaDuracion = 0;
-            foreach (Etapa e in Etapas)
+            foreach (Etapa etapa in Etapas)
             {
-                sumaDuracion += e.CalcularDuracion();
+                sumaDuracion += etapa.CalcularDuracion();
             }
             return sumaDuracion;
         }
@@ -73,31 +63,31 @@ namespace Dominio
         public DateTime ObtenerFechaFinalizacion()
         {
 
-            DateTime fecha = new DateTime();
-            foreach (Etapa e in Etapas)
+            DateTime fechaRetorno = new DateTime();
+            foreach (Etapa etapa in Etapas)
             {
-                if (DateTime.Compare(e.ObtenerFechaFinalizacion(), fecha) > 0)
+                if (DateTime.Compare(etapa.ObtenerFechaFinalizacion(), fechaRetorno) > 0)
                 {
-                    fecha = e.ObtenerFechaFinalizacion();
+                    fechaRetorno = etapa.ObtenerFechaFinalizacion();
                 }
             }
-            return fecha;
+            return fechaRetorno;
         }
 
         public void MarcarFinalizado()
         {
             if (TodasEtapasFinalizadas())
-                Finalizado = true;
+                EstaFinalizado = true;
         }
         private bool TodasEtapasFinalizadas()
         {
-            bool retorno = true;
-            foreach (Etapa e in Etapas)
+            bool valorRetorno = true;
+            foreach (Etapa etapa in Etapas)
             {
-                retorno = retorno && e.EstaFinalizada;
+                valorRetorno = valorRetorno && etapa.EstaFinalizada;
 
             }
-            return retorno;
+            return valorRetorno;
         }
         
         public void InsertarFechaFin() 
@@ -113,10 +103,10 @@ namespace Dominio
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(this.Nombre);
-            sb.Append(Espacio);
+            sb.Append(ESPACIO);
             sb.Append(this.Objetivo);
-            sb.Append(Espacio);
-            sb.Append(this.Finalizado);
+            sb.Append(ESPACIO);
+            sb.Append(this.EstaFinalizado);
             return sb.ToString();
         }
        

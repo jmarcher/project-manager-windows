@@ -56,9 +56,9 @@ namespace GUI
                 ListViewItem nuevoItemLista = new ListViewItem();
                 nuevoItemLista.Text = Proyectos[i].Nombre;
                 nuevoItemLista.SubItems.Add(Proyectos[i].Objetivo);
-                string id = Proyectos[i].Id.ToString();
+                string id = Proyectos[i].Identificador.ToString();
                 nuevoItemLista.SubItems.Add(id);
-                if (Proyectos[i].Finalizado)
+                if (Proyectos[i].EstaFinalizado)
                 {
                     nuevoItemLista.SubItems.Add("Proyecto Finalizado");
                     nuevoItemLista.ForeColor = Color.Red;

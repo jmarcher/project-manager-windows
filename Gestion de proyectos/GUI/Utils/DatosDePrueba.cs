@@ -85,7 +85,7 @@ namespace GUI.Utils
             {
                 Nombre = "Proyecto Nro: "+random.Next(1,3000),
                 Objetivo = "Objetivo Nro: "+random.Next(1,35),
-                Id = GenerarIdUnico()
+                Identificador = GenerarIdUnico()
             };
 
             AgregarEtapasAProyecto(random, proyecto);

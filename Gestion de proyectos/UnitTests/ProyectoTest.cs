@@ -10,13 +10,13 @@ namespace UnitTests
         {
             Proyecto proyectoUno = new Proyecto()
             {
-                Id=1,
+                Identificador=1,
                 Nombre="Proyecto"
             };
 
             Proyecto proyectoDos = new Proyecto()
             {
-                Id = 1,
+                Identificador = 1,
                 Nombre = "Proyecto"
             };
 
@@ -28,7 +28,7 @@ namespace UnitTests
         {
             Proyecto proyecto = new Proyecto()
             {
-                Id = 1,
+                Identificador = 1,
                 Nombre = "Proyecto"
             };
             Etapa etapa = new Etapa()
@@ -46,7 +46,7 @@ namespace UnitTests
         {
             Proyecto proyecto = new Proyecto()
             {
-                Id = 1,
+                Identificador = 1,
                 Nombre = "Proyecto"
             };
             Etapa etapa = new Etapa()
@@ -63,13 +63,13 @@ namespace UnitTests
         {
             Proyecto proyectoUno = new Proyecto()
             {
-                Id = 1,
+                Identificador = 1,
                 Nombre = "Proyecto"
             };
 
             Proyecto proyectoDos = new Proyecto()
             {
-                Id = 2,
+                Identificador = 2,
                 Nombre = "Proyecto"
             };
 
@@ -159,7 +159,7 @@ namespace UnitTests
             Proyecto proyecto = new Proyecto();
             proyecto.AgregarEtapa(etapa);
             proyecto.MarcarFinalizado();
-            Assert.True(proyecto.Finalizado);
+            Assert.True(proyecto.EstaFinalizado);
         }
 
         [Fact]
@@ -172,7 +172,7 @@ namespace UnitTests
             Proyecto proyecto = new Proyecto();
             proyecto.AgregarEtapa(etapa);
             proyecto.MarcarFinalizado();
-            Assert.False(proyecto.Finalizado);
+            Assert.False(proyecto.EstaFinalizado);
         }
 
     }
