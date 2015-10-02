@@ -56,7 +56,7 @@ namespace Dominio
             DateTime fecha = new DateTime();
             foreach(Tarea t in Tareas)
             {
-                DateTime fechaActual = t.FInicio;
+                DateTime fechaActual = t.FechaInicio;
                 fechaActual = fechaActual.AddDays(t.DuracionPendiente);
 
                 if (DateTime.Compare(fechaActual, fecha) > 0)
@@ -77,7 +77,7 @@ namespace Dominio
             bool retorno = true;
             foreach (Tarea t in Tareas)
             {
-                retorno = retorno && t.Finalizada;
+                retorno = retorno && t.EstaFinalizada;
 
             }
             return retorno;

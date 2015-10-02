@@ -24,32 +24,32 @@ namespace Dominio
         public List<Tarea> Antecesoras { get; set; }
         public List<Tarea> Subtareas { get; private set; }
 
-        private DateTime _FInicio;
-        private DateTime _FFinalizacion;
+        private DateTime _FechaInicio;
+        private DateTime _FechaFinalizacion;
 
-        public bool Finalizada { get; private set; }
+        public bool EstaFinalizada { get; private set; }
 
-        public DateTime FInicio
+        public DateTime FechaInicio
         {
             get{
-                return _FInicio;
+                return _FechaInicio;
             }
             set{
-                if (FechaNula(_FFinalizacion)|| (!FechaNula(_FFinalizacion) && FechaEsMenor(value, _FFinalizacion))){
-                    _FInicio = value;
+                if (FechaNula(_FechaFinalizacion)|| (!FechaNula(_FechaFinalizacion) && FechaEsMenor(value, _FechaFinalizacion))){
+                    _FechaInicio = value;
                 }else{
                     throw new ArgumentOutOfRangeException();
                 }
             }
         }
-        public DateTime FFinalizacion
+        public DateTime FechaFinalizacion
         {
             get{
-                return _FFinalizacion;
+                return _FechaFinalizacion;
             }
             set{
-                if(FechaNula(_FInicio) || (!FechaNula(_FInicio) && FechaEsMenor(_FInicio,value))){
-                      _FFinalizacion = value;
+                if(FechaNula(_FechaInicio) || (!FechaNula(_FechaInicio) && FechaEsMenor(_FechaInicio,value))){
+                      _FechaFinalizacion = value;
                 }else{
                     throw new ArgumentOutOfRangeException();
                 }
@@ -62,23 +62,10 @@ namespace Dominio
             Antecesoras = new List<Tarea>();
             Subtareas = new List<Tarea>();
             Prioridad = PRIORIDAD_MEDIA;
-            _FInicio = DateTime.MinValue;
-            _FFinalizacion = DateTime.MinValue;
+            _FechaInicio = DateTime.MinValue;
+            _FechaFinalizacion = DateTime.MinValue;
             Nombre = "[Nombre por defecto]";
-            Finalizada = false;
-        }
-        public Tarea(String nombre, String objetivo, String descripcion, DateTime fechaI, DateTime fechaF, int duracion, String prioridad)
-        {
-            Antecesoras = new List<Tarea>();
-            Subtareas = new List<Tarea>();
-            DefinirPrioridad(prioridad);
-            _FInicio = fechaI;
-            _FFinalizacion = fechaF;
-            Nombre = nombre;
-            Objetivo = objetivo;
-            Descripcion = descripcion;
-            Finalizada = false;
-            DuracionPendiente = duracion;
+            EstaFinalizada = false;
         }
 
         private void DefinirPrioridad(String prioridad)
@@ -100,9 +87,9 @@ namespace Dominio
         private int CalcularDuracionSubtareas()
         {
             int SumaDuracion = 0;
-            foreach (Tarea t in Subtareas)
+            foreach (Tarea tarea in Subtareas)
             {
-                SumaDuracion += t.CalcularDuracion();
+                SumaDuracion += tarea.CalcularDuracion();
             }
             return SumaDuracion;
         }
@@ -116,8 +103,8 @@ namespace Dominio
 
         private bool TareaIniciaDespues(Tarea tarea)
         {
-            return FechaEsMenor(this.FInicio, tarea.FInicio)
-                || FechaEsIgual(this.FInicio, tarea.FInicio);
+            return FechaEsMenor(this.FechaInicio, tarea.FechaInicio)
+                || FechaEsIgual(this.FechaInicio, tarea.FechaInicio);
         }
 
         public bool AgregarSubtarea(Tarea subtarea)
@@ -145,10 +132,10 @@ namespace Dominio
         {
             if (Convert.IsDBNull(obj))
                 return false;
-            Tarea t = (Tarea)obj;
-            return t.Nombre.Equals(this.Nombre)
-                && t.FInicio.Equals(this.FInicio)
-                && t.Prioridad == this.Prioridad;
+            Tarea tarea = (Tarea)obj;
+            return tarea.Nombre.Equals(this.Nombre)
+                && tarea.FechaInicio.Equals(this.FechaInicio)
+                && tarea.Prioridad == this.Prioridad;
         }
 
         public bool FechaNula(DateTime fecha)
@@ -169,18 +156,18 @@ namespace Dominio
         public void MarcarFinalizada()
         {
             if (TodasSubTareasFinalizadas())
-                Finalizada = true;
+                EstaFinalizada = true;
         }
 
         private bool TodasSubTareasFinalizadas()
         {
-            bool retorno = true;
-            foreach (Tarea t in Subtareas)
+            bool valorRetorno = true;
+            foreach (Tarea tarea in Subtareas)
             {
-                retorno = retorno && t.Finalizada;
+                valorRetorno = valorRetorno && tarea.EstaFinalizada;
                    
             }
-            return retorno;
+            return valorRetorno;
         }
 
         public override string ToString()

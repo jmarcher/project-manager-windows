@@ -104,7 +104,7 @@ namespace UnitTests
             Proyecto proyecto = new Proyecto();
             DateTime fecha = DateTime.Parse("5/1/2015 8:30:00 AM");
             Etapa etapa1 = new Etapa();
-            Tarea tarea1 = new Tarea() { FInicio = fecha};
+            Tarea tarea1 = new Tarea() { FechaInicio = fecha};
             etapa1.AgregarTarea(tarea1);
             proyecto.AgregarEtapa(etapa1);
 
@@ -117,8 +117,8 @@ namespace UnitTests
             DateTime fecha = DateTime.Parse("5/1/2015 8:30:00 AM");
             DateTime fecha2 = DateTime.Parse("5/9/2015 8:30:00 AM");
             Etapa etapa1 = new Etapa();
-            Tarea tarea1 = new Tarea() { FInicio = fecha };
-            Tarea tarea2 = new Tarea() { FInicio = fecha2 , DuracionPendiente = 10};
+            Tarea tarea1 = new Tarea() { FechaInicio = fecha };
+            Tarea tarea2 = new Tarea() { FechaInicio = fecha2 , DuracionPendiente = 10};
             etapa1.AgregarTarea(tarea2);
             etapa1.AgregarTarea(tarea1);
             proyecto.AgregarEtapa(etapa1);
@@ -134,9 +134,9 @@ namespace UnitTests
             DateTime fecha3 = DateTime.Parse("5/1/2030 8:30:00 AM");
             Etapa etapa1 = new Etapa();
             Etapa etapa2 = new Etapa();
-            Tarea tarea1 = new Tarea() { FInicio = fecha };
-            Tarea tarea2 = new Tarea() { FInicio = fecha2 };
-            Tarea tarea3 = new Tarea() { FInicio = fecha3 };
+            Tarea tarea1 = new Tarea() { FechaInicio = fecha };
+            Tarea tarea2 = new Tarea() { FechaInicio = fecha2 };
+            Tarea tarea3 = new Tarea() { FechaInicio = fecha3 };
             etapa1.AgregarTarea(tarea1);
             etapa1.AgregarTarea(tarea3);
             etapa2.AgregarTarea(tarea2);

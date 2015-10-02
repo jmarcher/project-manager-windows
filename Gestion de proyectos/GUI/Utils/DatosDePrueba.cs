@@ -31,7 +31,7 @@ namespace GUI.Utils
             Tarea tarea = new Tarea()
             {
                 Nombre = "Tarea Nro: "+random.Next(1,3000),
-                FInicio =fecha.CompareTo(DateTime.Now)==0 ? fecha : fecha.AddDays(random.Next(1,30)),
+                FechaInicio =fecha.CompareTo(DateTime.Now)==0 ? fecha : fecha.AddDays(random.Next(1,30)),
                 Objetivo = "Objetivo",
                 Prioridad = random.Next(0,2),
                 
@@ -48,7 +48,7 @@ namespace GUI.Utils
             {
                 bool agregarMas = false;
                 if (random.Next(1, 10) > 8) agregarMas = true;
-                tarea.AgregarSubtarea(CrearTareaAleatoria(tarea.FInicio, agregarMas));
+                tarea.AgregarSubtarea(CrearTareaAleatoria(tarea.FechaInicio, agregarMas));
             }
         }
 

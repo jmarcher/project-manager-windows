@@ -13,7 +13,7 @@ namespace UnitTests
         {
             Tarea tarea = new Tarea() { Nombre = "Tarea" };
             tarea.MarcarFinalizada();
-            Assert.True(tarea.Finalizada);
+            Assert.True(tarea.EstaFinalizada);
         }
 
         [Fact]
@@ -23,7 +23,7 @@ namespace UnitTests
             Tarea subtarea = new Tarea() { Nombre = "subTarea" };
             tarea.AgregarSubtarea(subtarea);
             tarea.MarcarFinalizada();
-            Assert.False(tarea.Finalizada);
+            Assert.False(tarea.EstaFinalizada);
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace UnitTests
             subtarea.MarcarFinalizada();
             tarea.AgregarSubtarea(subtarea);
             tarea.MarcarFinalizada();
-            Assert.True(tarea.Finalizada);
+            Assert.True(tarea.EstaFinalizada);
         }
 
 
@@ -51,8 +51,8 @@ namespace UnitTests
         [Fact]
         public void AgregarUnaSubtareaIniciaAntes()
         {
-            Tarea tarea = new Tarea() { Nombre = "Tarea", FInicio = new DateTime(2015, 10, 10) };
-            Tarea subtarea = new Tarea() { Nombre = "Subtarea", FInicio = new DateTime(2015, 10, 9) };
+            Tarea tarea = new Tarea() { Nombre = "Tarea", FechaInicio = new DateTime(2015, 10, 10) };
+            Tarea subtarea = new Tarea() { Nombre = "Subtarea", FechaInicio = new DateTime(2015, 10, 9) };
 
             Assert.Throws<FechaInvalida>(() => tarea.AgregarSubtarea(subtarea));
         }
@@ -99,10 +99,10 @@ namespace UnitTests
         {
             Tarea tarea = new Tarea()
             {
-                FInicio = new System.DateTime(2015, 09, 01),
-                FFinalizacion = new System.DateTime(2015, 09, 10)
+                FechaInicio = new System.DateTime(2015, 09, 01),
+                FechaFinalizacion = new System.DateTime(2015, 09, 10)
             };
-            Assert.Equal(1, tarea.FFinalizacion.CompareTo(tarea.FInicio));
+            Assert.Equal(1, tarea.FechaFinalizacion.CompareTo(tarea.FechaInicio));
         }
 
         [Fact]
@@ -110,8 +110,8 @@ namespace UnitTests
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => new Tarea()
             {
-                FInicio = new System.DateTime(2015, 09, 01),
-                FFinalizacion = new System.DateTime(2015, 08, 10)
+                FechaInicio = new System.DateTime(2015, 09, 01),
+                FechaFinalizacion = new System.DateTime(2015, 08, 10)
             });
             // Assert.Equal(1, tarea.FFinalizacion.CompareTo(tarea.FInicio));
         }
