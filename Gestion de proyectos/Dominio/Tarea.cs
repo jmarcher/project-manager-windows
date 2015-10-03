@@ -13,7 +13,6 @@ namespace Dominio
         public const int PRIORIDAD_MEDIA = 1;
         public const int PRIORIDAD_ALTA = 2;
 
-        public int DuracionPendiente { get; set; }
         public int Prioridad { get; set; }
 
         public String Nombre { get; set; }

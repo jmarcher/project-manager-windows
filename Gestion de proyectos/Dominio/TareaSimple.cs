@@ -5,6 +5,7 @@ namespace Dominio
     public class TareaSimple : Tarea
     {
         private DateTime _FechaFinalizacion;
+        public int DuracionPendiente { get; set; }
 
         public override DateTime FechaFinalizacion
         {
