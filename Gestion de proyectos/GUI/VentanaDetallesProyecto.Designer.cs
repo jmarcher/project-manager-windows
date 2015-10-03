@@ -1,4 +1,4 @@
-﻿namespace GUI
+﻿namespace InterfazGrafica
 {
     partial class VentanaDetallesProyecto
     {

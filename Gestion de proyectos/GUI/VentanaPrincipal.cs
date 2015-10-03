@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio;
-using GUI.Utils;
+using InterfazGrafica.Utiles;
 
-namespace GUI
+namespace InterfazGrafica
 {
     public partial class VentanaPrincipal : Form
     {

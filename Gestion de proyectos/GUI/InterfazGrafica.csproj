@@ -48,9 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Utils\DatosDePrueba.cs" />
-    <Compile Include="Utils\ListViewColumnSorter.cs" />
-    <Compile Include="Utils\VisualHelper.cs" />
+    <Compile Include="Utiles\DatosDePrueba.cs" />
+    <Compile Include="Utiles\OrdenadorColumnaListView.cs" />
+    <Compile Include="Utiles\AyudanteVisual.cs" />
     <Compile Include="VentanaAltaDeProyecto.cs">
       <SubType>Form</SubType>
     </Compile>

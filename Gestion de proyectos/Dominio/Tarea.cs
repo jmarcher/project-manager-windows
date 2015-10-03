@@ -18,7 +18,7 @@ namespace Dominio
 
         public String Nombre { get; set; }
         public String Objetivo { get; set; }
-        public String Descripcion { get; private set; }
+        public String Descripcion { get; set; }
         
         
         public List<Tarea> Antecesoras { get; set; }

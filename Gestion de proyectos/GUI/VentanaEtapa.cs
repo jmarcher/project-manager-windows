@@ -1,9 +1,9 @@
 ﻿using Dominio;
-using GUI.Utils;
+using InterfazGrafica.Utiles;
 using System;
 using System.Windows.Forms;
 
-namespace GUI
+namespace InterfazGrafica
 {
     public partial class VentanaEtapa : Form
     {
@@ -67,7 +67,7 @@ namespace GUI
             {
                 string Message = "¿Está seguro que desea salir?";
                 string Title = "Confirmación de salida";
-                if (!VisualHelper.CartelConfirmacion(Message, Title))
+                if (!AyudanteVisual.CartelConfirmacion(Message, Title))
                 {
                     e.Cancel = true;
                 }

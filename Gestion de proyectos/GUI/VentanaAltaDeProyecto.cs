@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio;
 
-namespace GUI
+namespace InterfazGrafica
 {
     public partial class VentanaAltaDeProyecto : Form
     {
@@ -71,9 +71,28 @@ namespace GUI
 
         private void crearNuevoProyecto()
         {
-            Tarea tareaNuevoProyecto = new Tarea(this.textBoxNombreTareaNuevoProyecto.Text, this.textBoxObjetivoTareaNuevoProyecto.Text, this.richTextBoxDescripcionTareaNuevoProyecto.Text, this.monthCalendarFechaInicioTareaNuevoProyecto.SelectionRange.Start,this.monthCalendarFechaFinTareaNuevoProyecto.SelectionRange.Start, Int32.Parse(this.textBoxDuracionPendienteNuevoProyecto.Text), this.comboBoxPrioridadNuevoProyecto.SelectedItem.ToString());
-            Etapa etapaNuevoProyecto = new Etapa(this.textBoxNombreEtapaNuevoProyecto.Text, Int32.Parse(this.textBoxIdEtapaNuevoProyecto.Text),this.monthCalendarFechaInicioEtapa.SelectionStart);
-            Proyecto nuevoProyecto = new Proyecto(this.textBoxNombreDelNuevoProyecto.Text, this.richTextBoxObjetivoDelNuevoProyecto.Text,this.monthCalendarFechaInicioProyecto.SelectionStart);
+            Tarea tareaNuevoProyecto = new Tarea()
+            {
+                Nombre = this.textBoxNombreTareaNuevoProyecto.Text,
+                Objetivo = this.textBoxObjetivoTareaNuevoProyecto.Text,
+                Descripcion = this.richTextBoxDescripcionTareaNuevoProyecto.Text,
+                FechaInicio = monthCalendarFechaInicioTareaNuevoProyecto.SelectionRange.Start,
+                FechaFinalizacion = monthCalendarFechaFinTareaNuevoProyecto.SelectionRange.Start,
+                DuracionPendiente = Int32.Parse(this.textBoxDuracionPendienteNuevoProyecto.Text),
+                Prioridad = Int32.Parse(comboBoxPrioridadNuevoProyecto.SelectedItem.ToString())
+            };
+            Etapa etapaNuevoProyecto = new Etapa()
+            {
+                Nombre = this.textBoxNombreEtapaNuevoProyecto.Text,
+                Identificacion = Int32.Parse(this.textBoxIdEtapaNuevoProyecto.Text),
+                FechaInicio = this.monthCalendarFechaInicioEtapa.SelectionStart
+            };
+            Proyecto nuevoProyecto = new Proyecto()
+            {
+                Nombre = textBoxNombreDelNuevoProyecto.Text,
+                Objetivo = this.richTextBoxObjetivoDelNuevoProyecto.Text,
+                FechaInicio = this.monthCalendarFechaInicioProyecto.SelectionStart
+            };
 
             etapaNuevoProyecto.AgregarTarea(tareaNuevoProyecto);
             etapaNuevoProyecto.InsertarFechaFinalizacion();

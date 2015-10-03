@@ -1,5 +1,5 @@
 ﻿using Dominio;
-using GUI.Utils;
+using InterfazGrafica.Utiles;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,12 +10,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GUI
+namespace InterfazGrafica
 {
     public partial class VentanaDetallesProyecto : Form
     {
         private Proyecto proyecto;
-        private ListViewColumnSorter lvwColumnSorter;
+        private OrdenadorColumnaListView lvwColumnSorter;
 
         public VentanaDetallesProyecto(Proyecto proyecto)
         {
@@ -34,7 +34,7 @@ namespace GUI
 
         private void InicializarListViewSorter()
         {
-            lvwColumnSorter = new ListViewColumnSorter();
+            lvwColumnSorter = new OrdenadorColumnaListView();
             etapasListView.ListViewItemSorter = lvwColumnSorter;
         }
 
@@ -80,25 +80,25 @@ namespace GUI
 
         private void etapasListView_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            if (e.Column == lvwColumnSorter.SortColumn)
+            if (e.Column == lvwColumnSorter.OrdenarColumna)
             {
-                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                if (lvwColumnSorter.Orden == SortOrder.Ascending)
                 {
-                    lvwColumnSorter.Order = SortOrder.Descending;
+                    lvwColumnSorter.Orden = SortOrder.Descending;
                 }
                 else
                 {
-                    lvwColumnSorter.Order = SortOrder.Ascending;
+                    lvwColumnSorter.Orden = SortOrder.Ascending;
                 }
             }
             else
             {
-                lvwColumnSorter.SortColumn = e.Column;
-                lvwColumnSorter.Order = SortOrder.Ascending;
+                lvwColumnSorter.OrdenarColumna = e.Column;
+                lvwColumnSorter.Orden = SortOrder.Ascending;
             }
 
             etapasListView.Sort();
-            etapasListView.SetSortIcon(lvwColumnSorter.SortColumn, lvwColumnSorter.Order);
+            etapasListView.AsignarIconoColumna(lvwColumnSorter.OrdenarColumna, lvwColumnSorter.Orden);
         }
 
         private void eliminarButton_Click(object sender, EventArgs e)
