@@ -1,9 +1,9 @@
 ﻿using Xunit;
 using Dominio;
 using System;
-namespace UnitTests
+namespace PruebasUnitarias
 {
-    public class ProyectoTest
+    public class ProyectoPrueba
     {
         [Fact]
         public void DosProyectosSonIguales()

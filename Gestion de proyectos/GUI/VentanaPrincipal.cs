@@ -78,9 +78,9 @@ namespace InterfazGrafica
 
         private void listViewProyectos_DoubleClick(object sender, EventArgs e)
         {
-            int i = listViewProyectos.SelectedIndices[0];
-            Proyecto p = Proyectos[i];
-            VentanaDetallesProyecto ventana = new VentanaDetallesProyecto(p);
+            int indice = listViewProyectos.SelectedIndices[0];
+            Proyecto proyecto = Proyectos[indice];
+            VentanaDetallesProyecto ventana = new VentanaDetallesProyecto(proyecto);
             ventana.Show();
         }
 

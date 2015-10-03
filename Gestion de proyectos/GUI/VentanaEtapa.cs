@@ -7,9 +7,9 @@ namespace InterfazGrafica
 {
     public partial class VentanaEtapa : Form
     {
-        private const int MAX_NUMEROS_DURACION = 5000;
+        private const int MAXIMO_NUMEROS_DURACION = 5000;
         public Etapa Etapa { get; private set; }
-        private bool etapaGuardada = false;
+        private bool estaEtapaGuardada = false;
         public VentanaEtapa(Etapa etapa)
         {
             InitializeComponent();
@@ -41,8 +41,8 @@ namespace InterfazGrafica
 
         private static int[] CrearListaNumeros()
         {
-            int[] listaNumeros = new int[MAX_NUMEROS_DURACION];
-            for (int i = 0; i < MAX_NUMEROS_DURACION; i++)
+            int[] listaNumeros = new int[MAXIMO_NUMEROS_DURACION];
+            for (int i = 0; i < MAXIMO_NUMEROS_DURACION; i++)
             {
                 listaNumeros[i] = (i);
             }
@@ -57,13 +57,13 @@ namespace InterfazGrafica
                 Etapa.MarcarFinalizada();
             }
             Etapa.DuracionPendiente = (int)this.duracionPendienteDomainUpDown.SelectedItem;
-            etapaGuardada = true;
+            estaEtapaGuardada = true;
             this.Close();
         }
 
         private void VentanaEtapa_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!etapaGuardada)
+            if (!estaEtapaGuardada)
             {
                 string Message = "¿Está seguro que desea salir?";
                 string Title = "Confirmación de salida";

@@ -4,9 +4,9 @@ using Dominio;
 using System;
 using Dominio.Exceptions;
 
-namespace UnitTests
+namespace PruebasUnitarias
 {
-    public class TareaTest
+    public class TareaPrueba
     {
         [Fact]
         public void MarcarTareaComoFinalizada()

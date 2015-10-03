@@ -9,8 +9,8 @@
     <ProjectGuid>{E132D9B4-A72E-4978-9BC7-61512C2BD116}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTests</RootNamespace>
-    <AssemblyName>UnitTests</AssemblyName>
+    <RootNamespace>PruebasUnitarias</RootNamespace>
+    <AssemblyName>PruebasUnitarias</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -54,9 +54,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EtapaTest.cs" />
-    <Compile Include="ProyectoTest.cs" />
-    <Compile Include="TareaTest.cs" />
+    <Compile Include="EtapaPrueba.cs" />
+    <Compile Include="ProyectoPrueba.cs" />
+    <Compile Include="TareaPrueba.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

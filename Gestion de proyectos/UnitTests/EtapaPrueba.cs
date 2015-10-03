@@ -1,9 +1,9 @@
 ﻿using Xunit;
 using Dominio;
 
-namespace UnitTests
+namespace PruebasUnitarias
 {
-    public class EtapaTest
+    public class EtapaPrueba
     {
         [Fact]
         public void MarcarEtapaComoFinalizada()

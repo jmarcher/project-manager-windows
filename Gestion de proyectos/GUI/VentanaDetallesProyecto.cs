@@ -1,13 +1,6 @@
 ﻿using Dominio;
 using InterfazGrafica.Utiles;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace InterfazGrafica
@@ -15,7 +8,7 @@ namespace InterfazGrafica
     public partial class VentanaDetallesProyecto : Form
     {
         private Proyecto proyecto;
-        private OrdenadorColumnaListView lvwColumnSorter;
+        private OrdenadorColumnaListView ordenadorListView;
 
         public VentanaDetallesProyecto(Proyecto proyecto)
         {
@@ -34,8 +27,8 @@ namespace InterfazGrafica
 
         private void InicializarListViewSorter()
         {
-            lvwColumnSorter = new OrdenadorColumnaListView();
-            etapasListView.ListViewItemSorter = lvwColumnSorter;
+            ordenadorListView = new OrdenadorColumnaListView();
+            etapasListView.ListViewItemSorter = ordenadorListView;
         }
 
         private void AsignarTitulo()
@@ -46,23 +39,23 @@ namespace InterfazGrafica
         private void ActualizarLista()
         {
             etapasListView.Items.Clear();
-            foreach (Etapa e in proyecto.Etapas)
+            foreach (Etapa etapa in proyecto.Etapas)
             {
-                ListViewItem lvi = CrearNuevoItemListView(e);
-                etapasListView.Items.Add(lvi);
+                ListViewItem elementoListView = CrearNuevoItemListView(etapa);
+                etapasListView.Items.Add(elementoListView);
                 
             }
         }
 
         private static ListViewItem CrearNuevoItemListView(Etapa etapa)
         {
-            ListViewItem listViewItem = new ListViewItem();
-            listViewItem.Text = (etapa.Identificacion) + "";
-            listViewItem.SubItems[0].Tag = "int";
-            listViewItem.SubItems.Add(etapa.Nombre).Tag = "string";
-            listViewItem.SubItems.Add(etapa.Tareas.Count.ToString()).Tag = "int";
-            listViewItem.SubItems.Add(etapa.EstaFinalizada ? etapa.FechaFinalizacion.ToString() : "").Tag = "DateTime";
-            return listViewItem;
+            ListViewItem elementoListView = new ListViewItem();
+            elementoListView.Text = (etapa.Identificacion) + "";
+            elementoListView.SubItems[0].Tag = "int";
+            elementoListView.SubItems.Add(etapa.Nombre).Tag = "string";
+            elementoListView.SubItems.Add(etapa.Tareas.Count.ToString()).Tag = "int";
+            elementoListView.SubItems.Add(etapa.EstaFinalizada ? etapa.FechaFinalizacion.ToString() : "").Tag = "DateTime";
+            return elementoListView;
         }
 
         private void InicializarLista()
@@ -78,27 +71,27 @@ namespace InterfazGrafica
             etapasListView.Columns.Add("Fecha finalización", 140, HorizontalAlignment.Left);
         }
 
-        private void etapasListView_ColumnClick(object sender, ColumnClickEventArgs e)
+        private void etapasListView_ColumnClick(object remitente, ColumnClickEventArgs evento)
         {
-            if (e.Column == lvwColumnSorter.OrdenarColumna)
+            if (evento.Column == ordenadorListView.OrdenarColumna)
             {
-                if (lvwColumnSorter.Orden == SortOrder.Ascending)
+                if (ordenadorListView.Orden == SortOrder.Ascending)
                 {
-                    lvwColumnSorter.Orden = SortOrder.Descending;
+                    ordenadorListView.Orden = SortOrder.Descending;
                 }
                 else
                 {
-                    lvwColumnSorter.Orden = SortOrder.Ascending;
+                    ordenadorListView.Orden = SortOrder.Ascending;
                 }
             }
             else
             {
-                lvwColumnSorter.OrdenarColumna = e.Column;
-                lvwColumnSorter.Orden = SortOrder.Ascending;
+                ordenadorListView.OrdenarColumna = evento.Column;
+                ordenadorListView.Orden = SortOrder.Ascending;
             }
 
             etapasListView.Sort();
-            etapasListView.AsignarIconoColumna(lvwColumnSorter.OrdenarColumna, lvwColumnSorter.Orden);
+            etapasListView.AsignarIconoColumna(ordenadorListView.OrdenarColumna, ordenadorListView.Orden);
         }
 
         private void eliminarButton_Click(object sender, EventArgs e)
@@ -112,17 +105,16 @@ namespace InterfazGrafica
 
         private Etapa EtapaSeleccionada()
         {
-            return proyecto.Etapas.Find(x => x.Identificacion == GetSelectedId());
+            return proyecto.Etapas.Find(x => x.Identificacion == DevolverIdentificadorSeleccionado());
         }
 
         private bool CartelConfirmacionEliminacionAceptado()
         {
-            DialogResult dialogResult = MessageBox.Show("¿Seguro desea eliminar esta etapa?",
-                "Eliminar etapa", MessageBoxButtons.YesNo);
-            return dialogResult == DialogResult.Yes;
+            return AyudanteVisual.CartelConfirmacion("¿Seguro desea eliminar esta etapa?",
+                "Eliminar etapa");
         }
 
-        private int GetSelectedId()
+        private int DevolverIdentificadorSeleccionado()
         {
             return Int32.Parse(etapasListView.SelectedItems[0].Text);
         }
