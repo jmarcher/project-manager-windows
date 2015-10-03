@@ -56,8 +56,8 @@
   <ItemGroup>
     <Compile Include="EtapaPrueba.cs" />
     <Compile Include="ProyectoPrueba.cs" />
-    <Compile Include="TareaPrueba.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TareaSimplePrueba.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

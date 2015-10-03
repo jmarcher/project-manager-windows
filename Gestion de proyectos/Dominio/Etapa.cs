@@ -33,7 +33,7 @@ namespace Dominio
             int SumaDuracion = 0;
             foreach (Tarea tarea in Tareas)
             {
-                SumaDuracion += tarea.CalcularDuracion();
+                SumaDuracion += tarea.CalcularDuracionPendiente();
             }
             return SumaDuracion;
         }

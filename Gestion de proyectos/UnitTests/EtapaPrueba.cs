@@ -8,7 +8,7 @@ namespace PruebasUnitarias
         [Fact]
         public void MarcarEtapaComoFinalizada()
         {
-            Tarea tarea = new Tarea() { Nombre = "Tarea" };
+            Tarea tarea = new TareaSimple() { Nombre = "Tarea" };
             tarea.MarcarFinalizada();
             Etapa etapa = new Etapa();
             etapa.AgregarTarea(tarea);

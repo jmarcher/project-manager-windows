@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Tarea
+    public abstract class Tarea
     {
         public const int PRIORIDAD_BAJA = 0;
         public const int PRIORIDAD_MEDIA = 1;
@@ -42,20 +42,7 @@ namespace Dominio
                 }
             }
         }
-        public DateTime FechaFinalizacion
-        {
-            get{
-                return _FechaFinalizacion;
-            }
-            set{
-                if(FechaNula(_FechaInicio) || (!FechaNula(_FechaInicio) && FechaEsMenor(_FechaInicio,value))){
-                      _FechaFinalizacion = value;
-                }else{
-                    throw new ArgumentOutOfRangeException();
-                }
-              
-            }
-        }
+        public abstract DateTime FechaFinalizacion{get;set;}
 
         public Tarea()
         {
@@ -67,6 +54,8 @@ namespace Dominio
             Nombre = "[Nombre por defecto]";
             EstaFinalizada = false;
         }
+
+        public abstract int CalcularDuracionPendiente();
 
         private void DefinirPrioridad(String prioridad)
         {
@@ -82,23 +71,6 @@ namespace Dominio
             {
                 Prioridad = PRIORIDAD_BAJA;
             }
-        }
-
-        private int CalcularDuracionSubtareas()
-        {
-            int SumaDuracion = 0;
-            foreach (Tarea tarea in Subtareas)
-            {
-                SumaDuracion += tarea.CalcularDuracion();
-            }
-            return SumaDuracion;
-        }
-
-        public int CalcularDuracion()
-        {
-            int SumaDuracion = DuracionPendiente;
-            SumaDuracion += CalcularDuracionSubtareas();
-            return SumaDuracion;
         }
 
         private bool TareaIniciaDespues(Tarea tarea)

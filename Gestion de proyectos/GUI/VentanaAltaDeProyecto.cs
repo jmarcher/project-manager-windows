@@ -64,7 +64,7 @@ namespace InterfazGrafica
 
         private void crearNuevoProyecto()
         {
-            Tarea tareaNuevoProyecto = new Tarea()
+            Tarea tareaNuevoProyecto = new TareaSimple()
             {
                 Nombre = this.textBoxNombreTareaNuevoProyecto.Text,
                 Objetivo = this.textBoxObjetivoTareaNuevoProyecto.Text,

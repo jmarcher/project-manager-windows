@@ -25,7 +25,7 @@ namespace InterfazGrafica.Utiles
 
         private Tarea CrearTareaAleatoria(DateTime fecha, bool agregarSubTareas = false)
         {
-            Tarea tarea = new Tarea()
+            Tarea tarea = new TareaSimple()
             {
                 Nombre = "Tarea Nro: "+aleatorio.Next(1,3000),
                 FechaInicio =fecha.CompareTo(DateTime.Now)==0 ? fecha : fecha.AddDays(aleatorio.Next(1,30)),
