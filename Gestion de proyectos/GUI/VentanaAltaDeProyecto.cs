@@ -94,7 +94,7 @@ namespace InterfazGrafica
             nuevoProyecto.AgregarEtapa(etapaNuevoProyecto);
             nuevoProyecto.InsertarDuracion();
             nuevoProyecto.InsertarFechaFin();
-            Singleton.Instance.agregarProyecto(nuevoProyecto);
+            InstanciaUnica.Instancia.AgregarProyecto(nuevoProyecto);
 
         }
     }

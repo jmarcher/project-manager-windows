@@ -6,36 +6,36 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-   public class Singleton
+   public class InstanciaUnica
     {
-        private static Singleton instanciaSingleton = null;
+        private static InstanciaUnica instancia = null;
         private List<Proyecto> listaProyectos;
 
-        private  Singleton() 
+        private  InstanciaUnica() 
         {
             this.listaProyectos = new List<Proyecto>();
         }
-        public void agregarProyecto(Proyecto nuevo) 
+        public void AgregarProyecto(Proyecto nuevo) 
         {
             this.listaProyectos.Add(nuevo);
         }
-        public void agregarListaProyecto(List<Proyecto> nuevo)
+        public void AgregarListaProyecto(List<Proyecto> nuevo)
         {
             this.listaProyectos=nuevo;
         }
-        public List<Proyecto> devolverListaProyectos()
+        public List<Proyecto> DevolverListaProyectos()
         {
             return this.listaProyectos;
         }
        
-        public static Singleton Instance
+        public static InstanciaUnica Instancia
         {
             get
             {
-                if (instanciaSingleton == null)
-                instanciaSingleton = new Singleton();
+                if (instancia == null)
+                instancia = new InstanciaUnica();
  
-                return instanciaSingleton;
+                return instancia;
             }
         }
     }   

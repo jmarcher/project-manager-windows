@@ -14,7 +14,7 @@ namespace InterfazGrafica
 {
     public partial class VentanaPrincipal : Form
     {
-        Singleton patron = Singleton.Instance;
+        InstanciaUnica patron = InstanciaUnica.Instancia;
         List<Proyecto> Proyectos;
 
         public VentanaPrincipal()
@@ -24,8 +24,8 @@ namespace InterfazGrafica
             {
 
                 DatosDePrueba dp = new DatosDePrueba();
-                patron.agregarListaProyecto(dp.ObtenerUnaListaProyectos());
-                Proyectos = patron.devolverListaProyectos();
+                patron.AgregarListaProyecto(dp.ObtenerUnaListaProyectos());
+                Proyectos = patron.DevolverListaProyectos();
                 configurarListViewProyectos();
                 actualizarLista();
             }

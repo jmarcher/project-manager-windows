@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Singleton.cs" />
+    <Compile Include="InstanciaUnica.cs" />
     <Compile Include="Etapa.cs" />
     <Compile Include="Exceptions\FechaInvalida.cs" />
     <Compile Include="Proyecto.cs" />
