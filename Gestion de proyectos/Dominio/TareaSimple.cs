@@ -16,7 +16,9 @@ namespace Dominio
 
             set
             {
-                if (FechaNula(FechaInicio) || (!FechaNula(FechaInicio) && FechaEsMenor(FechaInicio, value)))
+                if (FechaNula(FechaInicio) 
+                    || (!FechaNula(FechaInicio) 
+                    && FechaEsMenor(FechaInicio, value)))
                 {
                     _FechaFinalizacion = value;
                 }

@@ -7,10 +7,10 @@ namespace PruebasUnitarias
     public class TareaCompuestaPrueba
     {
         [Theory]
-        [InlineData("Tarea 1", "10/12/1990", "10/15/1990")]
-        [InlineData("Tarea 2", "10/12/1990", "10/11/1990")]
-        [InlineData("Tarea 4", "10/12/1990", "10/12/1990")]
-        [InlineData("Tarea 5", "10/12/1990", "10/15/1990")]
+        [InlineData("Tarea 1", "1990-10-12 00:00", "1990-10-13 00:00")]
+        [InlineData("Tarea 2", "1990-10-12 00:00", "1990-10-14 00:00")]
+        [InlineData("Tarea 4", "1990-10-12 00:00", "1990-10-12 00:00")]
+        [InlineData("Tarea 5", "1990-10-12 00:00", "1991-10-12 00:00")]
         public void AgregarTareaSimple(string nombre,string fechaInicio,
             string fechaFinalizacion)
         {
@@ -30,10 +30,10 @@ namespace PruebasUnitarias
         }
 
         [Theory]
-        [InlineData("Tarea 1", "10/12/1990", "10/15/1990")]
-        [InlineData("Tarea 2", "10/12/1990", "10/11/1990")]
-        [InlineData("Tarea 4", "10/12/1990", "10/12/1990")]
-        [InlineData("Tarea 5", "10/12/1990", "10/15/1990")]
+        [InlineData("Tarea 1", "1990-10-12 00:00", "1990-10-13 00:00")]
+        [InlineData("Tarea 2", "1990-10-12 00:00", "1990-10-14 00:00")]
+        [InlineData("Tarea 4", "1990-10-12 00:00", "1990-10-12 00:00")]
+        [InlineData("Tarea 5", "1990-10-12 00:00", "1991-10-12 00:00")]
         public void AgregarTareaSimpleIniciaDespues(string nombre, string fechaInicio,
            string fechaFinalizacion)
         {
