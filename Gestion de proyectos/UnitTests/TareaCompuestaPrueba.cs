@@ -221,6 +221,7 @@ namespace PruebasUnitarias
                 FechaInicio = tareaPrimera.FechaInicio
             };
 
+            tareaCompuesta.AgregarSubtarea(tareaCompuestaHija);
             tareaCompuesta.AgregarSubtarea(tareaPrimera);
             tareaCompuesta.AgregarSubtarea(tareaTercera);
 
