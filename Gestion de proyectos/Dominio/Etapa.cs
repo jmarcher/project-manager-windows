@@ -9,11 +9,18 @@ namespace Dominio
     {
         public String Nombre { get; set; }
         public int Identificacion { get; set; }
-        public int DuracionPendiente { get; set; }
         public List<Tarea> Tareas { get; set; }
         public bool EstaFinalizada { get; private set; }
-        public DateTime FechaFinalizacion { get; private set; }
         public DateTime FechaInicio { get;set; }
+        public DateTime FechaFinalizacion {
+            get
+            {
+                return UltimaFechaDeTareas();
+            }
+        }
+
+        
+
         public Etapa()
         {
             Nombre = "[Nombre por defecto]";
@@ -28,40 +35,28 @@ namespace Dominio
             return etapa.Identificacion == this.Identificacion;
         }
 
-        public int CalcularDuracion()
+        public int CalcularDuracionPendiente()
         {
-            int SumaDuracion = 0;
+            int mayorDuracionPendiente = 0;
+            DateTime mayorFecha = DateTime.MinValue;
             foreach (Tarea tarea in Tareas)
             {
-                SumaDuracion += tarea.CalcularDuracionPendiente();
+                if(tarea.FechaFinalizacion > mayorFecha) {
+                    mayorFecha = tarea.FechaFinalizacion;
+                    mayorDuracionPendiente = tarea.CalcularDuracionPendiente();
+                }
             }
-            return SumaDuracion;
+            return mayorDuracionPendiente;
         }
 
         public void AgregarTarea(Tarea tarea)
         {
             Tareas.Add(tarea);
         }
-
-        public DateTime ObtenerFechaFinalizacion()
-        {
-            DateTime fechaRetorno = new DateTime();
-            foreach(Tarea tarea in Tareas)
-            {
-                DateTime fechaActual = tarea.FechaInicio;
-                fechaActual = fechaActual.AddDays(tarea.CalcularDuracionPendiente());
-
-                if (DateTime.Compare(fechaActual, fechaRetorno) > 0)
-                    fechaRetorno = fechaActual;
-            }
-           
-            return fechaRetorno;
-        }
         public void MarcarFinalizada() {
             if (TodasTareasFinalizadas())
             {
                 EstaFinalizada = true;
-                FechaFinalizacion = DateTime.Now;
             }
         }
         private bool TodasTareasFinalizadas()
@@ -74,13 +69,16 @@ namespace Dominio
             }
             return valorRetorno;
         }
-        public void InsertarFechaFinalizacion()
+        private DateTime UltimaFechaDeTareas()
         {
-            FechaFinalizacion = ObtenerFechaFinalizacion();
-        }
-        public void InsertarDuracion()
-        {
-            DuracionPendiente = CalcularDuracion();
+            DateTime mayorFecha = DateTime.MinValue;
+            foreach (Tarea tarea in Tareas)
+            {
+                if (tarea.FechaFinalizacion > mayorFecha)
+                    mayorFecha = tarea.FechaFinalizacion;
+            }
+
+            return mayorFecha;
         }
     }
 }

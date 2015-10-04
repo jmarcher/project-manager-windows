@@ -55,7 +55,7 @@ namespace Dominio
             int sumaDuracion = 0;
             foreach (Etapa etapa in Etapas)
             {
-                sumaDuracion += etapa.CalcularDuracion();
+                sumaDuracion += etapa.CalcularDuracionPendiente();
             }
             return sumaDuracion;
         }

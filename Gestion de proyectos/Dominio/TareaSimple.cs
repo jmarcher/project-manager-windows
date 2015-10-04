@@ -30,6 +30,15 @@ namespace Dominio
             }
 
         }
+
+        public override bool EstaAtrasada
+        {
+            get
+            {
+                return DateTime.Now.AddDays(DuracionPendiente) > FechaFinalizacion;
+            }
+        }
+
         public TareaSimple() : base()
         {
             _FechaFinalizacion = FECHA_NULA;

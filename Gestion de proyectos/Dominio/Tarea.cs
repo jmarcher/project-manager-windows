@@ -27,6 +27,8 @@ namespace Dominio
 
         public bool EstaFinalizada { get; protected set; }
 
+        public abstract bool EstaAtrasada { get; }
+
         public DateTime FechaInicio
         {
             get{

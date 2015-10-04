@@ -6,6 +6,50 @@ namespace PruebasUnitarias
 {
     public class EtapaPrueba
     {
+
+        [Fact]
+        public void FechaFinalizacionCorrecta()
+        {
+            Tarea contar = new TareaSimple()
+            {
+                Nombre = "Cuenta numeros",
+                FechaInicio = DateTime.Now,
+                FechaFinalizacion = DateTime.Now,
+                DuracionPendiente = 20
+            };
+            TareaCompuesta sumar = new TareaCompuesta()
+            {
+                Nombre = "Sumar",
+                FechaInicio = DateTime.Now
+            };
+
+            sumar.AgregarSubtarea(contar);
+
+            Tarea mostrar = new TareaSimple()
+            {
+                Nombre = "Muestra resultado",
+                FechaInicio = DateTime.Now.AddDays(400),
+                FechaFinalizacion = DateTime.Now.AddDays(1501),
+                DuracionPendiente = 100
+            };
+            TareaCompuesta imprimir = new TareaCompuesta()
+            {
+                Nombre = "Imprime lo que muestra",
+                FechaInicio = mostrar.FechaInicio
+            };
+            imprimir.AgregarSubtarea(mostrar);
+
+            Etapa imprimeCuenta = new Etapa()
+            {
+                Identificacion = 1,
+                Nombre = "Imprime una cuenta",
+                FechaInicio = DateTime.Now
+            };
+            imprimeCuenta.AgregarTarea(imprimir);
+            imprimeCuenta.AgregarTarea(sumar);
+            Assert.Equal(mostrar.FechaFinalizacion, imprimeCuenta.FechaFinalizacion);
+        }
+
         [Fact]
         public void MarcarEtapaComoFinalizada()
         {
@@ -41,7 +85,7 @@ namespace PruebasUnitarias
         }
 
         [Fact]
-        public void CaclularDuracion()
+        public void CalcularDuracionPendiente()
         {
             Tarea contar = new TareaSimple()
             {
@@ -82,7 +126,23 @@ namespace PruebasUnitarias
             imprimeCuenta.AgregarTarea(sumar);
 
             Assert.Equal(100, imprimeCuenta.CalcularDuracionPendiente());
-            Assert.Equal(mostrar.FechaFinalizacion, imprimeCuenta.FechaFinalizacion);
+        }
+
+        [Fact]
+        public void EtapaAtrasada()
+        {
+            Tarea tarea = new TareaSimple()
+            {
+                FechaInicio = DateTime.Now,
+                FechaFinalizacion = DateTime.Now,
+                DuracionPendiente = 1000
+            };
+            Etapa etapa = new Etapa()
+            {
+                FechaInicio = DateTime.Now
+            };
+            etapa.AgregarTarea(tarea);
+            Assert.True(etapa.EstaAtrasada);
         }
     }
 }

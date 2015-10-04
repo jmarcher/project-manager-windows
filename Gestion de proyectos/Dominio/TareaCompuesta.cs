@@ -21,6 +21,19 @@ namespace Dominio
             }
         }
 
+        public override bool EstaAtrasada
+        {
+            get
+            {
+                foreach(Tarea tarea in Subtareas)
+                {
+                    if (tarea.EstaAtrasada)
+                        return true;
+                }
+                return false;
+            }
+        }
+
         public TareaCompuesta() : base()
         {
             Subtareas = new List<Tarea>();

@@ -30,7 +30,7 @@ namespace InterfazGrafica
             fechaInicioTextBox.Text = Etapa.FechaInicio.ToString();
             fechaFinalizacionTextBox.Text = Etapa.FechaFinalizacion.ToString();
             AsignarListaNumerosDuracionPendiente();
-            duracionPendienteDomainUpDown.SelectedItem = Etapa.DuracionPendiente;
+            duracionPendienteDomainUpDown.SelectedItem = Etapa.CalcularDuracionPendiente();
             tareasAgregadasListBox.Items.AddRange(Etapa.Tareas.ToArray());
         }
 
@@ -56,7 +56,6 @@ namespace InterfazGrafica
             if (marcarFinalizadaCheckBox.Checked) {
                 Etapa.MarcarFinalizada();
             }
-            Etapa.DuracionPendiente = (int)this.duracionPendienteDomainUpDown.SelectedItem;
             estaEtapaGuardada = true;
             this.Close();
         }
