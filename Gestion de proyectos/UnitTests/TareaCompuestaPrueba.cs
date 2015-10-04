@@ -28,6 +28,63 @@ namespace PruebasUnitarias
             };
             tareaCompuesta.AgregarSubtarea(tarea);
             Assert.NotNull(tareaCompuesta);
+            Assert.True(tareaCompuesta.FechaEsIgual(tareaCompuesta.FechaFinalizacion, tarea.FechaFinalizacion));
+        }
+
+        [Fact]
+        public void AgregarseComoSubtarea()
+        {
+            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            {
+                Nombre = "Tarea",
+                FechaInicio = DateTime.Now
+            };
+            Assert.False(tareaCompuesta.AgregarSubtarea(tareaCompuesta));
+            Assert.False(tareaCompuesta.Subtareas.Contains(tareaCompuesta));
+        }
+
+        [Fact]
+        public void FechaFinalizacionTareaCompuesta()
+        {
+            Tarea tareaPrimera = new TareaSimple()
+            {
+                Nombre = "Tarea",
+                FechaFinalizacion = DateTime.Now.AddDays(1),
+                FechaInicio = DateTime.Now
+            };
+            Tarea tareaSegunda = new TareaSimple()
+            {
+                Nombre = "Tarea2",
+                FechaFinalizacion = DateTime.Now.AddDays(2),
+                FechaInicio = DateTime.Now
+            };
+            Tarea tareaTercera = new TareaSimple()
+            {
+                Nombre = "Tarea",
+                FechaFinalizacion = DateTime.Now.AddDays(10),
+                FechaInicio = DateTime.Now.AddDays(2)
+            };
+
+            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            {
+                Nombre = "Tarea Compuesta",
+                FechaInicio = tareaPrimera.FechaInicio
+            };
+            tareaCompuesta.AgregarSubtarea(tareaPrimera);
+            tareaCompuesta.AgregarSubtarea(tareaSegunda);
+            tareaCompuesta.AgregarSubtarea(tareaTercera);
+
+            Assert.True(tareaPrimera.FechaEsIgual(tareaTercera.FechaFinalizacion, tareaCompuesta.FechaFinalizacion));
+        }
+
+        [Fact]
+        public void IngresarFechaFinalizacion()
+        {
+            Assert.Throws<NotSupportedException>(() => new TareaCompuesta()
+            {
+                Nombre="Tarea",
+                FechaFinalizacion=DateTime.Now.Date
+            });
         }
 
         [Theory]

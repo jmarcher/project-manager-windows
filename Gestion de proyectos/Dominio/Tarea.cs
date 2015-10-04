@@ -12,6 +12,7 @@ namespace Dominio
         public const int PRIORIDAD_BAJA = 0;
         public const int PRIORIDAD_MEDIA = 1;
         public const int PRIORIDAD_ALTA = 2;
+        public readonly DateTime FECHA_NULA = new DateTime(1, 1, 1);
 
         public int Prioridad { get; set; }
 
@@ -46,8 +47,8 @@ namespace Dominio
         {
             Antecesoras = new List<Tarea>();
             Prioridad = PRIORIDAD_MEDIA;
-            _FechaInicio = DateTime.MinValue;
-            _FechaFinalizacion = DateTime.MinValue;
+            _FechaInicio = FECHA_NULA;
+            _FechaFinalizacion = FECHA_NULA;
             Nombre = "[Nombre por defecto]";
             EstaFinalizada = false;
         }
@@ -86,13 +87,13 @@ namespace Dominio
                 return false;
             Tarea tarea = (Tarea)obj;
             return tarea.Nombre.Equals(this.Nombre)
-                && tarea.FechaInicio.Equals(this.FechaInicio)
+                && tarea.FechaEsIgual(tarea.FechaInicio,this.FechaInicio)
                 && tarea.Prioridad == this.Prioridad;
         }
 
         public bool FechaNula(DateTime fecha)
         {
-            return FechaEsIgual(DateTime.MinValue, fecha);
+            return FechaEsIgual(FECHA_NULA, fecha);
         }
 
         public bool FechaEsMenor(DateTime a, DateTime b)
@@ -102,7 +103,9 @@ namespace Dominio
 
         public bool FechaEsIgual(DateTime a, DateTime b)
         {
-            return DateTime.Compare(a, b) == 0;
+            return a.Day == b.Day &&
+                a.Month == b.Month &&
+                a.Year == b.Year;
         }
 
         public override string ToString()

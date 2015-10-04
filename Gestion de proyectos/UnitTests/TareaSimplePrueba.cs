@@ -33,7 +33,7 @@ namespace PruebasUnitarias
         public void CrearTareaSimpleFechasInvalidas(string nombre,
             string fechaFinalizacion, string fechaInicio)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(()=>new TareaSimple()
+            Assert.Throws<ArgumentOutOfRangeException>(() => new TareaSimple()
             {
                 Nombre = nombre,
                 FechaInicio = DateTime.Parse(fechaInicio),
