@@ -15,15 +15,36 @@ namespace Dominio
         public String Nombre { get; set; }
         public String Objetivo { get; set; }
         public DateTime FechaInicio { get; set; }
-        public DateTime FechaFinalizado { get; set; }
+        public DateTime FechaFinalizacion
+        {
+            get
+            {
+                return UltimaFechaDeEtapa();
+            }
+        }
+
+
+
         public bool EstaFinalizado { get; private set; }
-        public List<Etapa> Etapas{get; set;}
+        public bool EstaAtrasado
+        {
+            get
+            {
+                foreach (Etapa etapa in Etapas)
+                {
+                    if (etapa.EstaAtrasada)
+                        return true;
+                }
+                return false;
+            }
+        }
+        public List<Etapa> Etapas { get; set; }
 
         public Proyecto()
         {
             Etapas = new List<Etapa>();
         }
-       
+
         public void AgregarEtapa(Etapa etapa)
         {
             Etapas.Add(etapa);
@@ -50,14 +71,19 @@ namespace Dominio
             return proyecto.Identificador == this.Identificador;
         }
 
-        public int CalcularDuracion()
+        public int CalcularDuracionPendiente()
         {
-            int sumaDuracion = 0;
+            int mayorDuracionPendiente = 0;
+            DateTime mayorFecha = DateTime.MinValue;
             foreach (Etapa etapa in Etapas)
             {
-                sumaDuracion += etapa.CalcularDuracionPendiente();
+                if (etapa.FechaFinalizacion > mayorFecha)
+                {
+                    mayorFecha = etapa.FechaFinalizacion;
+                    mayorDuracionPendiente = etapa.CalcularDuracionPendiente();
+                }
             }
-            return sumaDuracion;
+            return mayorDuracionPendiente;
         }
 
         public DateTime ObtenerFechaFinalizacion()
@@ -89,16 +115,18 @@ namespace Dominio
             }
             return valorRetorno;
         }
-        
-        public void InsertarFechaFin() 
+
+        private DateTime UltimaFechaDeEtapa()
         {
-            FechaFinalizado = ObtenerFechaFinalizacion();
+            DateTime mayorFecha = DateTime.MinValue;
+            foreach (Etapa etapa in Etapas)
+            {
+                if (etapa.FechaFinalizacion > mayorFecha)
+                    mayorFecha = etapa.FechaFinalizacion;
+            }
+            return mayorFecha;
         }
-        public void InsertarDuracion()
-        {
-           Duracion  = CalcularDuracion();
-        }
-        
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -109,8 +137,7 @@ namespace Dominio
             sb.Append(this.EstaFinalizado);
             return sb.ToString();
         }
-       
-    
+
+
     }
 }
- 

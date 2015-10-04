@@ -90,8 +90,6 @@ namespace InterfazGrafica
             etapaNuevoProyecto.AgregarTarea(tareaNuevoProyecto);
 
             nuevoProyecto.AgregarEtapa(etapaNuevoProyecto);
-            nuevoProyecto.InsertarDuracion();
-            nuevoProyecto.InsertarFechaFin();
             InstanciaUnica.Instancia.AgregarProyecto(nuevoProyecto);
 
         }
