@@ -182,5 +182,49 @@ namespace PruebasUnitarias
 
             Assert.Equal(10, tareaCompuesta.CalcularDuracionPendiente());
         }
+        [Fact]
+        public void DuracionPendienteTareaCompuestaPorOtraTareaCompuesta()
+        {
+            Tarea tareaPrimera = new TareaSimple()
+            {
+                Nombre = "Tarea",
+                FechaFinalizacion = DateTime.Now.AddDays(1),
+                FechaInicio = DateTime.Now,
+                DuracionPendiente = 3
+            };
+            Tarea tareaSegunda = new TareaSimple()
+            {
+                Nombre = "Tarea2",
+                FechaFinalizacion = DateTime.Now.AddDays(2),
+                FechaInicio = DateTime.Now,
+                DuracionPendiente = 5
+            };
+            Tarea tareaTercera = new TareaSimple()
+            {
+                Nombre = "Tarea",
+                FechaFinalizacion = DateTime.Now.AddDays(10),
+                FechaInicio = DateTime.Now.AddDays(2),
+                DuracionPendiente = 2
+            };
+
+            TareaCompuesta tareaCompuestaHija = new TareaCompuesta()
+            {
+                Nombre = "Tarea Compuesta hija",
+                FechaInicio = tareaSegunda.FechaInicio
+            };
+
+            tareaCompuestaHija.AgregarSubtarea(tareaSegunda);
+
+            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            {
+                Nombre = "Tarea Compuesta",
+                FechaInicio = tareaPrimera.FechaInicio
+            };
+
+            tareaCompuesta.AgregarSubtarea(tareaPrimera);
+            tareaCompuesta.AgregarSubtarea(tareaTercera);
+
+            Assert.Equal(10, tareaCompuesta.CalcularDuracionPendiente());
+        }
     }
 }
