@@ -50,6 +50,7 @@ namespace Dominio
             _FechaInicio = FECHA_NULA;
             _FechaFinalizacion = FECHA_NULA;
             Nombre = "[Nombre por defecto]";
+            Objetivo = "Objetivo";
             EstaFinalizada = false;
         }
 
@@ -75,7 +76,7 @@ namespace Dominio
 
         public bool AgregarAntecesora(Tarea antecesora)
         {
-            if (antecesora == this)
+            if (antecesora.Equals(this))
                 return false;
             Antecesoras.Add(antecesora);
             return true;
@@ -87,6 +88,7 @@ namespace Dominio
                 return false;
             Tarea tarea = (Tarea)obj;
             return tarea.Nombre.Equals(this.Nombre)
+                && tarea.Objetivo.Equals(Objetivo)
                 && tarea.FechaEsIgual(tarea.FechaInicio,this.FechaInicio)
                 && tarea.Prioridad == this.Prioridad;
         }

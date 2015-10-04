@@ -110,5 +110,77 @@ namespace PruebasUnitarias
             Assert.Throws<FechaInvalida>(()=>tareaCompuesta.AgregarSubtarea(tarea));
             Assert.False(tareaCompuesta.Subtareas.Contains(tarea));
         }
+
+        [Fact]
+        public void MarcarTareaFinalizadaConSubtareasFinalizadas()
+        {
+            Tarea tarea = new TareaSimple()
+            {
+                Nombre = "Tarea",
+                Objetivo = "Objetivo"
+            };
+            tarea.MarcarFinalizada();
+            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            {
+                Nombre = "Tarea Compuesta"
+            };
+            tareaCompuesta.AgregarSubtarea(tarea);
+            tareaCompuesta.MarcarFinalizada();
+            Assert.True(tareaCompuesta.EstaFinalizada);
+        }
+
+        [Fact]
+        public void MarcarTareaFinalizadaSinTodasSubtareasFinalizadas()
+        {
+            Tarea tarea = new TareaSimple()
+            {
+                Nombre = "Tarea",
+                Objetivo = "Objetivo"
+            };
+            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            {
+                Nombre = "Tarea Compuesta"
+            };
+            tareaCompuesta.AgregarSubtarea(tarea);
+            tareaCompuesta.MarcarFinalizada();
+            Assert.False(tareaCompuesta.EstaFinalizada);
+        }
+
+        [Fact]
+        public void DuracionPendienteTareaCompuesta()
+        {
+            Tarea tareaPrimera = new TareaSimple()
+            {
+                Nombre = "Tarea",
+                FechaFinalizacion = DateTime.Now.AddDays(1),
+                FechaInicio = DateTime.Now,
+                DuracionPendiente = 3
+            };
+            Tarea tareaSegunda = new TareaSimple()
+            {
+                Nombre = "Tarea2",
+                FechaFinalizacion = DateTime.Now.AddDays(2),
+                FechaInicio = DateTime.Now,
+                DuracionPendiente = 5
+            };
+            Tarea tareaTercera = new TareaSimple()
+            {
+                Nombre = "Tarea",
+                FechaFinalizacion = DateTime.Now.AddDays(10),
+                FechaInicio = DateTime.Now.AddDays(2),
+                DuracionPendiente=2
+            };
+
+            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            {
+                Nombre = "Tarea Compuesta",
+                FechaInicio = tareaPrimera.FechaInicio
+            };
+            tareaCompuesta.AgregarSubtarea(tareaPrimera);
+            tareaCompuesta.AgregarSubtarea(tareaSegunda);
+            tareaCompuesta.AgregarSubtarea(tareaTercera);
+
+            Assert.Equal(10, tareaCompuesta.CalcularDuracionPendiente());
+        }
     }
 }
