@@ -63,6 +63,7 @@
     <Compile Include="ProyectoPrueba.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TareaCompuestaPrueba.cs" />
+    <Compile Include="TareaPrueba.cs" />
     <Compile Include="TareaSimplePrueba.cs" />
   </ItemGroup>
   <ItemGroup>

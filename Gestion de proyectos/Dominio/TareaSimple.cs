@@ -18,7 +18,7 @@ namespace Dominio
             {
                 if (FechaNula(FechaInicio) 
                     || (!FechaNula(FechaInicio) 
-                    && FechaEsMenor(FechaInicio, value)))
+                    && (FechaEsMenor(FechaInicio, value) || FechaEsIgual(value,FechaInicio))))
                 {
                     _FechaFinalizacion = value;
                 }
@@ -32,7 +32,7 @@ namespace Dominio
         }
         public TareaSimple() : base()
         {
-
+            _FechaFinalizacion = FECHA_NULA;
         }
 
         public override int CalcularDuracionPendiente()

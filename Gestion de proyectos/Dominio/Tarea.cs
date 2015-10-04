@@ -24,7 +24,6 @@ namespace Dominio
         public List<Tarea> Antecesoras { get; set; }
 
         private DateTime _FechaInicio;
-        private DateTime _FechaFinalizacion;
 
         public bool EstaFinalizada { get; protected set; }
 
@@ -34,7 +33,8 @@ namespace Dominio
                 return _FechaInicio;
             }
             set{
-                if (FechaNula(_FechaFinalizacion)|| (!FechaNula(_FechaFinalizacion) && FechaEsMenor(value, _FechaFinalizacion))){
+                if (FechaNula(FechaFinalizacion)|| (!FechaNula(FechaFinalizacion) && 
+                    (FechaEsMenor(value, FechaFinalizacion)  || FechaEsIgual(value, FechaFinalizacion)))){
                     _FechaInicio = value;
                 }else{
                     throw new ArgumentOutOfRangeException();
@@ -48,7 +48,6 @@ namespace Dominio
             Antecesoras = new List<Tarea>();
             Prioridad = PRIORIDAD_MEDIA;
             _FechaInicio = FECHA_NULA;
-            _FechaFinalizacion = FECHA_NULA;
             Nombre = "[Nombre por defecto]";
             Objetivo = "Objetivo";
             EstaFinalizada = false;
@@ -58,7 +57,7 @@ namespace Dominio
 
         public abstract void MarcarFinalizada();
 
-        private void DefinirPrioridad(String prioridad)
+        public void DefinirPrioridad(String prioridad)
         {
             if (prioridad.Equals("Alta"))
             {
@@ -77,6 +76,8 @@ namespace Dominio
         public bool AgregarAntecesora(Tarea antecesora)
         {
             if (antecesora.Equals(this))
+                return false;
+            if (antecesora.FechaFinalizacion > FechaInicio)
                 return false;
             Antecesoras.Add(antecesora);
             return true;
@@ -114,6 +115,7 @@ namespace Dominio
         {
             return Nombre + "["+Descripcion+"]";
         }
+
         
     }
 }
