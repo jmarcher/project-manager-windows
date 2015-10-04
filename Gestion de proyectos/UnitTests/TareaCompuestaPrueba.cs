@@ -1,6 +1,7 @@
 ﻿using System;
 using Xunit;
 using Dominio;
+using Dominio.Excepciones;
 
 namespace PruebasUnitarias
 {
@@ -32,8 +33,8 @@ namespace PruebasUnitarias
         [Theory]
         [InlineData("Tarea 1", "1990-10-12 00:00", "1990-10-13 00:00")]
         [InlineData("Tarea 2", "1990-10-12 00:00", "1990-10-14 00:00")]
-        [InlineData("Tarea 4", "1990-10-12 00:00", "1990-10-12 00:00")]
-        [InlineData("Tarea 5", "1990-10-12 00:00", "1991-10-12 00:00")]
+        [InlineData("Tarea 3", "1990-10-12 00:00", "2015-10-12 00:00")]
+        [InlineData("Tarea 4", "1990-10-12 00:00", "1991-10-12 00:00")]
         public void AgregarTareaSimpleIniciaDespues(string nombre, string fechaInicio,
            string fechaFinalizacion)
         {
@@ -49,7 +50,7 @@ namespace PruebasUnitarias
                 Nombre = "Tarea Compuesta",
                 FechaInicio = DateTime.Parse(fechaFinalizacion)
             };
-            tareaCompuesta.AgregarSubtarea(tarea);
+            Assert.Throws<FechaInvalida>(()=>tareaCompuesta.AgregarSubtarea(tarea));
             Assert.False(tareaCompuesta.Subtareas.Contains(tarea));
         }
     }

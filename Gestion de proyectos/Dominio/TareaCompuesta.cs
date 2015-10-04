@@ -1,4 +1,4 @@
-﻿using Dominio.Exceptions;
+﻿using Dominio.Excepciones;
 using System.Collections.Generic;
 using System;
 

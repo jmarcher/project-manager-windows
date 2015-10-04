@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="InstanciaUnica.cs" />
     <Compile Include="Etapa.cs" />
-    <Compile Include="Exceptions\FechaInvalida.cs" />
+    <Compile Include="Excepciones\FechaInvalida.cs" />
     <Compile Include="Proyecto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tarea.cs" />

@@ -29,7 +29,7 @@ namespace PruebasUnitarias
         [InlineData("Tarea 1", "1980-10-12 00:00", "1990-10-12 00:00")]
         [InlineData("Tarea 2", "1910-10-12 00:00", "1990-10-12 00:00")]
         [InlineData("Tarea 3", "1970-10-12 00:00", "1990-10-12 00:00")]
-        [InlineData("Tarea 4", "1990-10-12 00:00", "1990-10-11 00:00")]        
+        [InlineData("Tarea 4", "1990-10-12 00:00", "1990-10-13 00:00")]        
         public void CrearTareaSimpleFechasInvalidas(string nombre,
             string fechaFinalizacion, string fechaInicio)
         {
