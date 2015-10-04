@@ -82,6 +82,7 @@ namespace PruebasUnitarias
             imprimeCuenta.AgregarTarea(sumar);
 
             Assert.Equal(100, imprimeCuenta.CalcularDuracionPendiente());
+            Assert.Equal(mostrar.FechaFinalizacion, imprimeCuenta.FechaFinalizacion);
         }
     }
 }
