@@ -49,7 +49,7 @@ namespace Dominio
             foreach(Tarea tarea in Tareas)
             {
                 DateTime fechaActual = tarea.FechaInicio;
-                fechaActual = fechaActual.AddDays(tarea.DuracionPendiente);
+                fechaActual = fechaActual.AddDays(tarea.CalcularDuracionPendiente());
 
                 if (DateTime.Compare(fechaActual, fechaRetorno) > 0)
                     fechaRetorno = fechaActual;

@@ -21,12 +21,11 @@ namespace Dominio
         
         
         public List<Tarea> Antecesoras { get; set; }
-        public List<Tarea> Subtareas { get; private set; }
 
         private DateTime _FechaInicio;
         private DateTime _FechaFinalizacion;
 
-        public bool EstaFinalizada { get; private set; }
+        public bool EstaFinalizada { get; protected set; }
 
         public DateTime FechaInicio
         {
@@ -46,7 +45,6 @@ namespace Dominio
         public Tarea()
         {
             Antecesoras = new List<Tarea>();
-            Subtareas = new List<Tarea>();
             Prioridad = PRIORIDAD_MEDIA;
             _FechaInicio = DateTime.MinValue;
             _FechaFinalizacion = DateTime.MinValue;
@@ -55,6 +53,8 @@ namespace Dominio
         }
 
         public abstract int CalcularDuracionPendiente();
+
+        public abstract void MarcarFinalizada();
 
         private void DefinirPrioridad(String prioridad)
         {
@@ -72,23 +72,6 @@ namespace Dominio
             }
         }
 
-        private bool TareaIniciaDespues(Tarea tarea)
-        {
-            return FechaEsMenor(this.FechaInicio, tarea.FechaInicio)
-                || FechaEsIgual(this.FechaInicio, tarea.FechaInicio);
-        }
-
-        public bool AgregarSubtarea(Tarea subtarea)
-        {
-            if (this.Equals(subtarea))
-                return false;
-            if (TareaIniciaDespues(subtarea))
-                Subtareas.Add(subtarea);
-            else
-                throw new FechaInvalida();
-            return true;
-        }
-
         public bool AgregarAntecesora(Tarea antecesora)
         {
             if (antecesora == this)
@@ -96,8 +79,6 @@ namespace Dominio
             Antecesoras.Add(antecesora);
             return true;
         }
-
-
 
         public override bool Equals(object obj)
         {
@@ -122,23 +103,6 @@ namespace Dominio
         public bool FechaEsIgual(DateTime a, DateTime b)
         {
             return DateTime.Compare(a, b) == 0;
-        }
-
-        public void MarcarFinalizada()
-        {
-            if (TodasSubTareasFinalizadas())
-                EstaFinalizada = true;
-        }
-
-        private bool TodasSubTareasFinalizadas()
-        {
-            bool valorRetorno = true;
-            foreach (Tarea tarea in Subtareas)
-            {
-                valorRetorno = valorRetorno && tarea.EstaFinalizada;
-                   
-            }
-            return valorRetorno;
         }
 
         public override string ToString()

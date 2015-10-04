@@ -25,7 +25,7 @@ namespace InterfazGrafica.Utiles
 
         private Tarea CrearTareaAleatoria(DateTime fecha, bool agregarSubTareas = false)
         {
-            Tarea tarea = new TareaSimple()
+            TareaCompuesta tarea = new TareaCompuesta()
             {
                 Nombre = "Tarea Nro: "+aleatorio.Next(1,3000),
                 FechaInicio =fecha.CompareTo(DateTime.Now)==0 ? fecha : fecha.AddDays(aleatorio.Next(1,30)),
@@ -39,7 +39,7 @@ namespace InterfazGrafica.Utiles
             return tarea;
         }
 
-        private void GenerarSubtareas(Random aleatorio, Tarea tarea)
+        private void GenerarSubtareas(Random aleatorio, TareaCompuesta tarea)
         {
             for (int i = 0; i < aleatorio.Next(0, 5); i++)
             {

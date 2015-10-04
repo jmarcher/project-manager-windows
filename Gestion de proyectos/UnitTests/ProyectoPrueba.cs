@@ -81,8 +81,8 @@ namespace PruebasUnitarias
         {
             Proyecto proyecto = new Proyecto();
 
-            Tarea tarea1 = new Tarea() { Nombre = "Tarea", DuracionPendiente = 6 };
-            Tarea tarea2 = new Tarea() { Nombre = "Subtarea", DuracionPendiente = 4 };
+            TareaCompuesta tarea1 = new TareaCompuesta() { Nombre = "Tarea" };
+            Tarea tarea2 = new TareaSimple() { Nombre = "Subtarea", DuracionPendiente = 4 };
 
             Etapa etapa1 = new Etapa();
             Etapa etapa2 = new Etapa();
@@ -104,7 +104,7 @@ namespace PruebasUnitarias
             Proyecto proyecto = new Proyecto();
             DateTime fecha = DateTime.Parse("5/1/2015 8:30:00 AM");
             Etapa etapa1 = new Etapa();
-            Tarea tarea1 = new Tarea() { FechaInicio = fecha};
+            Tarea tarea1 = new TareaSimple() { FechaInicio = fecha};
             etapa1.AgregarTarea(tarea1);
             proyecto.AgregarEtapa(etapa1);
 
@@ -117,8 +117,8 @@ namespace PruebasUnitarias
             DateTime fecha = DateTime.Parse("5/1/2015 8:30:00 AM");
             DateTime fecha2 = DateTime.Parse("5/9/2015 8:30:00 AM");
             Etapa etapa1 = new Etapa();
-            Tarea tarea1 = new Tarea() { FechaInicio = fecha };
-            Tarea tarea2 = new Tarea() { FechaInicio = fecha2 , DuracionPendiente = 10};
+            Tarea tarea1 = new TareaSimple() { FechaInicio = fecha };
+            Tarea tarea2 = new TareaSimple() { FechaInicio = fecha2 , DuracionPendiente = 10};
             etapa1.AgregarTarea(tarea2);
             etapa1.AgregarTarea(tarea1);
             proyecto.AgregarEtapa(etapa1);
@@ -134,9 +134,9 @@ namespace PruebasUnitarias
             DateTime fecha3 = DateTime.Parse("5/1/2030 8:30:00 AM");
             Etapa etapa1 = new Etapa();
             Etapa etapa2 = new Etapa();
-            Tarea tarea1 = new Tarea() { FechaInicio = fecha };
-            Tarea tarea2 = new Tarea() { FechaInicio = fecha2 };
-            Tarea tarea3 = new Tarea() { FechaInicio = fecha3 };
+            Tarea tarea1 = new TareaSimple() { FechaInicio = fecha };
+            Tarea tarea2 = new TareaSimple() { FechaInicio = fecha2 };
+            Tarea tarea3 = new TareaSimple() { FechaInicio = fecha3 };
             etapa1.AgregarTarea(tarea1);
             etapa1.AgregarTarea(tarea3);
             etapa2.AgregarTarea(tarea2);
@@ -151,7 +151,7 @@ namespace PruebasUnitarias
         [Fact]
         public void MarcarProyectoComoFinalizado()
         {
-            Tarea tarea = new Tarea() { Nombre = "Tarea" };
+            Tarea tarea = new TareaSimple() { Nombre = "Tarea" };
             tarea.MarcarFinalizada();
             Etapa etapa = new Etapa();
             etapa.AgregarTarea(tarea);
@@ -165,7 +165,7 @@ namespace PruebasUnitarias
         [Fact]
         public void MarcarProyectoComoFinalizadoConEtapaSinFinalizar()
         {
-            Tarea tarea = new Tarea() { Nombre = "Tarea" };
+            Tarea tarea = new TareaSimple() { Nombre = "Tarea" };
             tarea.MarcarFinalizada();
             Etapa etapa = new Etapa();
             etapa.AgregarTarea(tarea);

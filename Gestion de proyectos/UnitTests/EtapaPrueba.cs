@@ -19,7 +19,7 @@ namespace PruebasUnitarias
         [Fact]
         public void MarcarEtapaComoFinalizadaConTareaSinFinalizar()
         {
-            Tarea tarea = new Tarea() { Nombre = "Tarea" };
+            Tarea tarea = new TareaSimple() { Nombre = "Tarea" };
             Etapa etapa = new Etapa();
             etapa.AgregarTarea(tarea);
             etapa.MarcarFinalizada();
@@ -29,8 +29,8 @@ namespace PruebasUnitarias
         [Fact]
         public void MarcarEtapaComoFinalizadaConTareaConYSinFinalizar()
         {
-            Tarea tareaNoFinalizada = new Tarea() { Nombre = "Tarea sin terminar" };
-            Tarea tareaFinalizada = new Tarea() { Nombre = "Tarea terminada" };
+            Tarea tareaNoFinalizada = new TareaSimple() { Nombre = "Tarea sin terminar" };
+            Tarea tareaFinalizada = new TareaSimple() { Nombre = "Tarea terminada" };
             tareaFinalizada.MarcarFinalizada();
             Etapa etapa = new Etapa();
             etapa.AgregarTarea(tareaNoFinalizada);

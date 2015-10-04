@@ -37,5 +37,10 @@ namespace Dominio
         {
             return DuracionPendiente;
         }
+
+        public override void MarcarFinalizada()
+        {
+            EstaFinalizada = true;
+        }
     }
 }
