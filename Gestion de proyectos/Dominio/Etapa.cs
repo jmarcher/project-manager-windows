@@ -11,6 +11,18 @@ namespace Dominio
         public int Identificacion { get; set; }
         public List<Tarea> Tareas { get; set; }
         public bool EstaFinalizada { get; private set; }
+        public bool EstaAtrasada
+        {
+            get
+            {
+                foreach(Tarea tarea in Tareas)
+                {
+                    if (tarea.EstaAtrasada)
+                        return true;
+                }
+                return false;
+            }
+        }
         public DateTime FechaInicio { get;set; }
         public DateTime FechaFinalizacion {
             get

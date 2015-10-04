@@ -66,9 +66,9 @@ namespace Dominio
             DateTime fechaRetorno = new DateTime();
             foreach (Etapa etapa in Etapas)
             {
-                if (DateTime.Compare(etapa.ObtenerFechaFinalizacion(), fechaRetorno) > 0)
+                if (DateTime.Compare(etapa.FechaFinalizacion, fechaRetorno) > 0)
                 {
-                    fechaRetorno = etapa.ObtenerFechaFinalizacion();
+                    fechaRetorno = etapa.FechaFinalizacion;
                 }
             }
             return fechaRetorno;
