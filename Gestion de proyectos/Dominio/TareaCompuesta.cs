@@ -57,7 +57,12 @@ namespace Dominio
 
         public override int CalcularDuracionPendiente()
         {
-            throw new NotImplementedException();
+            int valorRetorno=0;
+            foreach(Tarea tarea in Subtareas)
+            {
+                valorRetorno += tarea.CalcularDuracionPendiente();
+            }
+            return valorRetorno;
         }
 
         private bool TodasSubTareasFinalizadas()
