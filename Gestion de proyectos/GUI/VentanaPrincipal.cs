@@ -65,7 +65,7 @@ namespace InterfazGrafica
                 }
                 else
                 {
-                    string fechaFinalizacion = Proyectos[i].ObtenerFechaFinalizacion().ToString();
+                    string fechaFinalizacion = Proyectos[i].FechaFinalizacion.ToString();
                     nuevoItemLista.SubItems.Add(fechaFinalizacion);
                     nuevoItemLista.ForeColor = Color.Green;
                 }

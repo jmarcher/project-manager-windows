@@ -10,8 +10,6 @@ namespace Dominio
     {
         public const string ESPACIO = " ";
         public int Identificador { get; set; }
-        public int Duracion { get; set; }
-
         public String Nombre { get; set; }
         public String Objetivo { get; set; }
         public DateTime FechaInicio { get; set; }
@@ -84,20 +82,6 @@ namespace Dominio
                 }
             }
             return mayorDuracionPendiente;
-        }
-
-        public DateTime ObtenerFechaFinalizacion()
-        {
-
-            DateTime fechaRetorno = new DateTime();
-            foreach (Etapa etapa in Etapas)
-            {
-                if (DateTime.Compare(etapa.FechaFinalizacion, fechaRetorno) > 0)
-                {
-                    fechaRetorno = etapa.FechaFinalizacion;
-                }
-            }
-            return fechaRetorno;
         }
 
         public void MarcarFinalizado()
