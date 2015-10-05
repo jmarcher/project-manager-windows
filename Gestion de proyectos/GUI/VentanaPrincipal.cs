@@ -27,7 +27,7 @@ namespace InterfazGrafica
                 patron.AgregarListaProyecto(dp.ObtenerUnaListaProyectos());
                 Proyectos = patron.DevolverListaProyectos();
                 configurarListViewProyectos();
-                actualizarLista();
+                ActualizarListaDeProyectos();
             }
             catch (NullReferenceException)
             {
@@ -48,7 +48,7 @@ namespace InterfazGrafica
             listViewProyectos.Columns.Add("Fecha estimada de finalizacion", 200, HorizontalAlignment.Left);
         }
 
-        private void actualizarLista()
+        private void ActualizarListaDeProyectos()
         {
             listViewProyectos.Items.Clear();
             for (int i = 0; i < Proyectos.Count(); i++)
@@ -88,14 +88,29 @@ namespace InterfazGrafica
         {
             VentanaAltaDeProyecto ventanaAlta = new VentanaAltaDeProyecto();
             ventanaAlta.ShowDialog();
+            ActualizarListaDeProyectosLuegoDeCrearProyecto();
+        }
+
+        private void ActualizarListaDeProyectosLuegoDeCrearProyecto()
+        {
             foreach (Form frm in Application.OpenForms)
             {
-                if (!(frm.GetType() == typeof(VentanaAltaDeProyecto)))
+                if (EstaCerradaVentanaAltaDeProyecto(frm))
                 {
-                    this.actualizarLista();
+                    ActualizarListaDeProyectos();
                     break;
                 }
             }
+        }
+
+        private static bool EstaCerradaVentanaAltaDeProyecto(Form frm)
+        {
+            return !(frm.GetType() == typeof(VentanaAltaDeProyecto));
+        }
+
+        private void crearNuevoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonAgregarNuevoProyecto_Click(sender,e);
         }
     }
 }
