@@ -39,9 +39,21 @@ namespace Dominio
             Subtareas = new List<Tarea>();
         }
 
+        public TareaCompuesta(Tarea tareaSimple):base()
+        {
+            Subtareas = new List<Tarea>();
+            Nombre = tareaSimple.Nombre;
+            Prioridad = tareaSimple.Prioridad;
+            Objetivo = tareaSimple.Objetivo;
+            FechaInicio = tareaSimple.FechaInicio;
+            this.Descripcion = tareaSimple.Descripcion;
+        }
+
         private DateTime FechaMayorDeSubtarea()
         {
             DateTime fechaRetorno = DateTime.MinValue;
+            if (Subtareas.Count == 0)
+                return FECHA_NULA;
             foreach(Tarea tarea in Subtareas)
             {
                 if (tarea.FechaFinalizacion > fechaRetorno)

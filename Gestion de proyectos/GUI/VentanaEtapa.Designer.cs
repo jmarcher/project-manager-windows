@@ -103,6 +103,7 @@
             this.fechaFinalizacionTextBox.Enabled = false;
             this.fechaFinalizacionTextBox.Location = new System.Drawing.Point(12, 242);
             this.fechaFinalizacionTextBox.Name = "fechaFinalizacionTextBox";
+            this.fechaFinalizacionTextBox.ReadOnly = true;
             this.fechaFinalizacionTextBox.Size = new System.Drawing.Size(100, 20);
             this.fechaFinalizacionTextBox.TabIndex = 6;
             // 

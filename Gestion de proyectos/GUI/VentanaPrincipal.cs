@@ -63,6 +63,11 @@ namespace InterfazGrafica
                     nuevoItemLista.SubItems.Add("Proyecto Finalizado");
                     nuevoItemLista.ForeColor = Color.Red;
                 }
+                else if (Proyectos[i].EstaAtrasado)
+                {
+                    nuevoItemLista.SubItems.Add("Proyecto Atrasado");
+                    nuevoItemLista.ForeColor = Color.Orange;
+                }
                 else
                 {
                     string fechaFinalizacion = Proyectos[i].FechaFinalizacion.ToString();

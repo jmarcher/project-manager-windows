@@ -55,6 +55,7 @@
             this.etapasListView.TabIndex = 1;
             this.etapasListView.UseCompatibleStateImageBehavior = false;
             this.etapasListView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.etapasListView_ColumnClick);
+            this.etapasListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.etapasListView_MouseDoubleClick);
             // 
             // verDetallesButton
             // 

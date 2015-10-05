@@ -39,6 +39,8 @@
             this.crearNuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.barraMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +50,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewProyectos.Location = new System.Drawing.Point(9, 27);
-            this.listViewProyectos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listViewProyectos.Margin = new System.Windows.Forms.Padding(2);
             this.listViewProyectos.MultiSelect = false;
             this.listViewProyectos.Name = "listViewProyectos";
             this.listViewProyectos.Size = new System.Drawing.Size(525, 377);
@@ -110,7 +112,7 @@
             // 
             this.buttonAgregarNuevoProyecto.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.buttonAgregarNuevoProyecto.Location = new System.Drawing.Point(556, 107);
-            this.buttonAgregarNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAgregarNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAgregarNuevoProyecto.Name = "buttonAgregarNuevoProyecto";
             this.buttonAgregarNuevoProyecto.Size = new System.Drawing.Size(104, 20);
             this.buttonAgregarNuevoProyecto.TabIndex = 5;
@@ -140,7 +142,7 @@
             // crearNuevoToolStripMenuItem
             // 
             this.crearNuevoToolStripMenuItem.Name = "crearNuevoToolStripMenuItem";
-            this.crearNuevoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.crearNuevoToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.crearNuevoToolStripMenuItem.Text = "Crear nuevo";
             this.crearNuevoToolStripMenuItem.Click += new System.EventHandler(this.crearNuevoToolStripMenuItem_Click);
             // 
@@ -155,14 +157,41 @@
             // acercaDeToolStripMenuItem
             // 
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
-            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.acercaDeToolStripMenuItem.Text = "Acerca de";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Orange;
+            this.label5.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(664, 66);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(10, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = " ";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(554, 66);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(103, 13);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Proyectos atrasados";
             // 
             // VentanaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(679, 423);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.buttonAgregarNuevoProyecto);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -171,7 +200,7 @@
             this.Controls.Add(this.listViewProyectos);
             this.Controls.Add(this.barraMenu);
             this.MainMenuStrip = this.barraMenu;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "VentanaPrincipal";
             this.Text = "Ventana Principal";
             this.barraMenu.ResumeLayout(false);
@@ -194,5 +223,7 @@
         private System.Windows.Forms.ToolStripMenuItem crearNuevoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }

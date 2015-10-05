@@ -137,5 +137,14 @@ namespace InterfazGrafica
                 ventanaEtapa.Show();
             }
         }
+
+        private void etapasListView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (HayEtapaSeleccionada())
+            {
+                VentanaDetallesEtapa ventanaDetalles = new VentanaDetallesEtapa(EtapaSeleccionada());
+                ventanaDetalles.Show();
+            }
+        }
     }
 }
