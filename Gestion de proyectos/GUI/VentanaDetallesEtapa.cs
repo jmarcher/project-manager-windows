@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using InterfazGrafica.Utiles;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,6 +35,10 @@ namespace InterfazGrafica
         {
             InicializarArbolTareas();
             this.Text = "Detalles de la etapa: " + etapa.Nombre;
+            labelIdentifiacion.Text = etapa.Identificacion.ToString();
+            textBoxNombre.Text = etapa.Nombre;
+            textBoxFechaInicio.Text = etapa.FechaInicio.ToString();
+            textBoxFechaFin.Text = etapa.FechaFinalizacion.ToString();
         }
 
         private void InicializarArbolTareas()
@@ -43,7 +48,8 @@ namespace InterfazGrafica
 
         private void ActualizarArbolTareas()
         {
-            foreach(Tarea tarea in etapa.Tareas)
+            arbolDeTareas.Nodes.Clear();
+            foreach (Tarea tarea in etapa.Tareas)
             {
                 if (EsUnaTareaSimple(tarea))
                 {
@@ -53,25 +59,35 @@ namespace InterfazGrafica
                 else
                 {
                     TreeNode nodoArbol = new TreeNode(GenerarTextoAMostrar(tarea), GenerarNodoArbolTareaCompuesta((TareaCompuesta)tarea));
-                    nodoArbol.ImageIndex = ICONO_TAREA_COMPUESTA;
-                    nodoArbol.SelectedImageIndex = ICONO_TAREA_COMPUESTA;
+                    AsignarIconosTareaCompuesta(nodoArbol);
                     arbolDeTareas.Nodes.Add(nodoArbol);
                 }
             }
         }
 
+        private static void AsignarIconosTareaCompuesta(TreeNode nodoArbol)
+        {
+            nodoArbol.ImageIndex = ICONO_TAREA_COMPUESTA;
+            nodoArbol.SelectedImageIndex = ICONO_TAREA_COMPUESTA;
+        }
+
         private TreeNode GenerarNodoArbolTareaSimple(Tarea tarea)
         {
             TreeNode nodoArbol = new TreeNode(GenerarTextoAMostrar(tarea));
+            AsignarIconosTareaSimple(nodoArbol);
+            return nodoArbol;
+        }
+
+        private static void AsignarIconosTareaSimple(TreeNode nodoArbol)
+        {
             nodoArbol.ImageIndex = ICONO_TAREA_SIMPLE;
             nodoArbol.SelectedImageIndex = ICONO_TAREA_SIMPLE;
-            return nodoArbol;
         }
 
         private static String GenerarTextoAMostrar(Tarea tarea)
         {
             StringBuilder valorRetorno = new StringBuilder();
-            valorRetorno.Append( tarea.Nombre);
+            valorRetorno.Append(tarea.Nombre);
             valorRetorno.Append(" [Prioridad: ");
             valorRetorno.Append(tarea.Prioridad);
             valorRetorno.Append(", Inicio: ");
@@ -92,7 +108,7 @@ namespace InterfazGrafica
         {
             TreeNode[] arbolNodos = new TreeNode[tareaCompuesta.Subtareas.Count];
             int posicion = 0;
-            foreach(Tarea tarea in tareaCompuesta.Subtareas)
+            foreach (Tarea tarea in tareaCompuesta.Subtareas)
             {
                 if (EsUnaTareaSimple(tarea))
                 {
@@ -100,7 +116,7 @@ namespace InterfazGrafica
                 }
                 else
                 {
-                    AgregarSubArbolTareaCompleja(arbolNodos, posicion,(TareaCompuesta) tarea);
+                    AgregarSubArbolTareaCompleja(arbolNodos, posicion, (TareaCompuesta)tarea);
                 }
                 posicion++;
             }
@@ -110,8 +126,7 @@ namespace InterfazGrafica
         private void AgregarSubArbolTareaSimple(TreeNode[] arbolNodos, int posicion, Tarea tarea)
         {
             TreeNode hojaArbol = GenerarNodoArbolTareaSimple(tarea);
-            hojaArbol.ImageIndex = ICONO_TAREA_SIMPLE;
-            hojaArbol.SelectedImageIndex = ICONO_TAREA_SIMPLE;
+            AsignarIconosTareaSimple(hojaArbol);
             arbolNodos[posicion] = hojaArbol;
         }
 
@@ -125,14 +140,48 @@ namespace InterfazGrafica
         {
             TreeNode nodoSimple = new TreeNode(GenerarTextoAMostrar(tareaCompuesta),
                 GenerarNodoArbolTareaCompuesta(tareaCompuesta));
-            nodoSimple.ImageIndex = ICONO_TAREA_COMPUESTA;
-            nodoSimple.SelectedImageIndex = ICONO_TAREA_COMPUESTA;
+            AsignarIconosTareaCompuesta(nodoSimple);
             return nodoSimple;
         }
 
         private static bool EsUnaTareaSimple(Tarea tarea)
         {
             return tarea.GetType() == typeof(TareaSimple);
+        }
+
+        private bool HayTareaSeleccionada()
+        {
+            return arbolDeTareas.SelectedNode != null;
+        }
+
+        private void buttonEliminar_Click(object sender, EventArgs e)
+        {
+            if (HayTareaSeleccionada())
+            {
+                if (AyudanteVisual.CartelConfirmacion(MensajeConfirmacionEliminacionTarea(), "Eliminación"))
+                {
+                    etapa.EliminarTarea(TareaSeleccionada());
+                    ActualizarArbolTareas();
+                }
+            }
+        }
+
+        private string MensajeConfirmacionEliminacionTarea()
+        {
+            if (TareaSeleccionada().GetType() == typeof(TareaSimple))
+            {
+                return "¿Seguro desea eliminar esta tarea?";
+            }
+            else
+            {
+                return "¿Seguro desea eliminar esta tarea compuesta?\nEsto eliminará la tarea con todas sus subtareas.";
+            }
+        }
+
+        private Tarea TareaSeleccionada()
+        {
+
+            return etapa.Tareas[arbolDeTareas.SelectedNode.Index];
         }
     }
 }

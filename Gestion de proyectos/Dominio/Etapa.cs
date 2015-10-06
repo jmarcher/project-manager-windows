@@ -92,5 +92,23 @@ namespace Dominio
 
             return mayorFecha;
         }
+
+        public void EliminarTarea(Tarea tarea)
+        {
+            if (Tareas.Contains(tarea))
+            {
+                Tareas.Remove(tarea);
+            }
+            else
+            {
+                foreach(Tarea t in Tareas)
+                {
+                    if(t.GetType() == typeof(TareaCompuesta))
+                    {
+                        ((TareaCompuesta)t).EliminarSubtarea(tarea);
+                    }
+                }
+            }
+        }
     }
 }

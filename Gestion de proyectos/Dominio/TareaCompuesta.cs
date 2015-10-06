@@ -25,7 +25,7 @@ namespace Dominio
         {
             get
             {
-                foreach(Tarea tarea in Subtareas)
+                foreach (Tarea tarea in Subtareas)
                 {
                     if (tarea.EstaAtrasada)
                         return true;
@@ -39,7 +39,7 @@ namespace Dominio
             Subtareas = new List<Tarea>();
         }
 
-        public TareaCompuesta(Tarea tareaSimple):base()
+        public TareaCompuesta(Tarea tareaSimple) : base()
         {
             Subtareas = new List<Tarea>();
             Nombre = tareaSimple.Nombre;
@@ -54,7 +54,7 @@ namespace Dominio
             DateTime fechaRetorno = DateTime.MinValue;
             if (Subtareas.Count == 0)
                 return FECHA_NULA;
-            foreach(Tarea tarea in Subtareas)
+            foreach (Tarea tarea in Subtareas)
             {
                 if (tarea.FechaFinalizacion > fechaRetorno)
                     fechaRetorno = tarea.FechaFinalizacion;
@@ -82,8 +82,8 @@ namespace Dominio
 
         public override int CalcularDuracionPendiente()
         {
-            int valorRetorno=0;
-            foreach(Tarea tarea in Subtareas)
+            int valorRetorno = 0;
+            foreach (Tarea tarea in Subtareas)
             {
                 valorRetorno += tarea.CalcularDuracionPendiente();
             }
@@ -105,6 +105,21 @@ namespace Dominio
         {
             if (TodasSubTareasFinalizadas())
                 EstaFinalizada = true;
+        }
+
+        public void EliminarSubtarea(Tarea tarea)
+        {
+            if (Subtareas.Contains(tarea))
+            {
+                Subtareas.Remove(tarea);
+            }
+            else
+            {
+                if (tarea.GetType() == typeof(TareaCompuesta))
+                {
+                    ((TareaCompuesta)tarea).EliminarSubtarea(tarea);
+                }
+            }
         }
     }
 }

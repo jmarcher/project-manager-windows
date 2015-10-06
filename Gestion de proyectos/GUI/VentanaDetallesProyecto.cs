@@ -54,7 +54,7 @@ namespace InterfazGrafica
             elementoListView.SubItems[0].Tag = "int";
             elementoListView.SubItems.Add(etapa.Nombre).Tag = "string";
             elementoListView.SubItems.Add(etapa.Tareas.Count.ToString()).Tag = "int";
-            elementoListView.SubItems.Add(etapa.EstaFinalizada ? etapa.FechaFinalizacion.ToString() : "").Tag = "DateTime";
+            elementoListView.SubItems.Add(etapa.FechaFinalizacion.ToString()).Tag = "DateTime";
             return elementoListView;
         }
 
