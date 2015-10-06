@@ -39,8 +39,11 @@
             this.arbolDeTareas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.arbolDeTareas.ImageIndex = 0;
+            this.arbolDeTareas.ImageList = this.listaImagenes;
             this.arbolDeTareas.Location = new System.Drawing.Point(13, 13);
             this.arbolDeTareas.Name = "arbolDeTareas";
+            this.arbolDeTareas.SelectedImageIndex = 0;
             this.arbolDeTareas.Size = new System.Drawing.Size(259, 236);
             this.arbolDeTareas.TabIndex = 0;
             // 

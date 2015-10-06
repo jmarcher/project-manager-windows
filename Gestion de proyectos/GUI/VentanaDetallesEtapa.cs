@@ -13,6 +13,8 @@ namespace InterfazGrafica
 {
     public partial class VentanaDetallesEtapa : Form
     {
+        private const int ICONO_TAREA_COMPUESTA = 0;
+        private const int ICONO_TAREA_SIMPLE = 1;
         private Etapa etapa;
 
         public VentanaDetallesEtapa()
@@ -30,6 +32,11 @@ namespace InterfazGrafica
 
         private void InicializarComponentes()
         {
+            InicializarArbolTareas();
+        }
+
+        private void InicializarArbolTareas()
+        {
             arbolDeTareas.ImageList = listaImagenes;
         }
 
@@ -40,14 +47,13 @@ namespace InterfazGrafica
                 if (EsUnaTareaSimple(tarea))
                 {
                     TreeNode nodoArbol = GenerarNodoArbolTareaSimple(tarea);
-                    nodoArbol.ImageIndex = 1;
                     arbolDeTareas.Nodes.Add(nodoArbol);
                 }
                 else
                 {
-                    //TareaCompuesta tareaCompuesta = new TareaCompuesta(tarea);
-                    TreeNode nodoArbol = new TreeNode(tarea.Nombre, GenerarNodoArbolTareaCompuesta((TareaCompuesta)tarea));
-                    nodoArbol.ImageIndex = 0;
+                    TreeNode nodoArbol = new TreeNode(GenerarTextoAMostrar(tarea), GenerarNodoArbolTareaCompuesta((TareaCompuesta)tarea));
+                    nodoArbol.ImageIndex = ICONO_TAREA_COMPUESTA;
+                    nodoArbol.SelectedImageIndex = ICONO_TAREA_COMPUESTA;
                     arbolDeTareas.Nodes.Add(nodoArbol);
                 }
             }
@@ -55,42 +61,72 @@ namespace InterfazGrafica
 
         private TreeNode GenerarNodoArbolTareaSimple(Tarea tarea)
         {
-            TreeNode nodoArbol = new TreeNode();
-            if (EsUnaTareaSimple(tarea))
-            {
-                nodoArbol = new TreeNode(tarea.Nombre);
-            }
-            else
-            {
-                nodoArbol = new TreeNode(tarea.Nombre);
-            }
-
+            TreeNode nodoArbol = new TreeNode(GenerarTextoAMostrar(tarea));
+            nodoArbol.ImageIndex = ICONO_TAREA_SIMPLE;
+            nodoArbol.SelectedImageIndex = ICONO_TAREA_SIMPLE;
             return nodoArbol;
+        }
+
+        private static String GenerarTextoAMostrar(Tarea tarea)
+        {
+            StringBuilder valorRetorno = new StringBuilder();
+            valorRetorno.Append( tarea.Nombre);
+            valorRetorno.Append(" [Prioridad: ");
+            valorRetorno.Append(tarea.Prioridad);
+            valorRetorno.Append(", Inicio: ");
+            valorRetorno.Append(tarea.FechaInicio);
+            valorRetorno.Append(", Fin: ");
+            valorRetorno.Append(tarea.FechaFinalizacion);
+            if (!EsUnaTareaSimple(tarea))
+            {
+                TareaCompuesta tareaCompuesta = (TareaCompuesta)tarea;
+                valorRetorno.Append(", Subtareas: ");
+                valorRetorno.Append(tareaCompuesta.Subtareas.Count.ToString());
+            }
+            valorRetorno.Append("]");
+            return valorRetorno.ToString();
         }
 
         private TreeNode[] GenerarNodoArbolTareaCompuesta(TareaCompuesta tareaCompuesta)
         {
             TreeNode[] arbolNodos = new TreeNode[tareaCompuesta.Subtareas.Count];
-            int i = 0;
+            int posicion = 0;
             foreach(Tarea tarea in tareaCompuesta.Subtareas)
             {
                 if (EsUnaTareaSimple(tarea))
                 {
-                    TreeNode hojaArbol = GenerarNodoArbolTareaSimple(tarea);
-                    hojaArbol.ImageIndex = 1;
-                    arbolNodos[i] = hojaArbol;
+                    AgregarSubArbolTareaSimple(arbolNodos, posicion, tarea);
                 }
                 else
                 {
-                    TareaCompuesta tareaCompuestaHija = (TareaCompuesta)(tarea);
-                    TreeNode[] ramaArbol = GenerarNodoArbolTareaCompuesta(tareaCompuestaHija);
-                    TreeNode nodoSimple = new TreeNode(tareaCompuestaHija.Nombre, ramaArbol);
-                    nodoSimple.ImageIndex = 0;
-                    arbolNodos[i] = (nodoSimple);
+                    AgregarSubArbolTareaCompleja(arbolNodos, posicion,(TareaCompuesta) tarea);
                 }
-                i++;
+                posicion++;
             }
             return arbolNodos;
+        }
+
+        private void AgregarSubArbolTareaSimple(TreeNode[] arbolNodos, int posicion, Tarea tarea)
+        {
+            TreeNode hojaArbol = GenerarNodoArbolTareaSimple(tarea);
+            hojaArbol.ImageIndex = ICONO_TAREA_SIMPLE;
+            hojaArbol.SelectedImageIndex = ICONO_TAREA_COMPUESTA;
+            arbolNodos[posicion] = hojaArbol;
+        }
+
+        private void AgregarSubArbolTareaCompleja(TreeNode[] arbolNodos, int posicion, TareaCompuesta tarea)
+        {
+            TreeNode nodoSimple = GenerarNodoTareaCompleja(tarea);
+            arbolNodos[posicion] = (nodoSimple);
+        }
+
+        private TreeNode GenerarNodoTareaCompleja(TareaCompuesta tareaCompuesta)
+        {
+            TreeNode nodoSimple = new TreeNode(GenerarTextoAMostrar(tareaCompuesta),
+                GenerarNodoArbolTareaCompuesta(tareaCompuesta));
+            nodoSimple.ImageIndex = ICONO_TAREA_COMPUESTA;
+            nodoSimple.SelectedImageIndex = ICONO_TAREA_COMPUESTA;
+            return nodoSimple;
         }
 
         private static bool EsUnaTareaSimple(Tarea tarea)
