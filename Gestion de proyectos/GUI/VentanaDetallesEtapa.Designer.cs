@@ -44,7 +44,7 @@
             this.arbolDeTareas.Location = new System.Drawing.Point(13, 13);
             this.arbolDeTareas.Name = "arbolDeTareas";
             this.arbolDeTareas.SelectedImageIndex = 0;
-            this.arbolDeTareas.Size = new System.Drawing.Size(259, 236);
+            this.arbolDeTareas.Size = new System.Drawing.Size(688, 295);
             this.arbolDeTareas.TabIndex = 0;
             // 
             // listaImagenes
@@ -58,7 +58,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(713, 320);
             this.Controls.Add(this.arbolDeTareas);
             this.Name = "VentanaDetallesEtapa";
             this.Text = "VentanaTarea";

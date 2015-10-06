@@ -33,6 +33,7 @@ namespace InterfazGrafica
         private void InicializarComponentes()
         {
             InicializarArbolTareas();
+            this.Text = "Detalles de la etapa: " + etapa.Nombre;
         }
 
         private void InicializarArbolTareas()
@@ -110,7 +111,7 @@ namespace InterfazGrafica
         {
             TreeNode hojaArbol = GenerarNodoArbolTareaSimple(tarea);
             hojaArbol.ImageIndex = ICONO_TAREA_SIMPLE;
-            hojaArbol.SelectedImageIndex = ICONO_TAREA_COMPUESTA;
+            hojaArbol.SelectedImageIndex = ICONO_TAREA_SIMPLE;
             arbolNodos[posicion] = hojaArbol;
         }
 
