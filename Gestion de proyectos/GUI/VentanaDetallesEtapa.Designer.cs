@@ -28,7 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VentanaDetallesEtapa));
             this.arbolDeTareas = new System.Windows.Forms.TreeView();
+            this.listaImagenes = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // arbolDeTareas
@@ -41,13 +44,20 @@
             this.arbolDeTareas.Size = new System.Drawing.Size(259, 236);
             this.arbolDeTareas.TabIndex = 0;
             // 
-            // VentanaTarea
+            // listaImagenes
+            // 
+            this.listaImagenes.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("listaImagenes.ImageStream")));
+            this.listaImagenes.TransparentColor = System.Drawing.Color.Transparent;
+            this.listaImagenes.Images.SetKeyName(0, "TareaCompuesta");
+            this.listaImagenes.Images.SetKeyName(1, "TareaSimple");
+            // 
+            // VentanaDetallesEtapa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.arbolDeTareas);
-            this.Name = "VentanaTarea";
+            this.Name = "VentanaDetallesEtapa";
             this.Text = "VentanaTarea";
             this.ResumeLayout(false);
 
@@ -56,5 +66,6 @@
         #endregion
 
         private System.Windows.Forms.TreeView arbolDeTareas;
+        private System.Windows.Forms.ImageList listaImagenes;
     }
 }

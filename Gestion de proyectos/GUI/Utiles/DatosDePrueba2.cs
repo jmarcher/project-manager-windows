@@ -109,11 +109,12 @@ namespace InterfazGrafica.Utiles
 			TareaCompuesta otraTareaCompuesta = new TareaCompuesta()
             {
                 Nombre = "Tarea compuesta de compuesta " + aleatorio.Next(1, 5),
-                FechaInicio = DateTime.Now.AddDays(-1),
+                FechaInicio = DateTime.Now,
                 Descripcion= "Algo " + aleatorio.Next(1, 5),
                 Objetivo = "Objetivo " + aleatorio.Next(1, 5)
             };
 			otraTareaCompuesta.AgregarSubtarea(tarea1);
+            Console.WriteLine(otraTareaCompuesta.Subtareas.Contains(tarea1));
             otraTareaCompuesta.AgregarSubtarea(tarea2);
             tareaCompuesta.AgregarSubtarea(tarea1);
             tareaCompuesta.AgregarSubtarea(tarea2);

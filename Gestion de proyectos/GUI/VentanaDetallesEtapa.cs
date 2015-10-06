@@ -24,7 +24,13 @@ namespace InterfazGrafica
         {
             InitializeComponent();
             this.etapa = etapa;
+            InicializarComponentes();
             ActualizarArbolTareas();
+        }
+
+        private void InicializarComponentes()
+        {
+            arbolDeTareas.ImageList = listaImagenes;
         }
 
         private void ActualizarArbolTareas()
@@ -33,12 +39,15 @@ namespace InterfazGrafica
             {
                 if (EsUnaTareaSimple(tarea))
                 {
-                    arbolDeTareas.Nodes.Add(GenerarNodoArbolTareaSimple(tarea));
+                    TreeNode nodoArbol = GenerarNodoArbolTareaSimple(tarea);
+                    nodoArbol.ImageIndex = 1;
+                    arbolDeTareas.Nodes.Add(nodoArbol);
                 }
                 else
                 {
                     //TareaCompuesta tareaCompuesta = new TareaCompuesta(tarea);
                     TreeNode nodoArbol = new TreeNode(tarea.Nombre, GenerarNodoArbolTareaCompuesta((TareaCompuesta)tarea));
+                    nodoArbol.ImageIndex = 0;
                     arbolDeTareas.Nodes.Add(nodoArbol);
                 }
             }
@@ -68,14 +77,15 @@ namespace InterfazGrafica
                 if (EsUnaTareaSimple(tarea))
                 {
                     TreeNode hojaArbol = GenerarNodoArbolTareaSimple(tarea);
+                    hojaArbol.ImageIndex = 1;
                     arbolNodos[i] = hojaArbol;
                 }
                 else
                 {
-                    TareaCompuesta tareaCompuestaHija = new TareaCompuesta(tarea);
+                    TareaCompuesta tareaCompuestaHija = (TareaCompuesta)(tarea);
                     TreeNode[] ramaArbol = GenerarNodoArbolTareaCompuesta(tareaCompuestaHija);
-                    Console.WriteLine(tareaCompuestaHija.Nombre + " cant subtareas " + tareaCompuestaHija.Subtareas.Count);
                     TreeNode nodoSimple = new TreeNode(tareaCompuestaHija.Nombre, ramaArbol);
+                    nodoSimple.ImageIndex = 0;
                     arbolNodos[i] = (nodoSimple);
                 }
                 i++;
