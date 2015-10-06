@@ -74,7 +74,9 @@ namespace InterfazGrafica
                 {
                     TareaCompuesta tareaCompuestaHija = new TareaCompuesta(tarea);
                     TreeNode[] ramaArbol = GenerarNodoArbolTareaCompuesta(tareaCompuestaHija);
-                    arbolNodos[i].Nodes.AddRange(ramaArbol);
+                    Console.WriteLine(tareaCompuestaHija.Nombre + " cant subtareas " + tareaCompuestaHija.Subtareas.Count);
+                    TreeNode nodoSimple = new TreeNode(tareaCompuestaHija.Nombre, ramaArbol);
+                    arbolNodos[i] = (nodoSimple);
                 }
                 i++;
             }

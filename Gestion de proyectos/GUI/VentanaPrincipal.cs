@@ -23,7 +23,7 @@ namespace InterfazGrafica
             try
             {
 
-                DatosDePrueba dp = new DatosDePrueba();
+                DatosDePrueba2 dp = new DatosDePrueba2();
                 patron.AgregarListaProyecto(dp.ObtenerUnaListaProyectos());
                 Proyectos = patron.DevolverListaProyectos();
                 configurarListViewProyectos();

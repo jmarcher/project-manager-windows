@@ -44,7 +44,7 @@ namespace InterfazGrafica.Utiles
             for (int i = 0; i < aleatorio.Next(0, 5); i++)
             {
                 bool agregarMas = false;
-                if (aleatorio.Next(1, 10) > 8) agregarMas = true;
+                if (aleatorio.Next(1, 10) > 7) agregarMas = true;
                 tarea.AgregarSubtarea(CrearTareaAleatoria(tarea.FechaInicio, agregarMas));
             }
         }

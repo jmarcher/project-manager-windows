@@ -58,7 +58,7 @@ namespace InterfazGrafica
             }
             catch (FormatException f)
             {
-                Console.WriteLine("error no se ingreso un numero");
+                Console.WriteLine("Error no se ingreso un numero: " + f.Message);
             }
         }
 

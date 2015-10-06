@@ -71,7 +71,7 @@ namespace Dominio
 
         public bool AgregarSubtarea(Tarea subtarea)
         {
-            if (this.Equals(subtarea))
+            if (Equals(subtarea))
                 return false;
             if (TareaIniciaDespues(subtarea))
                 Subtareas.Add(subtarea);
