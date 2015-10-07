@@ -142,28 +142,24 @@ namespace InterfazGrafica
             etapasListView_ColumnClick(null, new ColumnClickEventArgs(0));
         }
 
-        private void editarButton_Click(object sender, EventArgs e)
-        {
-            if (HayEtapaSeleccionada())
-            {
-                VentanaEtapa ventanaEtapa = new VentanaEtapa(EtapaSeleccionada());
-                ventanaEtapa.Show();
-            }
-        }
-
         private void etapasListView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (HayEtapaSeleccionada())
             {
-                VentanaDetallesEtapa ventanaDetalles = new VentanaDetallesEtapa(EtapaSeleccionada());
-                ventanaDetalles.ShowDialog(this);
-                foreach (Form formulario in Application.OpenForms)
+                EditarEtapaVentana(EtapaSeleccionada());
+            }
+        }
+
+        private void EditarEtapaVentana(Etapa etapa)
+        {
+            VentanaDetallesEtapa ventanaDetalles = new VentanaDetallesEtapa(etapa);
+            ventanaDetalles.ShowDialog(this);
+            foreach (Form formulario in Application.OpenForms)
+            {
+                if (EstaCerradaVentanaDetallesEtapa(formulario))
                 {
-                    if (EstaCerradaVentanaDetallesEtapa(formulario))
-                    {
-                        ActualizarLista();
-                        break;
-                    }
+                    ActualizarLista();
+                    break;
                 }
             }
         }
@@ -228,6 +224,30 @@ namespace InterfazGrafica
             proyecto.Objetivo = textBoxObjetivo.Text;
             proyecto.FechaInicio = dateTimePickerFechaInicio.Value;
             buttonGuardar.Enabled = false;
+        }
+
+        private void buttonAgregar_Click(object sender, EventArgs e)
+        {
+            Etapa etapa = new Etapa()
+            {
+                Identificacion = ObtenerSiguienteIdEtapa()
+            };
+            proyecto.AgregarEtapa(etapa);
+            EditarEtapaVentana(etapa);
+            
+        }
+
+        private int ObtenerSiguienteIdEtapa()
+        {
+            int mayorId = -1;
+            foreach(Etapa etapa in proyecto.Etapas)
+            {
+                if(etapa.Identificacion > mayorId)
+                {
+                    mayorId = etapa.Identificacion;
+                }
+            }
+            return mayorId + 1;
         }
     }
 }

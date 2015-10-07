@@ -197,6 +197,7 @@
             this.buttonAgregar.TabIndex = 18;
             this.buttonAgregar.Text = "Agregar etapa";
             this.buttonAgregar.UseVisualStyleBackColor = true;
+            this.buttonAgregar.Click += new System.EventHandler(this.buttonAgregar_Click);
             // 
             // dateTimePickerFechaInicio
             // 
