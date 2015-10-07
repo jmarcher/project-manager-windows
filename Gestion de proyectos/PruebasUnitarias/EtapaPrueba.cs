@@ -117,6 +117,23 @@ namespace PruebasUnitarias
         }
 
         [Fact]
+        public void EtapaNoEstaAtrasada()
+        {
+            Tarea tarea = new TareaSimple()
+            {
+                FechaInicio = DateTime.Now,
+                FechaFinalizacion = DateTime.Now.AddDays(2000),
+                DuracionPendiente = 1000
+            };
+            Etapa etapa = new Etapa()
+            {
+                FechaInicio = DateTime.Now
+            };
+            etapa.AgregarTarea(tarea);
+            Assert.False(etapa.EstaAtrasada);
+        }
+
+        [Fact]
         public void EtapaAtrasada()
         {
             Tarea tarea = new TareaSimple()
@@ -131,6 +148,34 @@ namespace PruebasUnitarias
             };
             etapa.AgregarTarea(tarea);
             Assert.True(etapa.EstaAtrasada);
+        }
+
+        [Fact]
+        public void EliminarUnaTarea()
+        {
+            Etapa etapa = CrearEtapaConSubTarea();
+            Tarea aEliminar = etapa.Tareas[0];
+            etapa.EliminarTarea(aEliminar);
+            Assert.False(etapa.Tareas.Contains(aEliminar));
+        }
+
+        [Theory]
+        [InlineData(1,"Etapa", "1990-10-13 00:00")]
+        [InlineData(2, "Etapa", "1990-10-13 00:00")]
+        [InlineData(3, "Etapa", "1990-10-13 00:00")]
+        [InlineData(4, "Etapa", "1990-10-13 00:00")]
+        [InlineData(5, "Etapa", "1990-10-13 00:00")]
+        public void CreacionDeEtapa(int id, string nombre, string fechaInicio)
+        {
+            Etapa etapa = new Etapa()
+            {
+                Identificacion = id,
+                Nombre = nombre,
+                FechaInicio = DateTime.Parse(fechaInicio).Date
+            };
+            Assert.Equal(DateTime.Parse(fechaInicio).Date, etapa.FechaInicio.Date);
+            Assert.Equal(id, etapa.Identificacion);
+            Assert.Equal(nombre, etapa.Nombre);
         }
     }
 }

@@ -11,15 +11,20 @@ namespace PruebasUnitarias
             Proyecto proyectoUno = new Proyecto()
             {
                 Identificador=1,
-                Nombre="Proyecto"
+                Nombre="Proyecto",
+                Objetivo = "Objetivo",
+                FechaInicio = DateTime.Now.Date
             };
 
             Proyecto proyectoDos = new Proyecto()
             {
                 Identificador = 1,
-                Nombre = "Proyecto"
+                Nombre = "Proyecto",
+                Objetivo = "Objetivo",
+                FechaInicio=DateTime.Now.Date
             };
-
+            Assert.Equal(proyectoUno.Objetivo, proyectoDos.Objetivo);
+            Assert.Equal(proyectoUno.FechaInicio, proyectoDos.FechaInicio);
             Assert.True(proyectoUno.Equals(proyectoDos));
         }
 
@@ -124,6 +129,46 @@ namespace PruebasUnitarias
             };
             proyecto.AgregarEtapa(etapa);
             Assert.True(proyecto.EstaAtrasado);
+        }
+
+        [Fact]
+        public void ProyectoNoEstaAtrasado()
+        {
+            Tarea tarea = new TareaSimple()
+            {
+                FechaInicio = DateTime.Now.AddDays(-50),
+                FechaFinalizacion = DateTime.Now.AddDays(40),
+                DuracionPendiente = 20
+            };
+            Etapa etapa = new Etapa()
+            {
+                FechaInicio = DateTime.Now.AddDays(-60)
+            };
+            etapa.AgregarTarea(tarea);
+            Proyecto proyecto = new Proyecto()
+            {
+                Identificador = 1,
+                Nombre = "Proyecto no atrasado"
+            };
+            proyecto.AgregarEtapa(etapa);
+            Assert.False(proyecto.EstaAtrasado);
+        }
+
+        [Fact]
+        public void ProyectoContieneEtapa()
+        {
+            Etapa etapa = new Etapa()
+            {
+                Identificacion = 10,
+                FechaInicio = DateTime.Now.AddDays(-60)
+            };
+            Proyecto proyecto = new Proyecto()
+            {
+                Identificador = 1,
+                Nombre = "Proyecto con etapa"
+            };
+            proyecto.AgregarEtapa(etapa);
+            Assert.True(proyecto.ContieneEtapa(etapa));
         }
 
         [Fact]

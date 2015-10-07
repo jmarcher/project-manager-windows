@@ -250,5 +250,73 @@ namespace PruebasUnitarias
             compuesta.AgregarSubtarea(tarea);
             Assert.True(compuesta.EstaAtrasada);
         }
+
+        [Theory]
+        [InlineData("Tarea 1", 10, "1980-10-12 00:00", "2016-10-13 00:00")]
+        [InlineData("Tarea 2", 10, "1990-10-12 00:00", "2016-10-12 00:00")]
+        [InlineData("Tarea 3", 10, "1990-10-12 00:00", "2016-10-22 00:00")]
+        [InlineData("Tarea 4", 10, "2015-9-12 00:00", "2016-10-20 00:00")]
+        public void TareaNoEstaAtrasada(string nombre, int duracionPendiente, string fechaInicio, string fechaFin)
+        {
+            Tarea tarea = new TareaSimple()
+            {
+                Nombre = nombre,
+                FechaInicio = DateTime.Parse(fechaInicio),
+                FechaFinalizacion = DateTime.Parse(fechaFin),
+                DuracionPendiente = duracionPendiente
+            };
+            TareaCompuesta compuesta = new TareaCompuesta()
+            {
+                Nombre = "Compuesta",
+                FechaInicio = DateTime.Parse(fechaInicio)
+            };
+            compuesta.AgregarSubtarea(tarea);
+            Assert.False(compuesta.EstaAtrasada);
+        }
+
+        [Fact]
+        public void EliminarSubtarea()
+        {
+            Tarea tarea = new TareaSimple()
+            {
+                Nombre = "Tarea simple",
+                FechaInicio = DateTime.Now,
+                FechaFinalizacion = DateTime.Now.AddDays(30),
+                DuracionPendiente = 20
+            };
+            TareaCompuesta compuesta = new TareaCompuesta()
+            {
+                Nombre = "Compuesta",
+                FechaInicio = DateTime.Now
+            };
+            compuesta.EliminarSubtarea(tarea);
+            Assert.False(compuesta.Subtareas.Contains(tarea));
+            compuesta.AgregarSubtarea(tarea);
+            compuesta.EliminarSubtarea(tarea);
+            Assert.False(compuesta.Subtareas.Contains(tarea));
+
+        }
+
+        [Theory]
+        [InlineData("Tarea 1", 10, "1980-10-12 00:00", "1990-10-12 00:00")]
+        [InlineData("Tarea 2", 10, "1990-10-12 00:00", "1990-10-12 00:00")]
+        [InlineData("Tarea 3", 10, "1990-10-12 00:00", "1990-10-22 00:00")]
+        [InlineData("Tarea 4", 10, "2015-9-12 00:00", "2015-10-1 00:00")]
+        public void ConvertirSimpleACompuesta(string nombre, int duracionPendiente, string fechaInicio, string fechaFin)
+        {
+            Tarea tarea = new TareaSimple()
+            {
+                Nombre = nombre,
+                FechaInicio = DateTime.Parse(fechaInicio),
+                FechaFinalizacion = DateTime.Parse(fechaFin),
+                DuracionPendiente = duracionPendiente
+            };
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(tarea);
+            Assert.Equal(nombre, tareaCompuesta.Nombre);
+            Assert.Equal(tarea.FechaInicio.Date, tareaCompuesta.FechaInicio.Date);
+            Assert.Equal(0, tareaCompuesta.Subtareas.Count);
+        }
+
+        
     }
 }
