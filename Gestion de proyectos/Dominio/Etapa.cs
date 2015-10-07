@@ -99,16 +99,6 @@ namespace Dominio
             {
                 Tareas.Remove(tarea);
             }
-            else
-            {
-                foreach(Tarea t in Tareas)
-                {
-                    if(t.GetType() == typeof(TareaCompuesta))
-                    {
-                        ((TareaCompuesta)t).EliminarSubtarea(tarea);
-                    }
-                }
-            }
         }
     }
 }

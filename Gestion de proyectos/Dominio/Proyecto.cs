@@ -111,17 +111,6 @@ namespace Dominio
             return mayorFecha;
         }
 
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(this.Nombre);
-            sb.Append(ESPACIO);
-            sb.Append(this.Objetivo);
-            sb.Append(ESPACIO);
-            sb.Append(this.EstaFinalizado);
-            return sb.ToString();
-        }
-
 
     }
 }

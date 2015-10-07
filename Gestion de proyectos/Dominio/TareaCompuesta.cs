@@ -113,13 +113,6 @@ namespace Dominio
             {
                 Subtareas.Remove(tarea);
             }
-            else
-            {
-                if (tarea.GetType() == typeof(TareaCompuesta))
-                {
-                    ((TareaCompuesta)tarea).EliminarSubtarea(tarea);
-                }
-            }
         }
     }
 }

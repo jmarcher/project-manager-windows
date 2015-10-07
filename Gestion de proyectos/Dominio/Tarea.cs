@@ -87,8 +87,6 @@ namespace Dominio
 
         public override bool Equals(object obj)
         {
-            if (Convert.IsDBNull(obj))
-                return false;
             Tarea tarea = (Tarea)obj;
             return tarea.Nombre.Equals(this.Nombre)
                 && tarea.Objetivo.Equals(Objetivo)
@@ -115,7 +113,16 @@ namespace Dominio
 
         public override string ToString()
         {
-            return Nombre + "["+Descripcion+"]";
+            StringBuilder valorRetorno = new StringBuilder();
+            valorRetorno.Append(Nombre);
+            valorRetorno.Append(" [Prioridad: ");
+            valorRetorno.Append(Prioridad);
+            valorRetorno.Append(", Inicio: ");
+            valorRetorno.Append(FechaInicio.Date.ToString());
+            valorRetorno.Append(", Fin: ");
+            valorRetorno.Append(FechaFinalizacion.Date.ToString());
+            valorRetorno.Append("]");
+            return valorRetorno.ToString();
         }
 
         
