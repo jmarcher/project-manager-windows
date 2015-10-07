@@ -86,22 +86,7 @@ namespace InterfazGrafica
 
         private static String GenerarTextoAMostrar(Tarea tarea)
         {
-            StringBuilder valorRetorno = new StringBuilder();
-            valorRetorno.Append(tarea.Nombre);
-            valorRetorno.Append(" [Prioridad: ");
-            valorRetorno.Append(tarea.Prioridad);
-            valorRetorno.Append(", Inicio: ");
-            valorRetorno.Append(tarea.FechaInicio);
-            valorRetorno.Append(", Fin: ");
-            valorRetorno.Append(tarea.FechaFinalizacion);
-            if (!EsUnaTareaSimple(tarea))
-            {
-                TareaCompuesta tareaCompuesta = (TareaCompuesta)tarea;
-                valorRetorno.Append(", Subtareas: ");
-                valorRetorno.Append(tareaCompuesta.Subtareas.Count.ToString());
-            }
-            valorRetorno.Append("]");
-            return valorRetorno.ToString();
+            return tarea.ToString();
         }
 
         private TreeNode[] GenerarNodoArbolTareaCompuesta(TareaCompuesta tareaCompuesta)
