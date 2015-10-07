@@ -59,6 +59,7 @@
             this.arbolDeTareas.SelectedImageIndex = 0;
             this.arbolDeTareas.Size = new System.Drawing.Size(688, 244);
             this.arbolDeTareas.TabIndex = 0;
+            this.arbolDeTareas.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.arbolDeTareas_MouseDoubleClick);
             // 
             // listaImagenes
             // 

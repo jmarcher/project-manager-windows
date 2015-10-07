@@ -13,3 +13,4 @@ C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\InterfazGrafica\obj\
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\InterfazGrafica\obj\Release\InterfazGrafica.csproj.GenerateResource.Cache
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\InterfazGrafica\obj\Release\InterfazGrafica.exe
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\InterfazGrafica\obj\Release\InterfazGrafica.pdb
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\InterfazGrafica\obj\Release\InterfazGrafica.VentanaDetallesTarea.resources

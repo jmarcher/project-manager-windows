@@ -221,5 +221,32 @@ namespace InterfazGrafica
             buttonGuardar.Enabled = false;
             
         }
+
+        private void arbolDeTareas_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (HayTareaSeleccionada())
+            {
+                EditarTareaVentana(TareaSeleccionada());
+            }
+        }
+
+        private void EditarTareaVentana(Tarea tarea)
+        {
+            VentanaDetallesTarea ventanaDetalles = new VentanaDetallesTarea(tarea);
+            ventanaDetalles.ShowDialog(this);
+            foreach (Form formulario in Application.OpenForms)
+            {
+                if (EstaCerradaVentanaDetallesTarea(formulario))
+                {
+                    ActualizarArbolTareas();
+                    break;
+                }
+            }
+        }
+
+        private bool EstaCerradaVentanaDetallesTarea(Form formulario)
+        {
+            return !(formulario.GetType() == typeof(VentanaDetallesTarea));
+        }
     }
 }
