@@ -129,34 +129,37 @@ namespace PruebasUnitarias
         [Fact]
         public void FechaFinalizacionProyecto()
         {
-            Tarea contar = new TareaSimple()
-            {
-                Nombre = "Cuenta numeros",
-                FechaInicio = DateTime.Now,
-                FechaFinalizacion = DateTime.Now,
-                DuracionPendiente = 20
-            };
-            TareaCompuesta sumar = new TareaCompuesta()
-            {
-                Nombre = "Sumar",
-                FechaInicio = DateTime.Now
-            };
+            DateTime fechaEsperada = DateTime.Now.AddDays(1501);
 
-            sumar.AgregarSubtarea(contar);
+            Proyecto unProyecto = CrearUnProyectoConUnaEtapa();
 
-            Tarea mostrar = new TareaSimple()
+            Assert.Equal(fechaEsperada.Date, unProyecto.FechaFinalizacion.Date);
+        }
+
+        [Fact]
+        public void DuracionPendienteProyecto()
+        {
+            Proyecto unProyecto = CrearUnProyectoConUnaEtapa();
+            Assert.Equal(100, unProyecto.CalcularDuracionPendiente());
+        }
+
+        private static Proyecto CrearUnProyectoConUnaEtapa()
+        {
+            Etapa imprimeCuenta = CrearEtapaConDosTareas();
+
+            Proyecto unProyecto = new Proyecto()
             {
-                Nombre = "Muestra resultado",
-                FechaInicio = DateTime.Now.AddDays(400),
-                FechaFinalizacion = DateTime.Now.AddDays(1501),
-                DuracionPendiente = 100
+                Identificador = 1
             };
-            TareaCompuesta imprimir = new TareaCompuesta()
-            {
-                Nombre = "Imprime lo que muestra",
-                FechaInicio = mostrar.FechaInicio
-            };
-            imprimir.AgregarSubtarea(mostrar);
+            unProyecto.AgregarEtapa(imprimeCuenta);
+            return unProyecto;
+        }
+
+        private static Etapa CrearEtapaConDosTareas()
+        {
+            TareaCompuesta sumar = CrearTareaCompuestaConOtraTareaSimple();
+
+            TareaCompuesta imprimir = CrearTareaCompuestaConUnaTareaSimple();
 
             Etapa imprimeCuenta = new Etapa()
             {
@@ -164,20 +167,17 @@ namespace PruebasUnitarias
                 Nombre = "Imprime una cuenta",
                 FechaInicio = DateTime.Now
             };
-            imprimeCuenta.AgregarTarea(imprimir);
-            imprimeCuenta.AgregarTarea(sumar);
-
-            Proyecto unProyecto = new Proyecto()
-            {
-                Identificador = 1
-            };
-            unProyecto.AgregarEtapa(imprimeCuenta);
-
-            Assert.Equal(mostrar.FechaFinalizacion, unProyecto.FechaFinalizacion);
+            AgregarTareasAEtapa(sumar, imprimir, imprimeCuenta);
+            return imprimeCuenta;
         }
 
-        [Fact]
-        public void DuracionPendienteProyecto()
+        private static void AgregarTareasAEtapa(TareaCompuesta sumar, TareaCompuesta imprimir, Etapa imprimeCuenta)
+        {
+            imprimeCuenta.AgregarTarea(imprimir);
+            imprimeCuenta.AgregarTarea(sumar);
+        }
+
+        private static TareaCompuesta CrearTareaCompuestaConOtraTareaSimple()
         {
             Tarea contar = new TareaSimple()
             {
@@ -193,7 +193,11 @@ namespace PruebasUnitarias
             };
 
             sumar.AgregarSubtarea(contar);
+            return sumar;
+        }
 
+        private static TareaCompuesta CrearTareaCompuestaConUnaTareaSimple()
+        {
             Tarea mostrar = new TareaSimple()
             {
                 Nombre = "Muestra resultado",
@@ -207,22 +211,7 @@ namespace PruebasUnitarias
                 FechaInicio = mostrar.FechaInicio
             };
             imprimir.AgregarSubtarea(mostrar);
-
-            Etapa imprimeCuenta = new Etapa()
-            {
-                Identificacion = 1,
-                Nombre = "Imprime una cuenta",
-                FechaInicio = DateTime.Now
-            };
-            imprimeCuenta.AgregarTarea(imprimir);
-            imprimeCuenta.AgregarTarea(sumar);
-
-            Proyecto unProyecto = new Proyecto()
-            {
-                Identificador = 1
-            };
-            unProyecto.AgregarEtapa(imprimeCuenta);
-            Assert.Equal(100, unProyecto.CalcularDuracionPendiente());
+            return imprimir;
         }
     }
 }

@@ -10,44 +10,9 @@ namespace PruebasUnitarias
         [Fact]
         public void FechaFinalizacionCorrecta()
         {
-            Tarea contar = new TareaSimple()
-            {
-                Nombre = "Cuenta numeros",
-                FechaInicio = DateTime.Now,
-                FechaFinalizacion = DateTime.Now,
-                DuracionPendiente = 20
-            };
-            TareaCompuesta sumar = new TareaCompuesta()
-            {
-                Nombre = "Sumar",
-                FechaInicio = DateTime.Now
-            };
-
-            sumar.AgregarSubtarea(contar);
-
-            Tarea mostrar = new TareaSimple()
-            {
-                Nombre = "Muestra resultado",
-                FechaInicio = DateTime.Now.AddDays(400),
-                FechaFinalizacion = DateTime.Now.AddDays(1501),
-                DuracionPendiente = 100
-            };
-            TareaCompuesta imprimir = new TareaCompuesta()
-            {
-                Nombre = "Imprime lo que muestra",
-                FechaInicio = mostrar.FechaInicio
-            };
-            imprimir.AgregarSubtarea(mostrar);
-
-            Etapa imprimeCuenta = new Etapa()
-            {
-                Identificacion = 1,
-                Nombre = "Imprime una cuenta",
-                FechaInicio = DateTime.Now
-            };
-            imprimeCuenta.AgregarTarea(imprimir);
-            imprimeCuenta.AgregarTarea(sumar);
-            Assert.Equal(mostrar.FechaFinalizacion, imprimeCuenta.FechaFinalizacion);
+            DateTime fechaEsperada = DateTime.Now.AddDays(1501);
+            Etapa imprimeCuenta = CrearEtapaConSubTarea();
+            Assert.Equal(fechaEsperada.Date, imprimeCuenta.FechaFinalizacion.Date);
         }
 
         [Fact]
@@ -87,6 +52,35 @@ namespace PruebasUnitarias
         [Fact]
         public void CalcularDuracionPendiente()
         {
+            Etapa imprimeCuenta = CrearEtapaConSubTarea();
+
+            Assert.Equal(100, imprimeCuenta.CalcularDuracionPendiente());
+        }
+
+        private static Etapa CrearEtapaConSubTarea()
+        {
+            TareaCompuesta sumar = CrearTareaCompuestaConTarea();
+
+            TareaCompuesta imprimir = CrearTareaCompuestaConTareaSimple();
+
+            Etapa imprimeCuenta = new Etapa()
+            {
+                Identificacion = 1,
+                Nombre = "Imprime una cuenta",
+                FechaInicio = DateTime.Now
+            };
+            AgregarTareasAEtapa(sumar, imprimir, imprimeCuenta);
+            return imprimeCuenta;
+        }
+
+        private static void AgregarTareasAEtapa(TareaCompuesta sumar, TareaCompuesta imprimir, Etapa imprimeCuenta)
+        {
+            imprimeCuenta.AgregarTarea(imprimir);
+            imprimeCuenta.AgregarTarea(sumar);
+        }
+
+        private static TareaCompuesta CrearTareaCompuestaConTarea()
+        {
             Tarea contar = new TareaSimple()
             {
                 Nombre = "Cuenta numeros",
@@ -97,11 +91,15 @@ namespace PruebasUnitarias
             TareaCompuesta sumar = new TareaCompuesta()
             {
                 Nombre = "Sumar",
-                FechaInicio=DateTime.Now
+                FechaInicio = DateTime.Now
             };
 
             sumar.AgregarSubtarea(contar);
+            return sumar;
+        }
 
+        private static TareaCompuesta CrearTareaCompuestaConTareaSimple()
+        {
             Tarea mostrar = new TareaSimple()
             {
                 Nombre = "Muestra resultado",
@@ -115,17 +113,7 @@ namespace PruebasUnitarias
                 FechaInicio = mostrar.FechaInicio
             };
             imprimir.AgregarSubtarea(mostrar);
-
-            Etapa imprimeCuenta = new Etapa()
-            {
-                Identificacion = 1,
-                Nombre = "Imprime una cuenta",
-                FechaInicio = DateTime.Now
-            };
-            imprimeCuenta.AgregarTarea(imprimir);
-            imprimeCuenta.AgregarTarea(sumar);
-
-            Assert.Equal(100, imprimeCuenta.CalcularDuracionPendiente());
+            return imprimir;
         }
 
         [Fact]
