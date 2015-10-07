@@ -98,6 +98,16 @@ namespace InterfazGrafica.Utiles
                 FechaFinalizacion = DateTime.Now.AddDays(aleatorio.Next(10, 15))
             };
 
+            Tarea tareaAntecesora = new TareaSimple()
+            {
+                Nombre = "Tarea antecesora: " + aleatorio.Next(1, 5),
+                Objetivo = "Objetivo: " + aleatorio.Next(1, 5),
+                Descripcion = "Descripcion: " + aleatorio.Next(1, 5),
+                DuracionPendiente = aleatorio.Next(5, 10),
+                FechaInicio = DateTime.Now.AddDays(-200),
+                FechaFinalizacion = DateTime.Now.AddDays(-150)
+            };
+
             TareaCompuesta tareaCompuesta = new TareaCompuesta()
             {
                 Nombre = "Tarea compuesta " + aleatorio.Next(1, 5),
@@ -105,7 +115,7 @@ namespace InterfazGrafica.Utiles
                 Descripcion= "Algo " + aleatorio.Next(1, 5),
                 Objetivo = "Objetivo " + aleatorio.Next(1, 5)
             };
-			
+            tareaCompuesta.AgregarAntecesora(tareaAntecesora);
 			TareaCompuesta otraTareaCompuesta = new TareaCompuesta()
             {
                 Nombre = "Tarea compuesta de compuesta " + aleatorio.Next(1, 5),

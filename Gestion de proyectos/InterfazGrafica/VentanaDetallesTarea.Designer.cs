@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VentanaDetallesTarea));
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.textBoxObjetivo = new System.Windows.Forms.TextBox();
@@ -43,6 +45,9 @@
             this.comboBoxPrioridad = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.buttonGuardar = new System.Windows.Forms.Button();
+            this.listViewAntecesoras = new System.Windows.Forms.ListView();
+            this.treeViewSubtareas = new System.Windows.Forms.TreeView();
+            this.listaImagenes = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -166,18 +171,52 @@
             // buttonGuardar
             // 
             this.buttonGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonGuardar.Location = new System.Drawing.Point(661, 326);
+            this.buttonGuardar.Location = new System.Drawing.Point(661, 465);
             this.buttonGuardar.Name = "buttonGuardar";
             this.buttonGuardar.Size = new System.Drawing.Size(75, 23);
             this.buttonGuardar.TabIndex = 14;
             this.buttonGuardar.Text = "&Guardar";
             this.buttonGuardar.UseVisualStyleBackColor = true;
             // 
+            // listViewAntecesoras
+            // 
+            this.listViewAntecesoras.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.listViewAntecesoras.Location = new System.Drawing.Point(17, 122);
+            this.listViewAntecesoras.Name = "listViewAntecesoras";
+            this.listViewAntecesoras.Size = new System.Drawing.Size(266, 329);
+            this.listViewAntecesoras.SmallImageList = this.listaImagenes;
+            this.listViewAntecesoras.TabIndex = 15;
+            this.listViewAntecesoras.UseCompatibleStateImageBehavior = false;
+            this.listViewAntecesoras.View = System.Windows.Forms.View.List;
+            // 
+            // treeViewSubtareas
+            // 
+            this.treeViewSubtareas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treeViewSubtareas.ImageIndex = 0;
+            this.treeViewSubtareas.ImageList = this.listaImagenes;
+            this.treeViewSubtareas.Location = new System.Drawing.Point(290, 122);
+            this.treeViewSubtareas.Name = "treeViewSubtareas";
+            this.treeViewSubtareas.SelectedImageIndex = 0;
+            this.treeViewSubtareas.Size = new System.Drawing.Size(443, 329);
+            this.treeViewSubtareas.TabIndex = 16;
+            // 
+            // listaImagenes
+            // 
+            this.listaImagenes.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("listaImagenes.ImageStream")));
+            this.listaImagenes.TransparentColor = System.Drawing.Color.Transparent;
+            this.listaImagenes.Images.SetKeyName(0, "TareaCompuesta");
+            this.listaImagenes.Images.SetKeyName(1, "TareaSimple");
+            // 
             // VentanaDetallesTarea
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(748, 361);
+            this.ClientSize = new System.Drawing.Size(748, 500);
+            this.Controls.Add(this.treeViewSubtareas);
+            this.Controls.Add(this.listViewAntecesoras);
             this.Controls.Add(this.buttonGuardar);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.comboBoxPrioridad);
@@ -217,5 +256,8 @@
         private System.Windows.Forms.ComboBox comboBoxPrioridad;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button buttonGuardar;
+        private System.Windows.Forms.ListView listViewAntecesoras;
+        private System.Windows.Forms.TreeView treeViewSubtareas;
+        private System.Windows.Forms.ImageList listaImagenes;
     }
 }

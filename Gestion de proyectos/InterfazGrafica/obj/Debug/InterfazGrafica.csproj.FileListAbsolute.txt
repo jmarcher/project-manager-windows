@@ -28,3 +28,4 @@ C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\InterfazGrafica\obj\
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\InterfazGrafica\obj\Debug\InterfazGrafica.Properties.Resources.resources
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\InterfazGrafica\obj\Debug\InterfazGrafica.VentanaDetallesEtapa.resources
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\InterfazGrafica\obj\Debug\InterfazGrafica.csproj.GenerateResource.Cache
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\InterfazGrafica\obj\Debug\InterfazGrafica.VentanaDetallesTarea.resources
