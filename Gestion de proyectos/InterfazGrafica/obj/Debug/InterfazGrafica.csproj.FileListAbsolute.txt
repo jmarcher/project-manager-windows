@@ -1,0 +1,15 @@
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\bin\Debug\InterfazGrafica.exe.config
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\bin\Debug\InterfazGrafica.exe
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\bin\Debug\InterfazGrafica.pdb
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\bin\Debug\Dominio.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\bin\Debug\Dominio.pdb
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\obj\Debug\InterfazGrafica.csprojResolveAssemblyReference.cache
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\obj\Debug\InterfazGrafica.VentanaAltaDeProyecto.resources
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\obj\Debug\InterfazGrafica.VentanaDetallesProyecto.resources
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\obj\Debug\InterfazGrafica.VentanaEtapa.resources
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\obj\Debug\InterfazGrafica.VentanaPrincipal.resources
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\obj\Debug\InterfazGrafica.Properties.Resources.resources
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\obj\Debug\InterfazGrafica.csproj.GenerateResource.Cache
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\obj\Debug\InterfazGrafica.exe
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\obj\Debug\InterfazGrafica.pdb
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\GUI\obj\Debug\InterfazGrafica.VentanaDetallesEtapa.resources
