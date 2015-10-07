@@ -86,21 +86,23 @@ namespace InterfazGrafica
             int indice = listViewProyectos.SelectedIndices[0];
             Proyecto proyecto = Proyectos[indice];
             VentanaDetallesProyecto ventana = new VentanaDetallesProyecto(proyecto);
-            ventana.Show();
+            ventana.ShowDialog(this);
+            ActualizarListaDeProyectosConCondicion(new CondicionDeActualizacion(EstaCerradaVentanaDetallesProyecto));
         }
 
         private void buttonAgregarNuevoProyecto_Click(object sender, EventArgs e)
         {
             VentanaAltaDeProyecto ventanaAlta = new VentanaAltaDeProyecto();
             ventanaAlta.ShowDialog();
-            ActualizarListaDeProyectosLuegoDeCrearProyecto();
+            ActualizarListaDeProyectosConCondicion(new CondicionDeActualizacion(EstaCerradaVentanaAltaDeProyecto));
         }
 
-        private void ActualizarListaDeProyectosLuegoDeCrearProyecto()
+        public delegate bool CondicionDeActualizacion(Form formulario);
+        private void ActualizarListaDeProyectosConCondicion(CondicionDeActualizacion metodo)
         {
             foreach (Form frm in Application.OpenForms)
             {
-                if (EstaCerradaVentanaAltaDeProyecto(frm))
+                if (metodo(frm))
                 {
                     ActualizarListaDeProyectos();
                     break;
@@ -108,11 +110,15 @@ namespace InterfazGrafica
             }
         }
 
-        private static bool EstaCerradaVentanaAltaDeProyecto(Form frm)
+        private bool EstaCerradaVentanaAltaDeProyecto(Form frm)
         {
             return !(frm.GetType() == typeof(VentanaAltaDeProyecto));
         }
 
+        private bool EstaCerradaVentanaDetallesProyecto(Form frm)
+        {
+            return !(frm.GetType() == typeof(VentanaDetallesProyecto));
+        }
         private void crearNuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             buttonAgregarNuevoProyecto_Click(sender,e);

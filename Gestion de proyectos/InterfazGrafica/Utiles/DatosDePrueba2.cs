@@ -114,7 +114,6 @@ namespace InterfazGrafica.Utiles
                 Objetivo = "Objetivo " + aleatorio.Next(1, 5)
             };
 			otraTareaCompuesta.AgregarSubtarea(tarea1);
-            Console.WriteLine(otraTareaCompuesta.Subtareas.Contains(tarea1));
             otraTareaCompuesta.AgregarSubtarea(tarea2);
             tareaCompuesta.AgregarSubtarea(tarea1);
             tareaCompuesta.AgregarSubtarea(tarea2);

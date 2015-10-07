@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public abstract class Tarea
+    public abstract class Tarea : IFechas
     {
         public const int PRIORIDAD_BAJA = 0;
         public const int PRIORIDAD_MEDIA = 1;
         public const int PRIORIDAD_ALTA = 2;
-        public readonly DateTime FECHA_NULA = new DateTime(1, 1, 1);
+        public static readonly DateTime FECHA_NULA = new DateTime(2001, 1, 1);
 
         public int Prioridad { get; set; }
 

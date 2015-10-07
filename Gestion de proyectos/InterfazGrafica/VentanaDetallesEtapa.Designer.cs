@@ -42,6 +42,9 @@
             this.textBoxFechaInicio = new System.Windows.Forms.TextBox();
             this.textBoxFechaFin = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.buttonGuardar = new System.Windows.Forms.Button();
+            this.labelDuracionPendiente = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // arbolDeTareas
@@ -51,10 +54,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.arbolDeTareas.ImageIndex = 0;
             this.arbolDeTareas.ImageList = this.listaImagenes;
-            this.arbolDeTareas.Location = new System.Drawing.Point(13, 114);
+            this.arbolDeTareas.Location = new System.Drawing.Point(13, 144);
             this.arbolDeTareas.Name = "arbolDeTareas";
             this.arbolDeTareas.SelectedImageIndex = 0;
-            this.arbolDeTareas.Size = new System.Drawing.Size(688, 256);
+            this.arbolDeTareas.Size = new System.Drawing.Size(688, 244);
             this.arbolDeTareas.TabIndex = 0;
             // 
             // listaImagenes
@@ -67,7 +70,7 @@
             // buttonAgregarTarea
             // 
             this.buttonAgregarTarea.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAgregarTarea.Location = new System.Drawing.Point(111, 376);
+            this.buttonAgregarTarea.Location = new System.Drawing.Point(111, 394);
             this.buttonAgregarTarea.Name = "buttonAgregarTarea";
             this.buttonAgregarTarea.Size = new System.Drawing.Size(80, 23);
             this.buttonAgregarTarea.TabIndex = 1;
@@ -77,7 +80,7 @@
             // buttonEliminar
             // 
             this.buttonEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonEliminar.Location = new System.Drawing.Point(13, 376);
+            this.buttonEliminar.Location = new System.Drawing.Point(13, 394);
             this.buttonEliminar.Name = "buttonEliminar";
             this.buttonEliminar.Size = new System.Drawing.Size(92, 23);
             this.buttonEliminar.TabIndex = 3;
@@ -96,10 +99,11 @@
             // 
             // textBoxNombre
             // 
-            this.textBoxNombre.Location = new System.Drawing.Point(111, 35);
+            this.textBoxNombre.Location = new System.Drawing.Point(123, 35);
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(174, 20);
             this.textBoxNombre.TabIndex = 5;
+            this.textBoxNombre.TextChanged += new System.EventHandler(this.textBoxNombre_TextChanged);
             // 
             // label2
             // 
@@ -113,7 +117,7 @@
             // labelIdentifiacion
             // 
             this.labelIdentifiacion.AutoSize = true;
-            this.labelIdentifiacion.Location = new System.Drawing.Point(108, 13);
+            this.labelIdentifiacion.Location = new System.Drawing.Point(120, 13);
             this.labelIdentifiacion.Name = "labelIdentifiacion";
             this.labelIdentifiacion.Size = new System.Drawing.Size(35, 13);
             this.labelIdentifiacion.TabIndex = 7;
@@ -130,7 +134,7 @@
             // 
             // textBoxFechaInicio
             // 
-            this.textBoxFechaInicio.Location = new System.Drawing.Point(111, 62);
+            this.textBoxFechaInicio.Location = new System.Drawing.Point(123, 62);
             this.textBoxFechaInicio.Name = "textBoxFechaInicio";
             this.textBoxFechaInicio.ReadOnly = true;
             this.textBoxFechaInicio.Size = new System.Drawing.Size(174, 20);
@@ -138,7 +142,7 @@
             // 
             // textBoxFechaFin
             // 
-            this.textBoxFechaFin.Location = new System.Drawing.Point(111, 88);
+            this.textBoxFechaFin.Location = new System.Drawing.Point(123, 88);
             this.textBoxFechaFin.Name = "textBoxFechaFin";
             this.textBoxFechaFin.ReadOnly = true;
             this.textBoxFechaFin.Size = new System.Drawing.Size(174, 20);
@@ -153,11 +157,44 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Fecha finalización:";
             // 
+            // buttonGuardar
+            // 
+            this.buttonGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonGuardar.Enabled = false;
+            this.buttonGuardar.Location = new System.Drawing.Point(626, 394);
+            this.buttonGuardar.Name = "buttonGuardar";
+            this.buttonGuardar.Size = new System.Drawing.Size(75, 23);
+            this.buttonGuardar.TabIndex = 12;
+            this.buttonGuardar.Text = "&Guardar";
+            this.buttonGuardar.UseVisualStyleBackColor = true;
+            this.buttonGuardar.Click += new System.EventHandler(this.buttonGuardar_Click);
+            // 
+            // labelDuracionPendiente
+            // 
+            this.labelDuracionPendiente.AutoSize = true;
+            this.labelDuracionPendiente.Location = new System.Drawing.Point(123, 117);
+            this.labelDuracionPendiente.Name = "labelDuracionPendiente";
+            this.labelDuracionPendiente.Size = new System.Drawing.Size(35, 13);
+            this.labelDuracionPendiente.TabIndex = 14;
+            this.labelDuracionPendiente.Text = "label3";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 117);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(103, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Duracion pendiente:";
+            // 
             // VentanaDetallesEtapa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(713, 411);
+            this.ClientSize = new System.Drawing.Size(713, 429);
+            this.Controls.Add(this.labelDuracionPendiente);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.buttonGuardar);
             this.Controls.Add(this.textBoxFechaFin);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxFechaInicio);
@@ -190,5 +227,8 @@
         private System.Windows.Forms.TextBox textBoxFechaInicio;
         private System.Windows.Forms.TextBox textBoxFechaFin;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button buttonGuardar;
+        private System.Windows.Forms.Label labelDuracionPendiente;
+        private System.Windows.Forms.Label label6;
     }
 }

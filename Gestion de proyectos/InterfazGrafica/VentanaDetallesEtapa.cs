@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,7 @@ namespace InterfazGrafica
             textBoxNombre.Text = etapa.Nombre;
             textBoxFechaInicio.Text = etapa.FechaInicio.ToString();
             textBoxFechaFin.Text = etapa.FechaFinalizacion.ToString();
+            labelDuracionPendiente.Text = etapa.CalcularDuracionPendiente().ToString() + " días.";
         }
 
         private void InicializarArbolTareas()
@@ -59,6 +61,7 @@ namespace InterfazGrafica
                 else
                 {
                     TreeNode nodoArbol = new TreeNode(GenerarTextoAMostrar(tarea), GenerarNodoArbolTareaCompuesta((TareaCompuesta)tarea));
+                    nodoArbol.Tag = tarea;
                     AsignarIconosTareaCompuesta(nodoArbol);
                     arbolDeTareas.Nodes.Add(nodoArbol);
                 }
@@ -74,6 +77,7 @@ namespace InterfazGrafica
         private TreeNode GenerarNodoArbolTareaSimple(Tarea tarea)
         {
             TreeNode nodoArbol = new TreeNode(GenerarTextoAMostrar(tarea));
+            nodoArbol.Tag = tarea;
             AsignarIconosTareaSimple(nodoArbol);
             return nodoArbol;
         }
@@ -111,6 +115,7 @@ namespace InterfazGrafica
         private void AgregarSubArbolTareaSimple(TreeNode[] arbolNodos, int posicion, Tarea tarea)
         {
             TreeNode hojaArbol = GenerarNodoArbolTareaSimple(tarea);
+            hojaArbol.Tag = tarea;
             AsignarIconosTareaSimple(hojaArbol);
             arbolNodos[posicion] = hojaArbol;
         }
@@ -125,6 +130,7 @@ namespace InterfazGrafica
         {
             TreeNode nodoSimple = new TreeNode(GenerarTextoAMostrar(tareaCompuesta),
                 GenerarNodoArbolTareaCompuesta(tareaCompuesta));
+            nodoSimple.Tag = tareaCompuesta;
             AsignarIconosTareaCompuesta(nodoSimple);
             return nodoSimple;
         }
@@ -143,12 +149,35 @@ namespace InterfazGrafica
         {
             if (HayTareaSeleccionada())
             {
-                if (AyudanteVisual.CartelConfirmacion(MensajeConfirmacionEliminacionTarea(), "Eliminación"))
+                if (EstaTareaSeleccionadaEnEtapa())
                 {
-                    etapa.EliminarTarea(TareaSeleccionada());
-                    ActualizarArbolTareas();
+                    EliminarTareaDeEtapa();
+                }
+                else
+                {
+                    AyudanteVisual.CartelInformacion("La tarea seleccionada no es una hija directa de la etapa actual.\n" +
+                        "Para eliminar la tarea, deberá ir a la tarea padre y desde ahí eliminarla.", "No tiene permisos");
                 }
             }
+        }
+
+        private void EliminarTareaDeEtapa()
+        {
+            if (ApretoSiEnMensajeDeConfirmacion())
+            {
+                etapa.EliminarTarea(TareaSeleccionada());
+                ActualizarArbolTareas();
+            }
+        }
+
+        private bool EstaTareaSeleccionadaEnEtapa()
+        {
+            return etapa.Tareas.Contains(TareaSeleccionada());
+        }
+
+        private bool ApretoSiEnMensajeDeConfirmacion()
+        {
+            return AyudanteVisual.CartelConfirmacion(MensajeConfirmacionEliminacionTarea(), "Eliminación");
         }
 
         private string MensajeConfirmacionEliminacionTarea()
@@ -165,8 +194,32 @@ namespace InterfazGrafica
 
         private Tarea TareaSeleccionada()
         {
+           return (Tarea)arbolDeTareas.SelectedNode.Tag;
+        }
 
-            return etapa.Tareas[arbolDeTareas.SelectedNode.Index];
+        private void textBoxNombre_TextChanged(object sender, EventArgs e)
+        {
+            if (EsTextoIgualNombreEtapa())
+            {
+                buttonGuardar.Enabled = false;
+            }
+            else
+            {
+                buttonGuardar.Enabled = true;
+            }
+        }
+
+        private bool EsTextoIgualNombreEtapa()
+        {
+            return textBoxNombre.Text.Equals(etapa.Nombre);
+        }
+
+        private void buttonGuardar_Click(object sender, EventArgs e)
+        {
+            etapa.Nombre = textBoxNombre.Text;
+            InicializarComponentes();
+            buttonGuardar.Enabled = false;
+            
         }
     }
 }

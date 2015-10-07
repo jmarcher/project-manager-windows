@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dominio
 {
-    public class Etapa
+    public class Etapa : IFechas
     {
         public String Nombre { get; set; }
         public int Identificacion { get; set; }

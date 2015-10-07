@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Proyecto
+    public class Proyecto : IFechas
     {
         public const string ESPACIO = " ";
         public int Identificador { get; set; }
@@ -41,6 +41,7 @@ namespace Dominio
         public Proyecto()
         {
             Etapas = new List<Etapa>();
+            FechaInicio = Tarea.FECHA_NULA;
         }
 
         public void AgregarEtapa(Etapa etapa)
