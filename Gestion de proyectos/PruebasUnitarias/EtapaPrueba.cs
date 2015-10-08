@@ -59,24 +59,57 @@ namespace PruebasUnitarias
 
         private static Etapa CrearEtapaConSubTarea()
         {
-            TareaCompuesta sumar = CrearTareaCompuestaConTarea();
+            TareaSimple T1 = new TareaSimple()
+            {
+                Nombre = "T1",
+                FechaInicio = new DateTime(2015, 1, 1),
+                FechaFinalizacion = new DateTime(2015, 1, 10),
+                Prioridad = Tarea.PRIORIDAD_MEDIA,
+                DuracionPendiente = 8
+            };
 
-            TareaCompuesta imprimir = CrearTareaCompuestaConTareaSimple();
+            TareaSimple T2 = new TareaSimple()
+            {
+                Nombre = "T2",
+                FechaInicio = new DateTime(2015, 1, 11),
+                FechaFinalizacion = new DateTime(2015, 12, 15),
+                Prioridad = Tarea.PRIORIDAD_MEDIA,
+                DuracionPendiente = 10
+            };
+            TareaSimple T3 = new TareaSimple()
+            {
+                Nombre = "T3",
+                FechaInicio = new DateTime(2015, 12, 16),
+                FechaFinalizacion = new DateTime(2015, 12, 20),
+                Prioridad = Tarea.PRIORIDAD_MEDIA,
+                DuracionPendiente = 10
+            };
+            TareaSimple T4 = new TareaSimple()
+            {
+                Nombre = "T1",
+                FechaInicio = new DateTime(2015, 1, 11),
+                FechaFinalizacion = new DateTime(2015, 1, 13),
+                Prioridad = Tarea.PRIORIDAD_MEDIA,
+                DuracionPendiente = 10
+            };
 
-            Etapa imprimeCuenta = new Etapa()
+            T2.AgregarAntecesora(T1);
+            T3.AgregarAntecesora(T2);
+            T4.AgregarAntecesora(T1);
+
+            Etapa etapaPrueba = new Etapa()
             {
                 Identificacion = 1,
                 Nombre = "Imprime una cuenta",
                 FechaInicio = DateTime.Now
             };
-            AgregarTareasAEtapa(sumar, imprimir, imprimeCuenta);
-            return imprimeCuenta;
-        }
 
-        private static void AgregarTareasAEtapa(TareaCompuesta sumar, TareaCompuesta imprimir, Etapa imprimeCuenta)
-        {
-            imprimeCuenta.AgregarTarea(imprimir);
-            imprimeCuenta.AgregarTarea(sumar);
+            etapaPrueba.AgregarTarea(T1);
+            etapaPrueba.AgregarTarea(T2);
+            etapaPrueba.AgregarTarea(T3);
+            etapaPrueba.AgregarTarea(T4);
+
+            return etapaPrueba;
         }
 
         private static TareaCompuesta CrearTareaCompuestaConTarea()
