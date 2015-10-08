@@ -38,6 +38,7 @@ namespace Dominio
             Nombre = "[Nombre por defecto]";
             EstaFinalizada = false;
             Tareas = new List<Tarea>();
+            FechaInicio = Tarea.FECHA_NULA;
         }
         
 

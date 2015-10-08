@@ -38,7 +38,7 @@ namespace InterfazGrafica
             this.Text = "Detalles de la etapa: " + etapa.Nombre;
             labelIdentifiacion.Text = etapa.Identificacion.ToString();
             textBoxNombre.Text = etapa.Nombre;
-            textBoxFechaInicio.Text = etapa.FechaInicio.ToString();
+            dateTimePickerFechaInicio.Value = etapa.FechaInicio;
             textBoxFechaFin.Text = etapa.FechaFinalizacion.ToString();
             labelDuracionPendiente.Text = etapa.CalcularDuracionPendiente().ToString() + " días.";
         }
@@ -199,14 +199,29 @@ namespace InterfazGrafica
 
         private void textBoxNombre_TextChanged(object sender, EventArgs e)
         {
-            if (EsTextoIgualNombreEtapa())
-            {
-                buttonGuardar.Enabled = false;
-            }
-            else
+            HabilitarBotonGuardar();
+        }
+
+        private void HabilitarBotonGuardar()
+        {
+            if (AlgunCampoCambio())
             {
                 buttonGuardar.Enabled = true;
             }
+            else
+            {
+                buttonGuardar.Enabled = false;
+            }
+        }
+
+        private bool AlgunCampoCambio()
+        {
+            return !EsTextoIgualNombreEtapa() || NoCambioFechaInicio();
+        }
+
+        private bool NoCambioFechaInicio()
+        {
+            return !(dateTimePickerFechaInicio.Value.Date.CompareTo(etapa.FechaInicio.Date) == 0);
         }
 
         private bool EsTextoIgualNombreEtapa()
@@ -217,6 +232,7 @@ namespace InterfazGrafica
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
             etapa.Nombre = textBoxNombre.Text;
+            etapa.FechaInicio = dateTimePickerFechaInicio.Value;
             InicializarComponentes();
             buttonGuardar.Enabled = false;
             
@@ -255,6 +271,11 @@ namespace InterfazGrafica
             etapa.AgregarTarea(tarea);
             EditarTareaVentana(tarea);       
 
+        }
+
+        private void dateTimePickerFechaInicio_ValueChanged(object sender, EventArgs e)
+        {
+            HabilitarBotonGuardar();
         }
     }
 }

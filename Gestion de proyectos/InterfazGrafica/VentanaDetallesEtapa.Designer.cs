@@ -39,12 +39,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.labelIdentifiacion = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxFechaInicio = new System.Windows.Forms.TextBox();
             this.textBoxFechaFin = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonGuardar = new System.Windows.Forms.Button();
             this.labelDuracionPendiente = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.dateTimePickerFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // arbolDeTareas
@@ -103,7 +103,7 @@
             // 
             this.textBoxNombre.Location = new System.Drawing.Point(123, 35);
             this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(174, 20);
+            this.textBoxNombre.Size = new System.Drawing.Size(200, 20);
             this.textBoxNombre.TabIndex = 5;
             this.textBoxNombre.TextChanged += new System.EventHandler(this.textBoxNombre_TextChanged);
             // 
@@ -134,20 +134,12 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Fecha inicio:";
             // 
-            // textBoxFechaInicio
-            // 
-            this.textBoxFechaInicio.Location = new System.Drawing.Point(123, 62);
-            this.textBoxFechaInicio.Name = "textBoxFechaInicio";
-            this.textBoxFechaInicio.ReadOnly = true;
-            this.textBoxFechaInicio.Size = new System.Drawing.Size(174, 20);
-            this.textBoxFechaInicio.TabIndex = 9;
-            // 
             // textBoxFechaFin
             // 
             this.textBoxFechaFin.Location = new System.Drawing.Point(123, 88);
             this.textBoxFechaFin.Name = "textBoxFechaFin";
             this.textBoxFechaFin.ReadOnly = true;
-            this.textBoxFechaFin.Size = new System.Drawing.Size(174, 20);
+            this.textBoxFechaFin.Size = new System.Drawing.Size(200, 20);
             this.textBoxFechaFin.TabIndex = 11;
             // 
             // label4
@@ -189,17 +181,25 @@
             this.label6.TabIndex = 13;
             this.label6.Text = "Duracion pendiente:";
             // 
+            // dateTimePickerFechaInicio
+            // 
+            this.dateTimePickerFechaInicio.Location = new System.Drawing.Point(123, 62);
+            this.dateTimePickerFechaInicio.Name = "dateTimePickerFechaInicio";
+            this.dateTimePickerFechaInicio.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerFechaInicio.TabIndex = 15;
+            this.dateTimePickerFechaInicio.ValueChanged += new System.EventHandler(this.dateTimePickerFechaInicio_ValueChanged);
+            // 
             // VentanaDetallesEtapa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(713, 429);
+            this.Controls.Add(this.dateTimePickerFechaInicio);
             this.Controls.Add(this.labelDuracionPendiente);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.buttonGuardar);
             this.Controls.Add(this.textBoxFechaFin);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBoxFechaInicio);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.labelIdentifiacion);
             this.Controls.Add(this.label2);
@@ -226,11 +226,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelIdentifiacion;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxFechaInicio;
         private System.Windows.Forms.TextBox textBoxFechaFin;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonGuardar;
         private System.Windows.Forms.Label labelDuracionPendiente;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFechaInicio;
     }
 }
