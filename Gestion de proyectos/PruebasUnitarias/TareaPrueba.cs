@@ -80,6 +80,18 @@ namespace PruebasUnitarias
         }
 
         [Fact]
+        public void TareaSinAntecesora()
+        {
+            Tarea tareaConAntecesora = new TareaSimple()
+            {
+                Nombre = "Con antecesora",
+                FechaInicio = DateTime.Now,
+                FechaFinalizacion = DateTime.Now.AddDays(100)
+            };
+
+            Assert.Null(tareaConAntecesora.UltimaAntecesora());
+        }
+        [Fact]
         public void AgregarAntecesoraPeroIniciaDespues()
         {
             Tarea tarea = new TareaSimple()

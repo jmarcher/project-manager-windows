@@ -10,7 +10,7 @@ namespace PruebasUnitarias
         [Fact]
         public void FechaFinalizacionCorrecta()
         {
-            DateTime fechaEsperada = DateTime.Now.AddDays(1501);
+            DateTime fechaEsperada = new DateTime(2015, 12, 20);
             Etapa imprimeCuenta = CrearEtapaConSubTarea();
             Assert.Equal(fechaEsperada.Date, imprimeCuenta.FechaFinalizacion.Date);
         }
