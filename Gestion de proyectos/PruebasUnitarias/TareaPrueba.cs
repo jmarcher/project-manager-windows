@@ -51,6 +51,33 @@ namespace PruebasUnitarias
             Assert.True(tareaConAntecesora.AgregarAntecesora(tarea));
             Assert.True(tareaConAntecesora.Antecesoras.Contains(tarea));
         }
+        [Fact]
+        public void RetornoUltimaAntecesora()
+        {
+            Tarea tarea = new TareaSimple()
+            {
+                Nombre = "Tarea antecesora ultima",
+                FechaInicio = DateTime.Now,
+                FechaFinalizacion = DateTime.Now
+            };
+            Tarea tareaAntecesoraAnterior = new TareaSimple()
+            {
+                Nombre = "Tarea antecesora ultima",
+                FechaInicio = DateTime.Now.AddDays(-500),
+                FechaFinalizacion = DateTime.Now.AddHours(-100)
+            };
+            Tarea tareaConAntecesora = new TareaSimple()
+            {
+                Nombre = "Con antecesora",
+                FechaInicio = tarea.FechaFinalizacion,
+                FechaFinalizacion = DateTime.Now.AddDays(100)
+            };
+
+            tareaConAntecesora.AgregarAntecesora(tarea);
+            tareaConAntecesora.AgregarAntecesora(tareaAntecesoraAnterior);
+
+            Assert.Equal(tarea, tareaConAntecesora.UltimaAntecesora());
+        }
 
         [Fact]
         public void AgregarAntecesoraPeroIniciaDespues()
