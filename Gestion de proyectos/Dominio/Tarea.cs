@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public abstract class Tarea : IFechas, INombrable
+    public abstract class Tarea : IFechas, INombrable, IDuracionCalculable
     {
         public const int PRIORIDAD_BAJA = 0;
         public const int PRIORIDAD_MEDIA = 1;
