@@ -12,6 +12,9 @@ namespace InterfazGrafica
 {
     public partial class VentanaDetallesTarea : Form
     {
+        private const int ICONO_TAREA_COMPUESTA = 0;
+        private const int ICONO_TAREA_SIMPLE = 1;
+
         private Tarea tarea;
         public VentanaDetallesTarea()
         {
@@ -33,12 +36,107 @@ namespace InterfazGrafica
             textBoxDescripcion.Text = tarea.Descripcion;
             dateTimePickerFechaInicio.Value = tarea.FechaInicio;
             dateTimePickerFechaFinalizacion.Value = tarea.FechaFinalizacion;
-            HacerFechaFinalizacionSoloLecturaParaTareaCompuesta();
             comboBoxPrioridad.SelectedIndex = tarea.Prioridad;
-            InicualizarListViewAntecesoras();
+            DeshabilitarFechaFinalizacionParaTareaCompuesta();
+
+            InicializarListViewAntecesoras();
+            InicializarArbolSubtareas();
         }
 
-        private void HacerFechaFinalizacionSoloLecturaParaTareaCompuesta()
+        private void InicializarArbolSubtareas()
+        {
+            if (EsCompuesta(tarea))
+            {
+                PopularArbolConNodosSubtareas();
+            }
+            else
+            {
+                DeshabilitarArbolSubtareas();
+            }
+        }
+
+        private void DeshabilitarArbolSubtareas()
+        {
+            treeViewSubtareas.Enabled = false;
+        }
+
+        private void PopularArbolConNodosSubtareas()
+        {
+            foreach (Tarea tarea in ((TareaCompuesta)tarea).Subtareas)
+            {
+                treeViewSubtareas.Nodes.Add(GenerarNodoArbol(tarea));
+            }
+        }
+
+        private TreeNode GenerarNodoArbol(Tarea tarea)
+        {
+            TreeNode nodoRetorno = new TreeNode();
+            if (EsCompuesta(tarea))
+            {
+                nodoRetorno = GenerarNodoArbolTareaCompuesta((TareaCompuesta)tarea);
+            }
+            else
+            {
+                nodoRetorno = GenerarNodoArbolTareaSimple(tarea);
+            }
+            return nodoRetorno;
+        }
+
+        private TreeNode[] GenerarArregloNodosListaTareas(List<Tarea> tareas)
+        {
+            TreeNode[] rama = new TreeNode[tareas.Count];
+            int indice = 0;
+            foreach(Tarea tarea in tareas)
+            {
+                if (EsCompuesta(tarea))
+                {
+                    rama[indice] = GenerarNodoArbolTareaCompuesta((TareaCompuesta)tarea);
+                }
+                else
+                {
+                    rama[indice] = GenerarNodoArbolTareaSimple(tarea);
+                }
+                indice++;
+            }
+            return rama; 
+        }
+
+        private TreeNode GenerarNodoArbolTareaCompuesta(TareaCompuesta tarea)
+        {
+            TreeNode nodoRetorno = new TreeNode(GenerarTextoAMostrar(tarea),
+                GenerarArregloNodosListaTareas(tarea.Subtareas));
+            nodoRetorno.Tag = tarea;
+            AsignarIconosTareaCompuesta(nodoRetorno);
+            return nodoRetorno;
+        }
+
+        private void AsignarIconosTareaCompuesta(TreeNode nodoRetorno)
+        {
+            nodoRetorno.ImageIndex = ICONO_TAREA_COMPUESTA;
+            nodoRetorno.SelectedImageIndex = ICONO_TAREA_COMPUESTA;
+        }
+
+        private TreeNode GenerarNodoArbolTareaSimple(Tarea tarea)
+        {
+            TreeNode nodoRetorno = new TreeNode(GenerarTextoAMostrar(tarea));
+            nodoRetorno.Tag = tarea;
+            AsignarIconosTareaSimple(nodoRetorno);
+            return nodoRetorno;
+        }
+
+
+
+        private static void AsignarIconosTareaSimple(TreeNode nodoArbol)
+        {
+            nodoArbol.ImageIndex = ICONO_TAREA_SIMPLE;
+            nodoArbol.SelectedImageIndex = ICONO_TAREA_SIMPLE;
+        }
+        private string GenerarTextoAMostrar(Tarea tarea)
+        {
+            return tarea.ToString();
+        }
+
+        private void DeshabilitarFechaFinalizacionParaTareaCompuesta()
         {
             if (EsCompuesta(tarea))
             {
@@ -46,11 +144,11 @@ namespace InterfazGrafica
             }
         }
 
-        private void InicualizarListViewAntecesoras()
+        private void InicializarListViewAntecesoras()
         {
-            foreach(Tarea tarea in tarea.Antecesoras)
-            {            
-                    ArgegarElemento(tarea);
+            foreach (Tarea tarea in tarea.Antecesoras)
+            {
+                ArgegarElemento(tarea);
             }
         }
 
@@ -80,7 +178,7 @@ namespace InterfazGrafica
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
-           
+
         }
     }
 }

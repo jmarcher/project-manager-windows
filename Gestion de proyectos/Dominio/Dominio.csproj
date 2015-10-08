@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IDuracionCalculable.cs" />
     <Compile Include="Interfaces\INombrable.cs" />
     <Compile Include="Interfaces\IFechas.cs" />
     <Compile Include="InstanciaUnica.cs" />
