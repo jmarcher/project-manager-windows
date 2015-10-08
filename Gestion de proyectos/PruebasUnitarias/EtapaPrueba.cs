@@ -54,7 +54,7 @@ namespace PruebasUnitarias
         {
             Etapa imprimeCuenta = CrearEtapaConSubTarea();
 
-            Assert.Equal(100, imprimeCuenta.CalcularDuracionPendiente());
+            Assert.Equal(111, imprimeCuenta.CalcularDuracionPendiente());
         }
 
         private static Etapa CrearEtapaConSubTarea()
@@ -74,7 +74,7 @@ namespace PruebasUnitarias
                 FechaInicio = new DateTime(2015, 1, 11),
                 FechaFinalizacion = new DateTime(2015, 12, 15),
                 Prioridad = Tarea.PRIORIDAD_MEDIA,
-                DuracionPendiente = 10
+                DuracionPendiente = 100
             };
             TareaSimple T3 = new TareaSimple()
             {
@@ -82,7 +82,7 @@ namespace PruebasUnitarias
                 FechaInicio = new DateTime(2015, 12, 16),
                 FechaFinalizacion = new DateTime(2015, 12, 20),
                 Prioridad = Tarea.PRIORIDAD_MEDIA,
-                DuracionPendiente = 10
+                DuracionPendiente = 3
             };
             TareaSimple T4 = new TareaSimple()
             {
