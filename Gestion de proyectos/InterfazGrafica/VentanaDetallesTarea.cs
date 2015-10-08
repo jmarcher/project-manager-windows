@@ -37,7 +37,8 @@ namespace InterfazGrafica
             dateTimePickerFechaInicio.Value = tarea.FechaInicio;
             dateTimePickerFechaFinalizacion.Value = tarea.FechaFinalizacion;
             comboBoxPrioridad.SelectedIndex = tarea.Prioridad;
-            DeshabilitarFechaFinalizacionParaTareaCompuesta();
+
+            DeshabilitarControlesParaTareaCompuesta();
 
             InicializarListViewAntecesoras();
             InicializarArbolSubtareas();
@@ -136,11 +137,12 @@ namespace InterfazGrafica
             return tarea.ToString();
         }
 
-        private void DeshabilitarFechaFinalizacionParaTareaCompuesta()
+        private void DeshabilitarControlesParaTareaCompuesta()
         {
             if (EsCompuesta(tarea))
             {
                 dateTimePickerFechaFinalizacion.Enabled = false;
+                textBoxDuracionPendiente.ReadOnly = true;
             }
         }
 
@@ -178,6 +180,19 @@ namespace InterfazGrafica
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
+            tarea.Nombre = textBoxNombre.Text;
+            tarea.Objetivo = textBoxNombre.Text;
+            tarea.DefinirPrioridad(comboBoxPrioridad.Text);
+            tarea.Descripcion = textBoxDescripcion.Text;
+            tarea.FechaInicio = dateTimePickerFechaInicio.Value;
+
+            if (!EsCompuesta(tarea))
+            {
+                TareaSimple tareaSimple = (TareaSimple)tarea;
+                tareaSimple.DuracionPendiente = Int32.Parse(textBoxDuracionPendiente.Text);
+                tareaSimple.FechaFinalizacion = dateTimePickerFechaFinalizacion.Value;
+                tarea = tareaSimple;
+            }
 
         }
     }
