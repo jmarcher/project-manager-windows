@@ -94,6 +94,21 @@ namespace Dominio
                 && tarea.Prioridad == this.Prioridad;
         }
 
+        public Tarea UltimaAntecesora()
+        {
+            Tarea antecesoraMasGrande = null;
+            DateTime mayorFecha = DateTime.MinValue;
+            foreach (Tarea tarea in Antecesoras)
+            {
+                if (tarea.FechaFinalizacion > mayorFecha)
+                {
+                    mayorFecha = tarea.FechaFinalizacion;
+                    antecesoraMasGrande = tarea;
+                }
+            }
+            return antecesoraMasGrande;
+        }
+
         public bool FechaNula(DateTime fecha)
         {
             return FechaEsIgual(FECHA_NULA, fecha);
