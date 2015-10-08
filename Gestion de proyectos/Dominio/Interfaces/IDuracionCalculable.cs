@@ -1,6 +1,6 @@
 ﻿namespace Dominio
 {
-    public interface IDuracionCalculable
+    public interface IDuracionPendienteCalculable
     {
         int CalcularDuracionPendiente();
     }

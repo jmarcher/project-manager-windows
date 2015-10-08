@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Dominio
 {
-    public class Etapa : IFechas, INombrable, IDuracionCalculable
+    public class Etapa : IFechas, INombrable, IDuracionPendienteCalculable
     {
         public String Nombre { get; set; }
         public int Identificacion { get; set; }

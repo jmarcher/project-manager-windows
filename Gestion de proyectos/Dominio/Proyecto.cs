@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Proyecto : IFechas, INombrable, IDuracionCalculable
+    public class Proyecto : IFechas, INombrable, IDuracionPendienteCalculable
     {
         public const string ESPACIO = " ";
         public int Identificador { get; set; }
