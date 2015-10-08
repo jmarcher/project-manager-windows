@@ -33,8 +33,17 @@ namespace InterfazGrafica
             textBoxDescripcion.Text = tarea.Descripcion;
             dateTimePickerFechaInicio.Value = tarea.FechaInicio;
             dateTimePickerFechaFinalizacion.Value = tarea.FechaFinalizacion;
+            HacerFechaFinalizacionSoloLecturaParaTareaCompuesta();
             comboBoxPrioridad.SelectedIndex = tarea.Prioridad;
             InicualizarListViewAntecesoras();
+        }
+
+        private void HacerFechaFinalizacionSoloLecturaParaTareaCompuesta()
+        {
+            if (EsCompuesta(tarea))
+            {
+                dateTimePickerFechaFinalizacion.Enabled = false;
+            }
         }
 
         private void InicualizarListViewAntecesoras()
@@ -67,6 +76,11 @@ namespace InterfazGrafica
         private bool EsCompuesta(Tarea tarea)
         {
             return tarea.GetType() == typeof(TareaCompuesta);
+        }
+
+        private void buttonGuardar_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }

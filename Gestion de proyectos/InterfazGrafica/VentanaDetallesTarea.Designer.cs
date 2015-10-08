@@ -46,8 +46,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.buttonGuardar = new System.Windows.Forms.Button();
             this.listViewAntecesoras = new System.Windows.Forms.ListView();
-            this.treeViewSubtareas = new System.Windows.Forms.TreeView();
             this.listaImagenes = new System.Windows.Forms.ImageList(this.components);
+            this.treeViewSubtareas = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
             // 
             // label1
@@ -177,6 +177,7 @@
             this.buttonGuardar.TabIndex = 14;
             this.buttonGuardar.Text = "&Guardar";
             this.buttonGuardar.UseVisualStyleBackColor = true;
+            this.buttonGuardar.Click += new System.EventHandler(this.buttonGuardar_Click);
             // 
             // listViewAntecesoras
             // 
@@ -190,6 +191,13 @@
             this.listViewAntecesoras.UseCompatibleStateImageBehavior = false;
             this.listViewAntecesoras.View = System.Windows.Forms.View.List;
             // 
+            // listaImagenes
+            // 
+            this.listaImagenes.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("listaImagenes.ImageStream")));
+            this.listaImagenes.TransparentColor = System.Drawing.Color.Transparent;
+            this.listaImagenes.Images.SetKeyName(0, "TareaCompuesta");
+            this.listaImagenes.Images.SetKeyName(1, "TareaSimple");
+            // 
             // treeViewSubtareas
             // 
             this.treeViewSubtareas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -202,13 +210,6 @@
             this.treeViewSubtareas.SelectedImageIndex = 0;
             this.treeViewSubtareas.Size = new System.Drawing.Size(443, 329);
             this.treeViewSubtareas.TabIndex = 16;
-            // 
-            // listaImagenes
-            // 
-            this.listaImagenes.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("listaImagenes.ImageStream")));
-            this.listaImagenes.TransparentColor = System.Drawing.Color.Transparent;
-            this.listaImagenes.Images.SetKeyName(0, "TareaCompuesta");
-            this.listaImagenes.Images.SetKeyName(1, "TareaSimple");
             // 
             // VentanaDetallesTarea
             // 

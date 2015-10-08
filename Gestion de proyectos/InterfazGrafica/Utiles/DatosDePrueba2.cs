@@ -98,14 +98,12 @@ namespace InterfazGrafica.Utiles
                 FechaFinalizacion = DateTime.Now.AddDays(aleatorio.Next(10, 15))
             };
 
-            Tarea tareaAntecesora = new TareaSimple()
+            Tarea tareaAntecesora = new TareaCompuesta()
             {
                 Nombre = "Tarea antecesora: " + aleatorio.Next(1, 5),
                 Objetivo = "Objetivo: " + aleatorio.Next(1, 5),
                 Descripcion = "Descripcion: " + aleatorio.Next(1, 5),
-                DuracionPendiente = aleatorio.Next(5, 10),
-                FechaInicio = DateTime.Now.AddDays(-200),
-                FechaFinalizacion = DateTime.Now.AddDays(-150)
+                FechaInicio = DateTime.Now.AddDays(-200)
             };
 
             TareaCompuesta tareaCompuesta = new TareaCompuesta()
