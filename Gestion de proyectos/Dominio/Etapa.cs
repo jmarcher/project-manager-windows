@@ -51,15 +51,18 @@ namespace Dominio
         public int CalcularDuracionPendiente()
         {
             int mayorDuracionPendiente = 0;
-            DateTime mayorFecha = DateTime.MinValue;
-            foreach (Tarea tarea in Tareas)
+            Tarea tareaMasGrande = TareaQueFinalizaUltima();
+            while (EsTareaAntecesora(tareaMasGrande))
             {
-                if(tarea.FechaFinalizacion > mayorFecha) {
-                    mayorFecha = tarea.FechaFinalizacion;
-                    mayorDuracionPendiente = tarea.CalcularDuracionPendiente();
-                }
+                mayorDuracionPendiente += tareaMasGrande.CalcularDuracionPendiente();
+                tareaMasGrande = tareaMasGrande.UltimaAntecesora();
             }
             return mayorDuracionPendiente;
+        }
+
+        private bool EsTareaAntecesora(Tarea tareaMasGrande)
+        {
+            return tareaMasGrande!=null;
         }
 
         public void AgregarTarea(Tarea tarea)
@@ -82,15 +85,25 @@ namespace Dominio
             }
             return valorRetorno;
         }
-        private DateTime UltimaFechaDeTareas()
+
+        private Tarea TareaQueFinalizaUltima()
         {
+            Tarea tareaRetorno = null;
             DateTime mayorFecha = DateTime.MinValue;
             foreach (Tarea tarea in Tareas)
             {
                 if (tarea.FechaFinalizacion > mayorFecha)
+                {
                     mayorFecha = tarea.FechaFinalizacion;
+                    tareaRetorno = tarea;
+                }
             }
+            return tareaRetorno;
+        }
 
+        private DateTime UltimaFechaDeTareas()
+        {
+            DateTime mayorFecha = TareaQueFinalizaUltima().FechaFinalizacion;
             return mayorFecha;
         }
 
