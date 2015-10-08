@@ -77,6 +77,7 @@
             this.buttonAgregarTarea.TabIndex = 1;
             this.buttonAgregarTarea.Text = "Agregar &tarea";
             this.buttonAgregarTarea.UseVisualStyleBackColor = true;
+            this.buttonAgregarTarea.Click += new System.EventHandler(this.buttonAgregarTarea_Click);
             // 
             // buttonEliminar
             // 

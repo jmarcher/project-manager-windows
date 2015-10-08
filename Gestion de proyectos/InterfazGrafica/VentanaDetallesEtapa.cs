@@ -248,5 +248,13 @@ namespace InterfazGrafica
         {
             return !(formulario.GetType() == typeof(VentanaDetallesTarea));
         }
+
+        private void buttonAgregarTarea_Click(object sender, EventArgs e)
+        {
+            TareaSimple tarea = new TareaSimple();
+            etapa.AgregarTarea(tarea);
+            EditarTareaVentana(tarea);       
+
+        }
     }
 }
