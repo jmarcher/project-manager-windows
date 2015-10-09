@@ -12,3 +12,8 @@ C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\bin\Debug\Do
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\obj\Debug\Dominio.dll
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\obj\Debug\Dominio.pdb
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
+C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\Dominio\bin\Debug\Dominio.dll
+C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\Dominio\bin\Debug\Dominio.pdb
+C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\Dominio\obj\Debug\Dominio.dll
+C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\Dominio\obj\Debug\Dominio.pdb
+C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache

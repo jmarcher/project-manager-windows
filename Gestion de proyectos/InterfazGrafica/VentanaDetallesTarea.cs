@@ -63,9 +63,9 @@ namespace InterfazGrafica
 
         private void PopularArbolConNodosSubtareas()
         {
-            foreach (Tarea tarea in ((TareaCompuesta)tarea).Subtareas)
+            foreach (Tarea tareaActual in ((TareaCompuesta)tarea).Subtareas)
             {
-                treeViewSubtareas.Nodes.Add(GenerarNodoArbol(tarea));
+                treeViewSubtareas.Nodes.Add(GenerarNodoArbol(tareaActual));
             }
         }
 
@@ -148,13 +148,13 @@ namespace InterfazGrafica
 
         private void InicializarListViewAntecesoras()
         {
-            foreach (Tarea tarea in tarea.Antecesoras)
+            foreach (Tarea tareaActual in tarea.Antecesoras)
             {
-                ArgegarElemento(tarea);
+                AgregarElemento(tareaActual);
             }
         }
 
-        private void ArgegarElemento(Tarea tarea)
+        private void AgregarElemento(Tarea tarea)
         {
             ListViewItem elementoLista = new ListViewItem(tarea.ToString());
             elementoLista.ImageIndex = IconoTarea(tarea);

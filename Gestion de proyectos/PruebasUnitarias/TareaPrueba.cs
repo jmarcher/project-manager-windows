@@ -124,5 +124,21 @@ namespace PruebasUnitarias
             Assert.False(tarea.AgregarAntecesora(tarea));
             Assert.False(tarea.Antecesoras.Contains(tarea));
         }
+          [Fact]
+        public void ObtenerPadreDeTarea()
+        {
+            Tarea tarea = new TareaSimple()
+            {
+                Nombre = "Tarea",
+                FechaInicio = DateTime.Now,
+                FechaFinalizacion = DateTime.Now
+            };
+            Etapa etapa = new Etapa();
+            Proyecto proyecto = new Proyecto();
+            etapa.AgregarTarea(tarea);
+            proyecto.AgregarEtapa(etapa);
+
+            Assert.Equal(tarea.ObtenerProyectoPadre(),proyecto);
+        }
     }
 }

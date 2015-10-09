@@ -75,6 +75,7 @@ namespace Dominio
             }
         }
 
+
         public bool AgregarAntecesora(Tarea antecesora)
         {
             if (antecesora.Equals(this))
