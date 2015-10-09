@@ -127,16 +127,12 @@ namespace PruebasUnitarias
           [Fact]
         public void ObtenerPadreDeTarea()
         {
-            Tarea tarea = new TareaSimple()
-            {
-                Nombre = "Tarea",
-                FechaInicio = DateTime.Now,
-                FechaFinalizacion = DateTime.Now
-            };
+            Tarea tarea = new TareaSimple();
             Etapa etapa = new Etapa();
-            Proyecto proyecto = new Proyecto();
+            Proyecto proyecto = new Proyecto() { Nombre = "proyecto de prueba"};
             etapa.AgregarTarea(tarea);
             proyecto.AgregarEtapa(etapa);
+            InstanciaUnica.Instancia.AgregarProyecto(proyecto);
 
             Assert.Equal(tarea.ObtenerProyectoPadre(),proyecto);
         }

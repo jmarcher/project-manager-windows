@@ -126,7 +126,21 @@ namespace Dominio
                 a.Month == b.Month &&
                 a.Year == b.Year;
         }
-
+       
+        public Proyecto ObtenerProyectoPadre()
+        {
+            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverListaProyectos()) { 
+             foreach(Etapa etapa in proyecto.Etapas){
+                foreach (Tarea  tarea in etapa.Tareas){
+                    if(tarea.Equals(this)){
+                        return proyecto;
+                    }
+                }
+              }
+            }
+           
+          return null;
+        }
         public override string ToString()
         {
             StringBuilder valorRetorno = new StringBuilder();
