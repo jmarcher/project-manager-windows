@@ -1,0 +1,14 @@
+C:\Users\Joaquin\Dropbox\Universidad\2015 - Diseño de aplicaciones 1\Git\Gestion de proyectos\Dominio\bin\Debug\Dominio.dll
+C:\Users\Joaquin\Dropbox\Universidad\2015 - Diseño de aplicaciones 1\Git\Gestion de proyectos\Dominio\bin\Debug\Dominio.pdb
+C:\Users\Joaquin\Dropbox\Universidad\2015 - Diseño de aplicaciones 1\Git\Gestion de proyectos\Dominio\obj\Debug\Dominio.dll
+C:\Users\Joaquin\Dropbox\Universidad\2015 - Diseño de aplicaciones 1\Git\Gestion de proyectos\Dominio\obj\Debug\Dominio.pdb
+C:\Users\Joaquin\Documents\diseño de aplicaciones\Gestion de proyectos\Dominio\bin\Debug\Dominio.dll
+C:\Users\Joaquin\Documents\diseño de aplicaciones\Gestion de proyectos\Dominio\bin\Debug\Dominio.pdb
+C:\Users\Joaquin\Documents\diseño de aplicaciones\Gestion de proyectos\Dominio\obj\Debug\Dominio.dll
+C:\Users\Joaquin\Documents\diseño de aplicaciones\Gestion de proyectos\Dominio\obj\Debug\Dominio.pdb
+C:\Users\Joaquin\Documents\diseño de aplicaciones\Gestion de proyectos\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\bin\Debug\Dominio.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\bin\Debug\Dominio.pdb
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\obj\Debug\Dominio.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\obj\Debug\Dominio.pdb
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache

@@ -1,0 +1,4 @@
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\bin\Release\Dominio.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\bin\Release\Dominio.pdb
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\obj\Release\Dominio.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\obj\Release\Dominio.pdb
