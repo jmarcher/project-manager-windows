@@ -269,7 +269,8 @@ namespace InterfazGrafica
         {
             TareaSimple tarea = new TareaSimple();
             etapa.AgregarTarea(tarea);
-            EditarTareaVentana(tarea);       
+            EditarTareaVentana(tarea);
+            ActualizarArbolTareas();
 
         }
 

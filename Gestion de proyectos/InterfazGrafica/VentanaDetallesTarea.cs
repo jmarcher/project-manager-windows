@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio;
+using InterfazGrafica.Utiles;
 namespace InterfazGrafica
 {
     public partial class VentanaDetallesTarea : Form
@@ -180,6 +181,8 @@ namespace InterfazGrafica
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
+
+
             tarea.Nombre = textBoxNombre.Text;
             tarea.Objetivo = textBoxNombre.Text;
             tarea.DefinirPrioridad(comboBoxPrioridad.Text);
@@ -193,7 +196,32 @@ namespace InterfazGrafica
                 tareaSimple.FechaFinalizacion = dateTimePickerFechaFinalizacion.Value;
                 tarea = tareaSimple;
             }
+           
+            bool confirmacion = AyudanteVisual.CartelConfirmacion(CrearMensaje(),"Impacto en la duracion del proyecto");
+            if(!confirmacion){
+             EliminarTareaActual();
+                
+            }
+        }
 
+        private string CrearMensaje()
+        {
+            string mensaje = "La fecha del Proyecto se modificara  a :" + tarea.ObtenerProyectoPadre().FechaFinalizacion;
+            return mensaje;
+        }
+        private void EliminarTareaActual() 
+        { 
+            foreach(Proyecto proyecto in InstanciaUnica.Instancia.DevolverListaProyectos()){
+            foreach(Etapa etapa in proyecto.Etapas){
+            foreach(Tarea tareaRecorrida in etapa.Tareas){
+                if (tareaRecorrida.Equals(this.tarea))
+                {
+                    etapa.Tareas.Remove(tareaRecorrida);
+                    break;
+                }
+            }
+            }
+            }
         }
     }
 }
