@@ -56,7 +56,7 @@ namespace Dominio
         }
 
         public abstract int CalcularDuracionPendiente();
-
+        public abstract Tarea Clonar();
         public abstract void MarcarFinalizada();
 
         public void DefinirPrioridad(String prioridad)

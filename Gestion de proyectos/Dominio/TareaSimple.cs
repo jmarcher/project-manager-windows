@@ -53,5 +53,19 @@ namespace Dominio
         {
             EstaFinalizada = true;
         }
+        public override Tarea Clonar() 
+        {
+            TareaSimple copia = new TareaSimple { 
+            Nombre = this.Nombre,
+            Descripcion = this.Descripcion,
+            Objetivo = this.Objetivo,
+            Prioridad = this.Prioridad,
+            EstaFinalizada = this.EstaFinalizada,
+            FechaInicio = this.FechaInicio,
+            FechaFinalizacion = this.FechaFinalizacion,
+            DuracionPendiente = this.DuracionPendiente
+            };
+            return copia;
+        }
     }
 }

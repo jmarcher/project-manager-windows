@@ -242,13 +242,13 @@ namespace InterfazGrafica
         {
             if (HayTareaSeleccionada())
             {
-                EditarTareaVentana(TareaSeleccionada());
+                EditarTareaVentana(TareaSeleccionada(),false);
             }
         }
 
-        private void EditarTareaVentana(Tarea tarea)
+        private void EditarTareaVentana(Tarea tarea , bool esNuevaTarea)
         {
-            VentanaDetallesTarea ventanaDetalles = new VentanaDetallesTarea(tarea);
+            VentanaDetallesTarea ventanaDetalles = new VentanaDetallesTarea(tarea,esNuevaTarea);
             ventanaDetalles.ShowDialog(this);
             foreach (Form formulario in Application.OpenForms)
             {
@@ -269,7 +269,7 @@ namespace InterfazGrafica
         {
             TareaSimple tarea = new TareaSimple();
             etapa.AgregarTarea(tarea);
-            EditarTareaVentana(tarea);
+            EditarTareaVentana(tarea , true);
             ActualizarArbolTareas();
 
         }
