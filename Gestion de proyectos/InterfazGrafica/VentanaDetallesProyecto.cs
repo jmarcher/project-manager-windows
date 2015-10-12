@@ -220,10 +220,32 @@ namespace InterfazGrafica
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
-            proyecto.Nombre = textBoxNombre.Text;
-            proyecto.Objetivo = textBoxObjetivo.Text;
-            proyecto.FechaInicio = dateTimePickerFechaInicio.Value;
-            buttonGuardar.Enabled = false;
+            if (!fechaDeInicioValida())
+            {
+                AyudanteVisual.CartelExclamacion("La fecha de inicio es inválida,"
+                    +" un proyecto no puede empezar luego que una de sus etapas.",
+                    "Fecha de inicio inválida.");
+                InicializarCampos();
+            }
+            else
+            { 
+                proyecto.Nombre = textBoxNombre.Text;
+                proyecto.Objetivo = textBoxObjetivo.Text;
+                proyecto.FechaInicio = dateTimePickerFechaInicio.Value;
+                buttonGuardar.Enabled = false;
+             }
+        }
+
+        private bool fechaDeInicioValida()
+        {
+            foreach(Etapa etapa in proyecto.Etapas)
+            {
+                if(etapa.FechaInicio < dateTimePickerFechaInicio.Value)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void buttonAgregar_Click(object sender, EventArgs e)
