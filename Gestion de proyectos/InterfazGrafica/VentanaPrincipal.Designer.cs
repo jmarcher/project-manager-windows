@@ -51,6 +51,7 @@
             this.listViewProyectos.Size = new System.Drawing.Size(659, 361);
             this.listViewProyectos.TabIndex = 0;
             this.listViewProyectos.UseCompatibleStateImageBehavior = false;
+            this.listViewProyectos.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewProyectos_ColumnClick);
             this.listViewProyectos.DoubleClick += new System.EventHandler(this.listViewProyectos_DoubleClick);
             // 
             // buttonAgregarNuevoProyecto
@@ -72,6 +73,7 @@
             this.ayudaToolStripMenuItem});
             this.barraMenu.Location = new System.Drawing.Point(0, 0);
             this.barraMenu.Name = "barraMenu";
+            this.barraMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.barraMenu.Size = new System.Drawing.Size(679, 24);
             this.barraMenu.TabIndex = 6;
             this.barraMenu.Text = "menuStrip1";

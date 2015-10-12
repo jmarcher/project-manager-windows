@@ -2,6 +2,7 @@
 
 namespace InterfazGrafica.Utiles
 {
+    using Dominio;
     using System.Collections;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
@@ -74,7 +75,16 @@ namespace InterfazGrafica.Utiles
         {
             if(fecha.Equals(String.Empty))
                 return DateTime.MaxValue;
-            return DateTime.Parse(fecha);
+            DateTime fechaRetorno;
+            try
+            {
+                fechaRetorno = DateTime.Parse(fecha);
+            }
+            catch(FormatException)
+            {
+                fechaRetorno = Tarea.FECHA_NULA;
+            }
+            return fechaRetorno;
         }
 
         public int OrdenarColumna

@@ -14,8 +14,9 @@ namespace InterfazGrafica
 {
     public partial class VentanaPrincipal : Form
     {
-        InstanciaUnica patron = InstanciaUnica.Instancia;
-        List<Proyecto> Proyectos;
+        private InstanciaUnica patron = InstanciaUnica.Instancia;
+        private List<Proyecto> Proyectos;
+        private OrdenadorColumnaListView ordenadorListView;
 
         public VentanaPrincipal()
         {
@@ -37,7 +38,8 @@ namespace InterfazGrafica
 
         private void configurarListViewProyectos()
         {
-            //propiedades de la listview
+            InicializarOrdenadorListView();
+
             listViewProyectos.View = View.Details;
             listViewProyectos.FullRowSelect = true;
             listViewProyectos.GridLines = true;
@@ -48,6 +50,12 @@ namespace InterfazGrafica
             listViewProyectos.Columns.Add("Fecha estimada de finalizacion", 200, HorizontalAlignment.Left);
         }
 
+        private void InicializarOrdenadorListView()
+        {
+            this.ordenadorListView = new OrdenadorColumnaListView();
+            listViewProyectos.ListViewItemSorter = ordenadorListView;
+        }
+
         private void ActualizarListaDeProyectos()
         {
             listViewProyectos.Items.Clear();
@@ -55,29 +63,27 @@ namespace InterfazGrafica
             {
                 ListViewItem nuevoItemLista = new ListViewItem();
                 nuevoItemLista.Text = Proyectos[i].Nombre;
-                nuevoItemLista.SubItems.Add(Proyectos[i].Objetivo);
+                nuevoItemLista.SubItems[0].Tag = "string";
+                nuevoItemLista.SubItems.Add(Proyectos[i].Objetivo).Tag="string";
                 string id = Proyectos[i].Identificador.ToString();
-                nuevoItemLista.SubItems.Add(id);
+                nuevoItemLista.SubItems.Add(id).Tag="int";
                 if (Proyectos[i].EstaFinalizado)
                 {
-                    nuevoItemLista.SubItems.Add("Proyecto Finalizado");
+                    nuevoItemLista.SubItems.Add("Proyecto Finalizado").Tag="string";
                     nuevoItemLista.ForeColor = Color.Red;
                 }
                 else if (Proyectos[i].EstaAtrasado)
                 {
-                    nuevoItemLista.SubItems.Add("Proyecto Atrasado");
+                    nuevoItemLista.SubItems.Add("Proyecto Atrasado").Tag="string";
                     nuevoItemLista.ForeColor = Color.Orange;
                 }
                 else
                 {
                     string fechaFinalizacion = Proyectos[i].FechaFinalizacion.ToString();
-                    nuevoItemLista.SubItems.Add(fechaFinalizacion);
+                    nuevoItemLista.SubItems.Add(fechaFinalizacion).Tag="DateTime";
                     nuevoItemLista.ForeColor = Color.Green;
                 }
                 listViewProyectos.Items.Add(nuevoItemLista);
-            }
-            {
-
             }
         }
 
@@ -130,6 +136,29 @@ namespace InterfazGrafica
                 new VentanaLeyendaDeColoresVentanaPrincipal();
             ventanaLeyendas.ShowDialog();
 
+        }
+
+        private void listViewProyectos_ColumnClick(object remitente, ColumnClickEventArgs evento)
+        {
+            if (evento.Column == ordenadorListView.OrdenarColumna)
+            {
+                if (ordenadorListView.Orden == SortOrder.Ascending)
+                {
+                    ordenadorListView.Orden = SortOrder.Descending;
+                }
+                else
+                {
+                    ordenadorListView.Orden = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                ordenadorListView.OrdenarColumna = evento.Column;
+                ordenadorListView.Orden = SortOrder.Ascending;
+            }
+
+            listViewProyectos.Sort();
+            listViewProyectos.AsignarIconoColumna(ordenadorListView.OrdenarColumna, ordenadorListView.Orden);
         }
     }
 }
