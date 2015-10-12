@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VentanaPrincipal));
             this.listViewProyectos = new System.Windows.Forms.ListView();
             this.buttonAgregarNuevoProyecto = new System.Windows.Forms.Button();
             this.barraMenu = new System.Windows.Forms.MenuStrip();
@@ -36,6 +37,7 @@
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.leyendaDeColoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonEliminarProyecto = new System.Windows.Forms.Button();
             this.barraMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +62,7 @@
             this.buttonAgregarNuevoProyecto.Location = new System.Drawing.Point(564, 392);
             this.buttonAgregarNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAgregarNuevoProyecto.Name = "buttonAgregarNuevoProyecto";
-            this.buttonAgregarNuevoProyecto.Size = new System.Drawing.Size(104, 24);
+            this.buttonAgregarNuevoProyecto.Size = new System.Drawing.Size(104, 23);
             this.buttonAgregarNuevoProyecto.TabIndex = 5;
             this.buttonAgregarNuevoProyecto.Text = "Crear proyecto";
             this.buttonAgregarNuevoProyecto.UseVisualStyleBackColor = true;
@@ -96,8 +98,8 @@
             // ayudaToolStripMenuItem
             // 
             this.ayudaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.acercaDeToolStripMenuItem,
-            this.leyendaDeColoresToolStripMenuItem});
+            this.leyendaDeColoresToolStripMenuItem,
+            this.acercaDeToolStripMenuItem});
             this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
             this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
@@ -105,8 +107,9 @@
             // acercaDeToolStripMenuItem
             // 
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
-            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.acercaDeToolStripMenuItem.Text = "Acerca de";
+            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
             // 
             // leyendaDeColoresToolStripMenuItem
             // 
@@ -115,17 +118,30 @@
             this.leyendaDeColoresToolStripMenuItem.Text = "Leyenda de colores";
             this.leyendaDeColoresToolStripMenuItem.Click += new System.EventHandler(this.leyendaDeColoresToolStripMenuItem_Click);
             // 
+            // buttonEliminarProyecto
+            // 
+            this.buttonEliminarProyecto.Location = new System.Drawing.Point(453, 392);
+            this.buttonEliminarProyecto.Name = "buttonEliminarProyecto";
+            this.buttonEliminarProyecto.Size = new System.Drawing.Size(106, 23);
+            this.buttonEliminarProyecto.TabIndex = 7;
+            this.buttonEliminarProyecto.Text = "&Eliminar proyecto";
+            this.buttonEliminarProyecto.UseVisualStyleBackColor = true;
+            this.buttonEliminarProyecto.Click += new System.EventHandler(this.buttonEliminarProyecto_Click);
+            // 
             // VentanaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(679, 423);
+            this.Controls.Add(this.buttonEliminarProyecto);
             this.Controls.Add(this.buttonAgregarNuevoProyecto);
             this.Controls.Add(this.listViewProyectos);
             this.Controls.Add(this.barraMenu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.barraMenu;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "VentanaPrincipal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ventana Principal";
             this.barraMenu.ResumeLayout(false);
             this.barraMenu.PerformLayout();
@@ -144,5 +160,6 @@
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem leyendaDeColoresToolStripMenuItem;
+        private System.Windows.Forms.Button buttonEliminarProyecto;
     }
 }
