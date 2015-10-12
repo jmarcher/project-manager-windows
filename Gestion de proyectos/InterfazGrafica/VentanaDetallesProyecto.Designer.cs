@@ -172,9 +172,9 @@
             this.labelDuracionPendiente.AutoSize = true;
             this.labelDuracionPendiente.Location = new System.Drawing.Point(121, 137);
             this.labelDuracionPendiente.Name = "labelDuracionPendiente";
-            this.labelDuracionPendiente.Size = new System.Drawing.Size(49, 13);
+            this.labelDuracionPendiente.Size = new System.Drawing.Size(48, 13);
             this.labelDuracionPendiente.TabIndex = 16;
-            this.labelDuracionPendiente.Text = "Objetivo:";
+            this.labelDuracionPendiente.Text = "[numero]";
             // 
             // buttonGuardar
             // 

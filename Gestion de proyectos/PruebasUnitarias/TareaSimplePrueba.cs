@@ -75,8 +75,8 @@ namespace PruebasUnitarias
         }
 
         [Theory]
-        [InlineData("Tarea 1", Tarea.PRIORIDAD_BAJA, "1980-10-12 00:00", "1990-10-12 00:00")]
-        [InlineData("Tarea 2", Tarea.PRIORIDAD_MEDIA, "1990-10-12 00:00", "1990-10-12 00:00")]
+        [InlineData("Tarea 1", Tarea.PRIORIDAD_ALTA, "1980-10-12 00:00", "1990-10-12 00:00")]
+        [InlineData("Tarea 2", Tarea.PRIORIDAD_ALTA, "1990-10-12 00:00", "1990-10-12 00:00")]
         [InlineData("Tarea 3", Tarea.PRIORIDAD_ALTA, "1990-10-12 00:00", "1990-10-22 00:00")]
         [InlineData("Tarea 4", Tarea.PRIORIDAD_ALTA, "2015-9-12 00:00", "2015-10-1 00:00")]
         public void PruebaToString(string nombre, int prioridad, string fechaInicio, string fechaFin)
@@ -84,7 +84,7 @@ namespace PruebasUnitarias
             StringBuilder textoEsperado = new StringBuilder();
             textoEsperado.Append(nombre);
             textoEsperado.Append(" [Prioridad: ");
-            textoEsperado.Append(prioridad);
+            textoEsperado.Append("Alta");
             textoEsperado.Append(", Inicio: ");
             textoEsperado.Append(DateTime.Parse(fechaInicio).Date.ToString());
             textoEsperado.Append(", Fin: ");
