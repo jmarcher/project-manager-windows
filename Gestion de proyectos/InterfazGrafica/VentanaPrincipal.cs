@@ -9,6 +9,7 @@ namespace InterfazGrafica
     public partial class VentanaPrincipal : Form
     {
         private OrdenadorListView ordenadorListView;
+        private const int ID_COLUMNA_FECHA_FIN = 4;
 
         public VentanaPrincipal()
         {
@@ -219,6 +220,11 @@ namespace InterfazGrafica
                 "Universidad ORT\n"+
                 "Joaquín Marcher\n"+
                 "Joaquín Musé", "Acerca de");
+        }
+
+        private void VentanaPrincipal_Load(object sender, EventArgs e)
+        {
+            listViewProyectos_ColumnClick(sender, new ColumnClickEventArgs(ID_COLUMNA_FECHA_FIN));
         }
     }
 }
