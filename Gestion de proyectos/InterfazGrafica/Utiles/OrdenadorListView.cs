@@ -8,7 +8,7 @@ namespace InterfazGrafica.Utiles
     using System.Windows.Forms;
 
 
-    public class OrdenadorColumnaListView : IComparer
+    public class OrdenadorListView : IComparer
     {
         public static readonly string STRING = "string";
         public static readonly string INT = "int";
@@ -20,7 +20,7 @@ namespace InterfazGrafica.Utiles
 
         private CaseInsensitiveComparer ComparadorDeObjetos;
 
-        public OrdenadorColumnaListView()
+        public OrdenadorListView()
         {
  
             ColumnaAOrdenar = 0;
@@ -57,15 +57,15 @@ namespace InterfazGrafica.Utiles
         {
             if (comparador.SubItems[ColumnaAOrdenar].Tag != null)
             {
-                if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals(OrdenadorColumnaListView.INT))
+                if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals(OrdenadorListView.INT))
                 {
                     return Int32.Parse(comparador.SubItems[ColumnaAOrdenar].Text).CompareTo(Int32.Parse(comparando.SubItems[ColumnaAOrdenar].Text));
                 }
-                else if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals(OrdenadorColumnaListView.STRING))
+                else if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals(OrdenadorListView.STRING))
                 {
                     return String.Compare(comparador.SubItems[ColumnaAOrdenar].Text, comparando.SubItems[ColumnaAOrdenar].Text);
                 }
-                else if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals(OrdenadorColumnaListView.DATETIME))
+                else if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals(OrdenadorListView.DATETIME))
                 {
                     return DateTime.Compare(CrearDateTimeDesdeString(comparador.SubItems[ColumnaAOrdenar].Text),
                         CrearDateTimeDesdeString(comparando.SubItems[ColumnaAOrdenar].Text));

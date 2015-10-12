@@ -8,7 +8,7 @@ namespace InterfazGrafica
 {
     public partial class VentanaPrincipal : Form
     {
-        private OrdenadorColumnaListView ordenadorListView;
+        private OrdenadorListView ordenadorListView;
 
         public VentanaPrincipal()
         {
@@ -38,14 +38,14 @@ namespace InterfazGrafica
 
             listViewProyectos.Columns.Add("ID", 70, HorizontalAlignment.Left);
             listViewProyectos.Columns.Add("Nombre", 100, HorizontalAlignment.Left);
-            listViewProyectos.Columns.Add("Objetivo", 200, HorizontalAlignment.Left);
-            listViewProyectos.Columns.Add("Fecha inicio", 200, HorizontalAlignment.Left);
-            listViewProyectos.Columns.Add("Fecha finalizacion", 200, HorizontalAlignment.Left);
+            listViewProyectos.Columns.Add("Objetivo", 150, HorizontalAlignment.Left);
+            listViewProyectos.Columns.Add("Fecha inicio", 150, HorizontalAlignment.Left);
+            listViewProyectos.Columns.Add("Fecha finalizacion", 150, HorizontalAlignment.Left);
         }
 
         private void InicializarOrdenadorListView()
         {
-            this.ordenadorListView = new OrdenadorColumnaListView();
+            this.ordenadorListView = new OrdenadorListView();
             listViewProyectos.ListViewItemSorter = ordenadorListView;
         }
 
@@ -73,23 +73,23 @@ namespace InterfazGrafica
 
         private static void agregarObjetivoALista(Proyecto proyecto, ListViewItem nuevoItemLista)
         {
-            nuevoItemLista.SubItems.Add(proyecto.Objetivo).Tag = OrdenadorColumnaListView.STRING;
+            nuevoItemLista.SubItems.Add(proyecto.Objetivo).Tag = OrdenadorListView.STRING;
         }
 
         private static void agregarNombreALista(Proyecto proyecto, ListViewItem nuevoItemLista)
         {
-            nuevoItemLista.SubItems.Add(proyecto.Nombre).Tag = OrdenadorColumnaListView.STRING;
+            nuevoItemLista.SubItems.Add(proyecto.Nombre).Tag = OrdenadorListView.STRING;
         }
 
         private static void agregarIdentificadorALista(ListViewItem nuevoItemLista, string identificador)
         {
             nuevoItemLista.Text = identificador;
-            nuevoItemLista.SubItems[0].Tag = OrdenadorColumnaListView.INT;
+            nuevoItemLista.SubItems[0].Tag = OrdenadorListView.INT;
         }
 
         private static void agregarFechasALista(Proyecto proyecto, ListViewItem nuevoItemLista)
         {
-            nuevoItemLista.SubItems.Add(proyecto.FechaInicio.ToString()).Tag = OrdenadorColumnaListView.DATETIME;
+            nuevoItemLista.SubItems.Add(proyecto.FechaInicio.ToString()).Tag = OrdenadorListView.DATETIME;
             cambiarFechaPorEstadoProyecto(proyecto, nuevoItemLista);
         }
 
@@ -97,18 +97,18 @@ namespace InterfazGrafica
         {
             if (proyecto.EstaFinalizado)
             {
-                nuevoItemLista.SubItems.Add("Proyecto Finalizado").Tag = OrdenadorColumnaListView.STRING;
+                nuevoItemLista.SubItems.Add("Proyecto Finalizado").Tag = OrdenadorListView.STRING;
                 nuevoItemLista.ForeColor = Color.Red;
             }
             else if (proyecto.EstaAtrasado)
             {
-                nuevoItemLista.SubItems.Add("Proyecto Atrasado").Tag = OrdenadorColumnaListView.STRING;
+                nuevoItemLista.SubItems.Add("Proyecto Atrasado").Tag = OrdenadorListView.STRING;
                 nuevoItemLista.ForeColor = Color.Orange;
             }
             else
             {
                 string fechaFinalizacion = proyecto.FechaFinalizacion.ToString();
-                nuevoItemLista.SubItems.Add(fechaFinalizacion).Tag = OrdenadorColumnaListView.DATETIME;
+                nuevoItemLista.SubItems.Add(fechaFinalizacion).Tag = OrdenadorListView.DATETIME;
                 nuevoItemLista.ForeColor = Color.Green;
             }
         }

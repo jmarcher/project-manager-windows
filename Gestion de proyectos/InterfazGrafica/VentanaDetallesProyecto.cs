@@ -9,7 +9,7 @@ namespace InterfazGrafica
     public partial class VentanaDetallesProyecto : Form
     {
         private Proyecto proyecto;
-        private OrdenadorColumnaListView ordenadorListView;
+        private OrdenadorListView ordenadorListView;
 
         public VentanaDetallesProyecto(Proyecto proyecto)
         {
@@ -39,7 +39,7 @@ namespace InterfazGrafica
 
         private void InicializarListViewSorter()
         {
-            ordenadorListView = new OrdenadorColumnaListView();
+            ordenadorListView = new OrdenadorListView();
             etapasListView.ListViewItemSorter = ordenadorListView;
         }
 
@@ -63,11 +63,11 @@ namespace InterfazGrafica
         {
             ListViewItem elementoListView = new ListViewItem();
             elementoListView.Text = (etapa.Identificacion) + "";
-            elementoListView.SubItems[0].Tag = "int";
-            elementoListView.SubItems.Add(etapa.Nombre).Tag = "string";
-            elementoListView.SubItems.Add(etapa.CalcularDuracionPendiente().ToString()).Tag = "int";
-            elementoListView.SubItems.Add(etapa.FechaInicio.ToString()).Tag = "DateTime";
-            elementoListView.SubItems.Add(etapa.FechaFinalizacion.ToString()).Tag = "DateTime";
+            elementoListView.SubItems[0].Tag = OrdenadorListView.INT;
+            elementoListView.SubItems.Add(etapa.Nombre).Tag = OrdenadorListView.STRING;
+            elementoListView.SubItems.Add(etapa.CalcularDuracionPendiente().ToString()).Tag = OrdenadorListView.INT;
+            elementoListView.SubItems.Add(etapa.FechaInicio.ToString()).Tag = OrdenadorListView.DATETIME;
+            elementoListView.SubItems.Add(etapa.FechaFinalizacion.ToString()).Tag = OrdenadorListView.DATETIME;
             return elementoListView;
         }
 
