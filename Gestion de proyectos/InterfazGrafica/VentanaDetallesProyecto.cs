@@ -86,23 +86,7 @@ namespace InterfazGrafica
 
         private void etapasListView_ColumnClick(object remitente, ColumnClickEventArgs evento)
         {
-            if (evento.Column == ordenadorListView.OrdenarColumna)
-            {
-                if (ordenadorListView.Orden == SortOrder.Ascending)
-                {
-                    ordenadorListView.Orden = SortOrder.Descending;
-                }
-                else
-                {
-                    ordenadorListView.Orden = SortOrder.Ascending;
-                }
-            }
-            else
-            {
-                ordenadorListView.OrdenarColumna = evento.Column;
-                ordenadorListView.Orden = SortOrder.Ascending;
-            }
-
+            ordenadorListView.HizoClickEnColumna(evento);
             etapasListView.Sort();
             etapasListView.AsignarIconoColumna(ordenadorListView.OrdenarColumna, ordenadorListView.Orden);
         }

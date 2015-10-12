@@ -29,6 +29,26 @@ namespace InterfazGrafica.Utiles
             ComparadorDeObjetos = new CaseInsensitiveComparer();
         }
 
+        public void HizoClickEnColumna(ColumnClickEventArgs e)
+        {
+            if (e.Column == this.OrdenarColumna)
+            {
+                if (this.Orden == SortOrder.Ascending)
+                {
+                    this.Orden = SortOrder.Descending;
+                }
+                else
+                {
+                    this.Orden = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                this.OrdenarColumna = e.Column;
+                this.Orden = SortOrder.Ascending;
+            }
+        }
+
         public int Compare(object comparador, object comparando)
         {
             int resultadoComparacion;

@@ -178,28 +178,14 @@ namespace InterfazGrafica
 
         }
 
-        private void listViewProyectos_ColumnClick(object remitente, ColumnClickEventArgs evento)
+        private void listViewProyectos_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            if (evento.Column == ordenadorListView.OrdenarColumna)
-            {
-                if (ordenadorListView.Orden == SortOrder.Ascending)
-                {
-                    ordenadorListView.Orden = SortOrder.Descending;
-                }
-                else
-                {
-                    ordenadorListView.Orden = SortOrder.Ascending;
-                }
-            }
-            else
-            {
-                ordenadorListView.OrdenarColumna = evento.Column;
-                ordenadorListView.Orden = SortOrder.Ascending;
-            }
-
+            ordenadorListView.HizoClickEnColumna(e);
             listViewProyectos.Sort();
             listViewProyectos.AsignarIconoColumna(ordenadorListView.OrdenarColumna, ordenadorListView.Orden);
         }
+
+        
 
         private void buttonEliminarProyecto_Click(object sender, EventArgs e)
         {
