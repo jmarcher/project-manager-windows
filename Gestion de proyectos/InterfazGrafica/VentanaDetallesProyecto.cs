@@ -245,7 +245,7 @@ namespace InterfazGrafica
 
         private int ObtenerSiguienteIdEtapa()
         {
-            int mayorId = -1;
+            int mayorId = int.MinValue;
             foreach(Etapa etapa in proyecto.Etapas)
             {
                 if(etapa.Identificacion > mayorId)

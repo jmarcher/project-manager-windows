@@ -38,9 +38,10 @@ namespace InterfazGrafica
 
             listViewProyectos.Columns.Add("ID", 70, HorizontalAlignment.Left);
             listViewProyectos.Columns.Add("Nombre", 100, HorizontalAlignment.Left);
-            listViewProyectos.Columns.Add("Objetivo", 150, HorizontalAlignment.Left);
-            listViewProyectos.Columns.Add("Fecha inicio", 150, HorizontalAlignment.Left);
-            listViewProyectos.Columns.Add("Fecha finalizacion", 150, HorizontalAlignment.Left);
+            listViewProyectos.Columns.Add("Objetivo", 130, HorizontalAlignment.Left);
+            listViewProyectos.Columns.Add("Fecha inicio", 130, HorizontalAlignment.Left);
+            listViewProyectos.Columns.Add("Fecha finalizacion", 130, HorizontalAlignment.Left);
+            listViewProyectos.Columns.Add("Duración pendiente (dias)", 80, HorizontalAlignment.Left);
         }
 
         private void InicializarOrdenadorListView()
@@ -67,8 +68,14 @@ namespace InterfazGrafica
             agregarNombreALista(proyecto, nuevoItemLista);
             agregarObjetivoALista(proyecto, nuevoItemLista);
             agregarFechasALista(proyecto, nuevoItemLista);
-
+            agregarDuracionPendienteALista(proyecto, nuevoItemLista);
             return nuevoItemLista;
+        }
+
+        private static void agregarDuracionPendienteALista(Proyecto proyecto, ListViewItem nuevoItemLista)
+        {
+            nuevoItemLista.SubItems.Add(proyecto.CalcularDuracionPendiente().ToString()).Tag 
+                = OrdenadorListView.INT;
         }
 
         private static void agregarObjetivoALista(Proyecto proyecto, ListViewItem nuevoItemLista)
