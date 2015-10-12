@@ -186,15 +186,19 @@ namespace InterfazGrafica
             Tarea tareaAnterior = tarea.Clonar();
             
 
-           asignarValoresTarea();
+           
            
             bool confirmacion = AyudanteVisual.CartelConfirmacion(CrearMensaje(),"Impacto en la duracion del proyecto");
             if(!confirmacion && esNuevaTarea){
              EliminarTareaActual();
              this.Close();
             }
-            else if (!confirmacion && !esNuevaTarea) {
-                DeshacerCambiosEnTarea(tareaAnterior);
+            else if(!(confirmacion || esNuevaTarea))
+            {
+                InicializarComponentes(tarea);
+            }
+            else if (confirmacion) {
+                asignarValoresTarea();
             }
         }
        
