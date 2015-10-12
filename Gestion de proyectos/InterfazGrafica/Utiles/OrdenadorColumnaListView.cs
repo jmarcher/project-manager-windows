@@ -10,6 +10,9 @@ namespace InterfazGrafica.Utiles
 
     public class OrdenadorColumnaListView : IComparer
     {
+        public static readonly string STRING = "string";
+        public static readonly string INT = "int";
+        public static readonly string DATETIME = "DateTime";
        
         private int ColumnaAOrdenar;
   
@@ -54,15 +57,15 @@ namespace InterfazGrafica.Utiles
         {
             if (comparador.SubItems[ColumnaAOrdenar].Tag != null)
             {
-                if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals("int"))
+                if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals(OrdenadorColumnaListView.INT))
                 {
                     return Int32.Parse(comparador.SubItems[ColumnaAOrdenar].Text).CompareTo(Int32.Parse(comparando.SubItems[ColumnaAOrdenar].Text));
                 }
-                else if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals("string"))
+                else if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals(OrdenadorColumnaListView.STRING))
                 {
                     return String.Compare(comparador.SubItems[ColumnaAOrdenar].Text, comparando.SubItems[ColumnaAOrdenar].Text);
                 }
-                else if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals("DateTime"))
+                else if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals(OrdenadorColumnaListView.DATETIME))
                 {
                     return DateTime.Compare(CrearDateTimeDesdeString(comparador.SubItems[ColumnaAOrdenar].Text),
                         CrearDateTimeDesdeString(comparando.SubItems[ColumnaAOrdenar].Text));

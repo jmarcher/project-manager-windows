@@ -39,7 +39,8 @@ namespace InterfazGrafica
             listViewProyectos.Columns.Add("ID", 70, HorizontalAlignment.Left);
             listViewProyectos.Columns.Add("Nombre", 100, HorizontalAlignment.Left);
             listViewProyectos.Columns.Add("Objetivo", 200, HorizontalAlignment.Left);
-            listViewProyectos.Columns.Add("Fecha estimada de finalizacion", 200, HorizontalAlignment.Left);
+            listViewProyectos.Columns.Add("Fecha inicio", 200, HorizontalAlignment.Left);
+            listViewProyectos.Columns.Add("Fecha finalizacion", 200, HorizontalAlignment.Left);
         }
 
         private void InicializarOrdenadorListView()
@@ -53,29 +54,62 @@ namespace InterfazGrafica
             listViewProyectos.Items.Clear();
             foreach(Proyecto proyecto in InstanciaUnica.Instancia.DevolverListaProyectos())
             {
-                ListViewItem nuevoItemLista = new ListViewItem();
-                string identificador = proyecto.Identificador.ToString();
-                nuevoItemLista.Text = identificador;
-                nuevoItemLista.SubItems[0].Tag = "int";
-                nuevoItemLista.SubItems.Add(proyecto.Nombre).Tag = "string";
-                nuevoItemLista.SubItems.Add(proyecto.Objetivo).Tag = "string";
-                if (proyecto.EstaFinalizado)
-                {
-                    nuevoItemLista.SubItems.Add("Proyecto Finalizado").Tag = "string";
-                    nuevoItemLista.ForeColor = Color.Red;
-                }
-                else if (proyecto.EstaAtrasado)
-                {
-                    nuevoItemLista.SubItems.Add("Proyecto Atrasado").Tag = "string";
-                    nuevoItemLista.ForeColor = Color.Orange;
-                }
-                else
-                {
-                    string fechaFinalizacion = proyecto.FechaFinalizacion.ToString();
-                    nuevoItemLista.SubItems.Add(fechaFinalizacion).Tag = "DateTime";
-                    nuevoItemLista.ForeColor = Color.Green;
-                }
+                ListViewItem nuevoItemLista = crearNuevoItemListaProyectos(proyecto);
                 listViewProyectos.Items.Add(nuevoItemLista);
+            }
+        }
+
+        private static ListViewItem crearNuevoItemListaProyectos(Proyecto proyecto)
+        {
+            ListViewItem nuevoItemLista = new ListViewItem();
+            string identificador = proyecto.Identificador.ToString();
+            agregarIdentificadorALista(nuevoItemLista, identificador);
+            agregarNombreALista(proyecto, nuevoItemLista);
+            agregarObjetivoALista(proyecto, nuevoItemLista);
+            agregarFechasALista(proyecto, nuevoItemLista);
+
+            return nuevoItemLista;
+        }
+
+        private static void agregarObjetivoALista(Proyecto proyecto, ListViewItem nuevoItemLista)
+        {
+            nuevoItemLista.SubItems.Add(proyecto.Objetivo).Tag = OrdenadorColumnaListView.STRING;
+        }
+
+        private static void agregarNombreALista(Proyecto proyecto, ListViewItem nuevoItemLista)
+        {
+            nuevoItemLista.SubItems.Add(proyecto.Nombre).Tag = OrdenadorColumnaListView.STRING;
+        }
+
+        private static void agregarIdentificadorALista(ListViewItem nuevoItemLista, string identificador)
+        {
+            nuevoItemLista.Text = identificador;
+            nuevoItemLista.SubItems[0].Tag = OrdenadorColumnaListView.INT;
+        }
+
+        private static void agregarFechasALista(Proyecto proyecto, ListViewItem nuevoItemLista)
+        {
+            nuevoItemLista.SubItems.Add(proyecto.FechaInicio.ToString()).Tag = OrdenadorColumnaListView.DATETIME;
+            cambiarFechaPorEstadoProyecto(proyecto, nuevoItemLista);
+        }
+
+        private static void cambiarFechaPorEstadoProyecto(Proyecto proyecto, ListViewItem nuevoItemLista)
+        {
+            if (proyecto.EstaFinalizado)
+            {
+                nuevoItemLista.SubItems.Add("Proyecto Finalizado").Tag = OrdenadorColumnaListView.STRING;
+                nuevoItemLista.ForeColor = Color.Red;
+            }
+            else if (proyecto.EstaAtrasado)
+            {
+                nuevoItemLista.SubItems.Add("Proyecto Atrasado").Tag = OrdenadorColumnaListView.STRING;
+                nuevoItemLista.ForeColor = Color.Orange;
+            }
+            else
+            {
+                string fechaFinalizacion = proyecto.FechaFinalizacion.ToString();
+                nuevoItemLista.SubItems.Add(fechaFinalizacion).Tag = OrdenadorColumnaListView.DATETIME;
+                nuevoItemLista.ForeColor = Color.Green;
             }
         }
 

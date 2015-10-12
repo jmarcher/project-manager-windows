@@ -31,8 +31,6 @@ C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\PruebasUnitarias\bin
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\PruebasUnitarias\bin\Debug\xunit.assert.xml
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\PruebasUnitarias\bin\Debug\xunit.core.pdb
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\PruebasUnitarias\bin\Debug\xunit.core.xml
-C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\PruebasUnitarias\bin\Debug\xunit.execution.desktop.pdb
-C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\PruebasUnitarias\bin\Debug\xunit.execution.desktop.xml
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\PruebasUnitarias\obj\Debug\PruebasUnitarias.csprojResolveAssemblyReference.cache
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\PruebasUnitarias\obj\Debug\PruebasUnitarias.dll
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\PruebasUnitarias\obj\Debug\PruebasUnitarias.pdb

@@ -35,8 +35,8 @@
             this.proyectoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.crearNuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.leyendaDeColoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonEliminarProyecto = new System.Windows.Forms.Button();
             this.barraMenu.SuspendLayout();
             this.SuspendLayout();
@@ -64,7 +64,7 @@
             this.buttonAgregarNuevoProyecto.Name = "buttonAgregarNuevoProyecto";
             this.buttonAgregarNuevoProyecto.Size = new System.Drawing.Size(104, 23);
             this.buttonAgregarNuevoProyecto.TabIndex = 5;
-            this.buttonAgregarNuevoProyecto.Text = "Crear proyecto";
+            this.buttonAgregarNuevoProyecto.Text = "&Crear proyecto";
             this.buttonAgregarNuevoProyecto.UseVisualStyleBackColor = true;
             this.buttonAgregarNuevoProyecto.Click += new System.EventHandler(this.buttonAgregarNuevoProyecto_Click);
             // 
@@ -104,19 +104,19 @@
             this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
             // 
-            // acercaDeToolStripMenuItem
-            // 
-            this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
-            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.acercaDeToolStripMenuItem.Text = "Acerca de";
-            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
-            // 
             // leyendaDeColoresToolStripMenuItem
             // 
             this.leyendaDeColoresToolStripMenuItem.Name = "leyendaDeColoresToolStripMenuItem";
             this.leyendaDeColoresToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.leyendaDeColoresToolStripMenuItem.Text = "Leyenda de colores";
             this.leyendaDeColoresToolStripMenuItem.Click += new System.EventHandler(this.leyendaDeColoresToolStripMenuItem_Click);
+            // 
+            // acercaDeToolStripMenuItem
+            // 
+            this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.acercaDeToolStripMenuItem.Text = "Acerca de";
+            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
             // 
             // buttonEliminarProyecto
             // 
