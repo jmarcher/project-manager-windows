@@ -123,5 +123,13 @@ namespace InterfazGrafica
         {
             buttonAgregarNuevoProyecto_Click(sender,e);
         }
+
+        private void leyendaDeColoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VentanaLeyendaDeColoresVentanaPrincipal ventanaLeyendas =
+                new VentanaLeyendaDeColoresVentanaPrincipal();
+            ventanaLeyendas.ShowDialog();
+
+        }
     }
 }
