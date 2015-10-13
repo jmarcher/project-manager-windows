@@ -238,7 +238,7 @@ namespace InterfazGrafica
 
         private void cargarDatosDePruebaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DatosDePrueba2 dp = new DatosDePrueba2();
+            DatosDePrueba dp = new DatosDePrueba();
             InstanciaUnica.Instancia.AgregarListaProyecto(dp.ObtenerUnaListaProyectos());
             ActualizarListaDeProyectos();
         }
