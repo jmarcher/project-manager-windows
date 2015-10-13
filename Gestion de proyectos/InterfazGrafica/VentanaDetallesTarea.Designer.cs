@@ -48,6 +48,9 @@
             this.listViewAntecesoras = new System.Windows.Forms.ListView();
             this.listaImagenes = new System.Windows.Forms.ImageList(this.components);
             this.treeViewSubtareas = new System.Windows.Forms.TreeView();
+            this.buttonEliminarAntecesora = new System.Windows.Forms.Button();
+            this.buttonAgregarSubtarea = new System.Windows.Forms.Button();
+            this.buttonEliminarSubtarea = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -190,6 +193,7 @@
             this.listViewAntecesoras.TabIndex = 15;
             this.listViewAntecesoras.UseCompatibleStateImageBehavior = false;
             this.listViewAntecesoras.View = System.Windows.Forms.View.List;
+            this.listViewAntecesoras.SelectedIndexChanged += new System.EventHandler(this.listViewAntecesoras_SelectedIndexChanged);
             // 
             // listaImagenes
             // 
@@ -212,11 +216,43 @@
             this.treeViewSubtareas.TabIndex = 16;
             this.treeViewSubtareas.DoubleClick += new System.EventHandler(this.treeViewSubtareas_DoubleClick);
             // 
+            // buttonEliminarAntecesora
+            // 
+            this.buttonEliminarAntecesora.Enabled = false;
+            this.buttonEliminarAntecesora.Location = new System.Drawing.Point(17, 465);
+            this.buttonEliminarAntecesora.Name = "buttonEliminarAntecesora";
+            this.buttonEliminarAntecesora.Size = new System.Drawing.Size(114, 23);
+            this.buttonEliminarAntecesora.TabIndex = 17;
+            this.buttonEliminarAntecesora.Text = "&Eliminar antecesora";
+            this.buttonEliminarAntecesora.UseVisualStyleBackColor = true;
+            this.buttonEliminarAntecesora.Click += new System.EventHandler(this.buttonEliminarAntecesora_Click);
+            // 
+            // buttonAgregarSubtarea
+            // 
+            this.buttonAgregarSubtarea.Location = new System.Drawing.Point(290, 465);
+            this.buttonAgregarSubtarea.Name = "buttonAgregarSubtarea";
+            this.buttonAgregarSubtarea.Size = new System.Drawing.Size(100, 23);
+            this.buttonAgregarSubtarea.TabIndex = 18;
+            this.buttonAgregarSubtarea.Text = "&Agregar subtarea";
+            this.buttonAgregarSubtarea.UseVisualStyleBackColor = true;
+            // 
+            // buttonEliminarSubtarea
+            // 
+            this.buttonEliminarSubtarea.Location = new System.Drawing.Point(396, 465);
+            this.buttonEliminarSubtarea.Name = "buttonEliminarSubtarea";
+            this.buttonEliminarSubtarea.Size = new System.Drawing.Size(100, 23);
+            this.buttonEliminarSubtarea.TabIndex = 19;
+            this.buttonEliminarSubtarea.Text = "&Eliminar subtarea";
+            this.buttonEliminarSubtarea.UseVisualStyleBackColor = true;
+            // 
             // VentanaDetallesTarea
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(748, 500);
+            this.Controls.Add(this.buttonEliminarSubtarea);
+            this.Controls.Add(this.buttonAgregarSubtarea);
+            this.Controls.Add(this.buttonEliminarAntecesora);
             this.Controls.Add(this.treeViewSubtareas);
             this.Controls.Add(this.listViewAntecesoras);
             this.Controls.Add(this.buttonGuardar);
@@ -263,5 +299,8 @@
         private System.Windows.Forms.ListView listViewAntecesoras;
         private System.Windows.Forms.TreeView treeViewSubtareas;
         private System.Windows.Forms.ImageList listaImagenes;
+        private System.Windows.Forms.Button buttonEliminarAntecesora;
+        private System.Windows.Forms.Button buttonAgregarSubtarea;
+        private System.Windows.Forms.Button buttonEliminarSubtarea;
     }
 }

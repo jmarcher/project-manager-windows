@@ -42,7 +42,6 @@ namespace InterfazGrafica
             comboBoxPrioridad.SelectedIndex = tarea.Prioridad;
 
             DeshabilitarControlesParaTareaCompuesta();
-
             InicializarListViewAntecesoras();
             InicializarArbolSubtareas();
         }
@@ -152,6 +151,7 @@ namespace InterfazGrafica
 
         private void InicializarListViewAntecesoras()
         {
+            listViewAntecesoras.Items.Clear();
             foreach (Tarea tareaActual in tarea.Antecesoras)
             {
                 AgregarElemento(tareaActual);
@@ -162,6 +162,7 @@ namespace InterfazGrafica
         {
             ListViewItem elementoLista = new ListViewItem(tarea.ToString());
             elementoLista.ImageIndex = IconoTarea(tarea);
+            elementoLista.Tag = tarea;
             listViewAntecesoras.Items.Add(elementoLista);
         }
 
@@ -294,6 +295,64 @@ namespace InterfazGrafica
         private bool EstaCerradaVentanaDetallesTarea(Form formulario)
         {
             return !(formulario.GetType() == typeof(VentanaDetallesTarea));
+        }
+
+        private void buttonEliminarAntecesora_Click(object sender, EventArgs e)
+        {
+            if (HayAntecesoraSeleccionadaListView())
+            {
+                if(AyudanteVisual.CartelConfirmacion("¿Seguro desea eliminar esta tarea antecesora?", "Eliminación"))
+                {
+                    borrarAntecesora();
+                    InicializarListViewAntecesoras();
+                    inicializarBotonEliminarAntecesora();
+                }
+            }
+        }
+
+        private void borrarAntecesora()
+        {
+            Tarea seleccionada = antecesoraSeleccionada();
+            agregarAntecesorasAntesElminacion(seleccionada);
+            tarea.Antecesoras.Remove(antecesoraSeleccionada());
+        }
+
+        private void agregarAntecesorasAntesElminacion(Tarea seleccionada)
+        {
+            foreach (Tarea antecesora in seleccionada.Antecesoras)
+            {
+                if (!tarea.Antecesoras.Contains(antecesora))
+                {
+                    tarea.Antecesoras.Add(antecesora);
+                }
+            }
+        }
+
+        private Tarea antecesoraSeleccionada()
+        {
+            return (Tarea)listViewAntecesoras.SelectedItems[0].Tag;
+        }
+
+        private bool HayAntecesoraSeleccionadaListView()
+        {
+            return listViewAntecesoras.SelectedItems.Count > 0;
+        }
+
+        private void listViewAntecesoras_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            inicializarBotonEliminarAntecesora();
+        }
+
+        private void inicializarBotonEliminarAntecesora()
+        {
+            if (listViewAntecesoras.Items.Count > 0 && HayAntecesoraSeleccionadaListView())
+            {
+                buttonEliminarAntecesora.Enabled = true;
+            }
+            else
+            {
+                buttonEliminarAntecesora.Enabled = false;
+            }
         }
     }
 }
