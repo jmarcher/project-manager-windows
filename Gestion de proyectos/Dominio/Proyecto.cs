@@ -8,7 +8,6 @@ namespace Dominio
 {
     public class Proyecto : IFechas, INombrable, IDuracionPendienteCalculable
     {
-        public const string ESPACIO = " ";
         public int Identificador { get; set; }
         public String Nombre { get; set; }
         public String Objetivo { get; set; }

@@ -235,6 +235,7 @@
             this.buttonAgregarSubtarea.TabIndex = 18;
             this.buttonAgregarSubtarea.Text = "&Agregar subtarea";
             this.buttonAgregarSubtarea.UseVisualStyleBackColor = true;
+            this.buttonAgregarSubtarea.Click += new System.EventHandler(this.buttonAgregarSubtarea_Click);
             // 
             // buttonEliminarSubtarea
             // 
@@ -244,6 +245,7 @@
             this.buttonEliminarSubtarea.TabIndex = 19;
             this.buttonEliminarSubtarea.Text = "&Eliminar subtarea";
             this.buttonEliminarSubtarea.UseVisualStyleBackColor = true;
+            this.buttonEliminarSubtarea.Click += new System.EventHandler(this.buttonEliminarSubtarea_Click);
             // 
             // VentanaDetallesTarea
             // 

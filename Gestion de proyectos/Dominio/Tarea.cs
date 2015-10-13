@@ -117,16 +117,16 @@ namespace Dominio
             return FechaEsIgual(FECHA_NULA, fecha);
         }
 
-        public bool FechaEsMenor(DateTime a, DateTime b)
+        public bool FechaEsMenor(DateTime primera, DateTime segunda)
         {
-            return DateTime.Compare(a, b) < 0;
+            return DateTime.Compare(primera, segunda) < 0;
         }
 
-        public bool FechaEsIgual(DateTime a, DateTime b)
+        public bool FechaEsIgual(DateTime primera, DateTime segunda)
         {
-            return a.Day == b.Day &&
-                a.Month == b.Month &&
-                a.Year == b.Year;
+            return primera.Day == segunda.Day &&
+                primera.Month == segunda.Month &&
+                primera.Year == segunda.Year;
         }
        
         public Proyecto ObtenerProyectoPadre()
