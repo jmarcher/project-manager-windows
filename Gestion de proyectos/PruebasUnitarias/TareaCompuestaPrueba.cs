@@ -180,7 +180,7 @@ namespace PruebasUnitarias
             tareaCompuesta.AgregarSubtarea(tareaSegunda);
             tareaCompuesta.AgregarSubtarea(tareaTercera);
 
-            Assert.Equal(10, tareaCompuesta.CalcularDuracionPendiente());
+            Assert.Equal(2, tareaCompuesta.CalcularDuracionPendiente());
         }
         [Fact]
         public void DuracionPendienteTareaCompuestaPorOtraTareaCompuesta()
@@ -225,7 +225,7 @@ namespace PruebasUnitarias
             tareaCompuesta.AgregarSubtarea(tareaPrimera);
             tareaCompuesta.AgregarSubtarea(tareaTercera);
 
-            Assert.Equal(10, tareaCompuesta.CalcularDuracionPendiente());
+            Assert.Equal(2, tareaCompuesta.CalcularDuracionPendiente());
         }
 
         [Theory]
