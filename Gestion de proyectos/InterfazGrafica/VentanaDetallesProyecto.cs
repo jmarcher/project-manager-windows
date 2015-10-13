@@ -9,7 +9,7 @@ namespace InterfazGrafica
     public partial class VentanaDetallesProyecto : Form
     {
         private Proyecto proyecto;
-        private OrdenadorColumnaListView ordenadorListView;
+        private OrdenadorListView ordenadorListView;
 
         public VentanaDetallesProyecto(Proyecto proyecto)
         {
@@ -39,7 +39,7 @@ namespace InterfazGrafica
 
         private void InicializarListViewSorter()
         {
-            ordenadorListView = new OrdenadorColumnaListView();
+            ordenadorListView = new OrdenadorListView();
             etapasListView.ListViewItemSorter = ordenadorListView;
         }
 
@@ -63,11 +63,11 @@ namespace InterfazGrafica
         {
             ListViewItem elementoListView = new ListViewItem();
             elementoListView.Text = (etapa.Identificacion) + "";
-            elementoListView.SubItems[0].Tag = "int";
-            elementoListView.SubItems.Add(etapa.Nombre).Tag = "string";
-            elementoListView.SubItems.Add(etapa.CalcularDuracionPendiente().ToString()).Tag = "int";
-            elementoListView.SubItems.Add(etapa.FechaInicio.ToString()).Tag = "DateTime";
-            elementoListView.SubItems.Add(etapa.FechaFinalizacion.ToString()).Tag = "DateTime";
+            elementoListView.SubItems[0].Tag = OrdenadorListView.INT;
+            elementoListView.SubItems.Add(etapa.Nombre).Tag = OrdenadorListView.STRING;
+            elementoListView.SubItems.Add(etapa.CalcularDuracionPendiente().ToString()).Tag = OrdenadorListView.INT;
+            elementoListView.SubItems.Add(etapa.FechaInicio.ToString()).Tag = OrdenadorListView.DATETIME;
+            elementoListView.SubItems.Add(etapa.FechaFinalizacion.ToString()).Tag = OrdenadorListView.DATETIME;
             return elementoListView;
         }
 
@@ -86,23 +86,7 @@ namespace InterfazGrafica
 
         private void etapasListView_ColumnClick(object remitente, ColumnClickEventArgs evento)
         {
-            if (evento.Column == ordenadorListView.OrdenarColumna)
-            {
-                if (ordenadorListView.Orden == SortOrder.Ascending)
-                {
-                    ordenadorListView.Orden = SortOrder.Descending;
-                }
-                else
-                {
-                    ordenadorListView.Orden = SortOrder.Ascending;
-                }
-            }
-            else
-            {
-                ordenadorListView.OrdenarColumna = evento.Column;
-                ordenadorListView.Orden = SortOrder.Ascending;
-            }
-
+            ordenadorListView.HizoClickEnColumna(evento);
             etapasListView.Sort();
             etapasListView.AsignarIconoColumna(ordenadorListView.OrdenarColumna, ordenadorListView.Orden);
         }
@@ -220,10 +204,32 @@ namespace InterfazGrafica
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
-            proyecto.Nombre = textBoxNombre.Text;
-            proyecto.Objetivo = textBoxObjetivo.Text;
-            proyecto.FechaInicio = dateTimePickerFechaInicio.Value;
-            buttonGuardar.Enabled = false;
+            if (!fechaDeInicioValida())
+            {
+                AyudanteVisual.CartelExclamacion("La fecha de inicio es inválida,"
+                    +" un proyecto no puede empezar luego que una de sus etapas.",
+                    "Fecha de inicio inválida.");
+                InicializarCampos();
+            }
+            else
+            { 
+                proyecto.Nombre = textBoxNombre.Text;
+                proyecto.Objetivo = textBoxObjetivo.Text;
+                proyecto.FechaInicio = dateTimePickerFechaInicio.Value;
+                buttonGuardar.Enabled = false;
+             }
+        }
+
+        private bool fechaDeInicioValida()
+        {
+            foreach(Etapa etapa in proyecto.Etapas)
+            {
+                if(etapa.FechaInicio < dateTimePickerFechaInicio.Value)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void buttonAgregar_Click(object sender, EventArgs e)
@@ -239,7 +245,7 @@ namespace InterfazGrafica
 
         private int ObtenerSiguienteIdEtapa()
         {
-            int mayorId = -1;
+            int mayorId = int.MinValue;
             foreach(Etapa etapa in proyecto.Etapas)
             {
                 if(etapa.Identificacion > mayorId)

@@ -7,7 +7,7 @@ namespace PruebasUnitarias
     public class TareaPrueba
     {
         [Theory]
-        [InlineData("Alta",Tarea.PRIORIDAD_ALTA)]
+        [InlineData("Alta", Tarea.PRIORIDAD_ALTA)]
         [InlineData("Media", Tarea.PRIORIDAD_MEDIA)]
         [InlineData("Baja", Tarea.PRIORIDAD_BAJA)]
         public void DefinirPrioridad(string prioridad, int esperado)
@@ -124,17 +124,26 @@ namespace PruebasUnitarias
             Assert.False(tarea.AgregarAntecesora(tarea));
             Assert.False(tarea.Antecesoras.Contains(tarea));
         }
-          [Fact]
+        [Fact]
         public void ObtenerPadreDeTarea()
         {
             Tarea tarea = new TareaSimple();
             Etapa etapa = new Etapa();
-            Proyecto proyecto = new Proyecto() { Nombre = "proyecto de prueba"};
+            Proyecto proyecto = new Proyecto() { Nombre = "proyecto de prueba" };
             etapa.AgregarTarea(tarea);
             proyecto.AgregarEtapa(etapa);
             InstanciaUnica.Instancia.AgregarProyecto(proyecto);
 
-            Assert.Equal(tarea.ObtenerProyectoPadre(),proyecto);
+            Assert.Equal(tarea.ObtenerProyectoPadre(), proyecto);
+        }
+
+        [Fact]
+        public void ObtenerPadreDeTareaHuerfana()
+        {
+            Tarea tarea = new TareaSimple();
+
+            Assert.Null(tarea.ObtenerProyectoPadre());
+
         }
     }
 }

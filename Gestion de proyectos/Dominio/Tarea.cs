@@ -14,7 +14,7 @@ namespace Dominio
         public const int PRIORIDAD_ALTA = 2;
         public static readonly DateTime FECHA_NULA = new DateTime(2001, 1, 1);
 
-        public int Prioridad { get; set; }
+        public int Prioridad { get; set;}
 
         public String Nombre { get; set; }
         public String Objetivo { get; set; }
@@ -147,13 +147,25 @@ namespace Dominio
             StringBuilder valorRetorno = new StringBuilder();
             valorRetorno.Append(Nombre);
             valorRetorno.Append(" [Prioridad: ");
-            valorRetorno.Append(Prioridad);
+            valorRetorno.Append(prioridadAString());
+            valorRetorno.Append(", Duración pendiente: ");
+            valorRetorno.Append(CalcularDuracionPendiente().ToString());
             valorRetorno.Append(", Inicio: ");
             valorRetorno.Append(FechaInicio.Date.ToString());
             valorRetorno.Append(", Fin: ");
             valorRetorno.Append(FechaFinalizacion.Date.ToString());
             valorRetorno.Append("]");
             return valorRetorno.ToString();
+        }
+
+        private string prioridadAString()
+        {
+            if (Prioridad == PRIORIDAD_ALTA)
+                return "Alta";
+            else if (Prioridad == PRIORIDAD_MEDIA)
+                return "Media";
+            else
+                return "Baja";
         }
 
         

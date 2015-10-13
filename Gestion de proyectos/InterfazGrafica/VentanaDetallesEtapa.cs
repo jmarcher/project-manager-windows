@@ -155,7 +155,7 @@ namespace InterfazGrafica
                 }
                 else
                 {
-                    AyudanteVisual.CartelInformacion("La tarea seleccionada no es una hija directa de la etapa actual.\n" +
+                    AyudanteVisual.CartelExclamacion("La tarea seleccionada no es una hija directa de la etapa actual.\n" +
                         "Para eliminar la tarea, deberá ir a la tarea padre y desde ahí eliminarla.", "No tiene permisos");
                 }
             }

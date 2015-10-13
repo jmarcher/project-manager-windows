@@ -45,3 +45,4 @@ C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\InterfazGrafica\bin\Debu
 C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\InterfazGrafica\bin\Debug\Dominio.pdb
 C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\InterfazGrafica\obj\Debug\InterfazGrafica.exe
 C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\InterfazGrafica\obj\Debug\InterfazGrafica.pdb
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\InterfazGrafica\obj\Debug\InterfazGrafica.VentanaLeyendaDeColoresVentanaPrincipal.resources

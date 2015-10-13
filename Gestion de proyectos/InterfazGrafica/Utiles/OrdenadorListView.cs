@@ -2,13 +2,17 @@
 
 namespace InterfazGrafica.Utiles
 {
+    using Dominio;
     using System.Collections;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
 
-    public class OrdenadorColumnaListView : IComparer
+    public class OrdenadorListView : IComparer
     {
+        public static readonly string STRING = "string";
+        public static readonly string INT = "int";
+        public static readonly string DATETIME = "DateTime";
        
         private int ColumnaAOrdenar;
   
@@ -16,13 +20,33 @@ namespace InterfazGrafica.Utiles
 
         private CaseInsensitiveComparer ComparadorDeObjetos;
 
-        public OrdenadorColumnaListView()
+        public OrdenadorListView()
         {
  
             ColumnaAOrdenar = 0;
 
             OrdenDeOrdenamiento = SortOrder.None;
             ComparadorDeObjetos = new CaseInsensitiveComparer();
+        }
+
+        public void HizoClickEnColumna(ColumnClickEventArgs e)
+        {
+            if (e.Column == this.OrdenarColumna)
+            {
+                if (this.Orden == SortOrder.Ascending)
+                {
+                    this.Orden = SortOrder.Descending;
+                }
+                else
+                {
+                    this.Orden = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                this.OrdenarColumna = e.Column;
+                this.Orden = SortOrder.Ascending;
+            }
         }
 
         public int Compare(object comparador, object comparando)
@@ -53,15 +77,15 @@ namespace InterfazGrafica.Utiles
         {
             if (comparador.SubItems[ColumnaAOrdenar].Tag != null)
             {
-                if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals("int"))
+                if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals(OrdenadorListView.INT))
                 {
                     return Int32.Parse(comparador.SubItems[ColumnaAOrdenar].Text).CompareTo(Int32.Parse(comparando.SubItems[ColumnaAOrdenar].Text));
                 }
-                else if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals("string"))
+                else if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals(OrdenadorListView.STRING))
                 {
                     return String.Compare(comparador.SubItems[ColumnaAOrdenar].Text, comparando.SubItems[ColumnaAOrdenar].Text);
                 }
-                else if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals("DateTime"))
+                else if (comparador.SubItems[ColumnaAOrdenar].Tag.Equals(OrdenadorListView.DATETIME))
                 {
                     return DateTime.Compare(CrearDateTimeDesdeString(comparador.SubItems[ColumnaAOrdenar].Text),
                         CrearDateTimeDesdeString(comparando.SubItems[ColumnaAOrdenar].Text));
@@ -74,7 +98,16 @@ namespace InterfazGrafica.Utiles
         {
             if(fecha.Equals(String.Empty))
                 return DateTime.MaxValue;
-            return DateTime.Parse(fecha);
+            DateTime fechaRetorno;
+            try
+            {
+                fechaRetorno = DateTime.Parse(fecha);
+            }
+            catch(FormatException)
+            {
+                fechaRetorno = Tarea.FECHA_NULA;
+            }
+            return fechaRetorno;
         }
 
         public int OrdenarColumna
