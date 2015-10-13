@@ -224,6 +224,7 @@
             this.Controls.Add(this.arbolDeTareas);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VentanaDetallesEtapa";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "VentanaTarea";
             this.Load += new System.EventHandler(this.VentanaDetallesEtapa_Load);
             this.ResumeLayout(false);

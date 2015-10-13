@@ -454,6 +454,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "VentanaAltaDeProyecto";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ventana de alta de proyecto";
             this.panelEtapaDeNuevoProyecto.ResumeLayout(false);
             this.panelEtapaDeNuevoProyecto.PerformLayout();

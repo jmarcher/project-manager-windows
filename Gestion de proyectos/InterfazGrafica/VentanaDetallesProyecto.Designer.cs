@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VentanaDetallesProyecto));
             this.label1 = new System.Windows.Forms.Label();
             this.etapasListView = new System.Windows.Forms.ListView();
             this.eliminarButton = new System.Windows.Forms.Button();
@@ -229,7 +230,9 @@
             this.Controls.Add(this.eliminarButton);
             this.Controls.Add(this.etapasListView);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VentanaDetallesProyecto";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "VentanaDetallesProyecto";
             this.Load += new System.EventHandler(this.VentanaDetallesProyecto_Load);
             this.ResumeLayout(false);
