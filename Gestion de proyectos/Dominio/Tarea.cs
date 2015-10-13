@@ -131,10 +131,12 @@ namespace Dominio
        
         public Proyecto ObtenerProyectoPadre()
         {
-            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverListaProyectos()) { 
+            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos()) { 
              foreach(Etapa etapa in proyecto.Etapas){
                 foreach (Tarea  tarea in etapa.Tareas){
-                    if(tarea.Equals(this)){
+                        
+                    if(tarea.Equals(this) || estaEnSubtareas(tarea))
+                        {
                         return proyecto;
                     }
                 }
@@ -143,7 +145,26 @@ namespace Dominio
            
           return null;
         }
-        
+
+        private bool estaEnSubtareas(Tarea tarea)
+        {
+            if(tarea.GetType() == typeof(TareaCompuesta))
+            {
+                foreach(Tarea sub in ((TareaCompuesta)tarea).Subtareas)
+                {
+                    if (sub.Equals(this))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return estaEnSubtareas(sub);
+                    }
+                }
+            }
+            return false;
+        }
+
         public override string ToString()
         {
             StringBuilder valorRetorno = new StringBuilder();

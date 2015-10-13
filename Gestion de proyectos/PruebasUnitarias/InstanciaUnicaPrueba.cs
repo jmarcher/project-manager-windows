@@ -19,7 +19,7 @@ namespace PruebasUnitarias
                 Nombre = "Proyecto"
             };
             InstanciaUnica.Instancia.AgregarProyecto(proyecto);
-            Assert.True(InstanciaUnica.Instancia.DevolverListaProyectos().Contains(proyecto));
+            Assert.True(InstanciaUnica.Instancia.DevolverProyectos().Contains(proyecto));
         }
 
 
@@ -33,8 +33,8 @@ namespace PruebasUnitarias
             };
             List<Proyecto> proyectos = new List<Proyecto>();
             proyectos.Add(proyecto);
-            InstanciaUnica.Instancia.AgregarListaProyecto(proyectos);
-            Assert.True(InstanciaUnica.Instancia.DevolverListaProyectos().Contains(proyecto));
+            InstanciaUnica.Instancia.AgregarProyectos(proyectos);
+            Assert.True(InstanciaUnica.Instancia.DevolverProyectos().Contains(proyecto));
         }
     }
 }

@@ -245,7 +245,7 @@ namespace InterfazGrafica
         }
         private void EliminarTareaActual()
         {
-            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverListaProyectos())
+            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos())
             {
                 foreach (Etapa etapa in proyecto.Etapas)
                 {
@@ -263,7 +263,7 @@ namespace InterfazGrafica
 
         private void DeshacerCambiosEnTarea(Tarea tareaAnterior)
         {
-            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverListaProyectos())
+            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos())
             {
                 foreach (Etapa etapa in proyecto.Etapas)
                 {
@@ -436,7 +436,7 @@ namespace InterfazGrafica
         {
             if (!esTareaCompuesta(tarea))
             {
-                convertirATareaCompuesta(tarea);
+                convertirATareaCompuesta();
             }
             Tarea tareaNueva = new TareaSimple();
             ((TareaCompuesta)tarea).Subtareas.Add(tareaNueva);
@@ -445,9 +445,25 @@ namespace InterfazGrafica
             refrescarVentanaAlCerrarseDialogo();
         }
 
-        private void convertirATareaCompuesta(Tarea tarea)
+        private void convertirATareaCompuesta()
         {
-            tarea = new TareaCompuesta(tarea);
+            foreach(Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos())
+            {
+                foreach(Etapa etapa in proyecto.Etapas)
+                {
+                    if (etapa.Tareas.Contains(tarea))
+                    {
+                        TareaCompuesta tc = new TareaCompuesta(tarea);
+                        etapa.Tareas.Remove(tarea);
+                        etapa.Tareas.Add(tc);
+                    }
+                    else
+                    {
+                    }
+                    
+                }
+            }
         }
+
     }
 }

@@ -69,11 +69,11 @@ namespace InterfazGrafica
                 Nombre = this.textBoxNombreTareaNuevoProyecto.Text,
                 Objetivo = this.textBoxObjetivoTareaNuevoProyecto.Text,
                 Descripcion = this.richTextBoxDescripcionTareaNuevoProyecto.Text,
-                FechaInicio = monthCalendarFechaInicioTareaNuevoProyecto.SelectionRange.Start,
-                FechaFinalizacion = monthCalendarFechaFinTareaNuevoProyecto.SelectionRange.Start,
-                DuracionPendiente = Int32.Parse(this.textBoxDuracionPendienteNuevoProyecto.Text),
-                Prioridad = Int32.Parse(comboBoxPrioridadNuevoProyecto.SelectedItem.ToString())
+                FechaInicio = monthCalendarFechaInicioTareaNuevoProyecto.SelectionStart,
+                FechaFinalizacion = monthCalendarFechaFinTareaNuevoProyecto.SelectionStart,
+                DuracionPendiente = Int32.Parse(this.textBoxDuracionPendienteNuevoProyecto.Text) 
             };
+            tareaNuevoProyecto.DefinirPrioridad(comboBoxPrioridadNuevoProyecto.SelectedItem.ToString());
             Etapa etapaNuevoProyecto = new Etapa()
             {
                 Nombre = this.textBoxNombreEtapaNuevoProyecto.Text,

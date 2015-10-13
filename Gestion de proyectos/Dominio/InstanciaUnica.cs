@@ -9,23 +9,23 @@ namespace Dominio
    public class InstanciaUnica
     {
         private static InstanciaUnica instancia = null;
-        private List<Proyecto> listaProyectos;
+        private List<Proyecto> Proyectos;
 
         private  InstanciaUnica() 
         {
-            this.listaProyectos = new List<Proyecto>();
+            this.Proyectos = new List<Proyecto>();
         }
         public void AgregarProyecto(Proyecto nuevo) 
         {
-            this.listaProyectos.Add(nuevo);
+            this.Proyectos.Add(nuevo);
         }
-        public void AgregarListaProyecto(List<Proyecto> nuevo)
+        public void AgregarProyectos(List<Proyecto> nuevo)
         {
-            this.listaProyectos=nuevo;
+            this.Proyectos=nuevo;
         }
-        public List<Proyecto> DevolverListaProyectos()
+        public List<Proyecto> DevolverProyectos()
         {
-            return this.listaProyectos;
+            return this.Proyectos;
         }
        
         public static InstanciaUnica Instancia

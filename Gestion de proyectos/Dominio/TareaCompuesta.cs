@@ -42,6 +42,7 @@ namespace Dominio
         public TareaCompuesta(Tarea tareaSimple) : base()
         {
             Subtareas = new List<Tarea>();
+            Antecesoras = tareaSimple.Antecesoras;
             Nombre = tareaSimple.Nombre;
             Prioridad = tareaSimple.Prioridad;
             Objetivo = tareaSimple.Objetivo;

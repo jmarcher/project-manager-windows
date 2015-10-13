@@ -52,7 +52,7 @@ namespace InterfazGrafica
         private void ActualizarListaDeProyectos()
         {
             listViewProyectos.Items.Clear();
-            foreach(Proyecto proyecto in InstanciaUnica.Instancia.DevolverListaProyectos())
+            foreach(Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos())
             {
                 ListViewItem nuevoItemLista = crearNuevoItemListaProyectos(proyecto);
                 listViewProyectos.Items.Add(nuevoItemLista);
@@ -134,7 +134,7 @@ namespace InterfazGrafica
 
         private Proyecto proyectoSeleccionado()
         {
-            return InstanciaUnica.Instancia.DevolverListaProyectos().Find(x => x.Identificador == devolverIdentificadorSeleccionado());
+            return InstanciaUnica.Instancia.DevolverProyectos().Find(x => x.Identificador == devolverIdentificadorSeleccionado());
         }
 
         private int devolverIdentificadorSeleccionado()
@@ -200,7 +200,7 @@ namespace InterfazGrafica
                 if (AyudanteVisual.CartelConfirmacion("¿Seguro desea eliminar este proyecto?\n" +
                     "La siguiente acción, eliminará el pryecto con todas sus etapas y tareas.", "Eliminación de proyecto"))
                 {
-                    InstanciaUnica.Instancia.DevolverListaProyectos().Remove(proyectoSeleccionado());
+                    InstanciaUnica.Instancia.DevolverProyectos().Remove(proyectoSeleccionado());
                     ActualizarListaDeProyectos();
                 }
             }
@@ -227,7 +227,7 @@ namespace InterfazGrafica
 
         private void borrarDatosDePruebaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InstanciaUnica.Instancia.AgregarListaProyecto(listaVacia());
+            InstanciaUnica.Instancia.AgregarProyectos(listaVacia());
             ActualizarListaDeProyectos();
         }
 
@@ -239,7 +239,7 @@ namespace InterfazGrafica
         private void cargarDatosDePruebaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DatosDePrueba dp = new DatosDePrueba();
-            InstanciaUnica.Instancia.AgregarListaProyecto(dp.ObtenerUnaListaProyectos());
+            InstanciaUnica.Instancia.AgregarProyectos(dp.ObtenerUnaListaProyectos());
             ActualizarListaDeProyectos();
         }
     }
