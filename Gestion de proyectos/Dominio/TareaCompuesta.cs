@@ -49,17 +49,24 @@ namespace Dominio
             this.Descripcion = tareaSimple.Descripcion;
         }
 
-        private DateTime FechaMayorDeSubtarea()
+        private Tarea tareaFechaMayor()
         {
             DateTime fechaRetorno = DateTime.MinValue;
-            if (Subtareas.Count == 0)
-                return FECHA_NULA;
+            Tarea tareaMayor = null;
             foreach (Tarea tarea in Subtareas)
             {
-                if (tarea.FechaFinalizacion > fechaRetorno)
-                    fechaRetorno = tarea.FechaFinalizacion;
+                if (tarea.FechaFinalizacion >= fechaRetorno)
+                    tareaMayor = tarea;
             }
-            return fechaRetorno;
+            return tareaMayor;
+        }
+
+        private DateTime FechaMayorDeSubtarea()
+        {
+            Tarea tarea = tareaFechaMayor();
+            if (tarea == null)
+                return Tarea.FECHA_NULA;
+            return tarea.FechaFinalizacion;
         }
 
 
@@ -82,10 +89,12 @@ namespace Dominio
 
         public override int CalcularDuracionPendiente()
         {
-            int valorRetorno = 0;
-            foreach (Tarea tarea in Subtareas)
+            Tarea tarea = tareaFechaMayor();
+            if (tarea == null) return 0;
+            int valorRetorno = tarea.CalcularDuracionPendiente();
+            foreach (Tarea tareaAntecesora in tareaFechaMayor().Antecesoras)
             {
-                valorRetorno += tarea.CalcularDuracionPendiente();
+                valorRetorno += tareaAntecesora.CalcularDuracionPendiente();
             }
             return valorRetorno;
         }
