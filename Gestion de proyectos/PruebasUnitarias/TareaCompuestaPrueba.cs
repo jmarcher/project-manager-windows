@@ -147,6 +147,44 @@ namespace PruebasUnitarias
         }
 
         [Fact]
+        public void EstaEnSubestapas()
+        {
+            Tarea tarea = new TareaSimple()
+            {
+                Nombre = "Tarea",
+                Objetivo = "Objetivo"
+            };
+            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            {
+                Nombre = "Tarea Compuesta"
+            };
+            tareaCompuesta.AgregarSubtarea(tarea);
+            tareaCompuesta.MarcarFinalizada();
+            Assert.True(tareaCompuesta.estaEnSubtareas(tarea));
+        }
+
+        [Fact]
+        public void EstaEnSubestapasDeSubetapas()
+        {
+            Tarea tarea = new TareaSimple()
+            {
+                Nombre = "Tarea",
+                Objetivo = "Objetivo"
+            };
+            TareaCompuesta tareaCompuestaOtra = new TareaCompuesta()
+            {
+                Nombre = "Tarea Compuesta"
+            };
+            tareaCompuestaOtra.AgregarSubtarea(tarea);
+            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            {
+                Nombre = "Tarea Compuesta"
+            };
+            tareaCompuesta.AgregarSubtarea(tareaCompuestaOtra);
+            Assert.False(tareaCompuesta.estaEnSubtareas(tarea));
+        }
+
+        [Fact]
         public void DuracionPendienteTareaCompuesta()
         {
             Tarea tareaPrimera = new TareaSimple()
@@ -317,6 +355,22 @@ namespace PruebasUnitarias
             Assert.Equal(0, tareaCompuesta.Subtareas.Count);
         }
 
-        
+
+        [Theory]
+        [InlineData("Tarea 1", 10, "1980-10-12 00:00", "1990-10-12 00:00")]
+        [InlineData("Tarea 2", 10, "1990-10-12 00:00", "1990-10-12 00:00")]
+        [InlineData("Tarea 3", 10, "1990-10-12 00:00", "1990-10-22 00:00")]
+        [InlineData("Tarea 4", 10, "2015-9-12 00:00", "2015-10-1 00:00")]
+        public void ClonarPrueba(string nombre, int duracionPendiente, string fechaInicio, string fechaFin)
+        {
+            TareaCompuesta tarea = new TareaCompuesta()
+            {
+                Nombre = nombre,
+                FechaInicio = DateTime.Parse(fechaInicio)
+            };
+            Tarea tareaClonada = tarea.Clonar();
+            Assert.Equal(tarea,tareaClonada);
+        }
+
     }
 }

@@ -32,6 +32,7 @@ namespace InterfazGrafica
 
         private void refrescarPantalla()
         {
+            Text = "Tarea: " + tarea.Nombre + ", fecha inicio: " + tarea.FechaInicio.ToShortDateString();
             textBoxNombre.Text = tarea.Nombre;
             textBoxObjetivo.Text = tarea.Objetivo;
             textBoxDuracionPendiente.Text = tarea.CalcularDuracionPendiente().ToString();

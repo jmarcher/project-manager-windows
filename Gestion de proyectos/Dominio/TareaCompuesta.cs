@@ -132,7 +132,6 @@ namespace Dominio
                 Objetivo = this.Objetivo,
                 Descripcion = this.Descripcion,
                 FechaInicio = this.FechaInicio,
-                FechaFinalizacion = this.FechaFinalizacion,
                 Prioridad = this.Prioridad,
                 Subtareas = this.Subtareas,
                 EstaFinalizada = this.EstaFinalizada,

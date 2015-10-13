@@ -130,6 +130,31 @@ namespace PruebasUnitarias
             proyecto.AgregarEtapa(etapa);
             Assert.True(proyecto.EstaAtrasado);
         }
+        [Fact]
+        public void ProyectoPadreDeTarea()
+        {
+            Tarea tarea = new TareaSimple()
+            {
+                Nombre = "Tarea hija",
+                FechaInicio = DateTime.Now,
+                FechaFinalizacion = DateTime.Now,
+                DuracionPendiente = 100
+            };
+            Etapa etapa = new Etapa()
+            {
+                Identificacion = 1,
+                FechaInicio = DateTime.Now
+            };
+            etapa.AgregarTarea(tarea);
+            Proyecto proyecto = new Proyecto()
+            {
+                Identificador = 1,
+                Nombre = "Proyecto"
+            };
+            proyecto.AgregarEtapa(etapa);
+            InstanciaUnica.Instancia.AgregarProyecto(proyecto);
+            Assert.Equal(proyecto, tarea.ObtenerProyectoPadre());
+        }
 
         [Fact]
         public void ProyectoNoEstaAtrasado()

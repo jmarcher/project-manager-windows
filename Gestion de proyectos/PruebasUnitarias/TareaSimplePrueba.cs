@@ -106,5 +106,24 @@ namespace PruebasUnitarias
             Assert.Equal(textoEsperado.ToString(), tarea.ToString());
 
         }
+
+        [Theory]
+        [InlineData("Tarea 1", "1990-10-12 00:00", "1990-10-13 00:00")]
+        [InlineData("Tarea 2", "1990-10-12 00:00", "1990-10-14 00:00")]
+        [InlineData("Tarea 4", "1990-10-12 00:00", "1990-10-13 00:00")]
+        [InlineData("Tarea 5", "1990-10-12 00:00", "1991-10-12 00:00")]
+        public void CloneadoTareaSimple(string nombre,
+            string fechaInicio, string fechaFinalizacion)
+        {
+            Tarea tarea = new TareaSimple()
+            {
+                Nombre = nombre,
+                FechaInicio = DateTime.Parse(fechaInicio),
+                FechaFinalizacion = DateTime.Parse(fechaFinalizacion)
+            };
+
+            Tarea tareaCloneada = tarea.Clonar();
+            Assert.Equal(tarea, tareaCloneada);
+        }
     }
 }
