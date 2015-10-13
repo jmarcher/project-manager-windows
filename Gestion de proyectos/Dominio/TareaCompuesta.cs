@@ -114,5 +114,21 @@ namespace Dominio
                 Subtareas.Remove(tarea);
             }
         }
+        public override Tarea Clonar() 
+        {
+            TareaCompuesta copia = new TareaCompuesta
+            {
+                Nombre = this.Nombre,
+                Objetivo = this.Objetivo,
+                Descripcion = this.Descripcion,
+                FechaInicio = this.FechaInicio,
+                FechaFinalizacion = this.FechaFinalizacion,
+                Prioridad = this.Prioridad,
+                Subtareas = this.Subtareas,
+                EstaFinalizada = this.EstaFinalizada,
+                Antecesoras = this.Antecesoras
+            };
+          return copia;
+        }
     }
 }

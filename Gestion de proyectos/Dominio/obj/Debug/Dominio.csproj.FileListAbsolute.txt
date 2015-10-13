@@ -16,4 +16,3 @@ C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\Dominio\bin\Debug\Domini
 C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\Dominio\bin\Debug\Dominio.pdb
 C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\Dominio\obj\Debug\Dominio.dll
 C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\Dominio\obj\Debug\Dominio.pdb
-C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache

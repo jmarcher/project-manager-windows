@@ -56,7 +56,7 @@ namespace Dominio
         }
 
         public abstract int CalcularDuracionPendiente();
-
+        public abstract Tarea Clonar();
         public abstract void MarcarFinalizada();
 
         public void DefinirPrioridad(String prioridad)
@@ -141,6 +141,7 @@ namespace Dominio
            
           return null;
         }
+        
         public override string ToString()
         {
             StringBuilder valorRetorno = new StringBuilder();

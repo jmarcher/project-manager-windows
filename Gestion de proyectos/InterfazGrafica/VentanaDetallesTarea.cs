@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio;
+using InterfazGrafica.Utiles;
 namespace InterfazGrafica
 {
     public partial class VentanaDetallesTarea : Form
@@ -16,16 +17,18 @@ namespace InterfazGrafica
         private const int ICONO_TAREA_SIMPLE = 1;
 
         private Tarea tarea;
+        private bool esNuevaTarea;
         public VentanaDetallesTarea()
         {
             InitializeComponent();
         }
 
-        public VentanaDetallesTarea(Tarea tarea)
+        public VentanaDetallesTarea(Tarea tarea , bool esNueva)
         {
             InitializeComponent();
             this.tarea = tarea;
             InicializarComponentes(tarea);
+            this.esNuevaTarea = esNueva;
         }
 
         private void InicializarComponentes(Tarea tarea)
@@ -180,6 +183,28 @@ namespace InterfazGrafica
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
+            Tarea tareaAnterior = tarea.Clonar();
+            
+
+           
+           
+            bool confirmacion = AyudanteVisual.CartelConfirmacion(CrearMensaje(),"Impacto en la duracion del proyecto");
+            if(!confirmacion && esNuevaTarea){
+             EliminarTareaActual();
+             this.Close();
+            }
+            else if(!(confirmacion || esNuevaTarea))
+            {
+                InicializarComponentes(tarea);
+            }
+            else if (confirmacion) {
+                asignarValoresTarea();
+            }
+        }
+       
+
+        private void asignarValoresTarea()
+        {
             tarea.Nombre = textBoxNombre.Text;
             tarea.Objetivo = textBoxNombre.Text;
             tarea.DefinirPrioridad(comboBoxPrioridad.Text);
@@ -193,7 +218,44 @@ namespace InterfazGrafica
                 tareaSimple.FechaFinalizacion = dateTimePickerFechaFinalizacion.Value;
                 tarea = tareaSimple;
             }
+        }
 
+        private string CrearMensaje()
+        {
+            string mensaje = "La fecha del Proyecto se modificara  a: " + tarea.ObtenerProyectoPadre().FechaFinalizacion + " y su duracion a: " + tarea.ObtenerProyectoPadre().CalcularDuracionPendiente()+" dias ";
+            return mensaje;
+        }
+        private void EliminarTareaActual() 
+        { 
+            foreach(Proyecto proyecto in InstanciaUnica.Instancia.DevolverListaProyectos()){
+            foreach(Etapa etapa in proyecto.Etapas){
+            foreach(Tarea tareaRecorrida in etapa.Tareas){
+                if (tareaRecorrida.Equals(this.tarea))
+                {
+                    etapa.Tareas.Remove(tareaRecorrida);
+                    break;
+                }
+            }
+            }
+            }
+        }
+
+        private void DeshacerCambiosEnTarea(Tarea tareaAnterior)
+        {
+            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverListaProyectos())
+            {
+                foreach (Etapa etapa in proyecto.Etapas)
+                {
+                    foreach (Tarea tareaRecorrida in etapa.Tareas)
+                    {
+                        if (tareaRecorrida.Equals(this.tarea))
+                        {
+                            Tarea tareaAModificar = tareaRecorrida;
+                            tareaAModificar = tareaAnterior;
+                        }
+                    }
+                }
+            }
         }
     }
 }
