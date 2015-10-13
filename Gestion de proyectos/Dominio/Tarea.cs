@@ -147,6 +147,8 @@ namespace Dominio
             valorRetorno.Append(Nombre);
             valorRetorno.Append(" [Prioridad: ");
             valorRetorno.Append(prioridadAString());
+            valorRetorno.Append(", Duración pendiente: ");
+            valorRetorno.Append(CalcularDuracionPendiente().ToString());
             valorRetorno.Append(", Inicio: ");
             valorRetorno.Append(FechaInicio.Date.ToString());
             valorRetorno.Append(", Fin: ");

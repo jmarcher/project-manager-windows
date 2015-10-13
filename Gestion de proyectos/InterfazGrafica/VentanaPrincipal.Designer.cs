@@ -38,6 +38,9 @@
             this.leyendaDeColoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonEliminarProyecto = new System.Windows.Forms.Button();
+            this.datosDePruebaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cargarDatosDePruebaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.borrarDatosDePruebaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.barraMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,6 +75,7 @@
             // 
             this.barraMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.proyectoToolStripMenuItem,
+            this.datosDePruebaToolStripMenuItem,
             this.ayudaToolStripMenuItem});
             this.barraMenu.Location = new System.Drawing.Point(0, 0);
             this.barraMenu.Name = "barraMenu";
@@ -85,14 +89,15 @@
             this.proyectoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.crearNuevoToolStripMenuItem});
             this.proyectoToolStripMenuItem.Name = "proyectoToolStripMenuItem";
+            this.proyectoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.proyectoToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
-            this.proyectoToolStripMenuItem.Text = "Proyecto";
+            this.proyectoToolStripMenuItem.Text = "&Proyecto";
             // 
             // crearNuevoToolStripMenuItem
             // 
             this.crearNuevoToolStripMenuItem.Name = "crearNuevoToolStripMenuItem";
-            this.crearNuevoToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-            this.crearNuevoToolStripMenuItem.Text = "Crear nuevo";
+            this.crearNuevoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.crearNuevoToolStripMenuItem.Text = "&Crear nuevo";
             this.crearNuevoToolStripMenuItem.Click += new System.EventHandler(this.crearNuevoToolStripMenuItem_Click);
             // 
             // ayudaToolStripMenuItem
@@ -102,20 +107,22 @@
             this.acercaDeToolStripMenuItem});
             this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
             this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.ayudaToolStripMenuItem.Text = "Ayuda";
+            this.ayudaToolStripMenuItem.Text = "&Ayuda";
             // 
             // leyendaDeColoresToolStripMenuItem
             // 
             this.leyendaDeColoresToolStripMenuItem.Name = "leyendaDeColoresToolStripMenuItem";
-            this.leyendaDeColoresToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.leyendaDeColoresToolStripMenuItem.Text = "Leyenda de colores";
+            this.leyendaDeColoresToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.leyendaDeColoresToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.leyendaDeColoresToolStripMenuItem.Text = "&Leyenda de colores";
             this.leyendaDeColoresToolStripMenuItem.Click += new System.EventHandler(this.leyendaDeColoresToolStripMenuItem_Click);
             // 
             // acercaDeToolStripMenuItem
             // 
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
-            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.acercaDeToolStripMenuItem.Text = "Acerca de";
+            this.acercaDeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.acercaDeToolStripMenuItem.Text = "&Acerca de";
             this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
             // 
             // buttonEliminarProyecto
@@ -127,6 +134,29 @@
             this.buttonEliminarProyecto.Text = "&Eliminar proyecto";
             this.buttonEliminarProyecto.UseVisualStyleBackColor = true;
             this.buttonEliminarProyecto.Click += new System.EventHandler(this.buttonEliminarProyecto_Click);
+            // 
+            // datosDePruebaToolStripMenuItem
+            // 
+            this.datosDePruebaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cargarDatosDePruebaToolStripMenuItem,
+            this.borrarDatosDePruebaToolStripMenuItem});
+            this.datosDePruebaToolStripMenuItem.Name = "datosDePruebaToolStripMenuItem";
+            this.datosDePruebaToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
+            this.datosDePruebaToolStripMenuItem.Text = "&Datos de prueba";
+            // 
+            // cargarDatosDePruebaToolStripMenuItem
+            // 
+            this.cargarDatosDePruebaToolStripMenuItem.Name = "cargarDatosDePruebaToolStripMenuItem";
+            this.cargarDatosDePruebaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.cargarDatosDePruebaToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
+            this.cargarDatosDePruebaToolStripMenuItem.Text = "&Cargar datos de prueba";
+            // 
+            // borrarDatosDePruebaToolStripMenuItem
+            // 
+            this.borrarDatosDePruebaToolStripMenuItem.Name = "borrarDatosDePruebaToolStripMenuItem";
+            this.borrarDatosDePruebaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.borrarDatosDePruebaToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
+            this.borrarDatosDePruebaToolStripMenuItem.Text = "&Borrar datos de prueba";
             // 
             // VentanaPrincipal
             // 
@@ -162,5 +192,8 @@
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem leyendaDeColoresToolStripMenuItem;
         private System.Windows.Forms.Button buttonEliminarProyecto;
+        private System.Windows.Forms.ToolStripMenuItem datosDePruebaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cargarDatosDePruebaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem borrarDatosDePruebaToolStripMenuItem;
     }
 }
