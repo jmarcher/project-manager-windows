@@ -208,6 +208,7 @@
             this.Controls.Add(this.buttonEliminar);
             this.Controls.Add(this.buttonAgregarTarea);
             this.Controls.Add(this.arbolDeTareas);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VentanaDetallesEtapa";
             this.Text = "VentanaTarea";
             this.ResumeLayout(false);

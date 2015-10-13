@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VentanaAltaDeProyecto));
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxNombreDelNuevoProyecto = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -81,7 +82,7 @@
             // textBoxNombreDelNuevoProyecto
             // 
             this.textBoxNombreDelNuevoProyecto.Location = new System.Drawing.Point(189, 44);
-            this.textBoxNombreDelNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxNombreDelNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxNombreDelNuevoProyecto.Name = "textBoxNombreDelNuevoProyecto";
             this.textBoxNombreDelNuevoProyecto.Size = new System.Drawing.Size(138, 20);
             this.textBoxNombreDelNuevoProyecto.TabIndex = 1;
@@ -99,7 +100,7 @@
             // richTextBoxObjetivoDelNuevoProyecto
             // 
             this.richTextBoxObjetivoDelNuevoProyecto.Location = new System.Drawing.Point(189, 84);
-            this.richTextBoxObjetivoDelNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.richTextBoxObjetivoDelNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBoxObjetivoDelNuevoProyecto.Name = "richTextBoxObjetivoDelNuevoProyecto";
             this.richTextBoxObjetivoDelNuevoProyecto.Size = new System.Drawing.Size(336, 109);
             this.richTextBoxObjetivoDelNuevoProyecto.TabIndex = 3;
@@ -108,7 +109,7 @@
             // buttonSiguienteNuevoProyecto
             // 
             this.buttonSiguienteNuevoProyecto.Location = new System.Drawing.Point(596, 391);
-            this.buttonSiguienteNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSiguienteNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSiguienteNuevoProyecto.Name = "buttonSiguienteNuevoProyecto";
             this.buttonSiguienteNuevoProyecto.Size = new System.Drawing.Size(75, 24);
             this.buttonSiguienteNuevoProyecto.TabIndex = 4;
@@ -119,7 +120,7 @@
             // buttonAtrasNuevoProyecto
             // 
             this.buttonAtrasNuevoProyecto.Location = new System.Drawing.Point(517, 391);
-            this.buttonAtrasNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAtrasNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAtrasNuevoProyecto.Name = "buttonAtrasNuevoProyecto";
             this.buttonAtrasNuevoProyecto.Size = new System.Drawing.Size(75, 24);
             this.buttonAtrasNuevoProyecto.TabIndex = 5;
@@ -141,7 +142,7 @@
             this.panelEtapaDeNuevoProyecto.Controls.Add(this.label3);
             this.panelEtapaDeNuevoProyecto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEtapaDeNuevoProyecto.Location = new System.Drawing.Point(0, 0);
-            this.panelEtapaDeNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelEtapaDeNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.panelEtapaDeNuevoProyecto.Name = "panelEtapaDeNuevoProyecto";
             this.panelEtapaDeNuevoProyecto.Size = new System.Drawing.Size(680, 425);
             this.panelEtapaDeNuevoProyecto.TabIndex = 6;
@@ -168,7 +169,7 @@
             this.panelTareaNuevoProyecto.Controls.Add(this.label6);
             this.panelTareaNuevoProyecto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelTareaNuevoProyecto.Location = new System.Drawing.Point(0, 0);
-            this.panelTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.panelTareaNuevoProyecto.Name = "panelTareaNuevoProyecto";
             this.panelTareaNuevoProyecto.Size = new System.Drawing.Size(680, 425);
             this.panelTareaNuevoProyecto.TabIndex = 7;
@@ -187,14 +188,14 @@
             // monthCalendarFechaFinTareaNuevoProyecto
             // 
             this.monthCalendarFechaFinTareaNuevoProyecto.Location = new System.Drawing.Point(255, 177);
-            this.monthCalendarFechaFinTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.monthCalendarFechaFinTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(7);
             this.monthCalendarFechaFinTareaNuevoProyecto.Name = "monthCalendarFechaFinTareaNuevoProyecto";
             this.monthCalendarFechaFinTareaNuevoProyecto.TabIndex = 15;
             // 
             // buttonAtrasTareaNuevoProyecto
             // 
             this.buttonAtrasTareaNuevoProyecto.Location = new System.Drawing.Point(517, 391);
-            this.buttonAtrasTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAtrasTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAtrasTareaNuevoProyecto.Name = "buttonAtrasTareaNuevoProyecto";
             this.buttonAtrasTareaNuevoProyecto.Size = new System.Drawing.Size(75, 24);
             this.buttonAtrasTareaNuevoProyecto.TabIndex = 14;
@@ -205,7 +206,7 @@
             // buttonGuardarNuevoProyecto
             // 
             this.buttonGuardarNuevoProyecto.Location = new System.Drawing.Point(596, 391);
-            this.buttonGuardarNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonGuardarNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.buttonGuardarNuevoProyecto.Name = "buttonGuardarNuevoProyecto";
             this.buttonGuardarNuevoProyecto.Size = new System.Drawing.Size(75, 24);
             this.buttonGuardarNuevoProyecto.TabIndex = 13;
@@ -216,7 +217,7 @@
             // textBoxDuracionPendienteNuevoProyecto
             // 
             this.textBoxDuracionPendienteNuevoProyecto.Location = new System.Drawing.Point(172, 356);
-            this.textBoxDuracionPendienteNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxDuracionPendienteNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxDuracionPendienteNuevoProyecto.Name = "textBoxDuracionPendienteNuevoProyecto";
             this.textBoxDuracionPendienteNuevoProyecto.Size = new System.Drawing.Size(218, 20);
             this.textBoxDuracionPendienteNuevoProyecto.TabIndex = 12;
@@ -224,7 +225,7 @@
             // richTextBoxDescripcionTareaNuevoProyecto
             // 
             this.richTextBoxDescripcionTareaNuevoProyecto.Location = new System.Drawing.Point(176, 80);
-            this.richTextBoxDescripcionTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.richTextBoxDescripcionTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBoxDescripcionTareaNuevoProyecto.Name = "richTextBoxDescripcionTareaNuevoProyecto";
             this.richTextBoxDescripcionTareaNuevoProyecto.Size = new System.Drawing.Size(218, 66);
             this.richTextBoxDescripcionTareaNuevoProyecto.TabIndex = 11;
@@ -233,7 +234,7 @@
             // textBoxObjetivoTareaNuevoProyecto
             // 
             this.textBoxObjetivoTareaNuevoProyecto.Location = new System.Drawing.Point(176, 57);
-            this.textBoxObjetivoTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxObjetivoTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxObjetivoTareaNuevoProyecto.Name = "textBoxObjetivoTareaNuevoProyecto";
             this.textBoxObjetivoTareaNuevoProyecto.Size = new System.Drawing.Size(218, 20);
             this.textBoxObjetivoTareaNuevoProyecto.TabIndex = 10;
@@ -241,7 +242,7 @@
             // textBoxNombreTareaNuevoProyecto
             // 
             this.textBoxNombreTareaNuevoProyecto.Location = new System.Drawing.Point(176, 32);
-            this.textBoxNombreTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxNombreTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxNombreTareaNuevoProyecto.Name = "textBoxNombreTareaNuevoProyecto";
             this.textBoxNombreTareaNuevoProyecto.Size = new System.Drawing.Size(218, 20);
             this.textBoxNombreTareaNuevoProyecto.TabIndex = 9;
@@ -249,7 +250,7 @@
             // monthCalendarFechaInicioTareaNuevoProyecto
             // 
             this.monthCalendarFechaInicioTareaNuevoProyecto.Location = new System.Drawing.Point(7, 177);
-            this.monthCalendarFechaInicioTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.monthCalendarFechaInicioTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(7);
             this.monthCalendarFechaInicioTareaNuevoProyecto.Name = "monthCalendarFechaInicioTareaNuevoProyecto";
             this.monthCalendarFechaInicioTareaNuevoProyecto.TabIndex = 8;
             // 
@@ -257,7 +258,7 @@
             // 
             this.comboBoxPrioridadNuevoProyecto.FormattingEnabled = true;
             this.comboBoxPrioridadNuevoProyecto.Location = new System.Drawing.Point(174, 391);
-            this.comboBoxPrioridadNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxPrioridadNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxPrioridadNuevoProyecto.Name = "comboBoxPrioridadNuevoProyecto";
             this.comboBoxPrioridadNuevoProyecto.Size = new System.Drawing.Size(92, 21);
             this.comboBoxPrioridadNuevoProyecto.TabIndex = 7;
@@ -336,7 +337,7 @@
             // buttonAtrasEtapaNuevoProyecto
             // 
             this.buttonAtrasEtapaNuevoProyecto.Location = new System.Drawing.Point(517, 391);
-            this.buttonAtrasEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAtrasEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAtrasEtapaNuevoProyecto.Name = "buttonAtrasEtapaNuevoProyecto";
             this.buttonAtrasEtapaNuevoProyecto.Size = new System.Drawing.Size(75, 24);
             this.buttonAtrasEtapaNuevoProyecto.TabIndex = 6;
@@ -357,14 +358,14 @@
             // monthCalendarFechaInicioEtapa
             // 
             this.monthCalendarFechaInicioEtapa.Location = new System.Drawing.Point(176, 129);
-            this.monthCalendarFechaInicioEtapa.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.monthCalendarFechaInicioEtapa.Margin = new System.Windows.Forms.Padding(7);
             this.monthCalendarFechaInicioEtapa.Name = "monthCalendarFechaInicioEtapa";
             this.monthCalendarFechaInicioEtapa.TabIndex = 8;
             // 
             // buttonSiguienteEtapaNuevoProyecto
             // 
             this.buttonSiguienteEtapaNuevoProyecto.Location = new System.Drawing.Point(596, 391);
-            this.buttonSiguienteEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSiguienteEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSiguienteEtapaNuevoProyecto.Name = "buttonSiguienteEtapaNuevoProyecto";
             this.buttonSiguienteEtapaNuevoProyecto.Size = new System.Drawing.Size(75, 24);
             this.buttonSiguienteEtapaNuevoProyecto.TabIndex = 5;
@@ -375,7 +376,7 @@
             // textBoxIdEtapaNuevoProyecto
             // 
             this.textBoxIdEtapaNuevoProyecto.Location = new System.Drawing.Point(176, 85);
-            this.textBoxIdEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxIdEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxIdEtapaNuevoProyecto.Name = "textBoxIdEtapaNuevoProyecto";
             this.textBoxIdEtapaNuevoProyecto.Size = new System.Drawing.Size(193, 20);
             this.textBoxIdEtapaNuevoProyecto.TabIndex = 4;
@@ -393,7 +394,7 @@
             // textBoxNombreEtapaNuevoProyecto
             // 
             this.textBoxNombreEtapaNuevoProyecto.Location = new System.Drawing.Point(176, 62);
-            this.textBoxNombreEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxNombreEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxNombreEtapaNuevoProyecto.Name = "textBoxNombreEtapaNuevoProyecto";
             this.textBoxNombreEtapaNuevoProyecto.Size = new System.Drawing.Size(193, 20);
             this.textBoxNombreEtapaNuevoProyecto.TabIndex = 2;
@@ -422,7 +423,7 @@
             // monthCalendarFechaInicioProyecto
             // 
             this.monthCalendarFechaInicioProyecto.Location = new System.Drawing.Point(189, 202);
-            this.monthCalendarFechaInicioProyecto.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.monthCalendarFechaInicioProyecto.Margin = new System.Windows.Forms.Padding(7);
             this.monthCalendarFechaInicioProyecto.Name = "monthCalendarFechaInicioProyecto";
             this.monthCalendarFechaInicioProyecto.TabIndex = 7;
             // 
@@ -450,7 +451,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxNombreDelNuevoProyecto);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "VentanaAltaDeProyecto";
             this.Text = "Ventana de alta de proyecto";
             this.panelEtapaDeNuevoProyecto.ResumeLayout(false);

@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Dominio;
 using InterfazGrafica.Utiles;
+using System.Collections.Generic;
 
 namespace InterfazGrafica
 {
@@ -16,9 +17,6 @@ namespace InterfazGrafica
             InitializeComponent();
             try
             {
-
-                DatosDePrueba2 dp = new DatosDePrueba2();
-                InstanciaUnica.Instancia.AgregarListaProyecto(dp.ObtenerUnaListaProyectos());
                 configurarListViewProyectos();
                 ActualizarListaDeProyectos();
             }
@@ -225,6 +223,24 @@ namespace InterfazGrafica
         private void VentanaPrincipal_Load(object sender, EventArgs e)
         {
             listViewProyectos_ColumnClick(sender, new ColumnClickEventArgs(ID_COLUMNA_FECHA_FIN));
+        }
+
+        private void borrarDatosDePruebaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InstanciaUnica.Instancia.AgregarListaProyecto(listaVacia());
+            ActualizarListaDeProyectos();
+        }
+
+        private static List<Proyecto> listaVacia()
+        {
+            return new List<Proyecto>();
+        }
+
+        private void cargarDatosDePruebaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DatosDePrueba2 dp = new DatosDePrueba2();
+            InstanciaUnica.Instancia.AgregarListaProyecto(dp.ObtenerUnaListaProyectos());
+            ActualizarListaDeProyectos();
         }
     }
 }

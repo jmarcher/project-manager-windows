@@ -233,6 +233,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxNombre);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VentanaDetallesTarea";
             this.Text = "VentanaDetallesTarea";
             this.ResumeLayout(false);
