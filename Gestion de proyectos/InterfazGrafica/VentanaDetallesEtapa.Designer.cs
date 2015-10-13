@@ -46,6 +46,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.dateTimePickerFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.buttonAsignarAntecesora = new System.Windows.Forms.Button();
+            this.buttonAgregarTareaCompuesta = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // arbolDeTareas
@@ -75,9 +76,9 @@
             this.buttonAgregarTarea.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAgregarTarea.Location = new System.Drawing.Point(111, 394);
             this.buttonAgregarTarea.Name = "buttonAgregarTarea";
-            this.buttonAgregarTarea.Size = new System.Drawing.Size(80, 23);
+            this.buttonAgregarTarea.Size = new System.Drawing.Size(127, 23);
             this.buttonAgregarTarea.TabIndex = 1;
-            this.buttonAgregarTarea.Text = "Agregar &tarea";
+            this.buttonAgregarTarea.Text = "Agregar &tarea simple";
             this.buttonAgregarTarea.UseVisualStyleBackColor = true;
             this.buttonAgregarTarea.Click += new System.EventHandler(this.buttonAgregarTarea_Click);
             // 
@@ -194,7 +195,7 @@
             // buttonAsignarAntecesora
             // 
             this.buttonAsignarAntecesora.Enabled = false;
-            this.buttonAsignarAntecesora.Location = new System.Drawing.Point(211, 394);
+            this.buttonAsignarAntecesora.Location = new System.Drawing.Point(508, 394);
             this.buttonAsignarAntecesora.Name = "buttonAsignarAntecesora";
             this.buttonAsignarAntecesora.Size = new System.Drawing.Size(112, 23);
             this.buttonAsignarAntecesora.TabIndex = 16;
@@ -202,11 +203,23 @@
             this.buttonAsignarAntecesora.UseVisualStyleBackColor = true;
             this.buttonAsignarAntecesora.Click += new System.EventHandler(this.buttonAsignarAntecesora_Click);
             // 
+            // buttonAgregarTareaCompuesta
+            // 
+            this.buttonAgregarTareaCompuesta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAgregarTareaCompuesta.Location = new System.Drawing.Point(244, 394);
+            this.buttonAgregarTareaCompuesta.Name = "buttonAgregarTareaCompuesta";
+            this.buttonAgregarTareaCompuesta.Size = new System.Drawing.Size(147, 23);
+            this.buttonAgregarTareaCompuesta.TabIndex = 17;
+            this.buttonAgregarTareaCompuesta.Text = "Agregar tarea compuesta";
+            this.buttonAgregarTareaCompuesta.UseVisualStyleBackColor = true;
+            this.buttonAgregarTareaCompuesta.Click += new System.EventHandler(this.buttonAgregarTareaCompuesta_Click);
+            // 
             // VentanaDetallesEtapa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(713, 429);
+            this.Controls.Add(this.buttonAgregarTareaCompuesta);
             this.Controls.Add(this.buttonAsignarAntecesora);
             this.Controls.Add(this.dateTimePickerFechaInicio);
             this.Controls.Add(this.labelDuracionPendiente);
@@ -250,5 +263,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker dateTimePickerFechaInicio;
         private System.Windows.Forms.Button buttonAsignarAntecesora;
+        private System.Windows.Forms.Button buttonAgregarTareaCompuesta;
     }
 }

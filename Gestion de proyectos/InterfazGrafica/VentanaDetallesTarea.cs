@@ -161,6 +161,11 @@ namespace InterfazGrafica
                 dateTimePickerFechaFinalizacion.Enabled = false;
                 textBoxDuracionPendiente.ReadOnly = true;
             }
+            else
+            {
+                buttonAgregarSubtarea.Enabled = false;
+                buttonEliminarSubtarea.Enabled = false;
+            }
         }
 
         private void InicializarListViewAntecesoras()
@@ -240,7 +245,12 @@ namespace InterfazGrafica
 
         private string CrearMensaje()
         {
-            string mensaje = "La fecha del Proyecto se modificara  a: " + tarea.ObtenerProyectoPadre().FechaFinalizacion + " y su duracion a: " + tarea.ObtenerProyectoPadre().CalcularDuracionPendiente() + " dias ";
+            Proyecto padre = tarea.ObtenerProyectoPadre();
+            string mensaje;
+            if (padre == null)
+                mensaje = "La fecha del proyecto se modificará.";
+            else
+                mensaje = "La fecha del Proyecto se modificara  a: " + padre.FechaFinalizacion + " y su duracion a: " + padre.CalcularDuracionPendiente() + " dias ";
             return mensaje;
         }
         private void EliminarTareaActual()
@@ -283,7 +293,15 @@ namespace InterfazGrafica
         {
             if (HayTareaSeleccionadaTreeView())
             {
-                EditarTareaVentana(TareaSeleccionada(), false);
+                if(TareaSeleccionada().GetType() == typeof(TareaCompuesta))
+                {
+                    EditarTareaVentana((TareaCompuesta)TareaSeleccionada(), false);
+                }
+                else
+                {
+                    EditarTareaVentana((TareaSimple)TareaSeleccionada(), false);
+                }
+                
             }
         }
 
@@ -434,34 +452,17 @@ namespace InterfazGrafica
 
         private void buttonAgregarSubtarea_Click(object sender, EventArgs e)
         {
-            if (!esTareaCompuesta(tarea))
+            if (esTareaCompuesta(tarea))
             {
-                convertirATareaCompuesta();
+                Tarea tareaNueva = new TareaSimple();
+                ((TareaCompuesta)tarea).Subtareas.Add(tareaNueva);
+                VentanaDetallesTarea ventana = new VentanaDetallesTarea((TareaSimple)tareaNueva, true);
+                ventana.ShowDialog();
+                refrescarVentanaAlCerrarseDialogo();
             }
-            Tarea tareaNueva = new TareaSimple();
-            ((TareaCompuesta)tarea).Subtareas.Add(tareaNueva);
-            VentanaDetallesTarea ventana = new VentanaDetallesTarea(tareaNueva, true);
-            ventana.ShowDialog();
-            refrescarVentanaAlCerrarseDialogo();
-        }
-
-        private void convertirATareaCompuesta()
-        {
-            foreach(Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos())
+            else
             {
-                foreach(Etapa etapa in proyecto.Etapas)
-                {
-                    if (etapa.Tareas.Contains(tarea))
-                    {
-                        TareaCompuesta tc = new TareaCompuesta(tarea);
-                        etapa.Tareas.Remove(tarea);
-                        etapa.Tareas.Add(tc);
-                    }
-                    else
-                    {
-                    }
-                    
-                }
+                AyudanteVisual.CartelExclamacion("Esta es una tarea simple no se le pueden agregar subtareas.", "Acción no posible.");
             }
         }
 

@@ -252,7 +252,15 @@ namespace InterfazGrafica
         {
             if (HayTareaSeleccionada())
             {
-                EditarTareaVentana(TareaSeleccionada(),false);
+                if(TareaSeleccionada().GetType() == typeof(TareaCompuesta))
+                {
+                    EditarTareaVentana((TareaCompuesta)TareaSeleccionada(), false);
+                }
+                else
+                {
+                    EditarTareaVentana((TareaSimple)TareaSeleccionada(), false);
+                }
+                
             }
         }
 
@@ -311,6 +319,14 @@ namespace InterfazGrafica
                     new VentanaAsignarAntecesoraVentanaDetallesEtapa(etapa, TareaSeleccionada());
                 ventana.ShowDialog();
             }
+        }
+
+        private void buttonAgregarTareaCompuesta_Click(object sender, EventArgs e)
+        {
+            TareaCompuesta tarea = new TareaCompuesta();
+            etapa.AgregarTarea(tarea);
+            EditarTareaVentana(tarea, true);
+            ActualizarArbolTareas();
         }
     }
 }

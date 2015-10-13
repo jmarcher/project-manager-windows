@@ -14,13 +14,13 @@ namespace Dominio
         public const int PRIORIDAD_ALTA = 2;
         public static readonly DateTime FECHA_NULA = new DateTime(2001, 1, 1);
 
-        public int Prioridad { get; set;}
+        public int Prioridad { get; set; }
 
         public String Nombre { get; set; }
         public String Objetivo { get; set; }
         public String Descripcion { get; set; }
-        
-        
+
+
         public List<Tarea> Antecesoras { get; set; }
 
         private DateTime _FechaInicio;
@@ -31,19 +31,24 @@ namespace Dominio
 
         public DateTime FechaInicio
         {
-            get{
+            get
+            {
                 return _FechaInicio;
             }
-            set{
-                if (FechaNula(FechaFinalizacion)|| (!FechaNula(FechaFinalizacion) && 
-                    (FechaEsMenor(value, FechaFinalizacion)  || FechaEsIgual(value, FechaFinalizacion)))){
+            set
+            {
+                if (FechaNula(FechaFinalizacion) || (!FechaNula(FechaFinalizacion) &&
+                    (FechaEsMenor(value, FechaFinalizacion) || FechaEsIgual(value, FechaFinalizacion))))
+                {
                     _FechaInicio = value;
-                }else{
+                }
+                else
+                {
                     throw new ArgumentOutOfRangeException();
                 }
             }
         }
-        public abstract DateTime FechaFinalizacion{get;set;}
+        public abstract DateTime FechaFinalizacion { get; set; }
 
         public Tarea()
         {
@@ -93,7 +98,7 @@ namespace Dominio
             Tarea tarea = (Tarea)obj;
             return tarea.Nombre.Equals(this.Nombre)
                 && tarea.Objetivo.Equals(Objetivo)
-                && tarea.FechaEsIgual(tarea.FechaInicio,this.FechaInicio)
+                && tarea.FechaEsIgual(tarea.FechaInicio, this.FechaInicio)
                 && tarea.Prioridad == this.Prioridad;
         }
 
@@ -128,41 +133,25 @@ namespace Dominio
                 primera.Month == segunda.Month &&
                 primera.Year == segunda.Year;
         }
-       
+
         public Proyecto ObtenerProyectoPadre()
         {
-            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos()) { 
-             foreach(Etapa etapa in proyecto.Etapas){
-                foreach (Tarea  tarea in etapa.Tareas){
-                        
-                    if(tarea.Equals(this) || estaEnSubtareas(tarea))
-                        {
-                        return proyecto;
-                    }
-                }
-              }
-            }
-           
-          return null;
-        }
-
-        private bool estaEnSubtareas(Tarea tarea)
-        {
-            if(tarea.GetType() == typeof(TareaCompuesta))
+            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos())
             {
-                foreach(Tarea sub in ((TareaCompuesta)tarea).Subtareas)
+                foreach (Etapa etapa in proyecto.Etapas)
                 {
-                    if (sub.Equals(this))
+                    foreach (Tarea tarea in etapa.Tareas)
                     {
-                        return true;
-                    }
-                    else
-                    {
-                        return estaEnSubtareas(sub);
+
+                        if (tarea.Equals(this) || estaEnSubtareas(tarea))
+                        {
+                            return proyecto;
+                        }
                     }
                 }
             }
-            return false;
+
+            return null;
         }
 
         public override string ToString()
@@ -191,6 +180,26 @@ namespace Dominio
                 return "Baja";
         }
 
-        
+
+        public bool estaEnSubtareas(Tarea tarea)
+        {
+            if (this.GetType() == typeof(TareaCompuesta))
+            {
+                TareaCompuesta tareaCompuesta = ((TareaCompuesta)this);
+                if (tareaCompuesta.Subtareas.Contains(tarea))
+                {
+                    return true;
+                }
+                else
+                {
+                    foreach (Tarea tareaActual in tareaCompuesta.Subtareas)
+                    {
+                        return tareaActual.estaEnSubtareas(tarea);
+                    }
+                }
+            }
+            return false;
+        }
+
     }
 }
