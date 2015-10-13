@@ -85,6 +85,8 @@ namespace PruebasUnitarias
             textoEsperado.Append(nombre);
             textoEsperado.Append(" [Prioridad: ");
             textoEsperado.Append("Alta");
+            textoEsperado.Append(", Duración pendiente: ");
+            textoEsperado.Append(10);
             textoEsperado.Append(", Inicio: ");
             textoEsperado.Append(DateTime.Parse(fechaInicio).Date.ToString());
             textoEsperado.Append(", Fin: ");
@@ -96,7 +98,9 @@ namespace PruebasUnitarias
                 Nombre = nombre,
                 Prioridad = prioridad,
                 FechaInicio = DateTime.Parse(fechaInicio).Date,
-                FechaFinalizacion = DateTime.Parse(fechaFin).Date
+                FechaFinalizacion = DateTime.Parse(fechaFin).Date,
+                DuracionPendiente = 10
+                
             };
 
             Assert.Equal(textoEsperado.ToString(), tarea.ToString());
