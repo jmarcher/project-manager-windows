@@ -49,6 +49,7 @@ namespace InterfazGrafica
 
         private void InicializarArbolSubtareas()
         {
+            treeViewSubtareas.Nodes.Clear();
             if (EsCompuesta(tarea))
             {
                 PopularArbolConNodosSubtareas();
@@ -256,6 +257,43 @@ namespace InterfazGrafica
                     }
                 }
             }
+        }
+
+        private void treeViewSubtareas_DoubleClick(object sender, EventArgs e)
+        {
+            if (HayTareaSeleccionadaTreeView())
+            {
+                EditarTareaVentana(TareaSeleccionada(), false);
+            }
+        }
+
+        private Tarea TareaSeleccionada()
+        {
+            return (Tarea)treeViewSubtareas.SelectedNode.Tag;
+        }
+
+        private bool HayTareaSeleccionadaTreeView()
+        {
+            return treeViewSubtareas.SelectedNode != null;
+        }
+
+        private void EditarTareaVentana(Tarea tarea, bool esNuevaTarea)
+        {
+            VentanaDetallesTarea ventanaDetalles = new VentanaDetallesTarea(tarea, esNuevaTarea);
+            ventanaDetalles.ShowDialog(this);
+            foreach (Form formulario in Application.OpenForms)
+            {
+                if (EstaCerradaVentanaDetallesTarea(formulario))
+                {
+                    InicializarArbolSubtareas();
+                    break;
+                }
+            }
+        }
+
+        private bool EstaCerradaVentanaDetallesTarea(Form formulario)
+        {
+            return !(formulario.GetType() == typeof(VentanaDetallesTarea));
         }
     }
 }

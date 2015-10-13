@@ -54,11 +54,6 @@ namespace Dominio
             Etapas.Remove(etapa);
         }
 
-        public bool PerteneceEtapa(Etapa etapa)
-        {
-            return Etapas.Contains(etapa);
-        }
-
         public Boolean ContieneEtapa(Etapa etapa)
         {
             return Etapas.Contains(etapa);

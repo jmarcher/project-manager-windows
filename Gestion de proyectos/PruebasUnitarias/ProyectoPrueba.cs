@@ -43,7 +43,7 @@ namespace PruebasUnitarias
             };
             proyecto.AgregarEtapa(etapa);
             proyecto.QuitarEtapa(etapa);
-            Assert.False(proyecto.PerteneceEtapa(etapa));
+            Assert.False(proyecto.ContieneEtapa(etapa));
         }
 
         [Fact]
@@ -60,7 +60,7 @@ namespace PruebasUnitarias
                 Nombre = "Etapa"
             };
             proyecto.QuitarEtapa(etapa);
-            Assert.False(proyecto.PerteneceEtapa(etapa));
+            Assert.False(proyecto.ContieneEtapa(etapa));
         }
 
         [Fact]

@@ -210,6 +210,7 @@
             this.treeViewSubtareas.SelectedImageIndex = 0;
             this.treeViewSubtareas.Size = new System.Drawing.Size(443, 329);
             this.treeViewSubtareas.TabIndex = 16;
+            this.treeViewSubtareas.DoubleClick += new System.EventHandler(this.treeViewSubtareas_DoubleClick);
             // 
             // VentanaDetallesTarea
             // 
