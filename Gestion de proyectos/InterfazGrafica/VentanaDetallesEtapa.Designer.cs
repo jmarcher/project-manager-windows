@@ -45,6 +45,7 @@
             this.labelDuracionPendiente = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.dateTimePickerFechaInicio = new System.Windows.Forms.DateTimePicker();
+            this.buttonAsignarAntecesora = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // arbolDeTareas
@@ -59,6 +60,7 @@
             this.arbolDeTareas.SelectedImageIndex = 0;
             this.arbolDeTareas.Size = new System.Drawing.Size(688, 244);
             this.arbolDeTareas.TabIndex = 0;
+            this.arbolDeTareas.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.arbolDeTareas_AfterSelect);
             this.arbolDeTareas.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.arbolDeTareas_MouseDoubleClick);
             // 
             // listaImagenes
@@ -189,11 +191,23 @@
             this.dateTimePickerFechaInicio.TabIndex = 15;
             this.dateTimePickerFechaInicio.ValueChanged += new System.EventHandler(this.dateTimePickerFechaInicio_ValueChanged);
             // 
+            // buttonAsignarAntecesora
+            // 
+            this.buttonAsignarAntecesora.Enabled = false;
+            this.buttonAsignarAntecesora.Location = new System.Drawing.Point(211, 394);
+            this.buttonAsignarAntecesora.Name = "buttonAsignarAntecesora";
+            this.buttonAsignarAntecesora.Size = new System.Drawing.Size(112, 23);
+            this.buttonAsignarAntecesora.TabIndex = 16;
+            this.buttonAsignarAntecesora.Text = "&Asignar antecesora";
+            this.buttonAsignarAntecesora.UseVisualStyleBackColor = true;
+            this.buttonAsignarAntecesora.Click += new System.EventHandler(this.buttonAsignarAntecesora_Click);
+            // 
             // VentanaDetallesEtapa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(713, 429);
+            this.Controls.Add(this.buttonAsignarAntecesora);
             this.Controls.Add(this.dateTimePickerFechaInicio);
             this.Controls.Add(this.labelDuracionPendiente);
             this.Controls.Add(this.label6);
@@ -211,6 +225,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VentanaDetallesEtapa";
             this.Text = "VentanaTarea";
+            this.Load += new System.EventHandler(this.VentanaDetallesEtapa_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,5 +248,6 @@
         private System.Windows.Forms.Label labelDuracionPendiente;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker dateTimePickerFechaInicio;
+        private System.Windows.Forms.Button buttonAsignarAntecesora;
     }
 }

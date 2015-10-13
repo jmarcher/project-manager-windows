@@ -58,6 +58,12 @@
     <Compile Include="VentanaAltaDeProyecto.Designer.cs">
       <DependentUpon>VentanaAltaDeProyecto.cs</DependentUpon>
     </Compile>
+    <Compile Include="VentanaAsignarAntecesoraVentanaDetallesEtapa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentanaAsignarAntecesoraVentanaDetallesEtapa.Designer.cs">
+      <DependentUpon>VentanaAsignarAntecesoraVentanaDetallesEtapa.cs</DependentUpon>
+    </Compile>
     <Compile Include="VentanaDetallesProyecto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +104,9 @@
     </Compile>
     <EmbeddedResource Include="VentanaAltaDeProyecto.resx">
       <DependentUpon>VentanaAltaDeProyecto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VentanaAsignarAntecesoraVentanaDetallesEtapa.resx">
+      <DependentUpon>VentanaAsignarAntecesoraVentanaDetallesEtapa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaDetallesProyecto.resx">
       <DependentUpon>VentanaDetallesProyecto.cs</DependentUpon>

@@ -41,6 +41,16 @@ namespace InterfazGrafica
             dateTimePickerFechaInicio.Value = etapa.FechaInicio;
             textBoxFechaFin.Text = etapa.FechaFinalizacion.ToString();
             labelDuracionPendiente.Text = etapa.CalcularDuracionPendiente().ToString() + " días.";
+            buttonEliminar.Enabled = false;
+            inicializarBotonAsignarAntecesora();
+        }
+
+        private void inicializarBotonAsignarAntecesora()
+        {
+            if (etapa.Tareas.Count > 1 && HayTareaSeleccionada())
+                buttonAsignarAntecesora.Enabled = true;
+            else
+                buttonAsignarAntecesora.Enabled = false;
         }
 
         private void InicializarArbolTareas()
@@ -277,6 +287,30 @@ namespace InterfazGrafica
         private void dateTimePickerFechaInicio_ValueChanged(object sender, EventArgs e)
         {
             HabilitarBotonGuardar();
+        }
+
+        private void arbolDeTareas_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (HayTareaSeleccionada())
+            {
+                buttonEliminar.Enabled = true;
+                inicializarBotonAsignarAntecesora();
+            }
+        }
+
+        private void VentanaDetallesEtapa_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonAsignarAntecesora_Click(object sender, EventArgs e)
+        {
+            if (HayTareaSeleccionada())
+            {
+                VentanaAsignarAntecesoraVentanaDetallesEtapa ventana =
+                    new VentanaAsignarAntecesoraVentanaDetallesEtapa(etapa, TareaSeleccionada());
+                ventana.ShowDialog();
+            }
         }
     }
 }

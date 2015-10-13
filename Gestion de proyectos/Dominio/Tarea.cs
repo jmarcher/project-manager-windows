@@ -88,6 +88,8 @@ namespace Dominio
 
         public override bool Equals(object obj)
         {
+            if (Convert.IsDBNull(obj))
+                return false;
             Tarea tarea = (Tarea)obj;
             return tarea.Nombre.Equals(this.Nombre)
                 && tarea.Objetivo.Equals(Objetivo)
