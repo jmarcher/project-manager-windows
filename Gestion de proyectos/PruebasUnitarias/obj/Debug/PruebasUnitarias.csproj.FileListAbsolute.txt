@@ -51,3 +51,8 @@ C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\PruebasUnitarias\bin\Deb
 C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\PruebasUnitarias\bin\Debug\xunit.core.xml
 C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\PruebasUnitarias\obj\Debug\PruebasUnitarias.dll
 C:\Users\Joaquin\Documents\GitRepo\Gestion de proyectos\PruebasUnitarias\obj\Debug\PruebasUnitarias.pdb
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\PruebasUnitarias\bin\Debug\PruebasUnitarias.dll.config
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\PruebasUnitarias\bin\Debug\EntityFramework.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\PruebasUnitarias\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\PruebasUnitarias\bin\Debug\EntityFramework.xml
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\PruebasUnitarias\bin\Debug\EntityFramework.SqlServer.xml

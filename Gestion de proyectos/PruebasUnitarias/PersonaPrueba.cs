@@ -20,5 +20,25 @@ namespace PruebasUnitarias
             Assert.Equal(nombre, persona.Nombre);
             Assert.Equal(rol, persona.Rol);
         }
+
+        [Theory]
+        [InlineData("Jorge", "Administrador")]
+        [InlineData("Diego", "Un rol")]
+        [InlineData("Nombre", "Rol")]
+        public void PeronasIguales(string nombre, string rol)
+        {
+            Persona persona = new Persona()
+            {
+                Nombre = nombre,
+                Rol = rol
+            };
+            Persona igualA = new Persona()
+            {
+                Nombre = nombre,
+                Rol = rol
+            };
+            Assert.True(persona.Equals(igualA));
+        }
+
     }
 }
