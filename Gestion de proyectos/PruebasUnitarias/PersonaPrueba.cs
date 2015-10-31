@@ -1,4 +1,5 @@
 ﻿using Xunit;
+using Dominio;
 
 namespace PruebasUnitarias
 {
