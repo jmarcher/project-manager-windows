@@ -32,3 +32,4 @@ C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\bin\Debug\xu
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\bin\Debug\xunit.core.xml
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\bin\Debug\xunit.execution.desktop.pdb
 C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\bin\Debug\xunit.execution.desktop.xml
+C:\Users\Joaquin\Documents\marchermuse\Gestion de proyectos\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
