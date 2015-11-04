@@ -210,5 +210,25 @@ namespace PruebasUnitarias
             Assert.Equal(id, etapa.Identificacion);
             Assert.Equal(nombre, etapa.Nombre);
         }
+
+        [Theory]
+        [InlineData("Juan","Administrador")]
+        [InlineData("José", "Administrador")]
+        [InlineData("Robert", "Investigador")]
+        [InlineData("Django", "Desarrollador")]
+        [InlineData("Peter", "Limpiador")]
+        [InlineData("Mario", "Cafetero")]
+        public void AgregarPersonaAEtapa(string nombre, string rol)
+        {
+            Persona persona = new Persona()
+            {
+                Nombre = nombre,
+                Rol = rol
+            };
+            Etapa etapa = CrearEtapaConSubTarea();
+            etapa.AgregarPersona(persona);
+            Assert.True(etapa.Personas.Contains(persona));
+        }
+
     }
 }

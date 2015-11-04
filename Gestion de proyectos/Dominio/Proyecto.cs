@@ -36,6 +36,7 @@ namespace Dominio
             }
         }
         public List<Etapa> Etapas { get; set; }
+        public List<Persona> Personas { get; set; }
 
         public Proyecto()
         {
@@ -106,6 +107,9 @@ namespace Dominio
             return mayorFecha;
         }
 
-
+        public void AgregarPersona(Persona persona)
+        {
+            Personas.Add(persona);
+        }
     }
 }
