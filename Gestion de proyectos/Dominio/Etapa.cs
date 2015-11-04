@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Dominio
 {
-    public class Etapa : IFechas, INombrable, IDuracionPendienteCalculable
+    public class Etapa : IFechas, INombrable, IDuracionPendienteCalculable, IPersonificable
     {
         public String Nombre { get; set; }
         public int Identificacion { get; set; }
@@ -29,7 +29,7 @@ namespace Dominio
             }
         }
 
-        
+        public List<Persona> Personas { get; set; }
 
         public Etapa()
         {
@@ -111,6 +111,11 @@ namespace Dominio
             {
                 Tareas.Remove(tarea);
             }
+        }
+
+        public void AgregarPersona(Persona persona)
+        {
+            Personas.Add(persona);
         }
     }
 }

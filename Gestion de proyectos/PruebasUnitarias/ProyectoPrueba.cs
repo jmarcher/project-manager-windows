@@ -95,6 +95,20 @@ namespace PruebasUnitarias
             Assert.True(proyecto.EstaFinalizado);
         }
 
+       /* [Fact]
+        public void AgregarPersonaAProyecto()
+        {
+            Persona persona = new Persona()
+            {
+                Nombre = "Juan",
+                Rol = "Administrador"
+            };
+            Proyecto proyecto = CrearUnProyectoConUnaEtapa();
+            proyecto.AgregarPersona(persona);
+
+            Assert.True(proyecto.Personas.Contains(persona));
+        }*/
+
         [Fact]
         public void MarcarProyectoComoFinalizadoConEtapaSinFinalizar()
         {
@@ -284,16 +298,6 @@ namespace PruebasUnitarias
             return imprimir;
         }
 
-        [Fact]
-        public void AgregarPersonaAProyecto()
-        {
-            Persona persona = new Persona()
-            {
-                Nombre = "Juan",
-                Rol = "Administrador"
-            };
-            Proyecto proyecto = CrearUnProyectoConUnaEtapa();
-            proyecto.AgregarPersona(persona);
-        }
+       
     }
 }

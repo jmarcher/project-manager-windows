@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Proyecto : IFechas, INombrable, IDuracionPendienteCalculable
+    public class Proyecto : IFechas, INombrable, IDuracionPendienteCalculable, IPersonificable
     {
         public int Identificador { get; set; }
         public String Nombre { get; set; }
@@ -41,6 +41,7 @@ namespace Dominio
         public Proyecto()
         {
             Etapas = new List<Etapa>();
+            Personas = new List<Persona>();
             FechaInicio = Tarea.FECHA_NULA;
         }
 

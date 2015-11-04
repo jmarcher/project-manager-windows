@@ -91,6 +91,26 @@ namespace PruebasUnitarias
 
             Assert.Null(tareaConAntecesora.UltimaAntecesora());
         }
+
+        [Fact]
+        public void AgregarPersonaATarea()
+        {
+            Persona persona = new Persona()
+            {
+                Nombre = "Jorge",
+                Rol = "Rol"
+            };
+            Tarea tarea = new TareaSimple()
+            {
+                Nombre = "Con antecesora",
+                FechaInicio = DateTime.Now,
+                FechaFinalizacion = DateTime.Now.AddDays(100)
+            };
+            tarea.AgregarPersona(persona);
+
+
+            Assert.True(tarea.Personas.Contains(persona));
+        }
         [Fact]
         public void AgregarAntecesoraPeroIniciaDespues()
         {
