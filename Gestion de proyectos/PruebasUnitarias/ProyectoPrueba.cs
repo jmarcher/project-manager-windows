@@ -283,5 +283,17 @@ namespace PruebasUnitarias
             imprimir.AgregarSubtarea(mostrar);
             return imprimir;
         }
+
+        [Fact]
+        public void AgregarPersonaAProyecto()
+        {
+            Persona persona = new Persona()
+            {
+                Nombre = "Juan",
+                Rol = "Administrador"
+            };
+            Proyecto proyecto = CrearUnProyectoConUnaEtapa();
+            proyecto.AgregarPersona(persona);
+        }
     }
 }
