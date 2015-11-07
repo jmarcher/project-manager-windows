@@ -15,7 +15,7 @@ namespace PruebasUnitarias
         {
             Proyecto proyecto = new Proyecto()
             {
-                Identificador = 1,
+                ProyectoID = 1,
                 Nombre = "Proyecto"
             };
             InstanciaUnica.Instancia.AgregarProyecto(proyecto);
@@ -28,7 +28,7 @@ namespace PruebasUnitarias
         {
             Proyecto proyecto = new Proyecto()
             {
-                Identificador = 1,
+                ProyectoID = 1,
                 Nombre = "Proyecto"
             };
             List<Proyecto> proyectos = new List<Proyecto>();

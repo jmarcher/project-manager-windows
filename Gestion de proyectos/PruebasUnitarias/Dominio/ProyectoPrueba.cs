@@ -10,7 +10,7 @@ namespace PruebasUnitarias
         {
             Proyecto proyectoUno = new Proyecto()
             {
-                Identificador=1,
+                ProyectoID=1,
                 Nombre="Proyecto",
                 Objetivo = "Objetivo",
                 FechaInicio = DateTime.Now.Date
@@ -18,7 +18,7 @@ namespace PruebasUnitarias
 
             Proyecto proyectoDos = new Proyecto()
             {
-                Identificador = 1,
+                ProyectoID = 1,
                 Nombre = "Proyecto",
                 Objetivo = "Objetivo",
                 FechaInicio=DateTime.Now.Date
@@ -33,12 +33,12 @@ namespace PruebasUnitarias
         {
             Proyecto proyecto = new Proyecto()
             {
-                Identificador = 1,
+                ProyectoID = 1,
                 Nombre = "Proyecto"
             };
             Etapa etapa = new Etapa()
             {
-                Identificacion = 1,
+                EtapaID = 1,
                 Nombre = "Etapa"
             };
             proyecto.AgregarEtapa(etapa);
@@ -51,12 +51,12 @@ namespace PruebasUnitarias
         {
             Proyecto proyecto = new Proyecto()
             {
-                Identificador = 1,
+                ProyectoID = 1,
                 Nombre = "Proyecto"
             };
             Etapa etapa = new Etapa()
             {
-                Identificacion = 1,
+                EtapaID = 1,
                 Nombre = "Etapa"
             };
             proyecto.QuitarEtapa(etapa);
@@ -68,13 +68,13 @@ namespace PruebasUnitarias
         {
             Proyecto proyectoUno = new Proyecto()
             {
-                Identificador = 1,
+                ProyectoID = 1,
                 Nombre = "Proyecto"
             };
 
             Proyecto proyectoDos = new Proyecto()
             {
-                Identificador = 2,
+                ProyectoID = 2,
                 Nombre = "Proyecto"
             };
 
@@ -138,7 +138,7 @@ namespace PruebasUnitarias
             etapa.AgregarTarea(tarea);
             Proyecto proyecto = new Proyecto()
             {
-                Identificador = 1,
+                ProyectoID = 1,
                 Nombre = "Proyecto"
             };
             proyecto.AgregarEtapa(etapa);
@@ -156,13 +156,13 @@ namespace PruebasUnitarias
             };
             Etapa etapa = new Etapa()
             {
-                Identificacion = 1,
+                EtapaID = 1,
                 FechaInicio = DateTime.Now
             };
             etapa.AgregarTarea(tarea);
             Proyecto proyecto = new Proyecto()
             {
-                Identificador = 1,
+                ProyectoID = 1,
                 Nombre = "Proyecto"
             };
             proyecto.AgregarEtapa(etapa);
@@ -186,7 +186,7 @@ namespace PruebasUnitarias
             etapa.AgregarTarea(tarea);
             Proyecto proyecto = new Proyecto()
             {
-                Identificador = 1,
+                ProyectoID = 1,
                 Nombre = "Proyecto no atrasado"
             };
             proyecto.AgregarEtapa(etapa);
@@ -198,12 +198,12 @@ namespace PruebasUnitarias
         {
             Etapa etapa = new Etapa()
             {
-                Identificacion = 10,
+                EtapaID = 10,
                 FechaInicio = DateTime.Now.AddDays(-60)
             };
             Proyecto proyecto = new Proyecto()
             {
-                Identificador = 1,
+                ProyectoID = 1,
                 Nombre = "Proyecto con etapa"
             };
             proyecto.AgregarEtapa(etapa);
@@ -233,7 +233,7 @@ namespace PruebasUnitarias
 
             Proyecto unProyecto = new Proyecto()
             {
-                Identificador = 1
+                ProyectoID = 1
             };
             unProyecto.AgregarEtapa(imprimeCuenta);
             return unProyecto;
@@ -247,7 +247,7 @@ namespace PruebasUnitarias
 
             Etapa imprimeCuenta = new Etapa()
             {
-                Identificacion = 1,
+                EtapaID = 1,
                 Nombre = "Imprime una cuenta",
                 FechaInicio = DateTime.Now
             };

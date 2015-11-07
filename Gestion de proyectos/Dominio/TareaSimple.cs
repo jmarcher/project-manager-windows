@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
     public class TareaSimple : Tarea
     {
+        [Required]
         private DateTime _FechaFinalizacion;
         public int DuracionPendiente { get; set; }
 

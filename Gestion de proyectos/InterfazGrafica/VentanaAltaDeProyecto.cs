@@ -77,7 +77,7 @@ namespace InterfazGrafica
             Etapa etapaNuevoProyecto = new Etapa()
             {
                 Nombre = this.textBoxNombreEtapaNuevoProyecto.Text,
-                Identificacion = Int32.Parse(this.textBoxIdEtapaNuevoProyecto.Text),
+                EtapaID = Int32.Parse(this.textBoxIdEtapaNuevoProyecto.Text),
                 FechaInicio = this.monthCalendarFechaInicioEtapa.SelectionStart
             };
             Proyecto nuevoProyecto = new Proyecto()

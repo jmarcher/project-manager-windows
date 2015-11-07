@@ -1,30 +1,31 @@
-﻿using Dominio.Excepciones;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public abstract class Tarea : IFechas, INombrable, IDuracionPendienteCalculable
+    public abstract class Tarea : IFechas, INombrable, IDuracionPendienteCalculable,IPersonificable
     {
         public const int PRIORIDAD_BAJA = 0;
         public const int PRIORIDAD_MEDIA = 1;
         public const int PRIORIDAD_ALTA = 2;
         public static readonly DateTime FECHA_NULA = new DateTime(2001, 1, 1);
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, Column(Order = 0)]
+        public int TareaID { get; set; }
+        
+        [Key, Column(Order = 1)]
+        public DateTime FechaModificada { get; set; }
         public int Prioridad { get; set; }
 
         public String Nombre { get; set; }
         public String Objetivo { get; set; }
         public String Descripcion { get; set; }
-
-
         public List<Tarea> Antecesoras { get; set; }
-
         private DateTime _FechaInicio;
-
         public bool EstaFinalizada { get; protected set; }
 
         public abstract bool EstaAtrasada { get; }
@@ -50,14 +51,21 @@ namespace Dominio
         }
         public abstract DateTime FechaFinalizacion { get; set; }
 
+        public List<Persona> Personas
+        {            get;
+            set;
+        }
+
         public Tarea()
         {
             Antecesoras = new List<Tarea>();
+            Personas = new List<Persona>();
             Prioridad = PRIORIDAD_MEDIA;
             _FechaInicio = FECHA_NULA;
             Nombre = "[Nombre por defecto]";
             Objetivo = "Objetivo";
             EstaFinalizada = false;
+            FechaModificada = DateTime.Now.Date;
         }
 
         public abstract int CalcularDuracionPendiente();
@@ -201,5 +209,9 @@ namespace Dominio
             return false;
         }
 
+        public void AgregarPersona(Persona persona)
+        {
+            Personas.Add(persona);
+        }
     }
 }

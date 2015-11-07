@@ -18,13 +18,13 @@ namespace InterfazGrafica
 
         private void VentanaEtapa_Load(object sender, EventArgs e)
         {
-            this.Text = "Detalles de la etapa: " + Etapa.Nombre + "(id: " + Etapa.Identificacion + ")";
+            this.Text = "Detalles de la etapa: " + Etapa.Nombre + "(id: " + Etapa.EtapaID + ")";
             AsignarTextoAControles();
         }
 
         private void AsignarTextoAControles()
         {
-            idTextBox.Text = Etapa.Identificacion.ToString();
+            idTextBox.Text = Etapa.EtapaID.ToString();
             nombreTextBox.Text = Etapa.Nombre;
             marcarFinalizadaCheckBox.Checked = Etapa.EstaFinalizada;
             fechaInicioTextBox.Text = Etapa.FechaInicio.ToString();

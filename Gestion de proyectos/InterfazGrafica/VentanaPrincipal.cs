@@ -14,6 +14,7 @@ namespace InterfazGrafica
 
         public VentanaPrincipal()
         {
+            
             InitializeComponent();
             try
             {
@@ -62,7 +63,7 @@ namespace InterfazGrafica
         private static ListViewItem crearNuevoItemListaProyectos(Proyecto proyecto)
         {
             ListViewItem nuevoItemLista = new ListViewItem();
-            string identificador = proyecto.Identificador.ToString();
+            string identificador = proyecto.ProyectoID.ToString();
             agregarIdentificadorALista(nuevoItemLista, identificador);
             agregarNombreALista(proyecto, nuevoItemLista);
             agregarObjetivoALista(proyecto, nuevoItemLista);
@@ -134,7 +135,7 @@ namespace InterfazGrafica
 
         private Proyecto proyectoSeleccionado()
         {
-            return InstanciaUnica.Instancia.DevolverProyectos().Find(x => x.Identificador == devolverIdentificadorSeleccionado());
+            return InstanciaUnica.Instancia.DevolverProyectos().Find(x => x.ProyectoID == devolverIdentificadorSeleccionado());
         }
 
         private int devolverIdentificadorSeleccionado()

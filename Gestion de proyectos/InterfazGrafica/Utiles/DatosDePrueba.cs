@@ -58,7 +58,7 @@ namespace InterfazGrafica.Utiles
             Etapa etapa = new Etapa()
             {
                 Nombre = "Etapa Nro: "+i,
-                Identificacion = GenerarIdUnico(),
+                EtapaID = GenerarIdUnico(),
                 
             };
 
@@ -155,7 +155,7 @@ namespace InterfazGrafica.Utiles
             {
                 Nombre = "Proyecto Nro: "+i,
                 Objetivo = "Objetivo Nro: "+i,
-                Identificador = GenerarIdUnico()
+                ProyectoID = GenerarIdUnico()
             };
 
             AgregarEtapasAProyecto(aleatorio, proyecto);

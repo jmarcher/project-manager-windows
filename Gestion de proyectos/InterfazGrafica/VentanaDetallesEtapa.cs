@@ -36,7 +36,7 @@ namespace InterfazGrafica
         {
             InicializarArbolTareas();
             this.Text = "Detalles de la etapa: " + etapa.Nombre;
-            labelIdentifiacion.Text = etapa.Identificacion.ToString();
+            labelIdentifiacion.Text = etapa.EtapaID.ToString();
             textBoxNombre.Text = etapa.Nombre;
             dateTimePickerFechaInicio.Value = etapa.FechaInicio;
             textBoxFechaFin.Text = etapa.FechaFinalizacion.ToString();

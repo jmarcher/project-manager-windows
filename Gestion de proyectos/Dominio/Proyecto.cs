@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
+    [Table("Proyectos")]
     public class Proyecto : IFechas, INombrable, IDuracionPendienteCalculable, IPersonificable
     {
-        public int Identificador { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public int ProyectoID { get; set; }
         public String Nombre { get; set; }
         public String Objetivo { get; set; }
         public DateTime FechaInicio { get; set; }
@@ -63,7 +69,7 @@ namespace Dominio
         public override bool Equals(object obj)
         {
             Proyecto proyecto = (Proyecto)obj;
-            return proyecto.Identificador == this.Identificador;
+            return proyecto.ProyectoID == this.ProyectoID;
         }
 
         public int CalcularDuracionPendiente()

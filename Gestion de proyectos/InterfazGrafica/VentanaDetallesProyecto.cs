@@ -33,7 +33,7 @@ namespace InterfazGrafica
             dateTimePickerFechaInicio.Text = proyecto.FechaInicio.Date.ToString();
             textBoxObjetivo.Text = proyecto.Objetivo;
             textBoxNombre.Text = proyecto.Nombre;
-            labelIdentificacion.Text = proyecto.Identificador.ToString();
+            labelIdentificacion.Text = proyecto.ProyectoID.ToString();
             labelDuracionPendiente.Text = proyecto.CalcularDuracionPendiente().ToString() + " días";
         }
 
@@ -62,7 +62,7 @@ namespace InterfazGrafica
         private static ListViewItem CrearNuevoItemListView(Etapa etapa)
         {
             ListViewItem elementoListView = new ListViewItem();
-            elementoListView.Text = (etapa.Identificacion) + "";
+            elementoListView.Text = (etapa.EtapaID) + "";
             elementoListView.SubItems[0].Tag = OrdenadorListView.INT;
             elementoListView.SubItems.Add(etapa.Nombre).Tag = OrdenadorListView.STRING;
             elementoListView.SubItems.Add(etapa.CalcularDuracionPendiente().ToString()).Tag = OrdenadorListView.INT;
@@ -102,7 +102,7 @@ namespace InterfazGrafica
 
         private Etapa EtapaSeleccionada()
         {
-            return proyecto.Etapas.Find(x => x.Identificacion == DevolverIdentificadorSeleccionado());
+            return proyecto.Etapas.Find(x => x.EtapaID == DevolverIdentificadorSeleccionado());
         }
 
         private bool CartelConfirmacionEliminacionAceptado()
@@ -236,7 +236,7 @@ namespace InterfazGrafica
         {
             Etapa etapa = new Etapa()
             {
-                Identificacion = ObtenerSiguienteIdEtapa()
+                EtapaID = ObtenerSiguienteIdEtapa()
             };
             proyecto.AgregarEtapa(etapa);
             EditarEtapaVentana(etapa);
@@ -248,9 +248,9 @@ namespace InterfazGrafica
             int mayorId = int.MinValue;
             foreach(Etapa etapa in proyecto.Etapas)
             {
-                if(etapa.Identificacion > mayorId)
+                if(etapa.EtapaID > mayorId)
                 {
-                    mayorId = etapa.Identificacion;
+                    mayorId = etapa.EtapaID;
                 }
             }
             return mayorId + 1;

@@ -165,5 +165,14 @@ namespace PruebasUnitarias
             Assert.Null(tarea.ObtenerProyectoPadre());
 
         }
+
+        [Fact]
+        public void FechaModificada()
+        {
+            Tarea tarea = new TareaSimple();
+            DateTime fechaActual = DateTime.Now.Date;
+            Assert.Equal(fechaActual,tarea.FechaModificada);
+
+        }
     }
 }

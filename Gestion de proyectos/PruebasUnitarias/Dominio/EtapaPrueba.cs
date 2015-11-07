@@ -99,7 +99,7 @@ namespace PruebasUnitarias
 
             Etapa etapaPrueba = new Etapa()
             {
-                Identificacion = 1,
+                EtapaID = 1,
                 Nombre = "Imprime una cuenta",
                 FechaInicio = DateTime.Now
             };
@@ -202,12 +202,12 @@ namespace PruebasUnitarias
         {
             Etapa etapa = new Etapa()
             {
-                Identificacion = id,
+                EtapaID = id,
                 Nombre = nombre,
                 FechaInicio = DateTime.Parse(fechaInicio).Date
             };
             Assert.Equal(DateTime.Parse(fechaInicio).Date, etapa.FechaInicio.Date);
-            Assert.Equal(id, etapa.Identificacion);
+            Assert.Equal(id, etapa.EtapaID);
             Assert.Equal(nombre, etapa.Nombre);
         }
 

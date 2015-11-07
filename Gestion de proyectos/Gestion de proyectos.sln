@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PruebasUnitarias", "PruebasUnitarias\PruebasUnitarias.csproj", "{E132D9B4-A72E-4978-9BC7-61512C2BD116}"
-	ProjectSection(ProjectDependencies) = postProject
-		{73621243-78FD-49FA-8BDE-C94B405F705C} = {73621243-78FD-49FA-8BDE-C94B405F705C}
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F023C8F1-0815-4760-AAA6-E00BD7C80DC7}"
 	ProjectSection(SolutionItems) = preProject
@@ -19,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.csproj", "{650EA266-C816-422D-8577-A9B2EF120BE0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfazGrafica", "InterfazGrafica\InterfazGrafica.csproj", "{73621243-78FD-49FA-8BDE-C94B405F705C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistencia", "Persistencia\Persistencia.csproj", "{1AD7F48C-D9A0-45B8-9532-9FFD5DA63E02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +51,14 @@ Global
 		{73621243-78FD-49FA-8BDE-C94B405F705C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{73621243-78FD-49FA-8BDE-C94B405F705C}.Release|x86.ActiveCfg = Release|x86
 		{73621243-78FD-49FA-8BDE-C94B405F705C}.Release|x86.Build.0 = Release|x86
+		{1AD7F48C-D9A0-45B8-9532-9FFD5DA63E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AD7F48C-D9A0-45B8-9532-9FFD5DA63E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AD7F48C-D9A0-45B8-9532-9FFD5DA63E02}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1AD7F48C-D9A0-45B8-9532-9FFD5DA63E02}.Debug|x86.Build.0 = Debug|Any CPU
+		{1AD7F48C-D9A0-45B8-9532-9FFD5DA63E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AD7F48C-D9A0-45B8-9532-9FFD5DA63E02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AD7F48C-D9A0-45B8-9532-9FFD5DA63E02}.Release|x86.ActiveCfg = Release|Any CPU
+		{1AD7F48C-D9A0-45B8-9532-9FFD5DA63E02}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

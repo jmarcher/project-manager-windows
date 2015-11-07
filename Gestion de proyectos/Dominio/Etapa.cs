@@ -1,12 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
     public class Etapa : IFechas, INombrable, IDuracionPendienteCalculable, IPersonificable
     {
         public String Nombre { get; set; }
-        public int Identificacion { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public int EtapaID { get; set; }
         public List<Tarea> Tareas { get; set; }
         public bool EstaFinalizada { get; private set; }
         public bool EstaAtrasada
@@ -36,6 +41,7 @@ namespace Dominio
             Nombre = "[Nombre por defecto]";
             EstaFinalizada = false;
             Tareas = new List<Tarea>();
+            Personas = new List<Persona>();
             FechaInicio = Tarea.FECHA_NULA;
         }
         
@@ -43,7 +49,7 @@ namespace Dominio
         public override bool Equals(object obj)
         {
             Etapa etapa = (Etapa)obj;
-            return etapa.Identificacion == this.Identificacion;
+            return etapa.EtapaID == this.EtapaID;
         }
 
         public int CalcularDuracionPendiente()
