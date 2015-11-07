@@ -106,6 +106,13 @@ namespace Persistencia
             Personas.Remove(p);
             SaveChanges();
         }
+
+        public void EliminarProyecto(int id)
+        {
+            Proyecto p = Proyectos.Find(id);
+            Proyectos.Remove(p);
+            SaveChanges();
+        }
     }
 
 }
