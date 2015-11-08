@@ -14,10 +14,9 @@ namespace Dominio
         public static readonly DateTime FECHA_NULA = new DateTime(2001, 1, 1);
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key, Column(Order = 0)]
+        [Key]
         public int TareaID { get; set; }
         
-        [Key, Column(Order = 1)]
         public DateTime FechaModificada { get; set; }
         public int Prioridad { get; set; }
 

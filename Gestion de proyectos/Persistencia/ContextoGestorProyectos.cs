@@ -70,15 +70,28 @@ namespace Persistencia
 
         public void EliminarPersona(int id)
         {
-            Persona p = Personas.Find(id);
-            Personas.Remove(p);
+            Persona persona = Personas.Find(id);
+            Personas.Remove(persona);
             SaveChanges();
         }
 
         public void EliminarProyecto(int id)
         {
-            Proyecto p = Proyectos.Find(id);
-            Proyectos.Remove(p);
+            Proyecto proyecto = Proyectos.Find(id);
+            Proyectos.Remove(proyecto);
+            SaveChanges();
+        }
+
+        public void EliminarEtapa(int id)
+        {
+            Etapa etapa = Etapas.Find(id);
+            Etapas.Remove(etapa);
+            SaveChanges();
+        }
+        public void EliminarTarea(int id)
+        {
+            Tarea tarea = Tareas.Find(id);
+            Tareas.Remove(tarea);
             SaveChanges();
         }
     }
