@@ -28,15 +28,7 @@ namespace Persistencia
 
         public Proyecto ObtenerProyecto(int proyectoID)
         {
-            Proyecto retorno = new Proyecto();
-            var proyectos = from p in Proyectos
-                            where p.ProyectoID == proyectoID
-                            select p;
-            foreach (Proyecto proyectoActual in proyectos)
-            {
-                retorno = proyectoActual;
-            }
-            return retorno;
+            return Proyectos.Find(proyectoID);
         }
 
         public int AgregarEtapa(Etapa etapa)
@@ -48,15 +40,7 @@ namespace Persistencia
 
         public Etapa ObtenerEtapa(int id)
         {
-            Etapa etapaRetorno = null;
-            var etapas = from etapa in Etapas
-                         where etapa.EtapaID == id
-                         select etapa;
-            foreach (Etapa e in etapas)
-            {
-                etapaRetorno = e;
-            }
-            return etapaRetorno;
+            return Etapas.Find(id);
         }
 
         public int AgregarTarea(Tarea tarea)
@@ -69,15 +53,7 @@ namespace Persistencia
 
         public Tarea ObtenerTarea(int id)
         {
-            Tarea tareaRetorno = null;
-            var tareas = from t in Tareas
-                         where t.TareaID == id
-                         select t;
-            foreach(Tarea tarea in tareas)
-            {
-                tareaRetorno = tarea;
-            }
-            return tareaRetorno;
+            return Tareas.Find(id);
         }
 
         public int AgregarPersona(Persona p)
@@ -89,15 +65,7 @@ namespace Persistencia
 
         public Persona ObtenerPersona(int id)
         {
-            Persona pRetorno = null;
-            var personas = from p in Personas
-                           where p.PersonaID == id
-                           select p;
-            foreach(var per in personas)
-            {
-                pRetorno = per;
-            }
-            return pRetorno;
+            return Personas.Find(id);
         }
 
         public void EliminarPersona(int id)
