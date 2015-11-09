@@ -5,6 +5,7 @@ using Xunit;
 
 namespace PruebasUnitarias.Persistencia
 {
+    [Collection("Pruebas de eliminar")]
     public class EliminarPrueba
     {
         [Fact]
@@ -69,14 +70,13 @@ namespace PruebasUnitarias.Persistencia
                 Descripcion="Descripcion",
                 Objetivo="Objetivo",
                 DuracionPendiente=10
-
-
-
             };
             using (var db = new ContextoGestorProyectos())
             {
-                int id = db.AgregarTarea(tarea);
-                db.EliminarTarea(id);
+                Tuple<int, DateTime> resultado = db.AgregarTarea(tarea);
+                int id = resultado.Item1;
+                DateTime fechaModificada = resultado.Item2;
+                db.EliminarTarea(id, fechaModificada);
                 Assert.DoesNotContain(tarea, db.Tareas);
             }
         }

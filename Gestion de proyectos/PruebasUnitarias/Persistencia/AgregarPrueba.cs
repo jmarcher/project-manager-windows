@@ -157,13 +157,16 @@ namespace PruebasUnitarias
                 Descripcion = "Desc",
                 Objetivo = "Obj",
                 FechaInicio = DateTime.Now,
+                FechaFinalizacion = DateTime.Now,
                 Prioridad = Tarea.PRIORIDAD_BAJA,
                 DuracionPendiente = 14
             };
             using (var db = new ContextoGestorProyectos())
             {
-                int id = db.AgregarTarea(ts);
-                TareaSimple tsRetorno = (TareaSimple)db.ObtenerTarea(id);
+                Tuple<int, DateTime> resultado = db.AgregarTarea(ts);
+                int id = resultado.Item1;
+                DateTime fechaModificada = resultado.Item2;
+                TareaSimple tsRetorno = (TareaSimple)db.ObtenerTarea(id,fechaModificada);
                 Assert.Equal(ts, tsRetorno);
             }
         }
@@ -192,8 +195,10 @@ namespace PruebasUnitarias
             tc.AgregarSubtarea(ts);
             using (var db = new ContextoGestorProyectos())
             {
-                int id = db.AgregarTarea(tc);
-                TareaCompuesta tcRetorno = (TareaCompuesta)db.ObtenerTarea(id);
+                Tuple<int, DateTime> resultado = db.AgregarTarea(tc);
+                int id = resultado.Item1;
+                DateTime fechaModificada = resultado.Item2;
+                TareaCompuesta tcRetorno = (TareaCompuesta)db.ObtenerTarea(id,fechaModificada);
                 Assert.Contains(ts, tc.Subtareas);
                 Assert.Equal(tc, tcRetorno);
             }

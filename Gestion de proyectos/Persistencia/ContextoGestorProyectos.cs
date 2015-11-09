@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Entity;
 using Dominio;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Reflection;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Persistencia
 {
@@ -43,17 +37,24 @@ namespace Persistencia
             return Etapas.Find(id);
         }
 
-        public int AgregarTarea(Tarea tarea)
+        public Tuple<int,DateTime> AgregarTarea(Tarea tarea)
         {
-            tarea.FechaModificada = DateTime.Now.Date;
             Tareas.Add(tarea);
             SaveChanges();
-            return tarea.TareaID;
+            return Tuple.Create(tarea.TareaID,tarea.FechaModificada);
         }
 
-        public Tarea ObtenerTarea(int id)
+        public Tarea ObtenerTarea(int id, DateTime fechaModificada)
         {
-            return Tareas.Find(id);
+            Tarea t = null;
+            var tareas = from r in Tareas
+                         where r.TareaID == id && r.FechaModificada == fechaModificada.Date
+                         select r;
+            foreach(Tarea ta in tareas)
+            {
+                t = ta;
+            }
+            return t;
         }
 
         public int AgregarPersona(Persona p)
@@ -88,11 +89,14 @@ namespace Persistencia
             Etapas.Remove(etapa);
             SaveChanges();
         }
-        public void EliminarTarea(int id)
+        public void EliminarTarea(int id, DateTime fechaModificada)
         {
-            Tarea tarea = Tareas.Find(id);
-            Tareas.Remove(tarea);
-            SaveChanges();
+            var tarea = Tareas.SingleOrDefault(x => x.TareaID == id && x.FechaModificada== fechaModificada);
+            if (tarea != null)
+            {
+                Tareas.Remove(tarea);
+                SaveChanges();
+            }
         }
     }
 

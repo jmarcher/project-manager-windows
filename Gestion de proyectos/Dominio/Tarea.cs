@@ -17,6 +17,7 @@ namespace Dominio
         [Key]
         public int TareaID { get; set; }
         
+        [Index]
         public DateTime FechaModificada { get; set; }
         public int Prioridad { get; set; }
 
@@ -103,10 +104,13 @@ namespace Dominio
             if (Convert.IsDBNull(obj))
                 return false;
             Tarea tarea = (Tarea)obj;
-            return tarea.Nombre.Equals(this.Nombre)
-                && tarea.Objetivo.Equals(Objetivo)
-                && tarea.FechaEsIgual(tarea.FechaInicio, this.FechaInicio)
-                && tarea.Prioridad == this.Prioridad;
+            if(TareaID == 0)
+                return tarea.Nombre.Equals(this.Nombre)
+                    && tarea.Objetivo.Equals(Objetivo)
+                    && tarea.FechaEsIgual(tarea.FechaInicio, this.FechaInicio)
+                    && tarea.Prioridad == this.Prioridad;
+            else
+                return tarea.TareaID == TareaID;
         }
 
         public Tarea UltimaAntecesora()

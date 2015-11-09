@@ -84,6 +84,7 @@
     <Compile Include="Dominio\InstanciaUnicaPrueba.cs" />
     <Compile Include="Dominio\PersonaPrueba.cs" />
     <Compile Include="Dominio\ProyectoPrueba.cs" />
+    <Compile Include="Persistencia\ActualizarPrueba.cs" />
     <Compile Include="Persistencia\AgregarPrueba.cs" />
     <Compile Include="Persistencia\ContextoGestorProyectosPrueba.cs" />
     <Compile Include="Persistencia\EliminarPrueba.cs" />
