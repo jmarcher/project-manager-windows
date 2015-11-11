@@ -12,7 +12,8 @@ namespace Dominio
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int EtapaID { get; set; }
-        public List<Tarea> Tareas { get; set; }
+        public virtual List<Tarea> Tareas { get; set; }
+        public virtual List<Persona> Personas { get; set; }
         public bool EstaFinalizada { get; private set; }
         public bool EstaAtrasada
         {
@@ -33,8 +34,7 @@ namespace Dominio
                 return UltimaFechaDeTareas();
             }
         }
-
-        public List<Persona> Personas { get; set; }
+        
 
         public Etapa()
         {
@@ -123,5 +123,6 @@ namespace Dominio
         {
             Personas.Add(persona);
         }
+
     }
 }

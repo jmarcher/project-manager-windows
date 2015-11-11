@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
 using Dominio;
 using InterfazGrafica.Utiles;
 using System.Collections.Generic;
+using Persistencia;
 
 namespace InterfazGrafica
 {
@@ -19,7 +21,7 @@ namespace InterfazGrafica
             try
             {
                 configurarListViewProyectos();
-                ActualizarListaDeProyectos();
+                actualizarListaDeProyectos();
             }
             catch (NullReferenceException)
             {
@@ -50,14 +52,28 @@ namespace InterfazGrafica
             listViewProyectos.ListViewItemSorter = ordenadorListView;
         }
 
-        private void ActualizarListaDeProyectos()
+        private void actualizarListaDeProyectos()
         {
             listViewProyectos.Items.Clear();
-            foreach(Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos())
+            foreach(Proyecto proyecto in ObtenerListaProyectos())
             {
                 ListViewItem nuevoItemLista = crearNuevoItemListaProyectos(proyecto);
                 listViewProyectos.Items.Add(nuevoItemLista);
             }
+        }
+
+        private List<Proyecto> ObtenerListaProyectos()
+        {
+            List<Proyecto> retorno = new List<Proyecto>();
+            using (var db = new ContextoGestorProyectos())
+            {
+                var proyectos = db.DevolverProyectos();
+                foreach(Proyecto p in proyectos)
+                {
+                    retorno.Add(p);
+                }
+            }
+            return retorno;
         }
 
         private static ListViewItem crearNuevoItemListaProyectos(Proyecto proyecto)
@@ -128,14 +144,17 @@ namespace InterfazGrafica
 
         private void abrirVentanaDetallesProyecto(Proyecto proyecto)
         {
-            VentanaDetallesProyecto ventana = new VentanaDetallesProyecto(proyecto);
+            VentanaDetallesProyecto ventana = new VentanaDetallesProyecto(proyecto.ProyectoID);
             ventana.ShowDialog(this);
             ActualizarListaDeProyectosConCondicion(new CondicionDeActualizacion(EstaCerradaVentanaDetallesProyecto));
         }
 
         private Proyecto proyectoSeleccionado()
         {
-            return InstanciaUnica.Instancia.DevolverProyectos().Find(x => x.ProyectoID == devolverIdentificadorSeleccionado());
+            using (var db = new ContextoGestorProyectos())
+            {
+                return db.ObtenerProyecto(devolverIdentificadorSeleccionado());
+            }
         }
 
         private int devolverIdentificadorSeleccionado()
@@ -157,7 +176,7 @@ namespace InterfazGrafica
             {
                 if (metodo(frm))
                 {
-                    ActualizarListaDeProyectos();
+                    actualizarListaDeProyectos();
                     break;
                 }
             }
@@ -201,8 +220,11 @@ namespace InterfazGrafica
                 if (AyudanteVisual.CartelConfirmacion("¿Seguro desea eliminar este proyecto?\n" +
                     "La siguiente acción, eliminará el pryecto con todas sus etapas y tareas.", "Eliminación de proyecto"))
                 {
-                    InstanciaUnica.Instancia.DevolverProyectos().Remove(proyectoSeleccionado());
-                    ActualizarListaDeProyectos();
+                    using(var db = new ContextoGestorProyectos())
+                    {
+                        db.EliminarProyecto(proyectoSeleccionado().ProyectoID);
+                    }
+                    actualizarListaDeProyectos();
                 }
             }
         }
@@ -229,7 +251,7 @@ namespace InterfazGrafica
         private void borrarDatosDePruebaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InstanciaUnica.Instancia.AgregarProyectos(listaVacia());
-            ActualizarListaDeProyectos();
+            actualizarListaDeProyectos();
         }
 
         private static List<Proyecto> listaVacia()
@@ -241,7 +263,7 @@ namespace InterfazGrafica
         {
             DatosDePrueba dp = new DatosDePrueba();
             InstanciaUnica.Instancia.AgregarProyectos(dp.ObtenerUnaListaProyectos());
-            ActualizarListaDeProyectos();
+            actualizarListaDeProyectos();
         }
     }
 }

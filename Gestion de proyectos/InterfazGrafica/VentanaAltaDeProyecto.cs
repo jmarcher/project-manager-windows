@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Dominio;
+using Persistencia;
 
 namespace InterfazGrafica
 {
@@ -77,7 +78,6 @@ namespace InterfazGrafica
             Etapa etapaNuevoProyecto = new Etapa()
             {
                 Nombre = this.textBoxNombreEtapaNuevoProyecto.Text,
-                EtapaID = Int32.Parse(this.textBoxIdEtapaNuevoProyecto.Text),
                 FechaInicio = this.monthCalendarFechaInicioEtapa.SelectionStart
             };
             Proyecto nuevoProyecto = new Proyecto()
@@ -90,7 +90,10 @@ namespace InterfazGrafica
             etapaNuevoProyecto.AgregarTarea(tareaNuevoProyecto);
 
             nuevoProyecto.AgregarEtapa(etapaNuevoProyecto);
-            InstanciaUnica.Instancia.AgregarProyecto(nuevoProyecto);
+            using(var db = new ContextoGestorProyectos())
+            {
+                db.AgregarProyecto(nuevoProyecto);
+            }
 
         }
     }

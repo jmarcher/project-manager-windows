@@ -3,17 +3,23 @@ using InterfazGrafica.Utiles;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using Persistencia;
 
 namespace InterfazGrafica
 {
     public partial class VentanaDetallesProyecto : Form
     {
         private Proyecto proyecto;
+        private int proyectoID;
         private OrdenadorListView ordenadorListView;
 
-        public VentanaDetallesProyecto(Proyecto proyecto)
+        public VentanaDetallesProyecto(int proyectoID)
         {
-            this.proyecto = proyecto;
+            using(var db = new ContextoGestorProyectos())
+            {
+                this.proyecto = db.ObtenerProyecto(proyectoID);
+            }
+            this.proyectoID = proyectoID;
             InitializeComponent();
             InicializarControles();
         }
@@ -51,6 +57,9 @@ namespace InterfazGrafica
         private void ActualizarLista()
         {
             etapasListView.Items.Clear();
+            using (var db = new ContextoGestorProyectos()) {
+                proyecto = db.ObtenerProyecto(proyectoID);
+            }
             foreach (Etapa etapa in proyecto.Etapas)
             {
                 ListViewItem elementoListView = CrearNuevoItemListView(etapa);
@@ -136,7 +145,7 @@ namespace InterfazGrafica
 
         private void EditarEtapaVentana(Etapa etapa)
         {
-            VentanaDetallesEtapa ventanaDetalles = new VentanaDetallesEtapa(etapa);
+            VentanaDetallesEtapa ventanaDetalles = new VentanaDetallesEtapa(etapa.EtapaID);
             ventanaDetalles.ShowDialog(this);
             foreach (Form formulario in Application.OpenForms)
             {

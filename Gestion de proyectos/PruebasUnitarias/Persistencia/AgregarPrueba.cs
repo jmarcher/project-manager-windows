@@ -5,7 +5,7 @@ using System;
 
 namespace PruebasUnitarias
 {
-    [Collection("Pruebas de agregar")]
+    [Collection("Pruebas de persistencia")]
     public class AgregarPrueba
     {
         [Theory]
@@ -163,10 +163,8 @@ namespace PruebasUnitarias
             };
             using (var db = new ContextoGestorProyectos())
             {
-                Tuple<int, DateTime> resultado = db.AgregarTarea(ts);
-                int id = resultado.Item1;
-                DateTime fechaModificada = resultado.Item2;
-                TareaSimple tsRetorno = (TareaSimple)db.ObtenerTarea(id,fechaModificada);
+                int id = db.AgregarTarea(ts);
+                TareaSimple tsRetorno = (TareaSimple)db.ObtenerTarea(id);
                 Assert.Equal(ts, tsRetorno);
             }
         }
@@ -195,10 +193,8 @@ namespace PruebasUnitarias
             tc.AgregarSubtarea(ts);
             using (var db = new ContextoGestorProyectos())
             {
-                Tuple<int, DateTime> resultado = db.AgregarTarea(tc);
-                int id = resultado.Item1;
-                DateTime fechaModificada = resultado.Item2;
-                TareaCompuesta tcRetorno = (TareaCompuesta)db.ObtenerTarea(id,fechaModificada);
+                int id = db.AgregarTarea(tc);
+                TareaCompuesta tcRetorno = (TareaCompuesta)db.ObtenerTarea(id);
                 Assert.Contains(ts, tc.Subtareas);
                 Assert.Equal(tc, tcRetorno);
             }

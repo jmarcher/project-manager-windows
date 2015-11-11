@@ -194,6 +194,10 @@
       <Project>{650ea266-c816-422d-8577-a9b2ef120be0}</Project>
       <Name>Dominio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Persistencia\Persistencia.csproj">
+      <Project>{1ad7f48c-d9a0-45b8-9532-9ffd5da63e02}</Project>
+      <Name>Persistencia</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

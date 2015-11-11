@@ -16,15 +16,14 @@ namespace Dominio
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int TareaID { get; set; }
-        
-        [Index]
         public DateTime FechaModificada { get; set; }
         public int Prioridad { get; set; }
 
         public String Nombre { get; set; }
         public String Objetivo { get; set; }
         public String Descripcion { get; set; }
-        public List<Tarea> Antecesoras { get; set; }
+        public virtual List<Tarea> Antecesoras { get; set; }
+        public virtual List<Persona> Personas { get; set; }
         private DateTime _FechaInicio;
         public bool EstaFinalizada { get; protected set; }
 
@@ -50,11 +49,7 @@ namespace Dominio
             }
         }
         public abstract DateTime FechaFinalizacion { get; set; }
-
-        public List<Persona> Personas
-        {            get;
-            set;
-        }
+        
 
         public Tarea()
         {
@@ -216,5 +211,6 @@ namespace Dominio
         {
             Personas.Add(persona);
         }
+
     }
 }

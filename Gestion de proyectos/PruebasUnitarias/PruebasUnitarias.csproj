@@ -88,6 +88,7 @@
     <Compile Include="Persistencia\AgregarPrueba.cs" />
     <Compile Include="Persistencia\ContextoGestorProyectosPrueba.cs" />
     <Compile Include="Persistencia\EliminarPrueba.cs" />
+    <Compile Include="Persistencia\ObtenerPruebas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dominio\TareaCompuestaPrueba.cs" />
     <Compile Include="Dominio\TareaPrueba.cs" />

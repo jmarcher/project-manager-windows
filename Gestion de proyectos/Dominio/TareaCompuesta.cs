@@ -1,12 +1,13 @@
 ﻿using Dominio.Excepciones;
 using System.Collections.Generic;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dominio
 {
     public class TareaCompuesta : Tarea
     {
-        public List<Tarea> Subtareas { get; private set; }
+        public virtual List<Tarea> Subtareas { get; private set; }
 
         public override DateTime FechaFinalizacion
         {

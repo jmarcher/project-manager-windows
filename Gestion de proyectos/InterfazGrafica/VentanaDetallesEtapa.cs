@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Persistencia;
 
 namespace InterfazGrafica
 {
@@ -24,10 +25,13 @@ namespace InterfazGrafica
             InitializeComponent();
         }
 
-        public VentanaDetallesEtapa(Etapa etapa)
+        public VentanaDetallesEtapa(int etapaID)
         {
             InitializeComponent();
-            this.etapa = etapa;
+            using (var db = new ContextoGestorProyectos())
+            {
+                etapa = db.ObtenerEtapa(etapaID);
+            }
             InicializarComponentes();
             ActualizarArbolTareas();
         }
@@ -147,7 +151,7 @@ namespace InterfazGrafica
 
         private static bool EsUnaTareaSimple(Tarea tarea)
         {
-            return tarea.GetType() == typeof(TareaSimple);
+            return tarea.GetType() == typeof(TareaSimple) || tarea.GetType().BaseType == typeof(TareaSimple);
         }
 
         private bool HayTareaSeleccionada()

@@ -41,8 +41,8 @@ namespace Dominio
                 return false;
             }
         }
-        public List<Etapa> Etapas { get; set; }
-        public List<Persona> Personas { get; set; }
+        public virtual List<Etapa> Etapas { get; set; }
+        public virtual List<Persona> Personas { get; set; }
 
         public Proyecto()
         {
@@ -118,5 +118,6 @@ namespace Dominio
         {
             Personas.Add(persona);
         }
+
     }
 }
