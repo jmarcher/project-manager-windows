@@ -98,6 +98,7 @@
     <Compile Include="Etapa.cs" />
     <Compile Include="Excepciones\FechaInvalida.cs" />
     <Compile Include="Interfaces\IPersonificable.cs" />
+    <Compile Include="Interfaces\IDuracionEstimable.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Proyecto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

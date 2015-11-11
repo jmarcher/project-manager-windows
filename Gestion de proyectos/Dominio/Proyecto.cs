@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Dominio
 {
     [Table("Proyectos")]
-    public class Proyecto : IFechas, INombrable, IDuracionPendienteCalculable, IPersonificable
+    public class Proyecto : IFechas, INombrable, IDuracionPendienteCalculable, IPersonificable, IDuracionEstimable
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -43,6 +43,8 @@ namespace Dominio
         }
         public virtual List<Etapa> Etapas { get; set; }
         public virtual List<Persona> Personas { get; set; }
+
+        public int DuracionEstimada {get;set;}
 
         public Proyecto()
         {

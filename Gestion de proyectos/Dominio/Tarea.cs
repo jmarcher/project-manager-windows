@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Dominio
 {
-    public abstract class Tarea : IFechas, INombrable, IDuracionPendienteCalculable,IPersonificable
+    public abstract class Tarea : IFechas, INombrable, IDuracionPendienteCalculable, IPersonificable, IDuracionEstimable
     {
         public const int PRIORIDAD_BAJA = 0;
         public const int PRIORIDAD_MEDIA = 1;
@@ -18,6 +18,8 @@ namespace Dominio
         public int TareaID { get; set; }
         public DateTime FechaModificada { get; set; }
         public int Prioridad { get; set; }
+
+        public int DuracionEstimada { get; set; }
 
         public String Nombre { get; set; }
         public String Objetivo { get; set; }

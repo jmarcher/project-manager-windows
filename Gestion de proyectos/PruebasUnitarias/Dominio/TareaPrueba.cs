@@ -15,7 +15,8 @@ namespace PruebasUnitarias
             Tarea tarea = new TareaSimple()
             {
                 Nombre = "Tarea",
-                Descripcion = "Hace algo"
+                Descripcion = "Hace algo",
+                DuracionEstimada = 10
             };
             tarea.DefinirPrioridad(prioridad);
             Assert.Equal(esperado, tarea.Prioridad);

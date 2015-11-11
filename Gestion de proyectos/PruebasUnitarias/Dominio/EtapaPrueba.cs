@@ -112,42 +112,6 @@ namespace PruebasUnitarias
             return etapaPrueba;
         }
 
-        private static TareaCompuesta CrearTareaCompuestaConTarea()
-        {
-            Tarea contar = new TareaSimple()
-            {
-                Nombre = "Cuenta numeros",
-                FechaInicio = DateTime.Now,
-                FechaFinalizacion = DateTime.Now,
-                DuracionPendiente = 20
-            };
-            TareaCompuesta sumar = new TareaCompuesta()
-            {
-                Nombre = "Sumar",
-                FechaInicio = DateTime.Now
-            };
-
-            sumar.AgregarSubtarea(contar);
-            return sumar;
-        }
-
-        private static TareaCompuesta CrearTareaCompuestaConTareaSimple()
-        {
-            Tarea mostrar = new TareaSimple()
-            {
-                Nombre = "Muestra resultado",
-                FechaInicio = DateTime.Now.AddDays(400),
-                FechaFinalizacion = DateTime.Now.AddDays(1501),
-                DuracionPendiente = 100
-            };
-            TareaCompuesta imprimir = new TareaCompuesta()
-            {
-                Nombre = "Imprime lo que muestra",
-                FechaInicio = mostrar.FechaInicio
-            };
-            imprimir.AgregarSubtarea(mostrar);
-            return imprimir;
-        }
 
         [Fact]
         public void EtapaNoEstaAtrasada()
@@ -160,7 +124,8 @@ namespace PruebasUnitarias
             };
             Etapa etapa = new Etapa()
             {
-                FechaInicio = DateTime.Now
+                FechaInicio = DateTime.Now,
+                DuracionEstimada = 10,
             };
             etapa.AgregarTarea(tarea);
             Assert.False(etapa.EstaAtrasada);

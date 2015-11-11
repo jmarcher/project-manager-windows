@@ -5,13 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
-    public class Etapa : IFechas, INombrable, IDuracionPendienteCalculable, IPersonificable
+    public class Etapa : IFechas, INombrable, IDuracionPendienteCalculable, IPersonificable, IDuracionEstimable
     {
         public String Nombre { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int EtapaID { get; set; }
+        public int DuracionEstimada { get; set; }
         public virtual List<Tarea> Tareas { get; set; }
         public virtual List<Persona> Personas { get; set; }
         public bool EstaFinalizada { get; private set; }

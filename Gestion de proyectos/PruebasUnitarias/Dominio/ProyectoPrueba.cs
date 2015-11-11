@@ -13,6 +13,7 @@ namespace PruebasUnitarias
                 ProyectoID=1,
                 Nombre="Proyecto",
                 Objetivo = "Objetivo",
+                DuracionEstimada = 10,
                 FechaInicio = DateTime.Now.Date
             };
 
@@ -21,6 +22,7 @@ namespace PruebasUnitarias
                 ProyectoID = 1,
                 Nombre = "Proyecto",
                 Objetivo = "Objetivo",
+                DuracionEstimada = 10,
                 FechaInicio=DateTime.Now.Date
             };
             Assert.Equal(proyectoUno.Objetivo, proyectoDos.Objetivo);

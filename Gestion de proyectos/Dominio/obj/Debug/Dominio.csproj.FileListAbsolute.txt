@@ -19,3 +19,4 @@ C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Dominio\bin\Debug\xuni
 C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Dominio\bin\Debug\xunit.execution.desktop.xml
 C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Dominio\obj\Debug\Dominio.dll
 C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Dominio\obj\Debug\Dominio.pdb
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
