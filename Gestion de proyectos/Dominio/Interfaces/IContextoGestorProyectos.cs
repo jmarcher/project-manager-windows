@@ -24,5 +24,6 @@ namespace Dominio
         Proyecto ObtenerProyecto(int proyectoID);
         Tarea ObtenerTarea(int id);
         void VaciarBaseDeDatos();
+        void ModificarProyecto(Proyecto proyecto);
     }
 }

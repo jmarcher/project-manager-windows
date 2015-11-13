@@ -12,13 +12,11 @@ namespace InterfazGrafica
         private Proyecto proyecto;
         private int proyectoID;
         private OrdenadorListView ordenadorListView;
+        private IContextoGestorProyectos Contexto;
 
-        public VentanaDetallesProyecto(int proyectoID)
+        public VentanaDetallesProyecto(int proyectoID, IContextoGestorProyectos contexto)
         {
-            using(var db = new ContextoGestorProyectos())
-            {
-                this.proyecto = db.ObtenerProyecto(proyectoID);
-            }
+            this.Contexto = contexto;
             this.proyectoID = proyectoID;
             InitializeComponent();
             InicializarControles();
@@ -27,9 +25,9 @@ namespace InterfazGrafica
         private void InicializarControles()
         {
             InicializarListViewSorter();
+            ActualizarLista();
             AsignarTitulo();
             InicializarLista();
-            ActualizarLista();
             InicializarCampos();
         }
 
@@ -57,9 +55,7 @@ namespace InterfazGrafica
         private void ActualizarLista()
         {
             etapasListView.Items.Clear();
-            using (var db = new ContextoGestorProyectos()) {
-                proyecto = db.ObtenerProyecto(proyectoID);
-            }
+            proyecto = Contexto.ObtenerProyecto(proyectoID);
             foreach (Etapa etapa in proyecto.Etapas)
             {
                 ListViewItem elementoListView = CrearNuevoItemListView(etapa);
@@ -106,7 +102,14 @@ namespace InterfazGrafica
             {
                 proyecto.QuitarEtapa(EtapaSeleccionada());
                 ActualizarLista();
+                GuardarCambiosProyecto();
             }
+        }
+
+        private void GuardarCambiosProyecto()
+        {
+            Contexto.ModificarProyecto(proyecto);
+            
         }
 
         private Etapa EtapaSeleccionada()
@@ -226,6 +229,7 @@ namespace InterfazGrafica
                 proyecto.Objetivo = textBoxObjetivo.Text;
                 proyecto.FechaInicio = dateTimePickerFechaInicio.Value;
                 buttonGuardar.Enabled = false;
+                GuardarCambiosProyecto();
              }
         }
 
@@ -243,11 +247,9 @@ namespace InterfazGrafica
 
         private void buttonAgregar_Click(object sender, EventArgs e)
         {
-            Etapa etapa = new Etapa()
-            {
-                EtapaID = ObtenerSiguienteIdEtapa()
-            };
+            Etapa etapa = new Etapa() { FechaInicio = proyecto.FechaInicio };
             proyecto.AgregarEtapa(etapa);
+            GuardarCambiosProyecto();
             EditarEtapaVentana(etapa);
             
         }

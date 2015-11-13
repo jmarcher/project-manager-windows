@@ -13,6 +13,7 @@ namespace InterfazGrafica
     {
         private OrdenadorListView ordenadorListView;
         private const int ID_COLUMNA_FECHA_FIN = 4;
+        private IContextoGestorProyectos Contexto;
 
         public VentanaPrincipal()
         {
@@ -20,6 +21,8 @@ namespace InterfazGrafica
             InitializeComponent();
             try
             {
+
+                Contexto = new ContextoGestorProyectos();
                 configurarListViewProyectos();
                 actualizarListaDeProyectos();
             }
@@ -65,14 +68,11 @@ namespace InterfazGrafica
         private List<Proyecto> ObtenerListaProyectos()
         {
             List<Proyecto> retorno = new List<Proyecto>();
-            using (var db = new ContextoGestorProyectos())
-            {
-                var proyectos = db.DevolverProyectos();
+                var proyectos = Contexto.DevolverProyectos();
                 foreach(Proyecto p in proyectos)
                 {
                     retorno.Add(p);
                 }
-            }
             return retorno;
         }
 
@@ -144,17 +144,14 @@ namespace InterfazGrafica
 
         private void abrirVentanaDetallesProyecto(Proyecto proyecto)
         {
-            VentanaDetallesProyecto ventana = new VentanaDetallesProyecto(proyecto.ProyectoID);
+            VentanaDetallesProyecto ventana = new VentanaDetallesProyecto(proyecto.ProyectoID, Contexto);
             ventana.ShowDialog(this);
             ActualizarListaDeProyectosConCondicion(new CondicionDeActualizacion(EstaCerradaVentanaDetallesProyecto));
         }
 
         private Proyecto proyectoSeleccionado()
         {
-            using (var db = new ContextoGestorProyectos())
-            {
-                return db.ObtenerProyecto(devolverIdentificadorSeleccionado());
-            }
+                return Contexto.ObtenerProyecto(devolverIdentificadorSeleccionado());
         }
 
         private int devolverIdentificadorSeleccionado()
@@ -220,10 +217,7 @@ namespace InterfazGrafica
                 if (AyudanteVisual.CartelConfirmacion("¿Seguro desea eliminar este proyecto?\n" +
                     "La siguiente acción, eliminará el pryecto con todas sus etapas y tareas.", "Eliminación de proyecto"))
                 {
-                    using(var db = new ContextoGestorProyectos())
-                    {
-                        db.EliminarProyecto(proyectoSeleccionado().ProyectoID);
-                    }
+                    Contexto.EliminarProyecto(proyectoSeleccionado().ProyectoID);
                     actualizarListaDeProyectos();
                 }
             }

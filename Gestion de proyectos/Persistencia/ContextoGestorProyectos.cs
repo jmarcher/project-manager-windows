@@ -187,6 +187,16 @@ namespace PersistenciaImp
             }
 
         }
+
+        public void ModificarProyecto(Proyecto proyecto)
+        {
+            var p = Proyectos.Find(proyecto.ProyectoID);
+            p.Nombre = proyecto.Nombre;
+            p.Objetivo = proyecto.Objetivo;
+            p.FechaInicio = proyecto.FechaInicio;
+            p.Etapas = proyecto.Etapas;
+            SaveChanges();
+        }
     }
 
 }

@@ -44,6 +44,7 @@ namespace Dominio
             Tareas = new List<Tarea>();
             Personas = new List<Persona>();
             FechaInicio = Tarea.FECHA_NULA;
+            DuracionEstimada = 0;
         }
         
 
@@ -93,7 +94,7 @@ namespace Dominio
 
         private Tarea TareaQueFinalizaUltima()
         {
-            Tarea tareaRetorno = null;
+            Tarea tareaRetorno = new TareaSimple();
             DateTime mayorFecha = DateTime.MinValue;
             foreach (Tarea tarea in Tareas)
             {
