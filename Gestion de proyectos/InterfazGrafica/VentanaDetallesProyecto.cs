@@ -39,6 +39,7 @@ namespace InterfazGrafica
             textBoxNombre.Text = proyecto.Nombre;
             labelIdentificacion.Text = proyecto.ProyectoID.ToString();
             labelDuracionPendiente.Text = proyecto.CalcularDuracionPendiente().ToString() + " días";
+            labelDuracionEstimada.Text = proyecto.DuracionEstimada.ToString() + " días";
         }
 
         private void InicializarListViewSorter()

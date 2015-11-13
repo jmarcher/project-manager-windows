@@ -161,7 +161,7 @@ namespace InterfazGrafica
 
         private void buttonAgregarNuevoProyecto_Click(object sender, EventArgs e)
         {
-            VentanaAltaDeProyecto ventanaAlta = new VentanaAltaDeProyecto();
+            VentanaAltaDeProyecto ventanaAlta = new VentanaAltaDeProyecto(Contexto);
             ventanaAlta.ShowDialog();
             ActualizarListaDeProyectosConCondicion(new CondicionDeActualizacion(EstaCerradaVentanaAltaDeProyecto));
         }

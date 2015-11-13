@@ -50,7 +50,7 @@
             this.listViewProyectos.Margin = new System.Windows.Forms.Padding(2);
             this.listViewProyectos.MultiSelect = false;
             this.listViewProyectos.Name = "listViewProyectos";
-            this.listViewProyectos.Size = new System.Drawing.Size(659, 361);
+            this.listViewProyectos.Size = new System.Drawing.Size(659, 360);
             this.listViewProyectos.TabIndex = 0;
             this.listViewProyectos.UseCompatibleStateImageBehavior = false;
             this.listViewProyectos.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewProyectos_ColumnClick);
@@ -59,7 +59,7 @@
             // buttonAgregarNuevoProyecto
             // 
             this.buttonAgregarNuevoProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAgregarNuevoProyecto.Location = new System.Drawing.Point(564, 392);
+            this.buttonAgregarNuevoProyecto.Location = new System.Drawing.Point(564, 391);
             this.buttonAgregarNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAgregarNuevoProyecto.Name = "buttonAgregarNuevoProyecto";
             this.buttonAgregarNuevoProyecto.Size = new System.Drawing.Size(104, 23);
@@ -124,7 +124,8 @@
             // 
             // buttonEliminarProyecto
             // 
-            this.buttonEliminarProyecto.Location = new System.Drawing.Point(453, 392);
+            this.buttonEliminarProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonEliminarProyecto.Location = new System.Drawing.Point(453, 391);
             this.buttonEliminarProyecto.Name = "buttonEliminarProyecto";
             this.buttonEliminarProyecto.Size = new System.Drawing.Size(106, 23);
             this.buttonEliminarProyecto.TabIndex = 7;
@@ -136,7 +137,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(679, 423);
+            this.ClientSize = new System.Drawing.Size(679, 422);
             this.Controls.Add(this.buttonEliminarProyecto);
             this.Controls.Add(this.buttonAgregarNuevoProyecto);
             this.Controls.Add(this.listViewProyectos);

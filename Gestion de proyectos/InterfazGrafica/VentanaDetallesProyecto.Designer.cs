@@ -46,12 +46,14 @@
             this.buttonGuardar = new System.Windows.Forms.Button();
             this.buttonAgregar = new System.Windows.Forms.Button();
             this.dateTimePickerFechaInicio = new System.Windows.Forms.DateTimePicker();
+            this.labelDuracionEstimada = new System.Windows.Forms.Label();
+            this.labelEstimada = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 167);
+            this.label1.Location = new System.Drawing.Point(10, 195);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(43, 13);
             this.label1.TabIndex = 0;
@@ -62,9 +64,9 @@
             this.etapasListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.etapasListView.Location = new System.Drawing.Point(13, 183);
+            this.etapasListView.Location = new System.Drawing.Point(13, 211);
             this.etapasListView.Name = "etapasListView";
-            this.etapasListView.Size = new System.Drawing.Size(512, 245);
+            this.etapasListView.Size = new System.Drawing.Size(531, 227);
             this.etapasListView.TabIndex = 1;
             this.etapasListView.UseCompatibleStateImageBehavior = false;
             this.etapasListView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.etapasListView_ColumnClick);
@@ -73,7 +75,7 @@
             // eliminarButton
             // 
             this.eliminarButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.eliminarButton.Location = new System.Drawing.Point(12, 432);
+            this.eliminarButton.Location = new System.Drawing.Point(12, 442);
             this.eliminarButton.Name = "eliminarButton";
             this.eliminarButton.Size = new System.Drawing.Size(104, 23);
             this.eliminarButton.TabIndex = 4;
@@ -181,7 +183,7 @@
             // 
             this.buttonGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonGuardar.Enabled = false;
-            this.buttonGuardar.Location = new System.Drawing.Point(450, 432);
+            this.buttonGuardar.Location = new System.Drawing.Point(469, 442);
             this.buttonGuardar.Name = "buttonGuardar";
             this.buttonGuardar.Size = new System.Drawing.Size(75, 23);
             this.buttonGuardar.TabIndex = 17;
@@ -192,7 +194,7 @@
             // buttonAgregar
             // 
             this.buttonAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAgregar.Location = new System.Drawing.Point(124, 432);
+            this.buttonAgregar.Location = new System.Drawing.Point(124, 442);
             this.buttonAgregar.Name = "buttonAgregar";
             this.buttonAgregar.Size = new System.Drawing.Size(104, 23);
             this.buttonAgregar.TabIndex = 18;
@@ -208,11 +210,31 @@
             this.dateTimePickerFechaInicio.TabIndex = 19;
             this.dateTimePickerFechaInicio.ValueChanged += new System.EventHandler(this.dateTimePickerFechaInicio_ValueChanged);
             // 
+            // labelDuracionEstimada
+            // 
+            this.labelDuracionEstimada.AutoSize = true;
+            this.labelDuracionEstimada.Location = new System.Drawing.Point(121, 160);
+            this.labelDuracionEstimada.Name = "labelDuracionEstimada";
+            this.labelDuracionEstimada.Size = new System.Drawing.Size(48, 13);
+            this.labelDuracionEstimada.TabIndex = 21;
+            this.labelDuracionEstimada.Text = "[numero]";
+            // 
+            // labelEstimada
+            // 
+            this.labelEstimada.AutoSize = true;
+            this.labelEstimada.Location = new System.Drawing.Point(13, 160);
+            this.labelEstimada.Name = "labelEstimada";
+            this.labelEstimada.Size = new System.Drawing.Size(98, 13);
+            this.labelEstimada.TabIndex = 20;
+            this.labelEstimada.Text = "Duracion estimada:";
+            // 
             // VentanaDetallesProyecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(535, 467);
+            this.ClientSize = new System.Drawing.Size(554, 477);
+            this.Controls.Add(this.labelDuracionEstimada);
+            this.Controls.Add(this.labelEstimada);
             this.Controls.Add(this.dateTimePickerFechaInicio);
             this.Controls.Add(this.buttonAgregar);
             this.Controls.Add(this.buttonGuardar);
@@ -259,5 +281,7 @@
         private System.Windows.Forms.Button buttonGuardar;
         private System.Windows.Forms.Button buttonAgregar;
         private System.Windows.Forms.DateTimePicker dateTimePickerFechaInicio;
+        private System.Windows.Forms.Label labelDuracionEstimada;
+        private System.Windows.Forms.Label labelEstimada;
     }
 }

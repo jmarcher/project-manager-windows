@@ -7,8 +7,10 @@ namespace InterfazGrafica
 {
     public partial class VentanaAltaDeProyecto : Form
     {
-        public VentanaAltaDeProyecto()
+        private IContextoGestorProyectos contexto;
+        public VentanaAltaDeProyecto(IContextoGestorProyectos contexto)
         {
+            this.contexto = contexto;
             InitializeComponent();
             InicializarComboPrioridad();
         }
@@ -52,15 +54,7 @@ namespace InterfazGrafica
 
         private void buttonGuardarNuevoProyecto_Click(object sender, EventArgs e)
         {
-            try
-            {
-                crearNuevoProyecto();
-                this.Close();
-            }
-            catch (FormatException f)
-            {
-                Console.WriteLine("Error no se ingreso un numero: " + f.Message);
-            }
+            
         }
 
         private void crearNuevoProyecto()
@@ -72,29 +66,78 @@ namespace InterfazGrafica
                 Descripcion = this.richTextBoxDescripcionTareaNuevoProyecto.Text,
                 FechaInicio = monthCalendarFechaInicioTareaNuevoProyecto.SelectionStart,
                 FechaFinalizacion = monthCalendarFechaFinTareaNuevoProyecto.SelectionStart,
-                DuracionPendiente = Int32.Parse(this.textBoxDuracionPendienteNuevoProyecto.Text) 
+                DuracionPendiente = Int32.Parse(this.textBoxDuracionPendienteNuevoProyecto.Text),
+                DuracionEstimada = Int32.Parse(textBoxDuracionEstimadaTarea.Text)
             };
             tareaNuevoProyecto.DefinirPrioridad(comboBoxPrioridadNuevoProyecto.SelectedItem.ToString());
             Etapa etapaNuevoProyecto = new Etapa()
             {
                 Nombre = this.textBoxNombreEtapaNuevoProyecto.Text,
-                FechaInicio = this.monthCalendarFechaInicioEtapa.SelectionStart
+                FechaInicio = this.monthCalendarFechaInicioEtapa.SelectionStart,
+                DuracionEstimada = Int32.Parse(textBoxDurcionEstimadaEtapa.Text)
             };
             Proyecto nuevoProyecto = new Proyecto()
             {
                 Nombre = textBoxNombreDelNuevoProyecto.Text,
                 Objetivo = this.richTextBoxObjetivoDelNuevoProyecto.Text,
-                FechaInicio = this.monthCalendarFechaInicioProyecto.SelectionStart
+                FechaInicio = this.monthCalendarFechaInicioProyecto.SelectionStart,
+                DuracionEstimada = Int32.Parse(textBoxDuracionEstimadaProyecto.Text)
             };
 
             etapaNuevoProyecto.AgregarTarea(tareaNuevoProyecto);
 
             nuevoProyecto.AgregarEtapa(etapaNuevoProyecto);
-            using(var db = new ContextoGestorProyectos())
-            {
-                db.AgregarProyecto(nuevoProyecto);
-            }
+            contexto.AgregarProyecto(nuevoProyecto);
+            
 
+        }
+
+        private void textBoxDuracionPendienteNuevoProyecto_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxDuracionPendienteNuevoProyecto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxDuracionEstimadaProyecto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxDuracionEstimadaTarea_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void buttonGuardarNuevoProyecto_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                crearNuevoProyecto();
+                this.Close();
+            }
+            catch (FormatException f)
+            {
+                Console.WriteLine("Error no se ingreso un numero: " + f.Message);
+            }
         }
     }
 }
