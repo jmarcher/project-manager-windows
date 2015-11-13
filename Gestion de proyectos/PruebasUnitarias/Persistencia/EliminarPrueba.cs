@@ -1,5 +1,5 @@
 ﻿using Dominio;
-using Persistencia;
+using PersistenciaImp;
 using System;
 using Xunit;
 
@@ -44,7 +44,7 @@ namespace PruebasUnitarias.Persistencia
                 Nombre = "Nombre",
                 Rol = "Roger"
             };
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea",
                 FechaInicio = DateTime.Now,
@@ -79,7 +79,7 @@ namespace PruebasUnitarias.Persistencia
                 Nombre = "Nombre",
                 Rol = "Roger"
             };
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea",
                 FechaInicio = DateTime.Now,
@@ -102,7 +102,7 @@ namespace PruebasUnitarias.Persistencia
         [Fact]
         public void EliminarTarea()
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "TareaSimpleSubtarea",
                 FechaInicio = DateTime.Now,
@@ -112,7 +112,7 @@ namespace PruebasUnitarias.Persistencia
                 Objetivo="Objetivo",
                 DuracionPendiente=10
             };
-            Tarea tareaAntecesora = new TareaSimple()
+            Tarea tareaAntecesora = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "TareaAntecesora",
                 FechaInicio = DateTime.Now.AddDays(-10),
@@ -122,7 +122,7 @@ namespace PruebasUnitarias.Persistencia
                 Objetivo = "Objetivo",
                 DuracionPendiente = 10
             };
-            TareaCompuesta tc = new TareaCompuesta()
+            TareaCompuesta tc = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "TareaCompuesta",
                 FechaInicio = DateTime.Now,

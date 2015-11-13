@@ -93,7 +93,7 @@ namespace Dominio
 
         private Tarea TareaQueFinalizaUltima()
         {
-            Tarea tareaRetorno = new TareaSimple();
+            Tarea tareaRetorno = null;
             DateTime mayorFecha = DateTime.MinValue;
             foreach (Tarea tarea in Tareas)
             {

@@ -34,9 +34,6 @@
             this.barraMenu = new System.Windows.Forms.MenuStrip();
             this.proyectoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.crearNuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.datosDePruebaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cargarDatosDePruebaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.borrarDatosDePruebaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.leyendaDeColoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,7 +72,6 @@
             // 
             this.barraMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.proyectoToolStripMenuItem,
-            this.datosDePruebaToolStripMenuItem,
             this.ayudaToolStripMenuItem});
             this.barraMenu.Location = new System.Drawing.Point(0, 0);
             this.barraMenu.Name = "barraMenu";
@@ -83,6 +79,7 @@
             this.barraMenu.Size = new System.Drawing.Size(679, 24);
             this.barraMenu.TabIndex = 6;
             this.barraMenu.Text = "menuStrip1";
+            this.barraMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.barraMenu_ItemClicked);
             // 
             // proyectoToolStripMenuItem
             // 
@@ -99,31 +96,6 @@
             this.crearNuevoToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.crearNuevoToolStripMenuItem.Text = "&Crear nuevo";
             this.crearNuevoToolStripMenuItem.Click += new System.EventHandler(this.crearNuevoToolStripMenuItem_Click);
-            // 
-            // datosDePruebaToolStripMenuItem
-            // 
-            this.datosDePruebaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cargarDatosDePruebaToolStripMenuItem,
-            this.borrarDatosDePruebaToolStripMenuItem});
-            this.datosDePruebaToolStripMenuItem.Name = "datosDePruebaToolStripMenuItem";
-            this.datosDePruebaToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
-            this.datosDePruebaToolStripMenuItem.Text = "&Datos de prueba";
-            // 
-            // cargarDatosDePruebaToolStripMenuItem
-            // 
-            this.cargarDatosDePruebaToolStripMenuItem.Name = "cargarDatosDePruebaToolStripMenuItem";
-            this.cargarDatosDePruebaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.cargarDatosDePruebaToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
-            this.cargarDatosDePruebaToolStripMenuItem.Text = "&Cargar datos de prueba";
-            this.cargarDatosDePruebaToolStripMenuItem.Click += new System.EventHandler(this.cargarDatosDePruebaToolStripMenuItem_Click);
-            // 
-            // borrarDatosDePruebaToolStripMenuItem
-            // 
-            this.borrarDatosDePruebaToolStripMenuItem.Name = "borrarDatosDePruebaToolStripMenuItem";
-            this.borrarDatosDePruebaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.borrarDatosDePruebaToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
-            this.borrarDatosDePruebaToolStripMenuItem.Text = "&Borrar datos de prueba";
-            this.borrarDatosDePruebaToolStripMenuItem.Click += new System.EventHandler(this.borrarDatosDePruebaToolStripMenuItem_Click);
             // 
             // ayudaToolStripMenuItem
             // 
@@ -194,8 +166,5 @@
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem leyendaDeColoresToolStripMenuItem;
         private System.Windows.Forms.Button buttonEliminarProyecto;
-        private System.Windows.Forms.ToolStripMenuItem datosDePruebaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cargarDatosDePruebaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem borrarDatosDePruebaToolStripMenuItem;
     }
 }

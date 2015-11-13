@@ -2,6 +2,7 @@
 using Xunit;
 using Dominio;
 using Dominio.Excepciones;
+using PersistenciaImp;
 
 namespace PruebasUnitarias
 {
@@ -15,13 +16,13 @@ namespace PruebasUnitarias
         public void AgregarTareaSimple(string nombre,string fechaInicio,
             string fechaFinalizacion)
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = nombre,
                 FechaFinalizacion = DateTime.Parse(fechaFinalizacion),
                 FechaInicio = DateTime.Parse(fechaInicio)
             };
-            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea Compuesta",
                 FechaInicio= DateTime.Parse(fechaInicio)
@@ -34,7 +35,7 @@ namespace PruebasUnitarias
         [Fact]
         public void AgregarseComoSubtarea()
         {
-            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea",
                 FechaInicio = DateTime.Now
@@ -46,26 +47,26 @@ namespace PruebasUnitarias
         [Fact]
         public void FechaFinalizacionTareaCompuesta()
         {
-            Tarea tareaPrimera = new TareaSimple()
+            Tarea tareaPrimera = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea",
                 FechaFinalizacion = DateTime.Now.AddDays(1),
                 FechaInicio = DateTime.Now
             };
-            Tarea tareaSegunda = new TareaSimple()
+            Tarea tareaSegunda = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea2",
                 FechaFinalizacion = DateTime.Now.AddDays(2),
                 FechaInicio = DateTime.Now
             };
-            Tarea tareaTercera = new TareaSimple()
+            Tarea tareaTercera = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea",
                 FechaFinalizacion = DateTime.Now.AddDays(10),
                 FechaInicio = DateTime.Now.AddDays(2)
             };
 
-            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea Compuesta",
                 FechaInicio = tareaPrimera.FechaInicio
@@ -80,7 +81,7 @@ namespace PruebasUnitarias
         [Fact]
         public void IngresarFechaFinalizacion()
         {
-            Assert.Throws<NotSupportedException>(() => new TareaCompuesta()
+            Assert.Throws<NotSupportedException>(() => new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre="Tarea",
                 FechaFinalizacion=DateTime.Now.Date
@@ -95,14 +96,14 @@ namespace PruebasUnitarias
         public void AgregarTareaSimpleIniciaDespues(string nombre, string fechaInicio,
            string fechaFinalizacion)
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = nombre,
                 FechaFinalizacion = DateTime.Parse(fechaFinalizacion),
                 FechaInicio = DateTime.Parse(fechaInicio),
                 Prioridad=Tarea.PRIORIDAD_MEDIA
             };
-            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea Compuesta",
                 FechaInicio = DateTime.Parse(fechaFinalizacion)
@@ -114,13 +115,13 @@ namespace PruebasUnitarias
         [Fact]
         public void MarcarTareaFinalizadaConSubtareasFinalizadas()
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea",
                 Objetivo = "Objetivo"
             };
             tarea.MarcarFinalizada();
-            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea Compuesta"
             };
@@ -132,12 +133,12 @@ namespace PruebasUnitarias
         [Fact]
         public void MarcarTareaFinalizadaSinTodasSubtareasFinalizadas()
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea",
                 Objetivo = "Objetivo"
             };
-            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea Compuesta"
             };
@@ -149,12 +150,12 @@ namespace PruebasUnitarias
         [Fact]
         public void EstaEnSubestapas()
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea",
                 Objetivo = "Objetivo"
             };
-            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea Compuesta"
             };
@@ -166,42 +167,50 @@ namespace PruebasUnitarias
         [Fact]
         public void EstaEnSubestapasDeSubetapas()
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
+                TareaID = 99,
                 Nombre = "Tarea",
-                Objetivo = "Objetivo"
+                Objetivo = "Objetivo",
+
+                FechaFinalizacion = DateTime.Now.AddDays(1),
+                FechaInicio = DateTime.Now
             };
-            TareaCompuesta tareaCompuestaOtra = new TareaCompuesta()
+            TareaCompuesta tareaCompuestaOtra = new TareaCompuesta(new ContextoGestorProyectos())
             {
-                Nombre = "Tarea Compuesta"
+                TareaID=199,
+                Nombre = "Tarea Compuesta",
+                FechaInicio = DateTime.Now
             };
             tareaCompuestaOtra.AgregarSubtarea(tarea);
-            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())
             {
-                Nombre = "Tarea Compuesta"
+                TareaID = 192,
+                Nombre = "Tarea Compuesta",
+                FechaInicio = DateTime.Now
             };
             tareaCompuesta.AgregarSubtarea(tareaCompuestaOtra);
-            Assert.False(tareaCompuesta.estaEnSubtareas(tarea));
+            Assert.True(tareaCompuesta.estaEnSubtareas(tarea));
         }
 
         [Fact]
         public void DuracionPendienteTareaCompuesta()
         {
-            Tarea tareaPrimera = new TareaSimple()
+            Tarea tareaPrimera = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea",
                 FechaFinalizacion = DateTime.Now.AddDays(1),
                 FechaInicio = DateTime.Now,
                 DuracionPendiente = 3
             };
-            Tarea tareaSegunda = new TareaSimple()
+            Tarea tareaSegunda = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea2",
                 FechaFinalizacion = DateTime.Now.AddDays(2),
                 FechaInicio = DateTime.Now,
                 DuracionPendiente = 5
             };
-            Tarea tareaTercera = new TareaSimple()
+            Tarea tareaTercera = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea",
                 FechaFinalizacion = DateTime.Now.AddDays(10),
@@ -209,7 +218,7 @@ namespace PruebasUnitarias
                 DuracionPendiente=2
             };
 
-            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea Compuesta",
                 FechaInicio = tareaPrimera.FechaInicio
@@ -223,21 +232,21 @@ namespace PruebasUnitarias
         [Fact]
         public void DuracionPendienteTareaCompuestaPorOtraTareaCompuesta()
         {
-            Tarea tareaPrimera = new TareaSimple()
+            Tarea tareaPrimera = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea",
                 FechaFinalizacion = DateTime.Now.AddDays(1),
                 FechaInicio = DateTime.Now,
                 DuracionPendiente = 3
             };
-            Tarea tareaSegunda = new TareaSimple()
+            Tarea tareaSegunda = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea2",
                 FechaFinalizacion = DateTime.Now.AddDays(2),
                 FechaInicio = DateTime.Now,
                 DuracionPendiente = 5
             };
-            Tarea tareaTercera = new TareaSimple()
+            Tarea tareaTercera = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea",
                 FechaFinalizacion = DateTime.Now.AddDays(10),
@@ -245,7 +254,7 @@ namespace PruebasUnitarias
                 DuracionPendiente = 2
             };
 
-            TareaCompuesta tareaCompuestaHija = new TareaCompuesta()
+            TareaCompuesta tareaCompuestaHija = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea Compuesta hija",
                 FechaInicio = tareaSegunda.FechaInicio
@@ -253,7 +262,7 @@ namespace PruebasUnitarias
 
             tareaCompuestaHija.AgregarSubtarea(tareaSegunda);
 
-            TareaCompuesta tareaCompuesta = new TareaCompuesta()
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea Compuesta",
                 FechaInicio = tareaPrimera.FechaInicio
@@ -273,14 +282,14 @@ namespace PruebasUnitarias
         [InlineData("Tarea 4", 10, "2015-9-12 00:00", "2015-10-1 00:00")]
         public void TareaAtrasada(string nombre, int duracionPendiente, string fechaInicio, string fechaFin)
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = nombre,
                 FechaInicio = DateTime.Parse(fechaInicio),
                 FechaFinalizacion = DateTime.Parse(fechaFin),
                 DuracionPendiente = duracionPendiente
             };
-            TareaCompuesta compuesta = new TareaCompuesta()
+            TareaCompuesta compuesta = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Compuesta",
                 FechaInicio = DateTime.Parse(fechaInicio)
@@ -296,14 +305,14 @@ namespace PruebasUnitarias
         [InlineData("Tarea 4", 10, "2015-9-12 00:00", "2016-10-20 00:00")]
         public void TareaNoEstaAtrasada(string nombre, int duracionPendiente, string fechaInicio, string fechaFin)
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = nombre,
                 FechaInicio = DateTime.Parse(fechaInicio),
                 FechaFinalizacion = DateTime.Parse(fechaFin),
                 DuracionPendiente = duracionPendiente
             };
-            TareaCompuesta compuesta = new TareaCompuesta()
+            TareaCompuesta compuesta = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Compuesta",
                 FechaInicio = DateTime.Parse(fechaInicio)
@@ -315,14 +324,14 @@ namespace PruebasUnitarias
         [Fact]
         public void EliminarSubtarea()
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea simple",
                 FechaInicio = DateTime.Now,
                 FechaFinalizacion = DateTime.Now.AddDays(30),
                 DuracionPendiente = 20
             };
-            TareaCompuesta compuesta = new TareaCompuesta()
+            TareaCompuesta compuesta = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Compuesta",
                 FechaInicio = DateTime.Now
@@ -342,7 +351,7 @@ namespace PruebasUnitarias
         [InlineData("Tarea 4", 10, "2015-9-12 00:00", "2015-10-1 00:00")]
         public void ConvertirSimpleACompuesta(string nombre, int duracionPendiente, string fechaInicio, string fechaFin)
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = nombre,
                 FechaInicio = DateTime.Parse(fechaInicio),
@@ -363,7 +372,7 @@ namespace PruebasUnitarias
         [InlineData("Tarea 4", 10, "2015-9-12 00:00", "2015-10-1 00:00")]
         public void ClonarPrueba(string nombre, int duracionPendiente, string fechaInicio, string fechaFin)
         {
-            TareaCompuesta tarea = new TareaCompuesta()
+            TareaCompuesta tarea = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = nombre,
                 FechaInicio = DateTime.Parse(fechaInicio)

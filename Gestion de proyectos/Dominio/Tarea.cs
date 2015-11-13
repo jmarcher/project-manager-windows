@@ -39,19 +39,12 @@ namespace Dominio
             }
             set
             {
-                if (FechaNula(FechaFinalizacion) || (!FechaNula(FechaFinalizacion) &&
-                    (FechaEsMenor(value, FechaFinalizacion) || FechaEsIgual(value, FechaFinalizacion))))
-                {
-                    _FechaInicio = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
+                _FechaInicio = value;
             }
         }
         public abstract DateTime FechaFinalizacion { get; set; }
-        
+
+        public IContextoGestorProyectos Contexto { get; set; }
 
         public Tarea()
         {
@@ -63,6 +56,19 @@ namespace Dominio
             Objetivo = "Objetivo";
             EstaFinalizada = false;
             FechaModificada = DateTime.Now.Date;
+        }
+
+        public Tarea(IContextoGestorProyectos contexto)
+        {
+            Antecesoras = new List<Tarea>();
+            Personas = new List<Persona>();
+            Prioridad = PRIORIDAD_MEDIA;
+            _FechaInicio = FECHA_NULA;
+            Nombre = "[Nombre por defecto]";
+            Objetivo = "Objetivo";
+            EstaFinalizada = false;
+            FechaModificada = DateTime.Now.Date;
+            Contexto = contexto;
         }
 
         public abstract int CalcularDuracionPendiente();
@@ -144,20 +150,20 @@ namespace Dominio
 
         public Proyecto ObtenerProyectoPadre()
         {
-            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos())
-            {
-                foreach (Etapa etapa in proyecto.Etapas)
+                foreach (Proyecto proyecto in Contexto.DevolverProyectos())
                 {
-                    foreach (Tarea tarea in etapa.Tareas)
+                    foreach (Etapa etapa in proyecto.Etapas)
                     {
-
-                        if (tarea.Equals(this) || estaEnSubtareas(tarea))
+                        foreach (Tarea tarea in etapa.Tareas)
                         {
-                            return proyecto;
+
+                            if (tarea.Equals(this) || estaEnSubtareas(tarea))
+                            {
+                                return proyecto;
+                            }
                         }
                     }
                 }
-            }
 
             return null;
         }
@@ -198,12 +204,9 @@ namespace Dominio
                 {
                     return true;
                 }
-                else
+                foreach (Tarea tareaActual in tareaCompuesta.Subtareas)
                 {
-                    foreach (Tarea tareaActual in tareaCompuesta.Subtareas)
-                    {
-                        return tareaActual.estaEnSubtareas(tarea);
-                    }
+                    return tareaActual.estaEnSubtareas(tarea);
                 }
             }
             return false;

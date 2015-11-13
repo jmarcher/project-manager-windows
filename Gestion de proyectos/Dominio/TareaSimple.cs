@@ -42,7 +42,9 @@ namespace Dominio
             }
         }
 
-        public TareaSimple() : base()
+        public TareaSimple() : base() { }
+
+        public TareaSimple(IContextoGestorProyectos contexto) : base(contexto)
         {
             _FechaFinalizacion = FECHA_NULA;
         }
@@ -58,7 +60,7 @@ namespace Dominio
         }
         public override Tarea Clonar() 
         {
-            TareaSimple copia = new TareaSimple { 
+            TareaSimple copia = new TareaSimple(Contexto) { 
             Nombre = this.Nombre,
             Descripcion = this.Descripcion,
             Objetivo = this.Objetivo,

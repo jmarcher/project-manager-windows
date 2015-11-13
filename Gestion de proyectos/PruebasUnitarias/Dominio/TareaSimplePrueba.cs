@@ -2,6 +2,7 @@
 using Dominio;
 using System;
 using System.Text;
+using PersistenciaImp;
 
 namespace PruebasUnitarias
 {
@@ -15,7 +16,7 @@ namespace PruebasUnitarias
         public void CrearTareaSimpleFechasValidas(string nombre,
             string fechaInicio,string fechaFinalizacion)
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = nombre,
                 FechaInicio = DateTime.Parse(fechaInicio),
@@ -34,7 +35,7 @@ namespace PruebasUnitarias
         public void CrearTareaSimpleFechasInvalidas(string nombre,
             string fechaFinalizacion, string fechaInicio)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new TareaSimple()
+            Assert.Throws<ArgumentOutOfRangeException>(() => new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = nombre,
                 FechaInicio = DateTime.Parse(fechaInicio),
@@ -49,7 +50,7 @@ namespace PruebasUnitarias
         [InlineData("Tarea 4", 1)]
         public void CalcularDuracionPendiente(string nombre,int duracionPendiente)
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = nombre,
                 DuracionPendiente = duracionPendiente
@@ -64,7 +65,7 @@ namespace PruebasUnitarias
         [InlineData("Tarea 4", 10, "2015-9-12 00:00", "2015-10-1 00:00")]
         public void TareaAtrasada(string nombre, int duracionPendiente, string fechaInicio, string fechaFin)
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = nombre,
                 FechaInicio = DateTime.Parse(fechaInicio),
@@ -76,15 +77,20 @@ namespace PruebasUnitarias
 
         [Theory]
         [InlineData("Tarea 1", Tarea.PRIORIDAD_ALTA, "1980-10-12 00:00", "1990-10-12 00:00")]
-        [InlineData("Tarea 2", Tarea.PRIORIDAD_ALTA, "1990-10-12 00:00", "1990-10-12 00:00")]
-        [InlineData("Tarea 3", Tarea.PRIORIDAD_ALTA, "1990-10-12 00:00", "1990-10-22 00:00")]
+        [InlineData("Tarea 2", Tarea.PRIORIDAD_BAJA, "1990-10-12 00:00", "1990-10-12 00:00")]
+        [InlineData("Tarea 3", Tarea.PRIORIDAD_MEDIA, "1990-10-12 00:00", "1990-10-22 00:00")]
         [InlineData("Tarea 4", Tarea.PRIORIDAD_ALTA, "2015-9-12 00:00", "2015-10-1 00:00")]
         public void PruebaToString(string nombre, int prioridad, string fechaInicio, string fechaFin)
         {
             StringBuilder textoEsperado = new StringBuilder();
             textoEsperado.Append(nombre);
             textoEsperado.Append(" [Prioridad: ");
-            textoEsperado.Append("Alta");
+            if(prioridad == Tarea.PRIORIDAD_ALTA)
+                textoEsperado.Append("Alta");
+            else if (prioridad == Tarea.PRIORIDAD_BAJA)
+                textoEsperado.Append("Baja");
+            else
+                textoEsperado.Append("Media");
             textoEsperado.Append(", Duración pendiente: ");
             textoEsperado.Append(10);
             textoEsperado.Append(", Inicio: ");
@@ -93,7 +99,7 @@ namespace PruebasUnitarias
             textoEsperado.Append(DateTime.Parse(fechaFin).Date.ToString());
             textoEsperado.Append("]");
 
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = nombre,
                 Prioridad = prioridad,
@@ -115,7 +121,7 @@ namespace PruebasUnitarias
         public void CloneadoTareaSimple(string nombre,
             string fechaInicio, string fechaFinalizacion)
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = nombre,
                 FechaInicio = DateTime.Parse(fechaInicio),

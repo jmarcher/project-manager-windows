@@ -1,6 +1,6 @@
 ﻿using Xunit;
 using Dominio;
-using Persistencia;
+using PersistenciaImp;
 
 namespace PruebasUnitarias.Persistencia
 {

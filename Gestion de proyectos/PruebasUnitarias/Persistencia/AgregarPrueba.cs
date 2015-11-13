@@ -1,6 +1,6 @@
 ﻿using Dominio;
 using Xunit;
-using Persistencia;
+using PersistenciaImp;
 using System;
 
 namespace PruebasUnitarias
@@ -151,7 +151,7 @@ namespace PruebasUnitarias
         [Fact]
         public void AgregarTareaSimple()
         {
-            TareaSimple ts = new TareaSimple()
+            TareaSimple ts = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Una tarea simple",
                 Descripcion = "Desc",
@@ -159,7 +159,8 @@ namespace PruebasUnitarias
                 FechaInicio = DateTime.Now,
                 FechaFinalizacion = DateTime.Now,
                 Prioridad = Tarea.PRIORIDAD_BAJA,
-                DuracionPendiente = 14
+                DuracionPendiente = 14,
+                Contexto = new ContextoGestorProyectos()
             };
             using (var db = new ContextoGestorProyectos())
             {
@@ -172,7 +173,7 @@ namespace PruebasUnitarias
         [Fact]
         public void AgregarTareaCompuesta()
         {
-            TareaSimple ts = new TareaSimple()
+            TareaSimple ts = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Una tarea simple",
                 Descripcion = "Desc",
@@ -182,7 +183,7 @@ namespace PruebasUnitarias
                 Prioridad = Tarea.PRIORIDAD_BAJA,
                 DuracionPendiente = 14
             };
-            TareaCompuesta tc = new TareaCompuesta()
+            TareaCompuesta tc = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Una tarea Compuesta",
                 Descripcion = "Desc comp",

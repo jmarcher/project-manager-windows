@@ -1,6 +1,8 @@
 ﻿using Xunit;
 using Dominio;
 using System;
+using PersistenciaImp;
+
 namespace PruebasUnitarias
 {
     public class ProyectoPrueba
@@ -86,7 +88,7 @@ namespace PruebasUnitarias
         [Fact]
         public void MarcarProyectoComoFinalizado()
         {
-            Tarea tarea = new TareaSimple() { Nombre = "Tarea" };
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos()) { Nombre = "Tarea" };
             tarea.MarcarFinalizada();
             Etapa etapa = new Etapa();
             etapa.AgregarTarea(tarea);
@@ -114,7 +116,7 @@ namespace PruebasUnitarias
         [Fact]
         public void MarcarProyectoComoFinalizadoConEtapaSinFinalizar()
         {
-            Tarea tarea = new TareaSimple() { Nombre = "Tarea" };
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos()) { Nombre = "Tarea" };
             tarea.MarcarFinalizada();
             Etapa etapa = new Etapa();
             etapa.AgregarTarea(tarea);
@@ -127,7 +129,7 @@ namespace PruebasUnitarias
         [Fact]
         public void ProyectoAtrasado()
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 FechaInicio = DateTime.Now,
                 FechaFinalizacion = DateTime.Now,
@@ -149,7 +151,7 @@ namespace PruebasUnitarias
         [Fact]
         public void ProyectoPadreDeTarea()
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Tarea hija",
                 FechaInicio = DateTime.Now,
@@ -168,14 +170,17 @@ namespace PruebasUnitarias
                 Nombre = "Proyecto"
             };
             proyecto.AgregarEtapa(etapa);
-            InstanciaUnica.Instancia.AgregarProyecto(proyecto);
-            Assert.Equal(proyecto, tarea.ObtenerProyectoPadre());
+            using (var db = new ContextoGestorProyectos())
+            {
+                db.AgregarProyecto(proyecto);
+            }
+            Assert.Equal(proyecto.ProyectoID, tarea.ObtenerProyectoPadre().ProyectoID);
         }
 
         [Fact]
         public void ProyectoNoEstaAtrasado()
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 FechaInicio = DateTime.Now.AddDays(-50),
                 FechaFinalizacion = DateTime.Now.AddDays(40),
@@ -265,14 +270,14 @@ namespace PruebasUnitarias
 
         private static TareaCompuesta CrearTareaCompuestaConOtraTareaSimple()
         {
-            Tarea contar = new TareaSimple()
+            Tarea contar = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Cuenta numeros",
                 FechaInicio = DateTime.Now,
                 FechaFinalizacion = DateTime.Now,
                 DuracionPendiente = 20
             };
-            TareaCompuesta sumar = new TareaCompuesta()
+            TareaCompuesta sumar = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Sumar",
                 FechaInicio = DateTime.Now
@@ -284,14 +289,14 @@ namespace PruebasUnitarias
 
         private static TareaCompuesta CrearTareaCompuestaConUnaTareaSimple()
         {
-            Tarea mostrar = new TareaSimple()
+            Tarea mostrar = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "Muestra resultado",
                 FechaInicio = DateTime.Now.AddDays(400),
                 FechaFinalizacion = DateTime.Now.AddDays(1501),
                 DuracionPendiente = 100
             };
-            TareaCompuesta imprimir = new TareaCompuesta()
+            TareaCompuesta imprimir = new TareaCompuesta(new ContextoGestorProyectos())
             {
                 Nombre = "Imprime lo que muestra",
                 FechaInicio = mostrar.FechaInicio

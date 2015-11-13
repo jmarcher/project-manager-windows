@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Dominio;
 using InterfazGrafica.Utiles;
+using PersistenciaImp;
+
 namespace InterfazGrafica
 {
     public partial class VentanaDetallesTarea : Form
@@ -418,7 +420,7 @@ namespace InterfazGrafica
         {
             if (tareaCompuesta.Subtareas.Count == 0)
             {
-                tarea = new TareaSimple()
+                tarea = new TareaSimple(new ContextoGestorProyectos())
                 {
                     Nombre = tarea.Nombre,
                     FechaInicio = tareaCompuesta.FechaInicio,
@@ -455,7 +457,7 @@ namespace InterfazGrafica
         {
             if (esTareaCompuesta(tarea))
             {
-                Tarea tareaNueva = new TareaSimple();
+                Tarea tareaNueva = new TareaSimple(new ContextoGestorProyectos());
                 ((TareaCompuesta)tarea).Subtareas.Add(tareaNueva);
                 VentanaDetallesTarea ventana = new VentanaDetallesTarea((TareaSimple)tareaNueva, true);
                 ventana.ShowDialog();

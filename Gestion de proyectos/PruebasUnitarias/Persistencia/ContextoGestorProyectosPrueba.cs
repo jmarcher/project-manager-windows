@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using Persistencia;
+using PersistenciaImp;
 
 namespace PruebasUnitarias
 {

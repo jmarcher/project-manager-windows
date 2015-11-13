@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using PersistenciaImp;
 using System;
 using Xunit;
 
@@ -18,7 +19,7 @@ namespace PruebasUnitarias
         [Fact]
         public void MarcarEtapaComoFinalizada()
         {
-            Tarea tarea = new TareaSimple() { Nombre = "Tarea" };
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos()) { Nombre = "Tarea" };
             tarea.MarcarFinalizada();
             Etapa etapa = new Etapa();
             etapa.AgregarTarea(tarea);
@@ -29,7 +30,7 @@ namespace PruebasUnitarias
         [Fact]
         public void MarcarEtapaComoFinalizadaConTareaSinFinalizar()
         {
-            Tarea tarea = new TareaSimple() { Nombre = "Tarea" };
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos()) { Nombre = "Tarea" };
             Etapa etapa = new Etapa();
             etapa.AgregarTarea(tarea);
             etapa.MarcarFinalizada();
@@ -39,8 +40,8 @@ namespace PruebasUnitarias
         [Fact]
         public void MarcarEtapaComoFinalizadaConTareaConYSinFinalizar()
         {
-            Tarea tareaNoFinalizada = new TareaSimple() { Nombre = "Tarea sin terminar" };
-            Tarea tareaFinalizada = new TareaSimple() { Nombre = "Tarea terminada" };
+            Tarea tareaNoFinalizada = new TareaSimple(new ContextoGestorProyectos()) { Nombre = "Tarea sin terminar" };
+            Tarea tareaFinalizada = new TareaSimple(new ContextoGestorProyectos()) { Nombre = "Tarea terminada" };
             tareaFinalizada.MarcarFinalizada();
             Etapa etapa = new Etapa();
             etapa.AgregarTarea(tareaNoFinalizada);
@@ -59,7 +60,7 @@ namespace PruebasUnitarias
 
         private static Etapa CrearEtapaConSubTarea()
         {
-            TareaSimple T1 = new TareaSimple()
+            TareaSimple T1 = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "T1",
                 FechaInicio = new DateTime(2015, 1, 1),
@@ -68,7 +69,7 @@ namespace PruebasUnitarias
                 DuracionPendiente = 8
             };
 
-            TareaSimple T2 = new TareaSimple()
+            TareaSimple T2 = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "T2",
                 FechaInicio = new DateTime(2015, 1, 11),
@@ -76,7 +77,7 @@ namespace PruebasUnitarias
                 Prioridad = Tarea.PRIORIDAD_MEDIA,
                 DuracionPendiente = 100
             };
-            TareaSimple T3 = new TareaSimple()
+            TareaSimple T3 = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "T3",
                 FechaInicio = new DateTime(2015, 12, 16),
@@ -84,7 +85,7 @@ namespace PruebasUnitarias
                 Prioridad = Tarea.PRIORIDAD_MEDIA,
                 DuracionPendiente = 3
             };
-            TareaSimple T4 = new TareaSimple()
+            TareaSimple T4 = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = "T1",
                 FechaInicio = new DateTime(2015, 1, 11),
@@ -116,7 +117,7 @@ namespace PruebasUnitarias
         [Fact]
         public void EtapaNoEstaAtrasada()
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 FechaInicio = DateTime.Now,
                 FechaFinalizacion = DateTime.Now.AddDays(2000),
@@ -134,7 +135,7 @@ namespace PruebasUnitarias
         [Fact]
         public void EtapaAtrasada()
         {
-            Tarea tarea = new TareaSimple()
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
             {
                 FechaInicio = DateTime.Now,
                 FechaFinalizacion = DateTime.Now,

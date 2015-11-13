@@ -4,16 +4,13 @@ using Dominio;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Persistencia
+namespace PersistenciaImp
 {
-    public class ContextoGestorProyectos : DbContext
+    public class ContextoGestorProyectos : DbContext, Dominio.IContextoGestorProyectos
     {
         private const string ENTIDAD_ETAPA = "Etapas";
         private const string ENTIDAD_PERSONA = "Personas";
         private const string ENTIDAD_TAREA_PROYECTOS = "Etapas.Tareas";
-
-        
-
         private const string ENTIDAD_TAREA_ETAPAS = "Tareas";
 
         public DbSet<Proyecto> Proyectos { get; set; }
@@ -190,7 +187,6 @@ namespace Persistencia
             }
 
         }
-        
     }
 
 }

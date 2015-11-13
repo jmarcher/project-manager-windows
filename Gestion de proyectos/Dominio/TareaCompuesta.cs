@@ -35,12 +35,14 @@ namespace Dominio
             }
         }
 
-        public TareaCompuesta() : base()
+        public TareaCompuesta() : base() { }
+
+        public TareaCompuesta(IContextoGestorProyectos contexto) : base(contexto)
         {
             Subtareas = new List<Tarea>();
         }
 
-        public TareaCompuesta(Tarea tareaSimple) : base()
+        public TareaCompuesta(Tarea tareaSimple) : base(tareaSimple.Contexto)
         {
             Subtareas = new List<Tarea>();
             Antecesoras = tareaSimple.Antecesoras;
@@ -127,7 +129,7 @@ namespace Dominio
         }
         public override Tarea Clonar() 
         {
-            TareaCompuesta copia = new TareaCompuesta
+            TareaCompuesta copia = new TareaCompuesta(Contexto)
             {
                 Nombre = this.Nombre,
                 Objetivo = this.Objetivo,

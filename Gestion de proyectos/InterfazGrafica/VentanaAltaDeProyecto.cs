@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Dominio;
-using Persistencia;
+using PersistenciaImp;
 
 namespace InterfazGrafica
 {
@@ -65,7 +65,7 @@ namespace InterfazGrafica
 
         private void crearNuevoProyecto()
         {
-            Tarea tareaNuevoProyecto = new TareaSimple()
+            Tarea tareaNuevoProyecto = new TareaSimple(new ContextoGestorProyectos())
             {
                 Nombre = this.textBoxNombreTareaNuevoProyecto.Text,
                 Objetivo = this.textBoxObjetivoTareaNuevoProyecto.Text,

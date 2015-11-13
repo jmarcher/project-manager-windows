@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Persistencia;
+using PersistenciaImp;
 
 namespace InterfazGrafica
 {
@@ -289,7 +289,7 @@ namespace InterfazGrafica
 
         private void buttonAgregarTarea_Click(object sender, EventArgs e)
         {
-            TareaSimple tarea = new TareaSimple();
+            TareaSimple tarea = new TareaSimple(new ContextoGestorProyectos());
             etapa.AgregarTarea(tarea);
             EditarTareaVentana(tarea , true);
             ActualizarArbolTareas();
@@ -327,7 +327,7 @@ namespace InterfazGrafica
 
         private void buttonAgregarTareaCompuesta_Click(object sender, EventArgs e)
         {
-            TareaCompuesta tarea = new TareaCompuesta();
+            TareaCompuesta tarea = new TareaCompuesta(new ContextoGestorProyectos());
             etapa.AgregarTarea(tarea);
             EditarTareaVentana(tarea, true);
             ActualizarArbolTareas();

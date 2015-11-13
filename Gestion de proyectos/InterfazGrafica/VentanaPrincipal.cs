@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using Dominio;
 using InterfazGrafica.Utiles;
 using System.Collections.Generic;
-using Persistencia;
+using PersistenciaImp;
 
 namespace InterfazGrafica
 {
@@ -261,9 +261,12 @@ namespace InterfazGrafica
 
         private void cargarDatosDePruebaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DatosDePrueba dp = new DatosDePrueba();
-            InstanciaUnica.Instancia.AgregarProyectos(dp.ObtenerUnaListaProyectos());
-            actualizarListaDeProyectos();
+           
+        }
+
+        private void barraMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }
