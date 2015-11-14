@@ -16,8 +16,10 @@ namespace InterfazGrafica
     {
         private Etapa etapa;
         private Tarea tarea;
-        public VentanaAsignarAntecesoraVentanaDetallesEtapa(Etapa etapa, Tarea tarea)
+        private IContextoGestorProyectos contexto;
+        public VentanaAsignarAntecesoraVentanaDetallesEtapa(Etapa etapa, Tarea tarea,IContextoGestorProyectos contexto)
         {
+            this.contexto = contexto;
             InitializeComponent();
             this.etapa = etapa;
             this.tarea = tarea;
@@ -64,6 +66,7 @@ namespace InterfazGrafica
             if (hayTareaSeleccionada())
             {
                 this.tarea.AgregarAntecesora(tareaSeleccionada());
+                contexto.ModificarTarea(tarea);
                 this.Close();
             }
             else

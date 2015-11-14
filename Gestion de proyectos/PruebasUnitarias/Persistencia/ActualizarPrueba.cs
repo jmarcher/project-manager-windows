@@ -35,5 +35,75 @@ namespace PruebasUnitarias.Persistencia
                 Assert.Equal(p.FechaInicio, db.ObtenerProyecto(p.ProyectoID).FechaInicio);
             }
         }
+
+        [Theory]
+        [InlineData("Etapa 1")]
+        [InlineData("Etapa 2")]
+        [InlineData("Etapa 3")]
+        [InlineData("Etapa 4")]
+        [InlineData("Etapa 5")]
+        public void ActualizarEtapa(string nombre)
+        {
+            Etapa etapa = new Etapa()
+            {
+                Nombre = nombre,
+                DuracionEstimada = 10,
+                FechaInicio = DateTime.Now
+            };
+            using (var db = new ContextoGestorProyectos())
+            {
+                db.AgregarEtapa(etapa);
+                etapa.DuracionEstimada = 15;
+                etapa.Nombre = "Raul";
+                etapa.AgregarPersona(new Persona());
+                db.ModificarEtapa(etapa);
+                Assert.Equal(etapa.Nombre, db.ObtenerEtapa(etapa.EtapaID).Nombre);
+            }
+        }
+
+        [Fact]
+        public void ActualizarTareaSimple()
+        {
+            TareaSimple tarea = new TareaSimple(new ContextoGestorProyectos())
+            {
+                Nombre = "Una tarea simple",
+                Descripcion = "Desc",
+                Objetivo = "Obj",
+                FechaInicio = DateTime.Now,
+                FechaFinalizacion = DateTime.Now.AddDays(1),
+                Prioridad = Tarea.PRIORIDAD_BAJA,
+                DuracionPendiente = 14
+            };
+            using(var db = new ContextoGestorProyectos())
+            {
+                db.AgregarTarea(tarea);
+                tarea.Antecesoras.Add(new TareaSimple());
+                tarea.Nombre = "Saladaaaaa";
+                tarea.FechaFinalizacion = DateTime.Now.AddDays(19);
+                db.ModificarTarea(tarea);
+                Assert.Equal(tarea.Nombre, db.ObtenerTarea(tarea.TareaID).Nombre);
+            }
+        }
+
+        [Fact]
+        public void ActualizarTareaCompuesta()
+        {
+            TareaCompuesta tarea = new TareaCompuesta(new ContextoGestorProyectos())
+            {
+                Nombre = "Una tarea Compuesta",
+                Descripcion = "Desc comp",
+                Objetivo = "Obj comp",
+                FechaInicio = DateTime.Now,
+                Prioridad = Tarea.PRIORIDAD_BAJA,
+            };
+            using (var db = new ContextoGestorProyectos())
+            {
+                db.AgregarTarea(tarea);
+                tarea.Subtareas.Add(new TareaSimple());
+                tarea.Nombre = "Saladaaaaa";
+                db.ModificarTarea(tarea);
+                Assert.Equal(tarea.Nombre, db.ObtenerTarea(tarea.TareaID).Nombre);
+            }
+        }
     }
 }

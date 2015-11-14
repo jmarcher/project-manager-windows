@@ -14,15 +14,17 @@ namespace InterfazGrafica
 
         private Tarea tarea;
         private bool esNuevaTarea;
+        private IContextoGestorProyectos contexto;
         public VentanaDetallesTarea()
         {
             InitializeComponent();
         }
 
-        public VentanaDetallesTarea(Tarea tarea, bool esNueva)
+        public VentanaDetallesTarea(Tarea tarea, bool esNueva, IContextoGestorProyectos contexto)
         {
             InitializeComponent();
-            this.tarea = tarea;
+            this.contexto = contexto;
+            this.tarea =  contexto.ObtenerTarea(tarea.TareaID);
             this.esNuevaTarea = esNueva;
             InicializarComponentes(tarea);
         }
@@ -42,6 +44,7 @@ namespace InterfazGrafica
             dateTimePickerFechaInicio.Value = tarea.FechaInicio;
             dateTimePickerFechaFinalizacion.Value = tarea.FechaFinalizacion;
             comboBoxPrioridad.SelectedIndex = tarea.Prioridad;
+            textBoxDuracionEstimada.Text = tarea.DuracionEstimada.ToString();
 
             DeshabilitarControlesParaTareaCompuesta();
             deshabilitarControlesSiEsTareaEditada();
@@ -55,11 +58,13 @@ namespace InterfazGrafica
             {
                 dateTimePickerFechaFinalizacion.Enabled = false;
                 dateTimePickerFechaInicio.Enabled = false;
+                textBoxDuracionEstimada.ReadOnly = true;
             }
             else
             {
                 dateTimePickerFechaFinalizacion.Enabled = true;
                 dateTimePickerFechaInicio.Enabled = true;
+                textBoxDuracionEstimada.ReadOnly = false;
             }
         }
 
@@ -320,7 +325,7 @@ namespace InterfazGrafica
 
         private void EditarTareaVentana(Tarea tarea, bool esNuevaTarea)
         {
-            VentanaDetallesTarea ventanaDetalles = new VentanaDetallesTarea(tarea, esNuevaTarea);
+            VentanaDetallesTarea ventanaDetalles = new VentanaDetallesTarea(tarea, esNuevaTarea, contexto);
             ventanaDetalles.ShowDialog(this);
             refrescarVentanaAlCerrarseDialogo();
         }
@@ -459,7 +464,7 @@ namespace InterfazGrafica
             {
                 Tarea tareaNueva = new TareaSimple(new ContextoGestorProyectos());
                 ((TareaCompuesta)tarea).Subtareas.Add(tareaNueva);
-                VentanaDetallesTarea ventana = new VentanaDetallesTarea((TareaSimple)tareaNueva, true);
+                VentanaDetallesTarea ventana = new VentanaDetallesTarea((TareaSimple)tareaNueva, true, contexto);
                 ventana.ShowDialog();
                 refrescarVentanaAlCerrarseDialogo();
             }

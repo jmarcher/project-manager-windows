@@ -165,6 +165,16 @@ namespace PruebasUnitarias
         }
 
         [Fact]
+        public void FechaFinalizacionNula()
+        {
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())
+            {
+                Nombre = "Tarea Compuesta"
+            };
+            Assert.Equal(Tarea.FECHA_NULA, tareaCompuesta.FechaFinalizacion);
+        }
+
+        [Fact]
         public void EstaEnSubestapasDeSubetapas()
         {
             Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
@@ -191,6 +201,18 @@ namespace PruebasUnitarias
             };
             tareaCompuesta.AgregarSubtarea(tareaCompuestaOtra);
             Assert.True(tareaCompuesta.estaEnSubtareas(tarea));
+        }
+
+        [Fact]
+        public void DuracionPendienteSinAntecesora()
+        {
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())
+            {
+                TareaID = 192,
+                Nombre = "Tarea Compuesta",
+                FechaInicio = DateTime.Now
+            };
+            Assert.Equal(0,tareaCompuesta.CalcularDuracionPendiente());
         }
 
         [Fact]
@@ -273,6 +295,53 @@ namespace PruebasUnitarias
             tareaCompuesta.AgregarSubtarea(tareaTercera);
 
             Assert.Equal(2, tareaCompuesta.CalcularDuracionPendiente());
+        }
+
+
+        [Fact]
+        public void DuracionPendienteConAntecesoras()
+        {
+            Tarea tareaPrimera = new TareaSimple(new ContextoGestorProyectos())
+            {
+                Nombre = "Tarea",
+                FechaFinalizacion = DateTime.Now.AddDays(1),
+                FechaInicio = DateTime.Now,
+                DuracionPendiente = 3
+            };
+            Tarea tareaSegunda = new TareaSimple(new ContextoGestorProyectos())
+            {
+                Nombre = "Tarea2",
+                FechaFinalizacion = DateTime.Now.AddDays(2),
+                FechaInicio = DateTime.Now,
+                DuracionPendiente = 5
+            };
+            Tarea tareaTercera = new TareaSimple(new ContextoGestorProyectos())
+            {
+                Nombre = "Tarea",
+                FechaFinalizacion = DateTime.Now.AddDays(10),
+                FechaInicio = DateTime.Now.AddDays(2),
+                DuracionPendiente = 2
+            };
+
+            TareaCompuesta tareaCompuestaHija = new TareaCompuesta(new ContextoGestorProyectos())
+            {
+                Nombre = "Tarea Compuesta hija",
+                FechaInicio = tareaSegunda.FechaInicio
+            };
+
+            tareaCompuestaHija.AgregarSubtarea(tareaSegunda);
+
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())
+            {
+                Nombre = "Tarea Compuesta",
+                FechaInicio = tareaPrimera.FechaInicio
+            };
+
+            tareaTercera.AgregarAntecesora(tareaSegunda);
+            tareaCompuesta.AgregarSubtarea(tareaCompuestaHija);
+            tareaCompuesta.AgregarSubtarea(tareaTercera);
+
+            Assert.Equal(7, tareaCompuesta.CalcularDuracionPendiente());
         }
 
         [Theory]

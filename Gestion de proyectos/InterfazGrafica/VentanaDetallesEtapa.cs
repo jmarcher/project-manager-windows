@@ -1,14 +1,6 @@
 ﻿using Dominio;
 using InterfazGrafica.Utiles;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PersistenciaImp;
 
@@ -19,24 +11,22 @@ namespace InterfazGrafica
         private const int ICONO_TAREA_COMPUESTA = 0;
         private const int ICONO_TAREA_SIMPLE = 1;
         private Etapa etapa;
-
+        private IContextoGestorProyectos contexto;
         public VentanaDetallesEtapa()
         {
             InitializeComponent();
         }
 
-        public VentanaDetallesEtapa(int etapaID)
+        public VentanaDetallesEtapa(int etapaID, IContextoGestorProyectos contexto)
         {
             InitializeComponent();
-            using (var db = new ContextoGestorProyectos())
-            {
-                etapa = db.ObtenerEtapa(etapaID);
-            }
-            InicializarComponentes();
-            ActualizarArbolTareas();
+            this.contexto = contexto;
+            etapa=contexto.ObtenerEtapa(etapaID);
+            inicializarComponentes();
+            actualizarArbolTareas();
         }
 
-        private void InicializarComponentes()
+        private void inicializarComponentes()
         {
             InicializarArbolTareas();
             this.Text = "Detalles de la etapa: " + etapa.Nombre;
@@ -46,7 +36,15 @@ namespace InterfazGrafica
             textBoxFechaFin.Text = etapa.FechaFinalizacion.ToString();
             labelDuracionPendiente.Text = etapa.CalcularDuracionPendiente().ToString() + " días.";
             buttonEliminar.Enabled = false;
+            if (fueCambiadaDuracionEstimada())
+                textBoxDuracionEstimada.ReadOnly = true;
+            textBoxDuracionEstimada.Text = etapa.DuracionEstimada.ToString();
             inicializarBotonAsignarAntecesora();
+        }
+
+        private bool fueCambiadaDuracionEstimada()
+        {
+            return etapa.DuracionEstimada > 0;
         }
 
         private void inicializarBotonAsignarAntecesora()
@@ -62,7 +60,7 @@ namespace InterfazGrafica
             arbolDeTareas.ImageList = listaImagenes;
         }
 
-        private void ActualizarArbolTareas()
+        private void actualizarArbolTareas()
         {
             arbolDeTareas.Nodes.Clear();
             foreach (Tarea tarea in etapa.Tareas)
@@ -180,7 +178,8 @@ namespace InterfazGrafica
             if (ApretoSiEnMensajeDeConfirmacion())
             {
                 etapa.EliminarTarea(TareaSeleccionada());
-                ActualizarArbolTareas();
+                contexto.ModificarEtapa(etapa);
+                actualizarArbolTareas();
             }
         }
 
@@ -213,12 +212,12 @@ namespace InterfazGrafica
 
         private void textBoxNombre_TextChanged(object sender, EventArgs e)
         {
-            HabilitarBotonGuardar();
+            habilitarBotonGuardar();
         }
 
-        private void HabilitarBotonGuardar()
+        private void habilitarBotonGuardar()
         {
-            if (AlgunCampoCambio())
+            if (algunCampoCambio())
             {
                 buttonGuardar.Enabled = true;
             }
@@ -228,17 +227,28 @@ namespace InterfazGrafica
             }
         }
 
-        private bool AlgunCampoCambio()
+        private bool algunCampoCambio()
         {
-            return !EsTextoIgualNombreEtapa() || NoCambioFechaInicio();
+            return !esTextoIgualNombreEtapa() || noCambioFechaInicio() || cambioDuracionEstimada();
         }
 
-        private bool NoCambioFechaInicio()
+        private bool cambioDuracionEstimada()
+        {
+            try {
+                return Int32.Parse(textBoxDuracionEstimada.Text) != etapa.DuracionEstimada;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+
+        private bool noCambioFechaInicio()
         {
             return !(dateTimePickerFechaInicio.Value.Date.CompareTo(etapa.FechaInicio.Date) == 0);
         }
 
-        private bool EsTextoIgualNombreEtapa()
+        private bool esTextoIgualNombreEtapa()
         {
             return textBoxNombre.Text.Equals(etapa.Nombre);
         }
@@ -247,7 +257,9 @@ namespace InterfazGrafica
         {
             etapa.Nombre = textBoxNombre.Text;
             etapa.FechaInicio = dateTimePickerFechaInicio.Value;
-            InicializarComponentes();
+            etapa.DuracionEstimada = Int32.Parse(textBoxDuracionEstimada.Text);
+            contexto.ModificarEtapa(etapa);
+            inicializarComponentes();
             buttonGuardar.Enabled = false;
             
         }
@@ -256,33 +268,33 @@ namespace InterfazGrafica
         {
             if (HayTareaSeleccionada())
             {
-                if(TareaSeleccionada().GetType() == typeof(TareaCompuesta))
+                /*if(TareaSeleccionada().GetType() == typeof(TareaCompuesta))
                 {
-                    EditarTareaVentana((TareaCompuesta)TareaSeleccionada(), false);
+                    editarTareaVentana((TareaCompuesta)TareaSeleccionada(), false);
                 }
-                else
+                else*/
                 {
-                    EditarTareaVentana((TareaSimple)TareaSeleccionada(), false);
+                    editarTareaVentana(TareaSeleccionada(), false);
                 }
                 
             }
         }
 
-        private void EditarTareaVentana(Tarea tarea , bool esNuevaTarea)
+        private void editarTareaVentana(Tarea tarea , bool esNuevaTarea)
         {
-            VentanaDetallesTarea ventanaDetalles = new VentanaDetallesTarea(tarea, esNuevaTarea);
+            VentanaDetallesTarea ventanaDetalles = new VentanaDetallesTarea(tarea, esNuevaTarea, contexto);
             ventanaDetalles.ShowDialog(this);
             foreach (Form formulario in Application.OpenForms)
             {
-                if (EstaCerradaVentanaDetallesTarea(formulario))
+                if (estaCerradaVentanaDetallesTarea(formulario))
                 {
-                    ActualizarArbolTareas();
+                    actualizarArbolTareas();
                     break;
                 }
             }
         }
 
-        private bool EstaCerradaVentanaDetallesTarea(Form formulario)
+        private bool estaCerradaVentanaDetallesTarea(Form formulario)
         {
             return !(formulario.GetType() == typeof(VentanaDetallesTarea));
         }
@@ -291,14 +303,15 @@ namespace InterfazGrafica
         {
             TareaSimple tarea = new TareaSimple(new ContextoGestorProyectos());
             etapa.AgregarTarea(tarea);
-            EditarTareaVentana(tarea , true);
-            ActualizarArbolTareas();
+            contexto.ModificarEtapa(etapa);
+            editarTareaVentana(tarea , true);
+            actualizarArbolTareas();
 
         }
 
         private void dateTimePickerFechaInicio_ValueChanged(object sender, EventArgs e)
         {
-            HabilitarBotonGuardar();
+            habilitarBotonGuardar();
         }
 
         private void arbolDeTareas_AfterSelect(object sender, TreeViewEventArgs e)
@@ -320,7 +333,7 @@ namespace InterfazGrafica
             if (HayTareaSeleccionada())
             {
                 VentanaAsignarAntecesoraVentanaDetallesEtapa ventana =
-                    new VentanaAsignarAntecesoraVentanaDetallesEtapa(etapa, TareaSeleccionada());
+                    new VentanaAsignarAntecesoraVentanaDetallesEtapa(etapa, TareaSeleccionada(), contexto);
                 ventana.ShowDialog();
             }
         }
@@ -329,8 +342,19 @@ namespace InterfazGrafica
         {
             TareaCompuesta tarea = new TareaCompuesta(new ContextoGestorProyectos());
             etapa.AgregarTarea(tarea);
-            EditarTareaVentana(tarea, true);
-            ActualizarArbolTareas();
+            contexto.ModificarEtapa(etapa);
+            editarTareaVentana(tarea, true);
+            actualizarArbolTareas();
+        }
+
+        private void textBoxDuracionEstimada_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void textBoxDuracionEstimada_TextChanged(object sender, EventArgs e)
+        {
+            habilitarBotonGuardar();
         }
     }
 }

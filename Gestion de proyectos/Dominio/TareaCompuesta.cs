@@ -7,7 +7,7 @@ namespace Dominio
 {
     public class TareaCompuesta : Tarea
     {
-        public virtual List<Tarea> Subtareas { get; private set; }
+        public virtual List<Tarea> Subtareas { get; set; }
 
         public override DateTime FechaFinalizacion
         {
@@ -35,7 +35,7 @@ namespace Dominio
             }
         }
 
-        public TareaCompuesta() : base() { }
+        public TareaCompuesta() : base() { Subtareas = new List<Tarea>(); }
 
         public TareaCompuesta(IContextoGestorProyectos contexto) : base(contexto)
         {

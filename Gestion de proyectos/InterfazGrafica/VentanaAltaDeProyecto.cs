@@ -134,10 +134,15 @@ namespace InterfazGrafica
                 crearNuevoProyecto();
                 this.Close();
             }
-            catch (FormatException f)
+            catch (FormatException)
             {
-                Console.WriteLine("Error no se ingreso un numero: " + f.Message);
+                Utiles.AyudanteVisual.CartelExclamacion("Los números no pueden ser superiores a  2.147.483.647", "Numero grande");
             }
+        }
+
+        private void textBoxDuracionPendienteNuevoProyecto_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
     }
 }

@@ -47,6 +47,9 @@
             this.dateTimePickerFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.buttonAsignarAntecesora = new System.Windows.Forms.Button();
             this.buttonAgregarTareaCompuesta = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxDuracionEstimada = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // arbolDeTareas
@@ -56,10 +59,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.arbolDeTareas.ImageIndex = 0;
             this.arbolDeTareas.ImageList = this.listaImagenes;
-            this.arbolDeTareas.Location = new System.Drawing.Point(13, 144);
+            this.arbolDeTareas.Location = new System.Drawing.Point(13, 174);
             this.arbolDeTareas.Name = "arbolDeTareas";
             this.arbolDeTareas.SelectedImageIndex = 0;
-            this.arbolDeTareas.Size = new System.Drawing.Size(688, 244);
+            this.arbolDeTareas.Size = new System.Drawing.Size(688, 211);
             this.arbolDeTareas.TabIndex = 0;
             this.arbolDeTareas.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.arbolDeTareas_AfterSelect);
             this.arbolDeTareas.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.arbolDeTareas_MouseDoubleClick);
@@ -74,7 +77,7 @@
             // buttonAgregarTarea
             // 
             this.buttonAgregarTarea.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAgregarTarea.Location = new System.Drawing.Point(111, 394);
+            this.buttonAgregarTarea.Location = new System.Drawing.Point(111, 391);
             this.buttonAgregarTarea.Name = "buttonAgregarTarea";
             this.buttonAgregarTarea.Size = new System.Drawing.Size(127, 23);
             this.buttonAgregarTarea.TabIndex = 1;
@@ -85,7 +88,7 @@
             // buttonEliminar
             // 
             this.buttonEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonEliminar.Location = new System.Drawing.Point(13, 394);
+            this.buttonEliminar.Location = new System.Drawing.Point(13, 391);
             this.buttonEliminar.Name = "buttonEliminar";
             this.buttonEliminar.Size = new System.Drawing.Size(92, 23);
             this.buttonEliminar.TabIndex = 3;
@@ -158,7 +161,7 @@
             // 
             this.buttonGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonGuardar.Enabled = false;
-            this.buttonGuardar.Location = new System.Drawing.Point(626, 394);
+            this.buttonGuardar.Location = new System.Drawing.Point(626, 391);
             this.buttonGuardar.Name = "buttonGuardar";
             this.buttonGuardar.Size = new System.Drawing.Size(75, 23);
             this.buttonGuardar.TabIndex = 12;
@@ -194,8 +197,9 @@
             // 
             // buttonAsignarAntecesora
             // 
+            this.buttonAsignarAntecesora.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAsignarAntecesora.Enabled = false;
-            this.buttonAsignarAntecesora.Location = new System.Drawing.Point(508, 394);
+            this.buttonAsignarAntecesora.Location = new System.Drawing.Point(508, 391);
             this.buttonAsignarAntecesora.Name = "buttonAsignarAntecesora";
             this.buttonAsignarAntecesora.Size = new System.Drawing.Size(112, 23);
             this.buttonAsignarAntecesora.TabIndex = 16;
@@ -206,7 +210,7 @@
             // buttonAgregarTareaCompuesta
             // 
             this.buttonAgregarTareaCompuesta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAgregarTareaCompuesta.Location = new System.Drawing.Point(244, 394);
+            this.buttonAgregarTareaCompuesta.Location = new System.Drawing.Point(244, 391);
             this.buttonAgregarTareaCompuesta.Name = "buttonAgregarTareaCompuesta";
             this.buttonAgregarTareaCompuesta.Size = new System.Drawing.Size(147, 23);
             this.buttonAgregarTareaCompuesta.TabIndex = 17;
@@ -214,11 +218,41 @@
             this.buttonAgregarTareaCompuesta.UseVisualStyleBackColor = true;
             this.buttonAgregarTareaCompuesta.Click += new System.EventHandler(this.buttonAgregarTareaCompuesta_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 144);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(98, 13);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Duracion estimada:";
+            // 
+            // textBoxDuracionEstimada
+            // 
+            this.textBoxDuracionEstimada.Location = new System.Drawing.Point(123, 141);
+            this.textBoxDuracionEstimada.Name = "textBoxDuracionEstimada";
+            this.textBoxDuracionEstimada.Size = new System.Drawing.Size(200, 20);
+            this.textBoxDuracionEstimada.TabIndex = 19;
+            this.textBoxDuracionEstimada.TextChanged += new System.EventHandler(this.textBoxDuracionEstimada_TextChanged);
+            this.textBoxDuracionEstimada.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDuracionEstimada_KeyPress);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(333, 144);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(31, 13);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "días.";
+            // 
             // VentanaDetallesEtapa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(713, 429);
+            this.ClientSize = new System.Drawing.Size(713, 426);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textBoxDuracionEstimada);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.buttonAgregarTareaCompuesta);
             this.Controls.Add(this.buttonAsignarAntecesora);
             this.Controls.Add(this.dateTimePickerFechaInicio);
@@ -264,5 +298,8 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerFechaInicio;
         private System.Windows.Forms.Button buttonAsignarAntecesora;
         private System.Windows.Forms.Button buttonAgregarTareaCompuesta;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxDuracionEstimada;
+        private System.Windows.Forms.Label label7;
     }
 }

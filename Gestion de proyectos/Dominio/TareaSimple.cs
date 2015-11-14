@@ -42,7 +42,7 @@ namespace Dominio
             }
         }
 
-        public TareaSimple() : base() { }
+        public TareaSimple() : base() { _FechaFinalizacion = FECHA_NULA; }
 
         public TareaSimple(IContextoGestorProyectos contexto) : base(contexto)
         {

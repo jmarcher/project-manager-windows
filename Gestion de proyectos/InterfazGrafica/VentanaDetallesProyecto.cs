@@ -149,7 +149,7 @@ namespace InterfazGrafica
 
         private void EditarEtapaVentana(Etapa etapa)
         {
-            VentanaDetallesEtapa ventanaDetalles = new VentanaDetallesEtapa(etapa.EtapaID);
+            VentanaDetallesEtapa ventanaDetalles = new VentanaDetallesEtapa(etapa.EtapaID,Contexto);
             ventanaDetalles.ShowDialog(this);
             foreach (Form formulario in Application.OpenForms)
             {

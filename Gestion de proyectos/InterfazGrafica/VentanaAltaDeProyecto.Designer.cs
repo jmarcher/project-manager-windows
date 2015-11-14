@@ -178,7 +178,7 @@
             this.monthCalendarFechaInicioEtapa.Location = new System.Drawing.Point(176, 91);
             this.monthCalendarFechaInicioEtapa.Margin = new System.Windows.Forms.Padding(7);
             this.monthCalendarFechaInicioEtapa.Name = "monthCalendarFechaInicioEtapa";
-            this.monthCalendarFechaInicioEtapa.TabIndex = 8;
+            this.monthCalendarFechaInicioEtapa.TabIndex = 7;
             // 
             // buttonSiguienteEtapaNuevoProyecto
             // 
@@ -197,7 +197,7 @@
             this.textBoxNombreEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxNombreEtapaNuevoProyecto.Name = "textBoxNombreEtapaNuevoProyecto";
             this.textBoxNombreEtapaNuevoProyecto.Size = new System.Drawing.Size(193, 20);
-            this.textBoxNombreEtapaNuevoProyecto.TabIndex = 2;
+            this.textBoxNombreEtapaNuevoProyecto.TabIndex = 5;
             // 
             // label4
             // 
@@ -227,7 +227,7 @@
             this.monthCalendarFechaInicioProyecto.MaxDate = new System.DateTime(4089, 1, 3, 0, 0, 0, 0);
             this.monthCalendarFechaInicioProyecto.MinDate = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
             this.monthCalendarFechaInicioProyecto.Name = "monthCalendarFechaInicioProyecto";
-            this.monthCalendarFechaInicioProyecto.TabIndex = 7;
+            this.monthCalendarFechaInicioProyecto.TabIndex = 4;
             // 
             // label15
             // 
@@ -274,11 +274,13 @@
             this.textBoxDuracionPendienteNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxDuracionPendienteNuevoProyecto.Name = "textBoxDuracionPendienteNuevoProyecto";
             this.textBoxDuracionPendienteNuevoProyecto.Size = new System.Drawing.Size(218, 20);
-            this.textBoxDuracionPendienteNuevoProyecto.TabIndex = 20;
+            this.textBoxDuracionPendienteNuevoProyecto.TabIndex = 12;
+            this.textBoxDuracionPendienteNuevoProyecto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDuracionPendienteNuevoProyecto_KeyPress_1);
             // 
             // comboBoxPrioridadNuevoProyecto
             // 
             this.comboBoxPrioridadNuevoProyecto.FormattingEnabled = true;
+            this.comboBoxPrioridadNuevoProyecto.ItemHeight = 13;
             this.comboBoxPrioridadNuevoProyecto.Location = new System.Drawing.Point(176, 198);
             this.comboBoxPrioridadNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxPrioridadNuevoProyecto.Name = "comboBoxPrioridadNuevoProyecto";
@@ -328,7 +330,7 @@
             this.buttonAtrasTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAtrasTareaNuevoProyecto.Name = "buttonAtrasTareaNuevoProyecto";
             this.buttonAtrasTareaNuevoProyecto.Size = new System.Drawing.Size(75, 24);
-            this.buttonAtrasTareaNuevoProyecto.TabIndex = 14;
+            this.buttonAtrasTareaNuevoProyecto.TabIndex = 150;
             this.buttonAtrasTareaNuevoProyecto.Text = "Atras";
             this.buttonAtrasTareaNuevoProyecto.UseVisualStyleBackColor = true;
             // 
@@ -338,7 +340,7 @@
             this.buttonGuardarNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.buttonGuardarNuevoProyecto.Name = "buttonGuardarNuevoProyecto";
             this.buttonGuardarNuevoProyecto.Size = new System.Drawing.Size(75, 24);
-            this.buttonGuardarNuevoProyecto.TabIndex = 13;
+            this.buttonGuardarNuevoProyecto.TabIndex = 100;
             this.buttonGuardarNuevoProyecto.Text = "Guardar";
             this.buttonGuardarNuevoProyecto.UseVisualStyleBackColor = true;
             this.buttonGuardarNuevoProyecto.Click += new System.EventHandler(this.buttonGuardarNuevoProyecto_Click_1);
@@ -366,7 +368,7 @@
             this.textBoxNombreTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxNombreTareaNuevoProyecto.Name = "textBoxNombreTareaNuevoProyecto";
             this.textBoxNombreTareaNuevoProyecto.Size = new System.Drawing.Size(218, 20);
-            this.textBoxNombreTareaNuevoProyecto.TabIndex = 9;
+            this.textBoxNombreTareaNuevoProyecto.TabIndex = 8;
             // 
             // monthCalendarFechaInicioTareaNuevoProyecto
             // 
@@ -432,7 +434,7 @@
             this.textBoxDuracionEstimadaProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxDuracionEstimadaProyecto.Name = "textBoxDuracionEstimadaProyecto";
             this.textBoxDuracionEstimadaProyecto.Size = new System.Drawing.Size(138, 20);
-            this.textBoxDuracionEstimadaProyecto.TabIndex = 10;
+            this.textBoxDuracionEstimadaProyecto.TabIndex = 2;
             this.textBoxDuracionEstimadaProyecto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDuracionEstimadaProyecto_KeyPress);
             // 
             // label5
@@ -451,7 +453,7 @@
             this.textBoxDurcionEstimadaEtapa.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxDurcionEstimadaEtapa.Name = "textBoxDurcionEstimadaEtapa";
             this.textBoxDurcionEstimadaEtapa.Size = new System.Drawing.Size(193, 20);
-            this.textBoxDurcionEstimadaEtapa.TabIndex = 12;
+            this.textBoxDurcionEstimadaEtapa.TabIndex = 6;
             this.textBoxDurcionEstimadaEtapa.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // label16
@@ -471,7 +473,7 @@
             this.textBoxDuracionEstimadaTarea.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxDuracionEstimadaTarea.Name = "textBoxDuracionEstimadaTarea";
             this.textBoxDuracionEstimadaTarea.Size = new System.Drawing.Size(218, 20);
-            this.textBoxDuracionEstimadaTarea.TabIndex = 22;
+            this.textBoxDuracionEstimadaTarea.TabIndex = 13;
             this.textBoxDuracionEstimadaTarea.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDuracionEstimadaTarea_KeyPress);
             // 
             // label17

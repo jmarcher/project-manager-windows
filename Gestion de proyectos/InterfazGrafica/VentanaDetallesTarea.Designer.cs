@@ -51,6 +51,10 @@
             this.buttonEliminarAntecesora = new System.Windows.Forms.Button();
             this.buttonAgregarSubtarea = new System.Windows.Forms.Button();
             this.buttonEliminarSubtarea = new System.Windows.Forms.Button();
+            this.textBoxDuracionEstimada = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -158,7 +162,7 @@
             "Alta"});
             this.comboBoxPrioridad.Location = new System.Drawing.Point(533, 64);
             this.comboBoxPrioridad.Name = "comboBoxPrioridad";
-            this.comboBoxPrioridad.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxPrioridad.Size = new System.Drawing.Size(200, 21);
             this.comboBoxPrioridad.TabIndex = 12;
             this.comboBoxPrioridad.Text = "Media";
             // 
@@ -174,7 +178,7 @@
             // buttonGuardar
             // 
             this.buttonGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonGuardar.Location = new System.Drawing.Point(661, 465);
+            this.buttonGuardar.Location = new System.Drawing.Point(661, 445);
             this.buttonGuardar.Name = "buttonGuardar";
             this.buttonGuardar.Size = new System.Drawing.Size(75, 23);
             this.buttonGuardar.TabIndex = 14;
@@ -186,9 +190,9 @@
             // 
             this.listViewAntecesoras.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.listViewAntecesoras.Location = new System.Drawing.Point(17, 122);
+            this.listViewAntecesoras.Location = new System.Drawing.Point(17, 141);
             this.listViewAntecesoras.Name = "listViewAntecesoras";
-            this.listViewAntecesoras.Size = new System.Drawing.Size(266, 329);
+            this.listViewAntecesoras.Size = new System.Drawing.Size(266, 290);
             this.listViewAntecesoras.SmallImageList = this.listaImagenes;
             this.listViewAntecesoras.TabIndex = 15;
             this.listViewAntecesoras.UseCompatibleStateImageBehavior = false;
@@ -209,17 +213,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewSubtareas.ImageIndex = 0;
             this.treeViewSubtareas.ImageList = this.listaImagenes;
-            this.treeViewSubtareas.Location = new System.Drawing.Point(290, 122);
+            this.treeViewSubtareas.Location = new System.Drawing.Point(290, 141);
             this.treeViewSubtareas.Name = "treeViewSubtareas";
             this.treeViewSubtareas.SelectedImageIndex = 0;
-            this.treeViewSubtareas.Size = new System.Drawing.Size(443, 329);
+            this.treeViewSubtareas.Size = new System.Drawing.Size(443, 290);
             this.treeViewSubtareas.TabIndex = 16;
             this.treeViewSubtareas.DoubleClick += new System.EventHandler(this.treeViewSubtareas_DoubleClick);
             // 
             // buttonEliminarAntecesora
             // 
+            this.buttonEliminarAntecesora.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonEliminarAntecesora.Enabled = false;
-            this.buttonEliminarAntecesora.Location = new System.Drawing.Point(17, 465);
+            this.buttonEliminarAntecesora.Location = new System.Drawing.Point(17, 445);
             this.buttonEliminarAntecesora.Name = "buttonEliminarAntecesora";
             this.buttonEliminarAntecesora.Size = new System.Drawing.Size(114, 23);
             this.buttonEliminarAntecesora.TabIndex = 17;
@@ -229,7 +234,8 @@
             // 
             // buttonAgregarSubtarea
             // 
-            this.buttonAgregarSubtarea.Location = new System.Drawing.Point(290, 465);
+            this.buttonAgregarSubtarea.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAgregarSubtarea.Location = new System.Drawing.Point(290, 445);
             this.buttonAgregarSubtarea.Name = "buttonAgregarSubtarea";
             this.buttonAgregarSubtarea.Size = new System.Drawing.Size(100, 23);
             this.buttonAgregarSubtarea.TabIndex = 18;
@@ -239,7 +245,8 @@
             // 
             // buttonEliminarSubtarea
             // 
-            this.buttonEliminarSubtarea.Location = new System.Drawing.Point(396, 465);
+            this.buttonEliminarSubtarea.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonEliminarSubtarea.Location = new System.Drawing.Point(396, 445);
             this.buttonEliminarSubtarea.Name = "buttonEliminarSubtarea";
             this.buttonEliminarSubtarea.Size = new System.Drawing.Size(100, 23);
             this.buttonEliminarSubtarea.TabIndex = 19;
@@ -247,11 +254,49 @@
             this.buttonEliminarSubtarea.UseVisualStyleBackColor = true;
             this.buttonEliminarSubtarea.Click += new System.EventHandler(this.buttonEliminarSubtarea_Click);
             // 
+            // textBoxDuracionEstimada
+            // 
+            this.textBoxDuracionEstimada.Location = new System.Drawing.Point(533, 91);
+            this.textBoxDuracionEstimada.Name = "textBoxDuracionEstimada";
+            this.textBoxDuracionEstimada.Size = new System.Drawing.Size(200, 20);
+            this.textBoxDuracionEstimada.TabIndex = 21;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(414, 94);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(98, 13);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "Duracion estimada:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(17, 122);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(69, 13);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Antecesoras:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(287, 122);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(58, 13);
+            this.label10.TabIndex = 23;
+            this.label10.Text = "Subtareas:";
+            // 
             // VentanaDetallesTarea
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(748, 500);
+            this.ClientSize = new System.Drawing.Size(748, 480);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.textBoxDuracionEstimada);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.buttonEliminarSubtarea);
             this.Controls.Add(this.buttonAgregarSubtarea);
             this.Controls.Add(this.buttonEliminarAntecesora);
@@ -304,5 +349,9 @@
         private System.Windows.Forms.Button buttonEliminarAntecesora;
         private System.Windows.Forms.Button buttonAgregarSubtarea;
         private System.Windows.Forms.Button buttonEliminarSubtarea;
+        private System.Windows.Forms.TextBox textBoxDuracionEstimada;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }

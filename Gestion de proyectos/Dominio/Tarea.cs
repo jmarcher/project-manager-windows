@@ -11,7 +11,7 @@ namespace Dominio
         public const int PRIORIDAD_BAJA = 0;
         public const int PRIORIDAD_MEDIA = 1;
         public const int PRIORIDAD_ALTA = 2;
-        public static readonly DateTime FECHA_NULA = new DateTime(2001, 1, 1);
+        public static readonly DateTime FECHA_NULA = new DateTime(2010, 1, 1);
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]

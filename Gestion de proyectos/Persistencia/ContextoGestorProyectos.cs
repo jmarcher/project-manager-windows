@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace PersistenciaImp
 {
-    public class ContextoGestorProyectos : DbContext, Dominio.IContextoGestorProyectos
+    public class ContextoGestorProyectos : DbContext, IContextoGestorProyectos
     {
         private const string ENTIDAD_ETAPA = "Etapas";
         private const string ENTIDAD_PERSONA = "Personas";
@@ -190,11 +190,43 @@ namespace PersistenciaImp
 
         public void ModificarProyecto(Proyecto proyecto)
         {
-            var p = Proyectos.Find(proyecto.ProyectoID);
-            p.Nombre = proyecto.Nombre;
-            p.Objetivo = proyecto.Objetivo;
-            p.FechaInicio = proyecto.FechaInicio;
-            p.Etapas = proyecto.Etapas;
+            var proyectoAEditar = Proyectos.Find(proyecto.ProyectoID);
+            proyectoAEditar.Nombre = proyecto.Nombre;
+            proyectoAEditar.Objetivo = proyecto.Objetivo;
+            proyectoAEditar.FechaInicio = proyecto.FechaInicio;
+            proyectoAEditar.Etapas = proyecto.Etapas;
+            SaveChanges();
+        }
+
+        public void ModificarEtapa(Etapa etapa)
+        {
+            var etapaAEditar = Etapas.Find(etapa.EtapaID);
+            etapaAEditar.Nombre = etapa.Nombre;
+            etapaAEditar.DuracionEstimada = etapa.DuracionEstimada;
+            etapaAEditar.FechaInicio = etapa.FechaInicio;
+            etapaAEditar.Tareas = etapa.Tareas;
+            SaveChanges();
+        }
+
+        public void ModificarTarea(Tarea tarea)
+        {
+            var t = Tareas.Find(tarea.TareaID);
+            t.Nombre = tarea.Nombre;
+            t.Objetivo = tarea.Objetivo;
+            t.Descripcion = tarea.Descripcion;
+            t.DuracionEstimada = tarea.DuracionEstimada;
+            t.Personas = tarea.Personas;
+            t.Antecesoras = tarea.Antecesoras;
+            t.FechaInicio = tarea.FechaInicio;
+            t.Prioridad = tarea.Prioridad;
+            if (esTareaCompuesta(tarea))
+            {
+                ((TareaCompuesta)t).Subtareas = ((TareaCompuesta)tarea).Subtareas;
+            }
+            else
+            {
+                ((TareaSimple)t).FechaFinalizacion = ((TareaSimple)tarea).FechaFinalizacion;
+            }
             SaveChanges();
         }
     }

@@ -25,5 +25,7 @@ namespace Dominio
         Tarea ObtenerTarea(int id);
         void VaciarBaseDeDatos();
         void ModificarProyecto(Proyecto proyecto);
+        void ModificarEtapa(Etapa etapa);
+        void ModificarTarea(Tarea tarea);
     }
 }
