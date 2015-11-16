@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Dominio;
 using InterfazGrafica.Utiles;
 using PersistenciaImp;
+using System.Drawing;
 
 namespace InterfazGrafica
 {
@@ -51,7 +52,52 @@ namespace InterfazGrafica
             deshabilitarControlesSiEsTareaEditada();
             inicializarListViewAntecesoras();
             inicializarArbolSubtareas();
+            inicializarListViewPersonas();
+            inicializarAvance();
         }
+
+        private void inicializarAvance()
+        {
+            if (tarea.DuracionEstimada != 0)
+            {
+                labelAvance.Text = "Avance: " + calcularAvance().ToString() + "%";
+                inicializarColorAvance();
+            }
+            else
+                labelAvance.Text = String.Empty;
+        }
+
+        private void inicializarColorAvance()
+        {
+            if (calcularAvance() < 10)
+            {
+                labelAvance.ForeColor = Color.Red;
+            }
+            else if (calcularAvance() > 50)
+            {
+                labelAvance.ForeColor = Color.Yellow;
+            }
+            else if (calcularAvance() > 80)
+            {
+                labelAvance.ForeColor = Color.Green;
+            }
+        }
+
+        private int calcularAvance()
+        {
+            return ((DateTime.Now.Subtract(tarea.FechaInicio).Days * 100)
+                            / tarea.DuracionEstimada) % 101;
+        }
+
+        private void inicializarListViewPersonas()
+        {
+            listViewPersonas.Items.Clear();
+            foreach (Persona personaActual in tarea.Personas)
+            {
+                agregarElementoListaPersonas(personaActual);
+            }
+        }
+
 
         private void deshabilitarControlesSiEsTareaEditada()
         {
@@ -182,16 +228,28 @@ namespace InterfazGrafica
             listViewAntecesoras.Items.Clear();
             foreach (Tarea tareaActual in tarea.Antecesoras)
             {
-                agregarElemento(tareaActual);
+                agregarElementoListaAntecesoras(tareaActual);
             }
         }
 
-        private void agregarElemento(Tarea tarea)
+        private void agregarElementoListaAntecesoras(Tarea tarea)
         {
-            ListViewItem elementoLista = new ListViewItem(tarea.ToString());
+            ListViewItem elementoLista = generarElementoListView(tarea);
             elementoLista.ImageIndex = iconoTarea(tarea);
-            elementoLista.Tag = tarea;
             listViewAntecesoras.Items.Add(elementoLista);
+        }
+
+        private ListViewItem generarElementoListView(object obj)
+        {
+            ListViewItem elementoLista = new ListViewItem(obj.ToString());
+            elementoLista.Tag = obj;
+            return elementoLista;
+        }
+
+        private void agregarElementoListaPersonas(Persona personaActual)
+        {
+            ListViewItem elementoLista = generarElementoListView(personaActual);
+            listViewPersonas.Items.Add(elementoLista);
         }
 
         private int iconoTarea(Tarea tarea)
@@ -228,23 +286,102 @@ namespace InterfazGrafica
             {
                 asignarValoresTarea();
             }
+            Close();
         }
 
 
         private void asignarValoresTarea()
         {
-            tarea.Nombre = textBoxNombre.Text;
-            tarea.Objetivo = textBoxNombre.Text;
-            tarea.DefinirPrioridad(comboBoxPrioridad.Text);
-            tarea.Descripcion = textBoxDescripcion.Text;
-            tarea.FechaInicio = dateTimePickerFechaInicio.Value;
-
+            cambiarNombreTarea();
+            cambiarObjetivoTarea();
+            cambiarPrioridadTarea();
+            cambiarDescripcionTarea();
+            cambiarFechaDeInicio();
+            Proyecto padre = tarea.ObtenerProyectoPadre();
+            String modificacion = "La duración pendiente se modificó de " + padre.CalcularDuracionPendiente();
             if (!esCompuesta(tarea))
             {
+                
                 TareaSimple tareaSimple = (TareaSimple)tarea;
-                tareaSimple.DuracionPendiente = Int32.Parse(textBoxDuracionPendiente.Text);
-                tareaSimple.FechaFinalizacion = dateTimePickerFechaFinalizacion.Value;
+                cambiarDuracionPendiente(tareaSimple);
+                cambiarFechaFinalizacion(tareaSimple);
                 tarea = tareaSimple;
+            }
+            tarea.DuracionEstimada = Int32.Parse(textBoxDuracionEstimada.Text);
+            contexto.ModificarTarea(tarea);
+            padre = tarea.ObtenerProyectoPadre();
+            modificacion += " a " + padre.CalcularDuracionPendiente();
+            padre.AgregarModificacion(modificacion);
+            contexto.ModificarProyecto(padre);
+        }
+
+        private void cambiarFechaFinalizacion(TareaSimple tareaSimple)
+        {
+            if(tareaSimple.FechaFinalizacion != dateTimePickerFechaFinalizacion.Value)
+            {
+                tareaSimple.AgregarModificacion("Cambiada la fecha de finalización de " + tareaSimple.FechaFinalizacion.ToShortDateString()
+                    + " a " + dateTimePickerFechaFinalizacion.Value.ToShortDateString());
+                tareaSimple.FechaFinalizacion = dateTimePickerFechaFinalizacion.Value;
+            }
+        }
+
+        private void cambiarDuracionPendiente(TareaSimple tareaSimple)
+        {
+            if(tareaSimple.DuracionPendiente != Int32.Parse(textBoxDuracionPendiente.Text))
+            {
+                tareaSimple.AgregarModificacion("Cambiada la duración de "+tareaSimple.DuracionPendiente.ToString()
+                    +" a "+ textBoxDuracionPendiente.Text);
+                tareaSimple.DuracionPendiente = Int32.Parse(textBoxDuracionPendiente.Text);
+            }
+        }
+
+        private void cambiarFechaDeInicio()
+        {
+            if (tarea.FechaInicio != dateTimePickerFechaInicio.Value)
+            {
+                tarea.AgregarModificacion("Cambiada la fecha de inicio de "+tarea.FechaInicio.ToShortDateString()
+                    + " a "+ dateTimePickerFechaInicio.Value.ToShortDateString());
+                tarea.FechaInicio = dateTimePickerFechaInicio.Value;
+            }
+        }
+
+        private void cambiarDescripcionTarea()
+        {
+            if (!tarea.Descripcion.Equals(textBoxDescripcion.Text))
+            {
+                tarea.AgregarModificacion("Cambiada la descripcion de ''"
+                    + tarea.Descripcion + "'' a ''" + textBoxDescripcion.Text + "''");
+                tarea.Descripcion = textBoxDescripcion.Text;
+            }
+        }
+
+        private void cambiarPrioridadTarea()
+        {
+            if (!tarea.prioridadAString().Equals(comboBoxPrioridad.Text))
+            {
+                tarea.AgregarModificacion("Prioridad cambiada de " + tarea.prioridadAString()
+                    + " a " + comboBoxPrioridad.Text);
+                tarea.DefinirPrioridad(comboBoxPrioridad.Text);
+            }
+        }
+
+        private void cambiarObjetivoTarea()
+        {
+            if (!tarea.Objetivo.Equals(textBoxObjetivo.Text))
+            {
+                tarea.AgregarModificacion("Cambiado el objetivo de ''"
+                    + tarea.Objetivo + "'' a ''" + textBoxObjetivo.Text + "''");
+                tarea.Objetivo = textBoxObjetivo.Text;
+            }
+        }
+
+        private void cambiarNombreTarea()
+        {
+            if (!tarea.Nombre.Equals(textBoxNombre.Text))
+            {
+                tarea.AgregarModificacion("Cambiado nombre de ''"
+                    + tarea.Nombre + "'' a ''" + textBoxNombre.Text + "''");
+                    tarea.Nombre = textBoxNombre.Text;
             }
         }
 
@@ -260,7 +397,7 @@ namespace InterfazGrafica
         }
         private void eliminarTareaActual()
         {
-            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos())
+            foreach (Proyecto proyecto in contexto.DevolverProyectos())
             {
                 foreach (Etapa etapa in proyecto.Etapas)
                 {
@@ -269,6 +406,7 @@ namespace InterfazGrafica
                         if (tareaRecorrida.Equals(this.tarea))
                         {
                             etapa.Tareas.Remove(tareaRecorrida);
+                            contexto.ModificarEtapa(etapa);
                             break;
                         }
                     }
@@ -276,23 +414,7 @@ namespace InterfazGrafica
             }
         }
 
-        private void deshacerCambiosEnTarea(Tarea tareaAnterior)
-        {
-            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos())
-            {
-                foreach (Etapa etapa in proyecto.Etapas)
-                {
-                    foreach (Tarea tareaRecorrida in etapa.Tareas)
-                    {
-                        if (tareaRecorrida.Equals(this.tarea))
-                        {
-                            Tarea tareaAModificar = tareaRecorrida;
-                            tareaAModificar = tareaAnterior;
-                        }
-                    }
-                }
-            }
-        }
+        
 
         private void treeViewSubtareas_DoubleClick(object sender, EventArgs e)
         {
@@ -346,7 +468,7 @@ namespace InterfazGrafica
 
         private void buttonEliminarAntecesora_Click(object sender, EventArgs e)
         {
-            if (HayAntecesoraSeleccionadaListView())
+            if (hayAntecesoraSeleccionadaListView())
             {
                 if (AyudanteVisual.CartelConfirmacion("¿Seguro desea eliminar esta tarea antecesora?", "Eliminación"))
                 {
@@ -362,6 +484,8 @@ namespace InterfazGrafica
             Tarea seleccionada = antecesoraSeleccionada();
             agregarAntecesorasAntesElminacion(seleccionada);
             tarea.Antecesoras.Remove(antecesoraSeleccionada());
+            tarea.AgregarModificacion("Eliminada antecesora " + seleccionada.ToString());
+            contexto.ModificarTarea(tarea);
         }
 
         private void agregarAntecesorasAntesElminacion(Tarea seleccionada)
@@ -380,7 +504,7 @@ namespace InterfazGrafica
             return (Tarea)listViewAntecesoras.SelectedItems[0].Tag;
         }
 
-        private bool HayAntecesoraSeleccionadaListView()
+        private bool hayAntecesoraSeleccionadaListView()
         {
             return listViewAntecesoras.SelectedItems.Count > 0;
         }
@@ -392,7 +516,7 @@ namespace InterfazGrafica
 
         private void inicializarBotonEliminarAntecesora()
         {
-            if (listViewAntecesoras.Items.Count > 0 && HayAntecesoraSeleccionadaListView())
+            if (listViewAntecesoras.Items.Count > 0 && hayAntecesoraSeleccionadaListView())
             {
                 buttonEliminarAntecesora.Enabled = true;
             }
@@ -412,7 +536,10 @@ namespace InterfazGrafica
                     DateTime fechaFinalizacion = tareaCompuesta.FechaFinalizacion;
                     int duracionPendiente = tareaCompuesta.CalcularDuracionPendiente();
                     tareaCompuesta.EliminarSubtarea(tareaSeleccionada());
+
                     cambiarATareaSimpleSimple(tareaCompuesta, fechaFinalizacion, duracionPendiente);
+                    tareaCompuesta.AgregarModificacion("Eliminada subtarea " + tareaSeleccionada().ToString());
+                    contexto.ModificarTarea(tareaCompuesta);
                     refrescarPantalla();
                 }
             }
@@ -457,6 +584,7 @@ namespace InterfazGrafica
             {
                 Tarea tareaNueva = new TareaSimple(contexto);
                 ((TareaCompuesta)tarea).Subtareas.Add(tareaNueva);
+                tarea.AgregarModificacion("Agregada una subtarea.");
                 contexto.ModificarTarea(tarea);
                 VentanaDetallesTarea ventana = new VentanaDetallesTarea((TareaSimple)tareaNueva, true, contexto);
                 ventana.ShowDialog();
@@ -468,5 +596,73 @@ namespace InterfazGrafica
             }
         }
 
+        private void buttonAgregarPersona_Click(object sender, EventArgs e)
+        {
+            VentanaAgregarNuevaPersona ventanaAgregarPersona = new VentanaAgregarNuevaPersona(tarea, contexto);
+            ventanaAgregarPersona.ShowDialog(this);
+            refrescarVentanaCuandoCierraVentanaPersona();
+        }
+
+        private void refrescarVentanaCuandoCierraVentanaPersona()
+        {
+            foreach (Form formulario in Application.OpenForms)
+            {
+                if (estaCerradaVentanaPersona(formulario))
+                {
+                    refrescarPantalla();
+                    break;
+                }
+            }
+        }
+
+        private static bool estaCerradaVentanaPersona(Form formulario)
+        {
+            return !(formulario.GetType() == typeof(VentanaAgregarNuevaPersona));
+        }
+
+        private void buttonVerHistorial_Click(object sender, EventArgs e)
+        {
+            VentanaVerHistorialTarea ventanaHistorial = new VentanaVerHistorialTarea(tarea);
+            ventanaHistorial.ShowDialog(this);
+        }
+
+        private void buttonEliminarPersona_Click(object sender, EventArgs e)
+        {
+            if (hayPersonaSeleccionada())
+            {
+                if (AyudanteVisual.CartelConfirmacion("¿Seguro desea eliminar esta persona?", "Eliminación"))
+                {
+                    borrarPersona();
+                    inicializarListViewPersonas();
+                }
+            }
+        }
+
+        private void borrarPersona()
+        {
+            tarea.Personas.Remove(personaSeleccionada());
+            tarea.AgregarModificacion("Eliminada la persona " + personaSeleccionada().ToString());
+            contexto.ModificarTarea(tarea);
+        }
+
+        private Persona personaSeleccionada()
+        {
+            return (Persona)listViewPersonas.SelectedItems[0].Tag;
+        }
+
+        private bool hayPersonaSeleccionada()
+        {
+            return listViewPersonas.SelectedItems.Count > 0;
+        }
+
+        private void textBoxDuracionPendiente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void textBoxDuracionEstimada_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
     }
 }

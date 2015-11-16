@@ -46,6 +46,8 @@ namespace Dominio
 
         public IContextoGestorProyectos Contexto { get; set; }
 
+        public String Historial { get; set; }
+
         public Tarea()
         {
             Antecesoras = new List<Tarea>();
@@ -54,6 +56,7 @@ namespace Dominio
             _FechaInicio = FECHA_NULA;
             Nombre = "[Nombre por defecto]";
             Objetivo = "Objetivo";
+            Descripcion = String.Empty;
             EstaFinalizada = false;
             FechaModificada = DateTime.Now.Date;
         }
@@ -66,6 +69,7 @@ namespace Dominio
             _FechaInicio = FECHA_NULA;
             Nombre = "[Nombre por defecto]";
             Objetivo = "Objetivo";
+            Descripcion = String.Empty;
             EstaFinalizada = false;
             FechaModificada = DateTime.Now.Date;
             Contexto = contexto;
@@ -131,10 +135,6 @@ namespace Dominio
             return antecesoraMasGrande;
         }
 
-        public bool FechaNula(DateTime fecha)
-        {
-            return FechaEsIgual(FECHA_NULA, fecha);
-        }
 
         public bool FechaEsMenor(DateTime primera, DateTime segunda)
         {
@@ -177,14 +177,14 @@ namespace Dominio
             valorRetorno.Append(", Duración pendiente: ");
             valorRetorno.Append(CalcularDuracionPendiente().ToString());
             valorRetorno.Append(", Inicio: ");
-            valorRetorno.Append(FechaInicio.Date.ToString());
+            valorRetorno.Append(FechaInicio.Date.ToShortDateString());
             valorRetorno.Append(", Fin: ");
-            valorRetorno.Append(FechaFinalizacion.Date.ToString());
+            valorRetorno.Append(FechaFinalizacion.Date.ToShortDateString());
             valorRetorno.Append("]");
             return valorRetorno.ToString();
         }
 
-        private string prioridadAString()
+        public string prioridadAString()
         {
             if (Prioridad == PRIORIDAD_ALTA)
                 return "Alta";
@@ -195,26 +195,19 @@ namespace Dominio
         }
 
 
-        public bool estaEnSubtareas(Tarea tarea)
+        public virtual bool estaEnSubtareas(Tarea tarea)
         {
-            if (this.GetType() == typeof(TareaCompuesta))
-            {
-                TareaCompuesta tareaCompuesta = ((TareaCompuesta)this);
-                if (tareaCompuesta.Subtareas.Contains(tarea))
-                {
-                    return true;
-                }
-                foreach (Tarea tareaActual in tareaCompuesta.Subtareas)
-                {
-                    return tareaActual.estaEnSubtareas(tarea);
-                }
-            }
             return false;
         }
 
         public void AgregarPersona(Persona persona)
         {
             Personas.Add(persona);
+        }
+
+        public void AgregarModificacion(string modificacion)
+        {
+            Historial += "["+DateTime.Now+"] " + modificacion+"\r\n";
         }
 
     }

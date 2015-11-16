@@ -16,14 +16,15 @@ namespace PruebasUnitarias
         [InlineData("Proyecto 5", "Objetivo 5")]
         public void AgregarProyecto(string nombre, string objetivo)
         {
-            Proyecto p = new Proyecto()
-            {
-                Nombre = nombre,
-                Objetivo = objetivo,
-                FechaInicio = DateTime.Now
-            };
+            
             using (var db = new ContextoGestorProyectos())
             {
+                Proyecto p = new Proyecto(db)
+                {
+                    Nombre = nombre,
+                    Objetivo = objetivo,
+                    FechaInicio = DateTime.Now
+                };
                 int id = db.AgregarProyecto(p);
                 Proyecto proyectoRetorno = db.ObtenerProyecto(id);
                 Assert.Equal(p, proyectoRetorno);
@@ -40,20 +41,22 @@ namespace PruebasUnitarias
         [InlineData("Proyecto con persona 5", "Objetivo 5", "Dario", "Fotografo")]
         public void AgregarProyectoConPersona(string nombreProyecto, string objetivo, string nombrePersona, string rol)
         {
-            Proyecto proyecto = new Proyecto()
-            {
-                Nombre = nombreProyecto,
-                Objetivo = objetivo,
-                FechaInicio = DateTime.Now
-            };
-            Persona persona = new Persona()
-            {
-                Nombre = nombrePersona,
-                Rol = rol
-            };
-            proyecto.AgregarPersona(persona);
+            
+            
             using (var db = new ContextoGestorProyectos())
             {
+                Proyecto proyecto = new Proyecto(db)
+                {
+                    Nombre = nombreProyecto,
+                    Objetivo = objetivo,
+                    FechaInicio = DateTime.Now
+                };
+                Persona persona = new Persona()
+                {
+                    Nombre = nombrePersona,
+                    Rol = rol
+                };
+                proyecto.AgregarPersona(persona);
                 int id = db.AgregarProyecto(proyecto);
                 Proyecto proyectoRetorno = db.ObtenerProyecto(id);
                 Assert.True(proyectoRetorno.Personas.Contains(persona));
@@ -70,26 +73,27 @@ namespace PruebasUnitarias
         [InlineData("Proyecto con persona 5", "Objetivo 5", "Dario", "Fotografo")]
         public void AgregarProyectoConPersonaYEtapa(string nombreProyecto, string objetivo, string nombrePersona, string rol)
         {
-            Proyecto proyecto = new Proyecto()
-            {
-                Nombre = nombreProyecto,
-                Objetivo = objetivo,
-                FechaInicio = DateTime.Now
-            };
-            Persona persona = new Persona()
-            {
-                Nombre = nombrePersona,
-                Rol = rol
-            };
-            proyecto.AgregarPersona(persona);
-            Etapa etapa = new Etapa()
-            {
-                Nombre = "Una etapa",
-                FechaInicio = DateTime.Now
-            };
-            proyecto.AgregarEtapa(etapa);
+            
             using (var db = new ContextoGestorProyectos())
             {
+                Proyecto proyecto = new Proyecto(db)
+                {
+                    Nombre = nombreProyecto,
+                    Objetivo = objetivo,
+                    FechaInicio = DateTime.Now
+                };
+                Persona persona = new Persona()
+                {
+                    Nombre = nombrePersona,
+                    Rol = rol
+                };
+                proyecto.AgregarPersona(persona);
+                Etapa etapa = new Etapa()
+                {
+                    Nombre = "Una etapa",
+                    FechaInicio = DateTime.Now
+                };
+                proyecto.AgregarEtapa(etapa);
                 int id = db.AgregarProyecto(proyecto);
                 Proyecto unProyecto = db.ObtenerProyecto(id);
                 Assert.True(unProyecto.Etapas.Contains(etapa));

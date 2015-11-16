@@ -3,6 +3,8 @@ using InterfazGrafica.Utiles;
 using System;
 using System.Windows.Forms;
 using PersistenciaImp;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace InterfazGrafica
 {
@@ -12,6 +14,7 @@ namespace InterfazGrafica
         private const int ICONO_TAREA_SIMPLE = 1;
         private Etapa etapa;
         private IContextoGestorProyectos contexto;
+        private bool mostrandoCaminoCritico =false;
         public VentanaDetallesEtapa()
         {
             InitializeComponent();
@@ -23,12 +26,11 @@ namespace InterfazGrafica
             this.contexto = contexto;
             etapa=contexto.ObtenerEtapa(etapaID);
             inicializarComponentes();
-            actualizarArbolTareas();
         }
 
         private void inicializarComponentes()
         {
-            InicializarArbolTareas();
+            inicializarArbolTareas();
             this.Text = "Detalles de la etapa: " + etapa.Nombre;
             labelIdentifiacion.Text = etapa.EtapaID.ToString();
             textBoxNombre.Text = etapa.Nombre;
@@ -40,6 +42,41 @@ namespace InterfazGrafica
                 textBoxDuracionEstimada.ReadOnly = true;
             textBoxDuracionEstimada.Text = etapa.DuracionEstimada.ToString();
             inicializarBotonAsignarAntecesora();
+            actualizarArbolTareas();
+            inicializarAvance();
+        }
+
+        private void inicializarAvance()
+        {
+            if (etapa.DuracionEstimada != 0)
+            {
+                labelAvance.Text = "Avance: " + calcularAvance().ToString() + "%";
+                inicializarColorAvance();
+            }
+            else
+                labelAvance.Text = String.Empty;
+        }
+
+        private void inicializarColorAvance()
+        {
+            if (calcularAvance() < 10)
+            {
+                labelAvance.ForeColor = Color.Red;
+            }
+            else if (calcularAvance() > 50)
+            {
+                labelAvance.ForeColor = Color.Yellow;
+            }
+            else if (calcularAvance() > 80)
+            {
+                labelAvance.ForeColor = Color.Green;
+            }
+        }
+
+        private int calcularAvance()
+        {
+            return ((DateTime.Now.Subtract(etapa.FechaInicio).Days * 100)
+                            / etapa.DuracionEstimada) % 101;
         }
 
         private bool fueCambiadaDuracionEstimada()
@@ -55,7 +92,7 @@ namespace InterfazGrafica
                 buttonAsignarAntecesora.Enabled = false;
         }
 
-        private void InicializarArbolTareas()
+        private void inicializarArbolTareas()
         {
             arbolDeTareas.ImageList = listaImagenes;
         }
@@ -63,7 +100,8 @@ namespace InterfazGrafica
         private void actualizarArbolTareas()
         {
             arbolDeTareas.Nodes.Clear();
-            foreach (Tarea tarea in etapa.Tareas)
+            List<Tarea> listaARecorrer = obtenerListaARecorrer();
+            foreach (Tarea tarea in listaARecorrer)
             {
                 if (EsUnaTareaSimple(tarea))
                 {
@@ -78,6 +116,14 @@ namespace InterfazGrafica
                     arbolDeTareas.Nodes.Add(nodoArbol);
                 }
             }
+        }
+
+        private List<Tarea> obtenerListaARecorrer()
+        {
+            if (mostrandoCaminoCritico)
+                return etapa.ObtenerCaminoCritico();
+            else
+                return etapa.Tareas;
         }
 
         private static void AsignarIconosTareaCompuesta(TreeNode nodoArbol)
@@ -163,7 +209,7 @@ namespace InterfazGrafica
             {
                 if (EstaTareaSeleccionadaEnEtapa())
                 {
-                    EliminarTareaDeEtapa();
+                    eliminarTareaDeEtapa();
                 }
                 else
                 {
@@ -173,13 +219,13 @@ namespace InterfazGrafica
             }
         }
 
-        private void EliminarTareaDeEtapa()
+        private void eliminarTareaDeEtapa()
         {
             if (ApretoSiEnMensajeDeConfirmacion())
             {
                 etapa.EliminarTarea(TareaSeleccionada());
                 contexto.ModificarEtapa(etapa);
-                actualizarArbolTareas();
+                inicializarComponentes();
             }
         }
 
@@ -261,6 +307,7 @@ namespace InterfazGrafica
             contexto.ModificarEtapa(etapa);
             inicializarComponentes();
             buttonGuardar.Enabled = false;
+            Close();
             
         }
 
@@ -268,14 +315,7 @@ namespace InterfazGrafica
         {
             if (HayTareaSeleccionada())
             {
-                /*if(TareaSeleccionada().GetType() == typeof(TareaCompuesta))
-                {
-                    editarTareaVentana((TareaCompuesta)TareaSeleccionada(), false);
-                }
-                else*/
-                {
                     editarTareaVentana(TareaSeleccionada(), false);
-                }
                 
             }
         }
@@ -288,7 +328,7 @@ namespace InterfazGrafica
             {
                 if (estaCerradaVentanaDetallesTarea(formulario))
                 {
-                    actualizarArbolTareas();
+                    inicializarComponentes();
                     break;
                 }
             }
@@ -305,7 +345,7 @@ namespace InterfazGrafica
             etapa.AgregarTarea(tarea);
             contexto.ModificarEtapa(etapa);
             editarTareaVentana(tarea , true);
-            actualizarArbolTareas();
+            inicializarComponentes();
 
         }
 
@@ -344,7 +384,7 @@ namespace InterfazGrafica
             etapa.AgregarTarea(tarea);
             contexto.ModificarEtapa(etapa);
             editarTareaVentana(tarea, true);
-            actualizarArbolTareas();
+            inicializarComponentes();
         }
 
         private void textBoxDuracionEstimada_KeyPress(object sender, KeyPressEventArgs e)
@@ -355,6 +395,21 @@ namespace InterfazGrafica
         private void textBoxDuracionEstimada_TextChanged(object sender, EventArgs e)
         {
             habilitarBotonGuardar();
+        }
+
+        private void buttonMostrarCaminoCritico_Click(object sender, EventArgs e)
+        {
+            if (mostrandoCaminoCritico)
+            {
+                mostrandoCaminoCritico = false;
+                buttonMostrarCaminoCritico.Text = "Mostrar solo tareas camino crítico";
+            }
+            else
+            {
+                mostrandoCaminoCritico = true;
+                buttonMostrarCaminoCritico.Text = "Mostrar todas las tareas";
+            }
+            inicializarComponentes();
         }
     }
 }

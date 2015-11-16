@@ -25,6 +25,21 @@ namespace PruebasUnitarias
         [InlineData("Jorge", "Administrador")]
         [InlineData("Diego", "Un rol")]
         [InlineData("Nombre", "Rol")]
+        public void ToStringPrueba(string nombre, string rol)
+        {
+            Persona persona = new Persona()
+            {
+                Nombre = nombre,
+                Rol = rol
+            };
+
+            Assert.Equal(nombre + " [" + rol + "]", persona.ToString());
+        }
+
+        [Theory]
+        [InlineData("Jorge", "Administrador")]
+        [InlineData("Diego", "Un rol")]
+        [InlineData("Nombre", "Rol")]
         public void PeronasIguales(string nombre, string rol)
         {
             Persona persona = new Persona()

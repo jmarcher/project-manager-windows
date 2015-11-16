@@ -27,38 +27,39 @@ namespace PruebasUnitarias.Persistencia
         [Fact]
         public void EliminarProyecto()
         {
-            Proyecto p = new Proyecto()
-            {
-                Nombre = "Proyecto",
-                Objetivo = "Objetivo",
-                FechaInicio = DateTime.Now
-            };
-            Etapa etapa = new Etapa()
-            {
-                Nombre = "Etapa",
-                FechaInicio = DateTime.Now
-
-            };
-            Persona persona = new Persona()
-            {
-                Nombre = "Nombre",
-                Rol = "Roger"
-            };
-            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
-            {
-                Nombre = "Tarea",
-                FechaInicio = DateTime.Now,
-                Prioridad = Tarea.PRIORIDAD_MEDIA,
-                FechaFinalizacion = DateTime.Now.AddDays(1),
-                Descripcion = "Descripcion",
-                Objetivo = "Objetivo",
-                DuracionPendiente = 10
-            };
-            etapa.AgregarTarea(tarea);
-            p.AgregarPersona(persona);
-            p.AgregarEtapa(etapa);
+            
             using (var db = new ContextoGestorProyectos())
             {
+                Proyecto p = new Proyecto(db)
+                {
+                    Nombre = "Proyecto",
+                    Objetivo = "Objetivo",
+                    FechaInicio = DateTime.Now
+                };
+                Etapa etapa = new Etapa()
+                {
+                    Nombre = "Etapa",
+                    FechaInicio = DateTime.Now
+
+                };
+                Persona persona = new Persona()
+                {
+                    Nombre = "Nombre",
+                    Rol = "Roger"
+                };
+                Tarea tarea = new TareaSimple(db)
+                {
+                    Nombre = "Tarea",
+                    FechaInicio = DateTime.Now,
+                    Prioridad = Tarea.PRIORIDAD_MEDIA,
+                    FechaFinalizacion = DateTime.Now.AddDays(1),
+                    Descripcion = "Descripcion",
+                    Objetivo = "Objetivo",
+                    DuracionPendiente = 10
+                };
+                etapa.AgregarTarea(tarea);
+                p.AgregarPersona(persona);
+                p.AgregarEtapa(etapa);
                 int id = db.AgregarProyecto(p);
                 db.EliminarProyecto(id);
                 Assert.DoesNotContain(p, db.Proyectos);

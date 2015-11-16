@@ -32,7 +32,7 @@ namespace Dominio
         public DateTime FechaFinalizacion {
             get
             {
-                return UltimaFechaDeTareas();
+                return ultimaFechaDeTareas();
             }
         }
         
@@ -54,19 +54,33 @@ namespace Dominio
             return etapa.EtapaID == this.EtapaID;
         }
 
+        public List<Tarea> ObtenerCaminoCritico()
+        {
+            List<Tarea> retorno = new List<Tarea>();
+            Tarea tareaMasGrande = tareaQueFinalizaUltima();
+            if (tareaMasGrande != null)
+                retorno.Add(tareaMasGrande);
+            while (esTareaAntecesora(tareaMasGrande))
+            {
+                tareaMasGrande = tareaMasGrande.UltimaAntecesora();
+                if(tareaMasGrande != null)
+                    retorno.Add(tareaMasGrande);
+            }
+            return retorno;
+        }
+
         public int CalcularDuracionPendiente()
         {
             int mayorDuracionPendiente = 0;
-            Tarea tareaMasGrande = TareaQueFinalizaUltima();
-            while (EsTareaAntecesora(tareaMasGrande))
+            foreach (Tarea t in ObtenerCaminoCritico())
             {
-                mayorDuracionPendiente += tareaMasGrande.CalcularDuracionPendiente();
-                tareaMasGrande = tareaMasGrande.UltimaAntecesora();
+                if(esTareaAntecesora(t))
+                    mayorDuracionPendiente += t.CalcularDuracionPendiente();
             }
             return mayorDuracionPendiente;
         }
 
-        private bool EsTareaAntecesora(Tarea tareaMasGrande)
+        private bool esTareaAntecesora(Tarea tareaMasGrande)
         {
             return tareaMasGrande!=null;
         }
@@ -76,12 +90,12 @@ namespace Dominio
             Tareas.Add(tarea);
         }
         public void MarcarFinalizada() {
-            if (TodasTareasFinalizadas())
+            if (todasTareasFinalizadas())
             {
                 EstaFinalizada = true;
             }
         }
-        private bool TodasTareasFinalizadas()
+        private bool todasTareasFinalizadas()
         {
             bool valorRetorno = true;
             foreach (Tarea tarea in Tareas)
@@ -92,7 +106,7 @@ namespace Dominio
             return valorRetorno;
         }
 
-        private Tarea TareaQueFinalizaUltima()
+        private Tarea tareaQueFinalizaUltima()
         {
             Tarea tareaRetorno = new TareaSimple();
             DateTime mayorFecha = DateTime.MinValue;
@@ -107,9 +121,9 @@ namespace Dominio
             return tareaRetorno;
         }
 
-        private DateTime UltimaFechaDeTareas()
+        private DateTime ultimaFechaDeTareas()
         {
-            DateTime mayorFecha = TareaQueFinalizaUltima().FechaFinalizacion;
+            DateTime mayorFecha = tareaQueFinalizaUltima().FechaFinalizacion;
             return mayorFecha;
         }
 

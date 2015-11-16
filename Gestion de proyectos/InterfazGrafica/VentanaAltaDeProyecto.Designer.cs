@@ -36,16 +36,9 @@
             this.buttonSiguienteNuevoProyecto = new System.Windows.Forms.Button();
             this.buttonAtrasNuevoProyecto = new System.Windows.Forms.Button();
             this.panelEtapaDeNuevoProyecto = new System.Windows.Forms.Panel();
-            this.buttonAtrasEtapaNuevoProyecto = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
-            this.monthCalendarFechaInicioEtapa = new System.Windows.Forms.MonthCalendar();
-            this.buttonSiguienteEtapaNuevoProyecto = new System.Windows.Forms.Button();
-            this.textBoxNombreEtapaNuevoProyecto = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.monthCalendarFechaInicioProyecto = new System.Windows.Forms.MonthCalendar();
-            this.label15 = new System.Windows.Forms.Label();
             this.panelTareaNuevoProyecto = new System.Windows.Forms.Panel();
+            this.textBoxDuracionEstimadaTarea = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.textBoxDuracionPendienteNuevoProyecto = new System.Windows.Forms.TextBox();
             this.comboBoxPrioridadNuevoProyecto = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -63,12 +56,19 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBoxDuracionEstimadaProyecto = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.buttonAtrasEtapaNuevoProyecto = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.monthCalendarFechaInicioEtapa = new System.Windows.Forms.MonthCalendar();
+            this.buttonSiguienteEtapaNuevoProyecto = new System.Windows.Forms.Button();
+            this.textBoxNombreEtapaNuevoProyecto = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.textBoxDurcionEstimadaEtapa = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.textBoxDuracionEstimadaTarea = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
+            this.monthCalendarFechaInicioProyecto = new System.Windows.Forms.MonthCalendar();
+            this.label15 = new System.Windows.Forms.Label();
+            this.textBoxDuracionEstimadaProyecto = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.panelEtapaDeNuevoProyecto.SuspendLayout();
             this.panelTareaNuevoProyecto.SuspendLayout();
             this.SuspendLayout();
@@ -127,7 +127,7 @@
             this.buttonAtrasNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAtrasNuevoProyecto.Name = "buttonAtrasNuevoProyecto";
             this.buttonAtrasNuevoProyecto.Size = new System.Drawing.Size(75, 24);
-            this.buttonAtrasNuevoProyecto.TabIndex = 5;
+            this.buttonAtrasNuevoProyecto.TabIndex = 20003;
             this.buttonAtrasNuevoProyecto.Text = "Atras";
             this.buttonAtrasNuevoProyecto.UseVisualStyleBackColor = true;
             this.buttonAtrasNuevoProyecto.Click += new System.EventHandler(this.buttonAtrasNuevoProyecto_Click);
@@ -151,93 +151,6 @@
             this.panelEtapaDeNuevoProyecto.Size = new System.Drawing.Size(687, 434);
             this.panelEtapaDeNuevoProyecto.TabIndex = 6;
             this.panelEtapaDeNuevoProyecto.Visible = false;
-            // 
-            // buttonAtrasEtapaNuevoProyecto
-            // 
-            this.buttonAtrasEtapaNuevoProyecto.Location = new System.Drawing.Point(517, 391);
-            this.buttonAtrasEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonAtrasEtapaNuevoProyecto.Name = "buttonAtrasEtapaNuevoProyecto";
-            this.buttonAtrasEtapaNuevoProyecto.Size = new System.Drawing.Size(75, 24);
-            this.buttonAtrasEtapaNuevoProyecto.TabIndex = 6;
-            this.buttonAtrasEtapaNuevoProyecto.Text = "Atras";
-            this.buttonAtrasEtapaNuevoProyecto.UseVisualStyleBackColor = true;
-            this.buttonAtrasEtapaNuevoProyecto.Click += new System.EventHandler(this.buttonAtrasEtapaNuevoProyecto_Click);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(9, 91);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(139, 13);
-            this.label14.TabIndex = 9;
-            this.label14.Text = "Ingrese una fecha de Inicio ";
-            // 
-            // monthCalendarFechaInicioEtapa
-            // 
-            this.monthCalendarFechaInicioEtapa.Location = new System.Drawing.Point(176, 91);
-            this.monthCalendarFechaInicioEtapa.Margin = new System.Windows.Forms.Padding(7);
-            this.monthCalendarFechaInicioEtapa.Name = "monthCalendarFechaInicioEtapa";
-            this.monthCalendarFechaInicioEtapa.TabIndex = 7;
-            // 
-            // buttonSiguienteEtapaNuevoProyecto
-            // 
-            this.buttonSiguienteEtapaNuevoProyecto.Location = new System.Drawing.Point(596, 391);
-            this.buttonSiguienteEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonSiguienteEtapaNuevoProyecto.Name = "buttonSiguienteEtapaNuevoProyecto";
-            this.buttonSiguienteEtapaNuevoProyecto.Size = new System.Drawing.Size(75, 24);
-            this.buttonSiguienteEtapaNuevoProyecto.TabIndex = 5;
-            this.buttonSiguienteEtapaNuevoProyecto.Text = "Siguiente";
-            this.buttonSiguienteEtapaNuevoProyecto.UseVisualStyleBackColor = true;
-            this.buttonSiguienteEtapaNuevoProyecto.Click += new System.EventHandler(this.buttonSiguienteEtapaNuevoProyecto_Click);
-            // 
-            // textBoxNombreEtapaNuevoProyecto
-            // 
-            this.textBoxNombreEtapaNuevoProyecto.Location = new System.Drawing.Point(176, 33);
-            this.textBoxNombreEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxNombreEtapaNuevoProyecto.Name = "textBoxNombreEtapaNuevoProyecto";
-            this.textBoxNombreEtapaNuevoProyecto.Size = new System.Drawing.Size(193, 20);
-            this.textBoxNombreEtapaNuevoProyecto.TabIndex = 5;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(268, 2);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(246, 20);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Creación de una nueva Etapa";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 31);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(160, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Ingrese un nombre para la etapa";
-            // 
-            // monthCalendarFechaInicioProyecto
-            // 
-            this.monthCalendarFechaInicioProyecto.Location = new System.Drawing.Point(189, 176);
-            this.monthCalendarFechaInicioProyecto.Margin = new System.Windows.Forms.Padding(7);
-            this.monthCalendarFechaInicioProyecto.MaxDate = new System.DateTime(4089, 1, 3, 0, 0, 0, 0);
-            this.monthCalendarFechaInicioProyecto.MinDate = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
-            this.monthCalendarFechaInicioProyecto.Name = "monthCalendarFechaInicioProyecto";
-            this.monthCalendarFechaInicioProyecto.TabIndex = 4;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(11, 176);
-            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(135, 13);
-            this.label15.TabIndex = 8;
-            this.label15.Text = "Ingrese una fecha de inicio";
             // 
             // panelTareaNuevoProyecto
             // 
@@ -267,6 +180,26 @@
             this.panelTareaNuevoProyecto.Size = new System.Drawing.Size(687, 434);
             this.panelTareaNuevoProyecto.TabIndex = 10;
             this.panelTareaNuevoProyecto.Visible = false;
+            // 
+            // textBoxDuracionEstimadaTarea
+            // 
+            this.textBoxDuracionEstimadaTarea.Location = new System.Drawing.Point(176, 174);
+            this.textBoxDuracionEstimadaTarea.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxDuracionEstimadaTarea.Name = "textBoxDuracionEstimadaTarea";
+            this.textBoxDuracionEstimadaTarea.Size = new System.Drawing.Size(218, 20);
+            this.textBoxDuracionEstimadaTarea.TabIndex = 13;
+            this.textBoxDuracionEstimadaTarea.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDuracionEstimadaTarea_KeyPress);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(11, 177);
+            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(142, 13);
+            this.label17.TabIndex = 21;
+            this.label17.Text = "Ingrese la duración estimada";
+            this.label17.Click += new System.EventHandler(this.label17_Click);
             // 
             // textBoxDuracionPendienteNuevoProyecto
             // 
@@ -322,7 +255,7 @@
             this.monthCalendarFechaFinTareaNuevoProyecto.Location = new System.Drawing.Point(257, 259);
             this.monthCalendarFechaFinTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(7);
             this.monthCalendarFechaFinTareaNuevoProyecto.Name = "monthCalendarFechaFinTareaNuevoProyecto";
-            this.monthCalendarFechaFinTareaNuevoProyecto.TabIndex = 15;
+            this.monthCalendarFechaFinTareaNuevoProyecto.TabIndex = 10005;
             // 
             // buttonAtrasTareaNuevoProyecto
             // 
@@ -375,7 +308,7 @@
             this.monthCalendarFechaInicioTareaNuevoProyecto.Location = new System.Drawing.Point(9, 259);
             this.monthCalendarFechaInicioTareaNuevoProyecto.Margin = new System.Windows.Forms.Padding(7);
             this.monthCalendarFechaInicioTareaNuevoProyecto.Name = "monthCalendarFechaInicioTareaNuevoProyecto";
-            this.monthCalendarFechaInicioTareaNuevoProyecto.TabIndex = 8;
+            this.monthCalendarFechaInicioTareaNuevoProyecto.TabIndex = 10002;
             // 
             // label10
             // 
@@ -428,24 +361,73 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Creación de una tarea";
             // 
-            // textBoxDuracionEstimadaProyecto
+            // buttonAtrasEtapaNuevoProyecto
             // 
-            this.textBoxDuracionEstimadaProyecto.Location = new System.Drawing.Point(189, 31);
-            this.textBoxDuracionEstimadaProyecto.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxDuracionEstimadaProyecto.Name = "textBoxDuracionEstimadaProyecto";
-            this.textBoxDuracionEstimadaProyecto.Size = new System.Drawing.Size(138, 20);
-            this.textBoxDuracionEstimadaProyecto.TabIndex = 2;
-            this.textBoxDuracionEstimadaProyecto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDuracionEstimadaProyecto_KeyPress);
+            this.buttonAtrasEtapaNuevoProyecto.Location = new System.Drawing.Point(517, 391);
+            this.buttonAtrasEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonAtrasEtapaNuevoProyecto.Name = "buttonAtrasEtapaNuevoProyecto";
+            this.buttonAtrasEtapaNuevoProyecto.Size = new System.Drawing.Size(75, 24);
+            this.buttonAtrasEtapaNuevoProyecto.TabIndex = 20003;
+            this.buttonAtrasEtapaNuevoProyecto.Text = "Atras";
+            this.buttonAtrasEtapaNuevoProyecto.UseVisualStyleBackColor = true;
+            this.buttonAtrasEtapaNuevoProyecto.Click += new System.EventHandler(this.buttonAtrasEtapaNuevoProyecto_Click);
             // 
-            // label5
+            // label14
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 33);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(131, 13);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Ingrese duracion estimada";
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(9, 91);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(139, 13);
+            this.label14.TabIndex = 9;
+            this.label14.Text = "Ingrese una fecha de Inicio ";
+            // 
+            // monthCalendarFechaInicioEtapa
+            // 
+            this.monthCalendarFechaInicioEtapa.Location = new System.Drawing.Point(176, 91);
+            this.monthCalendarFechaInicioEtapa.Margin = new System.Windows.Forms.Padding(7);
+            this.monthCalendarFechaInicioEtapa.Name = "monthCalendarFechaInicioEtapa";
+            this.monthCalendarFechaInicioEtapa.TabIndex = 10002;
+            // 
+            // buttonSiguienteEtapaNuevoProyecto
+            // 
+            this.buttonSiguienteEtapaNuevoProyecto.Location = new System.Drawing.Point(596, 391);
+            this.buttonSiguienteEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonSiguienteEtapaNuevoProyecto.Name = "buttonSiguienteEtapaNuevoProyecto";
+            this.buttonSiguienteEtapaNuevoProyecto.Size = new System.Drawing.Size(75, 24);
+            this.buttonSiguienteEtapaNuevoProyecto.TabIndex = 5;
+            this.buttonSiguienteEtapaNuevoProyecto.Text = "Siguiente";
+            this.buttonSiguienteEtapaNuevoProyecto.UseVisualStyleBackColor = true;
+            this.buttonSiguienteEtapaNuevoProyecto.Click += new System.EventHandler(this.buttonSiguienteEtapaNuevoProyecto_Click);
+            // 
+            // textBoxNombreEtapaNuevoProyecto
+            // 
+            this.textBoxNombreEtapaNuevoProyecto.Location = new System.Drawing.Point(176, 33);
+            this.textBoxNombreEtapaNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxNombreEtapaNuevoProyecto.Name = "textBoxNombreEtapaNuevoProyecto";
+            this.textBoxNombreEtapaNuevoProyecto.Size = new System.Drawing.Size(193, 20);
+            this.textBoxNombreEtapaNuevoProyecto.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(268, 2);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(246, 20);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Creación de una nueva Etapa";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 31);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(160, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Ingrese un nombre para la etapa";
             // 
             // textBoxDurcionEstimadaEtapa
             // 
@@ -467,25 +449,43 @@
             this.label16.Text = "Ingrese una duracion estimada";
             this.label16.Click += new System.EventHandler(this.label16_Click);
             // 
-            // textBoxDuracionEstimadaTarea
+            // monthCalendarFechaInicioProyecto
             // 
-            this.textBoxDuracionEstimadaTarea.Location = new System.Drawing.Point(176, 174);
-            this.textBoxDuracionEstimadaTarea.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxDuracionEstimadaTarea.Name = "textBoxDuracionEstimadaTarea";
-            this.textBoxDuracionEstimadaTarea.Size = new System.Drawing.Size(218, 20);
-            this.textBoxDuracionEstimadaTarea.TabIndex = 13;
-            this.textBoxDuracionEstimadaTarea.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDuracionEstimadaTarea_KeyPress);
+            this.monthCalendarFechaInicioProyecto.Location = new System.Drawing.Point(189, 176);
+            this.monthCalendarFechaInicioProyecto.Margin = new System.Windows.Forms.Padding(7);
+            this.monthCalendarFechaInicioProyecto.MaxDate = new System.DateTime(4089, 1, 3, 0, 0, 0, 0);
+            this.monthCalendarFechaInicioProyecto.MinDate = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
+            this.monthCalendarFechaInicioProyecto.Name = "monthCalendarFechaInicioProyecto";
+            this.monthCalendarFechaInicioProyecto.TabIndex = 4;
             // 
-            // label17
+            // label15
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(11, 177);
-            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(142, 13);
-            this.label17.TabIndex = 21;
-            this.label17.Text = "Ingrese la duración estimada";
-            this.label17.Click += new System.EventHandler(this.label17_Click);
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(11, 176);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(135, 13);
+            this.label15.TabIndex = 8;
+            this.label15.Text = "Ingrese una fecha de inicio";
+            // 
+            // textBoxDuracionEstimadaProyecto
+            // 
+            this.textBoxDuracionEstimadaProyecto.Location = new System.Drawing.Point(189, 31);
+            this.textBoxDuracionEstimadaProyecto.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxDuracionEstimadaProyecto.Name = "textBoxDuracionEstimadaProyecto";
+            this.textBoxDuracionEstimadaProyecto.Size = new System.Drawing.Size(138, 20);
+            this.textBoxDuracionEstimadaProyecto.TabIndex = 2;
+            this.textBoxDuracionEstimadaProyecto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDuracionEstimadaProyecto_KeyPress);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(9, 33);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(131, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Ingrese duracion estimada";
             // 
             // VentanaAltaDeProyecto
             // 

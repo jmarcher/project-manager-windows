@@ -10,7 +10,7 @@ namespace PruebasUnitarias
         [Fact]
         public void DosProyectosSonIguales()
         {
-            Proyecto proyectoUno = new Proyecto()
+            Proyecto proyectoUno = new Proyecto( new ContextoGestorProyectos())
             {
                 ProyectoID=1,
                 Nombre="Proyecto",
@@ -19,7 +19,7 @@ namespace PruebasUnitarias
                 FechaInicio = DateTime.Now.Date
             };
 
-            Proyecto proyectoDos = new Proyecto()
+            Proyecto proyectoDos = new Proyecto( new ContextoGestorProyectos())
             {
                 ProyectoID = 1,
                 Nombre = "Proyecto",
@@ -35,7 +35,7 @@ namespace PruebasUnitarias
         [Fact]
         public void EliminarEtapa()
         {
-            Proyecto proyecto = new Proyecto()
+            Proyecto proyecto = new Proyecto( new ContextoGestorProyectos())
             {
                 ProyectoID = 1,
                 Nombre = "Proyecto"
@@ -58,6 +58,7 @@ namespace PruebasUnitarias
                 ProyectoID = 1,
                 Nombre = "Proyecto"
             };
+            proyecto.Contexto = new ContextoGestorProyectos();
             Etapa etapa = new Etapa()
             {
                 EtapaID = 1,
@@ -70,13 +71,13 @@ namespace PruebasUnitarias
         [Fact]
         public void DosProyectosSonDistintos()
         {
-            Proyecto proyectoUno = new Proyecto()
+            Proyecto proyectoUno = new Proyecto( new ContextoGestorProyectos())
             {
                 ProyectoID = 1,
                 Nombre = "Proyecto"
             };
 
-            Proyecto proyectoDos = new Proyecto()
+            Proyecto proyectoDos = new Proyecto( new ContextoGestorProyectos())
             {
                 ProyectoID = 2,
                 Nombre = "Proyecto"
@@ -93,25 +94,12 @@ namespace PruebasUnitarias
             Etapa etapa = new Etapa();
             etapa.AgregarTarea(tarea);
             etapa.MarcarFinalizada();
-            Proyecto proyecto = new Proyecto();
+            Proyecto proyecto = new Proyecto( new ContextoGestorProyectos());
             proyecto.AgregarEtapa(etapa);
             proyecto.MarcarFinalizado();
             Assert.True(proyecto.EstaFinalizado);
         }
-
-       /* [Fact]
-        public void AgregarPersonaAProyecto()
-        {
-            Persona persona = new Persona()
-            {
-                Nombre = "Juan",
-                Rol = "Administrador"
-            };
-            Proyecto proyecto = CrearUnProyectoConUnaEtapa();
-            proyecto.AgregarPersona(persona);
-
-            Assert.True(proyecto.Personas.Contains(persona));
-        }*/
+        
 
         [Fact]
         public void MarcarProyectoComoFinalizadoConEtapaSinFinalizar()
@@ -120,7 +108,7 @@ namespace PruebasUnitarias
             tarea.MarcarFinalizada();
             Etapa etapa = new Etapa();
             etapa.AgregarTarea(tarea);
-            Proyecto proyecto = new Proyecto();
+            Proyecto proyecto = new Proyecto( new ContextoGestorProyectos());
             proyecto.AgregarEtapa(etapa);
             proyecto.MarcarFinalizado();
             Assert.False(proyecto.EstaFinalizado);
@@ -140,7 +128,7 @@ namespace PruebasUnitarias
                 FechaInicio = DateTime.Now
             };
             etapa.AgregarTarea(tarea);
-            Proyecto proyecto = new Proyecto()
+            Proyecto proyecto = new Proyecto( new ContextoGestorProyectos())
             {
                 ProyectoID = 1,
                 Nombre = "Proyecto"
@@ -164,7 +152,7 @@ namespace PruebasUnitarias
                 FechaInicio = DateTime.Now
             };
             etapa.AgregarTarea(tarea);
-            Proyecto proyecto = new Proyecto()
+            Proyecto proyecto = new Proyecto( new ContextoGestorProyectos())
             {
                 ProyectoID = 1,
                 Nombre = "Proyecto"
@@ -191,13 +179,14 @@ namespace PruebasUnitarias
                 FechaInicio = DateTime.Now.AddDays(-60)
             };
             etapa.AgregarTarea(tarea);
-            Proyecto proyecto = new Proyecto()
+            Proyecto proyecto = new Proyecto( new ContextoGestorProyectos())
             {
                 ProyectoID = 1,
                 Nombre = "Proyecto no atrasado"
             };
             proyecto.AgregarEtapa(etapa);
             Assert.False(proyecto.EstaAtrasado);
+            Assert.NotNull(proyecto.Contexto);
         }
 
         [Fact]
@@ -208,7 +197,7 @@ namespace PruebasUnitarias
                 EtapaID = 10,
                 FechaInicio = DateTime.Now.AddDays(-60)
             };
-            Proyecto proyecto = new Proyecto()
+            Proyecto proyecto = new Proyecto( new ContextoGestorProyectos())
             {
                 ProyectoID = 1,
                 Nombre = "Proyecto con etapa"
@@ -228,6 +217,15 @@ namespace PruebasUnitarias
         }
 
         [Fact]
+        public void ProbarModificacion()
+        {
+
+            Proyecto unProyecto = new Proyecto();
+            unProyecto.AgregarModificacion("Modificacion");
+            Assert.Equal("[" + DateTime.Now + "] Modificacion \r\n", unProyecto.Historial);
+        }
+
+        [Fact]
         public void DuracionPendienteProyecto()
         {
             Proyecto unProyecto = CrearUnProyectoConUnaEtapa();
@@ -238,7 +236,7 @@ namespace PruebasUnitarias
         {
             Etapa imprimeCuenta = CrearEtapaConDosTareas();
 
-            Proyecto unProyecto = new Proyecto()
+            Proyecto unProyecto = new Proyecto( new ContextoGestorProyectos())
             {
                 ProyectoID = 1
             };

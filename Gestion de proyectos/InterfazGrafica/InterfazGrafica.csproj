@@ -87,6 +87,12 @@
   <ItemGroup>
     <Compile Include="Utiles\OrdenadorListView.cs" />
     <Compile Include="Utiles\AyudanteVisual.cs" />
+    <Compile Include="VentanaAgregarNuevaPersona.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentanaAgregarNuevaPersona.Designer.cs">
+      <DependentUpon>VentanaAgregarNuevaPersona.cs</DependentUpon>
+    </Compile>
     <Compile Include="VentanaAltaDeProyecto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +143,21 @@
     <Compile Include="VentanaDetallesEtapa.Designer.cs">
       <DependentUpon>VentanaDetallesEtapa.cs</DependentUpon>
     </Compile>
+    <Compile Include="VentanaVerHistorialProyecto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentanaVerHistorialProyecto.Designer.cs">
+      <DependentUpon>VentanaVerHistorialProyecto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VentanaVerHistorialTarea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentanaVerHistorialTarea.Designer.cs">
+      <DependentUpon>VentanaVerHistorialTarea.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="VentanaAgregarNuevaPersona.resx">
+      <DependentUpon>VentanaAgregarNuevaPersona.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VentanaAltaDeProyecto.resx">
       <DependentUpon>VentanaAltaDeProyecto.cs</DependentUpon>
     </EmbeddedResource>
@@ -170,6 +191,12 @@
     </Compile>
     <EmbeddedResource Include="VentanaDetallesEtapa.resx">
       <DependentUpon>VentanaDetallesEtapa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VentanaVerHistorialProyecto.resx">
+      <DependentUpon>VentanaVerHistorialProyecto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VentanaVerHistorialTarea.resx">
+      <DependentUpon>VentanaVerHistorialTarea.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

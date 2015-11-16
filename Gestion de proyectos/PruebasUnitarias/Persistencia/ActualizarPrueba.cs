@@ -16,14 +16,15 @@ namespace PruebasUnitarias.Persistencia
         [InlineData("Proyecto 5", "Objetivo 5")]
         public void ActualizarProyecto(string nombre, string objetivo)
         {
-            Proyecto p = new Proyecto()
-            {
-                Nombre = nombre,
-                Objetivo = objetivo,
-                FechaInicio = DateTime.Now
-            };
+            
             using (var db = new ContextoGestorProyectos())
             {
+                Proyecto p = new Proyecto(db)
+                {
+                    Nombre = nombre,
+                    Objetivo = objetivo,
+                    FechaInicio = DateTime.Now
+                };
                 db.AgregarProyecto(p);
                 p.Nombre = "Uno nuevo";
                 p.Objetivo = "Objetivooooo";

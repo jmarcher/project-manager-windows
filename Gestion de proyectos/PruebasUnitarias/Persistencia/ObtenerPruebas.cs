@@ -14,7 +14,7 @@ namespace PruebasUnitarias.Persistencia
             using (var db = new ContextoGestorProyectos())
             {
                 db.VaciarBaseDeDatos();
-                Proyecto proyecto = new Proyecto()
+                Proyecto proyecto = new Proyecto(db)
                 {
                     Nombre = "Nombew",
                     Objetivo = "O",

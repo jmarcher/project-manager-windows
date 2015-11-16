@@ -76,7 +76,7 @@ namespace InterfazGrafica
                 FechaInicio = this.monthCalendarFechaInicioEtapa.SelectionStart,
                 DuracionEstimada = Int32.Parse(textBoxDurcionEstimadaEtapa.Text)
             };
-            Proyecto nuevoProyecto = new Proyecto()
+            Proyecto nuevoProyecto = new Proyecto(contexto)
             {
                 Nombre = textBoxNombreDelNuevoProyecto.Text,
                 Objetivo = this.richTextBoxObjetivoDelNuevoProyecto.Text,

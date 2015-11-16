@@ -155,6 +155,7 @@ namespace PersistenciaImp
 
         }
 
+
         private static bool esTareaCompuesta(Tarea tarea)
         {
             return tarea.GetType() == typeof(TareaCompuesta) || tarea.GetType().BaseType == typeof(TareaCompuesta);

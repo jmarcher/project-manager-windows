@@ -34,7 +34,7 @@ namespace InterfazGrafica
 
         private void configurarListViewProyectos()
         {
-            InicializarOrdenadorListView();
+            inicializarOrdenadorListView();
 
             listViewProyectos.View = View.Details;
             listViewProyectos.FullRowSelect = true;
@@ -49,7 +49,7 @@ namespace InterfazGrafica
             listViewProyectos.Columns.Add("Duración pendiente (dias)", 80, HorizontalAlignment.Left);
         }
 
-        private void InicializarOrdenadorListView()
+        private void inicializarOrdenadorListView()
         {
             this.ordenadorListView = new OrdenadorListView();
             listViewProyectos.ListViewItemSorter = ordenadorListView;
@@ -58,19 +58,20 @@ namespace InterfazGrafica
         private void actualizarListaDeProyectos()
         {
             listViewProyectos.Items.Clear();
-            foreach(Proyecto proyecto in ObtenerListaProyectos())
+            foreach(Proyecto proyecto in obtenerListaProyectos())
             {
                 ListViewItem nuevoItemLista = crearNuevoItemListaProyectos(proyecto);
                 listViewProyectos.Items.Add(nuevoItemLista);
             }
         }
 
-        private List<Proyecto> ObtenerListaProyectos()
+        private List<Proyecto> obtenerListaProyectos()
         {
             List<Proyecto> retorno = new List<Proyecto>();
                 var proyectos = Contexto.DevolverProyectos();
                 foreach(Proyecto p in proyectos)
                 {
+                    p.Contexto = Contexto;
                     retorno.Add(p);
                 }
             return retorno;
@@ -120,20 +121,35 @@ namespace InterfazGrafica
         {
             if (proyecto.EstaFinalizado)
             {
-                nuevoItemLista.SubItems.Add("Proyecto Finalizado").Tag = OrdenadorListView.STRING;
-                nuevoItemLista.ForeColor = Color.Red;
+                marcarProyectoFinalizado(nuevoItemLista);
             }
             else if (proyecto.EstaAtrasado)
             {
-                nuevoItemLista.SubItems.Add("Proyecto Atrasado").Tag = OrdenadorListView.STRING;
-                nuevoItemLista.ForeColor = Color.Orange;
+                marcarProyectoAtrasado(nuevoItemLista);
             }
             else
             {
-                string fechaFinalizacion = proyecto.FechaFinalizacion.ToString();
-                nuevoItemLista.SubItems.Add(fechaFinalizacion).Tag = OrdenadorListView.DATETIME;
-                nuevoItemLista.ForeColor = Color.Green;
+                mostrarFechaFinalizacionProyecto(proyecto, nuevoItemLista);
             }
+        }
+
+        private static void mostrarFechaFinalizacionProyecto(Proyecto proyecto, ListViewItem nuevoItemLista)
+        {
+            string fechaFinalizacion = proyecto.FechaFinalizacion.ToString();
+            nuevoItemLista.SubItems.Add(fechaFinalizacion).Tag = OrdenadorListView.DATETIME;
+            nuevoItemLista.ForeColor = Color.Green;
+        }
+
+        private static void marcarProyectoAtrasado(ListViewItem nuevoItemLista)
+        {
+            nuevoItemLista.SubItems.Add("Proyecto Atrasado").Tag = OrdenadorListView.STRING;
+            nuevoItemLista.ForeColor = Color.Orange;
+        }
+
+        private static void marcarProyectoFinalizado(ListViewItem nuevoItemLista)
+        {
+            nuevoItemLista.SubItems.Add("Proyecto Finalizado").Tag = OrdenadorListView.STRING;
+            nuevoItemLista.ForeColor = Color.Red;
         }
 
         private void listViewProyectos_DoubleClick(object sender, EventArgs e)
@@ -146,7 +162,7 @@ namespace InterfazGrafica
         {
             VentanaDetallesProyecto ventana = new VentanaDetallesProyecto(proyecto.ProyectoID, Contexto);
             ventana.ShowDialog(this);
-            ActualizarListaDeProyectosConCondicion(new CondicionDeActualizacion(EstaCerradaVentanaDetallesProyecto));
+            actualizarListaDeProyectosConCondicion(new CondicionDeActualizacion(estaCerradaVentanaDetallesProyecto));
         }
 
         private Proyecto proyectoSeleccionado()
@@ -163,11 +179,11 @@ namespace InterfazGrafica
         {
             VentanaAltaDeProyecto ventanaAlta = new VentanaAltaDeProyecto(Contexto);
             ventanaAlta.ShowDialog();
-            ActualizarListaDeProyectosConCondicion(new CondicionDeActualizacion(EstaCerradaVentanaAltaDeProyecto));
+            actualizarListaDeProyectosConCondicion(new CondicionDeActualizacion(estaCerradaVentanaAltaDeProyecto));
         }
 
         public delegate bool CondicionDeActualizacion(Form formulario);
-        private void ActualizarListaDeProyectosConCondicion(CondicionDeActualizacion metodo)
+        private void actualizarListaDeProyectosConCondicion(CondicionDeActualizacion metodo)
         {
             foreach (Form frm in Application.OpenForms)
             {
@@ -179,12 +195,12 @@ namespace InterfazGrafica
             }
         }
 
-        private bool EstaCerradaVentanaAltaDeProyecto(Form frm)
+        private bool estaCerradaVentanaAltaDeProyecto(Form frm)
         {
             return !(frm.GetType() == typeof(VentanaAltaDeProyecto));
         }
 
-        private bool EstaCerradaVentanaDetallesProyecto(Form frm)
+        private bool estaCerradaVentanaDetallesProyecto(Form frm)
         {
             return !(frm.GetType() == typeof(VentanaDetallesProyecto));
         }
@@ -240,22 +256,6 @@ namespace InterfazGrafica
         private void VentanaPrincipal_Load(object sender, EventArgs e)
         {
             listViewProyectos_ColumnClick(sender, new ColumnClickEventArgs(ID_COLUMNA_FECHA_FIN));
-        }
-
-        private void borrarDatosDePruebaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            InstanciaUnica.Instancia.AgregarProyectos(listaVacia());
-            actualizarListaDeProyectos();
-        }
-
-        private static List<Proyecto> listaVacia()
-        {
-            return new List<Proyecto>();
-        }
-
-        private void cargarDatosDePruebaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-           
         }
 
         private void barraMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

@@ -50,6 +50,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxDuracionEstimada = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.buttonMostrarCaminoCritico = new System.Windows.Forms.Button();
+            this.labelAvance = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // arbolDeTareas
@@ -231,7 +233,7 @@
             // 
             this.textBoxDuracionEstimada.Location = new System.Drawing.Point(123, 141);
             this.textBoxDuracionEstimada.Name = "textBoxDuracionEstimada";
-            this.textBoxDuracionEstimada.Size = new System.Drawing.Size(200, 20);
+            this.textBoxDuracionEstimada.Size = new System.Drawing.Size(115, 20);
             this.textBoxDuracionEstimada.TabIndex = 19;
             this.textBoxDuracionEstimada.TextChanged += new System.EventHandler(this.textBoxDuracionEstimada_TextChanged);
             this.textBoxDuracionEstimada.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDuracionEstimada_KeyPress);
@@ -239,17 +241,38 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(333, 144);
+            this.label7.Location = new System.Drawing.Point(244, 144);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(31, 13);
             this.label7.TabIndex = 20;
             this.label7.Text = "días.";
+            // 
+            // buttonMostrarCaminoCritico
+            // 
+            this.buttonMostrarCaminoCritico.Location = new System.Drawing.Point(508, 145);
+            this.buttonMostrarCaminoCritico.Name = "buttonMostrarCaminoCritico";
+            this.buttonMostrarCaminoCritico.Size = new System.Drawing.Size(192, 23);
+            this.buttonMostrarCaminoCritico.TabIndex = 21;
+            this.buttonMostrarCaminoCritico.Text = "Mostrar solo tareas camino crítico";
+            this.buttonMostrarCaminoCritico.UseVisualStyleBackColor = true;
+            this.buttonMostrarCaminoCritico.Click += new System.EventHandler(this.buttonMostrarCaminoCritico_Click);
+            // 
+            // labelAvance
+            // 
+            this.labelAvance.AutoSize = true;
+            this.labelAvance.Location = new System.Drawing.Point(281, 144);
+            this.labelAvance.Name = "labelAvance";
+            this.labelAvance.Size = new System.Drawing.Size(35, 13);
+            this.labelAvance.TabIndex = 22;
+            this.labelAvance.Text = "label8";
             // 
             // VentanaDetallesEtapa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(713, 426);
+            this.Controls.Add(this.labelAvance);
+            this.Controls.Add(this.buttonMostrarCaminoCritico);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBoxDuracionEstimada);
             this.Controls.Add(this.label5);
@@ -301,5 +324,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxDuracionEstimada;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button buttonMostrarCaminoCritico;
+        private System.Windows.Forms.Label labelAvance;
     }
 }

@@ -4,6 +4,8 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using PersistenciaImp;
+using System.Drawing.Imaging;
+using System.Drawing;
 
 namespace InterfazGrafica
 {
@@ -19,19 +21,52 @@ namespace InterfazGrafica
             this.Contexto = contexto;
             this.proyectoID = proyectoID;
             InitializeComponent();
-            InicializarControles();
+            inicializarControles();
         }
 
-        private void InicializarControles()
+        private void inicializarControles()
         {
-            InicializarListViewSorter();
-            ActualizarLista();
-            AsignarTitulo();
-            InicializarLista();
-            InicializarCampos();
+            inicializarListViewSorter();
+            actualizarListaEtapas();
+            asignarTitulo();
+            inicializarLista();
+            inicializarCampos();
+            inicializarAvance();
         }
 
-        private void InicializarCampos()
+        private void inicializarAvance()
+        {
+            if (proyecto.DuracionEstimada != 0)
+            {
+                labelAvance.Text = "Avance: " + calcularAvance().ToString() + "%";
+                inicializarColorAvance();
+            }
+            else
+                labelAvance.Text = String.Empty;
+        }
+
+        private void inicializarColorAvance()
+        {
+            if (calcularAvance() < 10)
+            {
+                labelAvance.ForeColor = Color.Red;
+            }
+            else if (calcularAvance() > 50)
+            {
+                labelAvance.ForeColor = Color.Yellow;
+            }else if (calcularAvance() > 80)
+            {
+                labelAvance.ForeColor = Color.Green;
+            }
+        }
+
+        private int calcularAvance()
+        {
+            return ((DateTime.Now.Subtract(proyecto.FechaInicio).Days * 100)
+                            / proyecto.DuracionEstimada) % 101;
+        }
+
+        private void inicializarCampos()
         {
             textBoxFFin.Text = proyecto.FechaFinalizacion.Date.ToString();
             dateTimePickerFechaInicio.Text = proyecto.FechaInicio.Date.ToString();
@@ -42,18 +77,18 @@ namespace InterfazGrafica
             labelDuracionEstimada.Text = proyecto.DuracionEstimada.ToString() + " días";
         }
 
-        private void InicializarListViewSorter()
+        private void inicializarListViewSorter()
         {
             ordenadorListView = new OrdenadorListView();
             etapasListView.ListViewItemSorter = ordenadorListView;
         }
 
-        private void AsignarTitulo()
+        private void asignarTitulo()
         {
             this.Text = "Etapas de: " + proyecto.Nombre;
         }
 
-        private void ActualizarLista()
+        private void actualizarListaEtapas()
         {
             etapasListView.Items.Clear();
             proyecto = Contexto.ObtenerProyecto(proyectoID);
@@ -77,7 +112,7 @@ namespace InterfazGrafica
             return elementoListView;
         }
 
-        private void InicializarLista()
+        private void inicializarLista()
         {
             etapasListView.View = View.Details;
             etapasListView.FullRowSelect = true;
@@ -102,12 +137,12 @@ namespace InterfazGrafica
             if (HayEtapaSeleccionada() && CartelConfirmacionEliminacionAceptado())
             {
                 proyecto.QuitarEtapa(EtapaSeleccionada());
-                ActualizarLista();
-                GuardarCambiosProyecto();
+                actualizarListaEtapas();
+                guardarCambiosProyecto();
             }
         }
 
-        private void GuardarCambiosProyecto()
+        private void guardarCambiosProyecto()
         {
             Contexto.ModificarProyecto(proyecto);
             
@@ -143,25 +178,25 @@ namespace InterfazGrafica
         {
             if (HayEtapaSeleccionada())
             {
-                EditarEtapaVentana(EtapaSeleccionada());
+                editarEtapaVentana(EtapaSeleccionada());
             }
         }
 
-        private void EditarEtapaVentana(Etapa etapa)
+        private void editarEtapaVentana(Etapa etapa)
         {
             VentanaDetallesEtapa ventanaDetalles = new VentanaDetallesEtapa(etapa.EtapaID,Contexto);
             ventanaDetalles.ShowDialog(this);
             foreach (Form formulario in Application.OpenForms)
             {
-                if (EstaCerradaVentanaDetallesEtapa(formulario))
+                if (estaCerradaVentanaDetallesEtapa(formulario))
                 {
-                    ActualizarLista();
+                    actualizarListaEtapas();
                     break;
                 }
             }
         }
 
-        private bool EstaCerradaVentanaDetallesEtapa(Form formulario)
+        private bool estaCerradaVentanaDetallesEtapa(Form formulario)
         {
             return !(formulario.GetType() == typeof(VentanaDetallesEtapa));
         }
@@ -219,19 +254,42 @@ namespace InterfazGrafica
         {
             if (!fechaDeInicioValida())
             {
-                AyudanteVisual.CartelExclamacion("La fecha de inicio es inválida,"
-                    +" un proyecto no puede empezar luego que una de sus etapas.",
-                    "Fecha de inicio inválida.");
-                InicializarCampos();
+                mostrarMensajeFechaInvalida();
             }
             else
-            { 
-                proyecto.Nombre = textBoxNombre.Text;
-                proyecto.Objetivo = textBoxObjetivo.Text;
-                proyecto.FechaInicio = dateTimePickerFechaInicio.Value;
-                buttonGuardar.Enabled = false;
-                GuardarCambiosProyecto();
-             }
+            {
+                if (textBoxNombre.Text.Trim().Equals(String.Empty))
+                {
+                    AyudanteVisual.CartelExclamacion("El nombre no puede ser vacío.", "Campo inválido");
+                }
+                else
+                {
+                    if (textBoxObjetivo.Text.Trim().Equals(String.Empty))
+                    {
+                        AyudanteVisual.CartelExclamacion("El objetivo no puede ser vacío.", "Campo inválido");
+                    }
+                    else
+                        asignarCamposProyecto();
+                }
+            }
+        }
+
+        private void asignarCamposProyecto()
+        {
+            proyecto.Nombre = textBoxNombre.Text;
+            proyecto.Objetivo = textBoxObjetivo.Text;
+            proyecto.FechaInicio = dateTimePickerFechaInicio.Value;
+            buttonGuardar.Enabled = false;
+            guardarCambiosProyecto();
+            Close();
+        }
+
+        private void mostrarMensajeFechaInvalida()
+        {
+            AyudanteVisual.CartelExclamacion("La fecha de inicio es inválida,"
+                                + " un proyecto no puede empezar luego que una de sus etapas.",
+                                "Fecha de inicio inválida.");
+            inicializarCampos();
         }
 
         private bool fechaDeInicioValida()
@@ -250,22 +308,15 @@ namespace InterfazGrafica
         {
             Etapa etapa = new Etapa() { FechaInicio = proyecto.FechaInicio };
             proyecto.AgregarEtapa(etapa);
-            GuardarCambiosProyecto();
-            EditarEtapaVentana(etapa);
+            guardarCambiosProyecto();
+            editarEtapaVentana(etapa);
             
         }
 
-        private int ObtenerSiguienteIdEtapa()
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            int mayorId = int.MinValue;
-            foreach(Etapa etapa in proyecto.Etapas)
-            {
-                if(etapa.EtapaID > mayorId)
-                {
-                    mayorId = etapa.EtapaID;
-                }
-            }
-            return mayorId + 1;
+            VentanaVerHistorialProyecto ventanaHistorial = new VentanaVerHistorialProyecto(proyecto);
+            ventanaHistorial.ShowDialog(this);
         }
     }
 }

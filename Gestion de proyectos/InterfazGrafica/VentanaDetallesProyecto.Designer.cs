@@ -48,6 +48,8 @@
             this.dateTimePickerFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.labelDuracionEstimada = new System.Windows.Forms.Label();
             this.labelEstimada = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.labelAvance = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -228,11 +230,33 @@
             this.labelEstimada.TabIndex = 20;
             this.labelEstimada.Text = "Duracion estimada:";
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(175, 137);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(116, 13);
+            this.linkLabel1.TabIndex = 22;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Ver historial duraciones";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // labelAvance
+            // 
+            this.labelAvance.AutoSize = true;
+            this.labelAvance.Location = new System.Drawing.Point(175, 160);
+            this.labelAvance.Name = "labelAvance";
+            this.labelAvance.Size = new System.Drawing.Size(35, 13);
+            this.labelAvance.TabIndex = 23;
+            this.labelAvance.Text = "label7";
+            // 
             // VentanaDetallesProyecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 477);
+            this.Controls.Add(this.labelAvance);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.labelDuracionEstimada);
             this.Controls.Add(this.labelEstimada);
             this.Controls.Add(this.dateTimePickerFechaInicio);
@@ -283,5 +307,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerFechaInicio;
         private System.Windows.Forms.Label labelDuracionEstimada;
         private System.Windows.Forms.Label labelEstimada;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label labelAvance;
     }
 }

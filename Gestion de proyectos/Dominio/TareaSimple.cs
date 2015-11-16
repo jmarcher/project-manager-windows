@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,6 +10,7 @@ namespace Dominio
         [Required]
         private DateTime _FechaFinalizacion;
         public int DuracionPendiente { get; set; }
+        
 
         public override DateTime FechaFinalizacion
         {
@@ -19,17 +21,7 @@ namespace Dominio
 
             set
             {
-                if (FechaNula(FechaInicio) 
-                    || (!FechaNula(FechaInicio) 
-                    && (FechaEsMenor(FechaInicio, value) || FechaEsIgual(value,FechaInicio))))
-                {
                     _FechaFinalizacion = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-
             }
 
         }
@@ -42,7 +34,9 @@ namespace Dominio
             }
         }
 
-        public TareaSimple() : base() { _FechaFinalizacion = FECHA_NULA; }
+        public TareaSimple() : base() {
+            _FechaFinalizacion = FECHA_NULA;
+        }
 
         public TareaSimple(IContextoGestorProyectos contexto) : base(contexto)
         {
@@ -58,6 +52,7 @@ namespace Dominio
         {
             EstaFinalizada = true;
         }
+
         public override Tarea Clonar() 
         {
             TareaSimple copia = new TareaSimple(Contexto) { 

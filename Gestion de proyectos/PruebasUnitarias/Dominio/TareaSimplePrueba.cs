@@ -27,21 +27,6 @@ namespace PruebasUnitarias
             Assert.True(tarea.FechaInicio.Equals(DateTime.Parse(fechaInicio)));
         }
 
-        [Theory]
-        [InlineData("Tarea 1", "1980-10-12 00:00", "1990-10-12 00:00")]
-        [InlineData("Tarea 2", "1910-10-12 00:00", "1990-10-12 00:00")]
-        [InlineData("Tarea 3", "1970-10-12 00:00", "1990-10-12 00:00")]
-        [InlineData("Tarea 4", "1990-10-12 00:00", "1990-10-13 00:00")]        
-        public void CrearTareaSimpleFechasInvalidas(string nombre,
-            string fechaFinalizacion, string fechaInicio)
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new TareaSimple(new ContextoGestorProyectos())
-            {
-                Nombre = nombre,
-                FechaInicio = DateTime.Parse(fechaInicio),
-                FechaFinalizacion = DateTime.Parse(fechaFinalizacion)
-            });
-        }
 
         [Theory]
         [InlineData("Tarea 1",10)]
@@ -94,9 +79,9 @@ namespace PruebasUnitarias
             textoEsperado.Append(", Duración pendiente: ");
             textoEsperado.Append(10);
             textoEsperado.Append(", Inicio: ");
-            textoEsperado.Append(DateTime.Parse(fechaInicio).Date.ToString());
+            textoEsperado.Append(DateTime.Parse(fechaInicio).Date.ToShortDateString());
             textoEsperado.Append(", Fin: ");
-            textoEsperado.Append(DateTime.Parse(fechaFin).Date.ToString());
+            textoEsperado.Append(DateTime.Parse(fechaFin).Date.ToShortDateString());
             textoEsperado.Append("]");
 
             Tarea tarea = new TareaSimple(new ContextoGestorProyectos())

@@ -13,7 +13,7 @@ namespace Dominio
         {
             get
             {
-                return FechaMayorDeSubtarea();
+                return fechaMayorDeSubtarea();
             }
 
             set
@@ -65,7 +65,7 @@ namespace Dominio
             return tareaMayor;
         }
 
-        private DateTime FechaMayorDeSubtarea()
+        private DateTime fechaMayorDeSubtarea()
         {
             Tarea tarea = tareaFechaMayor();
             if (tarea == null)
@@ -74,7 +74,7 @@ namespace Dominio
         }
 
 
-        private bool TareaIniciaDespues(Tarea tarea)
+        private bool tareaIniciaDespues(Tarea tarea)
         {
             return FechaEsMenor(this.FechaInicio, tarea.FechaInicio)
                 || FechaEsIgual(this.FechaInicio, tarea.FechaInicio);
@@ -84,7 +84,7 @@ namespace Dominio
         {
             if (Equals(subtarea))
                 return false;
-            if (TareaIniciaDespues(subtarea))
+            if (tareaIniciaDespues(subtarea))
                 Subtareas.Add(subtarea);
             else
                 throw new FechaInvalida();
@@ -103,7 +103,7 @@ namespace Dominio
             return valorRetorno;
         }
 
-        private bool TodasSubTareasFinalizadas()
+        private bool todasSubTareasFinalizadas()
         {
             bool valorRetorno = true;
             foreach (Tarea tarea in Subtareas)
@@ -116,7 +116,7 @@ namespace Dominio
 
         public override void MarcarFinalizada()
         {
-            if (TodasSubTareasFinalizadas())
+            if (todasSubTareasFinalizadas())
                 EstaFinalizada = true;
         }
 
@@ -143,6 +143,19 @@ namespace Dominio
           return copia;
         }
 
-        
+        public override bool estaEnSubtareas(Tarea tarea)
+        {
+            TareaCompuesta tareaCompuesta = ((TareaCompuesta)this);
+            if (tareaCompuesta.Subtareas.Contains(tarea))
+            {
+                return true;
+            }
+            foreach (Tarea tareaActual in tareaCompuesta.Subtareas)
+            {
+                return tareaActual.estaEnSubtareas(tarea);
+            }
+            return false;
+        }
+
     }
 }

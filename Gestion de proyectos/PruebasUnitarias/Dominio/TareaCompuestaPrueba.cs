@@ -165,6 +165,21 @@ namespace PruebasUnitarias
         }
 
         [Fact]
+        public void NoEstaEnSubtareas()
+        {
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
+            {
+                Nombre = "Tarea",
+                Objetivo = "Objetivo"
+            };
+            TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())
+            {
+                Nombre = "Tarea Compuesta"
+            };
+            Assert.False(tareaCompuesta.estaEnSubtareas(tarea));
+        }
+
+        [Fact]
         public void FechaFinalizacionNula()
         {
             TareaCompuesta tareaCompuesta = new TareaCompuesta(new ContextoGestorProyectos())

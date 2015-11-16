@@ -24,6 +24,7 @@ namespace PruebasUnitarias
         }
 
 
+
         [Fact]
         public void AgregarAntecesora()
         {
@@ -136,12 +137,38 @@ namespace PruebasUnitarias
             Assert.False(tarea.AgregarAntecesora(tarea));
             Assert.False(tarea.Antecesoras.Contains(tarea));
         }
+
+        [Fact]
+        public void AgregarModificacion()
+        {
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
+            {
+                Nombre = "Tarea",
+                FechaInicio = DateTime.Now,
+                FechaFinalizacion = DateTime.Now
+            };
+            tarea.AgregarModificacion("Historial de prueba.");
+            Assert.Equal("["+DateTime.Now+"] Historial de prueba.\r\n",tarea.Historial);
+        }
+
+        [Fact]
+        public void EqualsConDBNull()
+        {
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
+            {
+                Nombre = "Tarea",
+                FechaInicio = DateTime.Now,
+                FechaFinalizacion = DateTime.Now
+            };
+            Assert.False(tarea.Equals(System.DBNull.Value));
+        }
+
         [Fact]
         public void ObtenerPadreDeTarea()
         {
             Tarea tarea = new TareaSimple(new ContextoGestorProyectos());
             Etapa etapa = new Etapa();
-            Proyecto proyecto = new Proyecto() { Nombre = "proyecto de prueba" };
+            Proyecto proyecto = new Proyecto( new ContextoGestorProyectos()) { Nombre = "proyecto de prueba" };
             etapa.AgregarTarea(tarea);
             proyecto.AgregarEtapa(etapa);
 
@@ -181,7 +208,7 @@ namespace PruebasUnitarias
 
             tareaCompuesta.AgregarSubtarea(tareaCompuestaOtra);
             Etapa etapa = new Etapa();
-            Proyecto proyecto = new Proyecto() { Nombre = "proyecto de prueba" };
+            Proyecto proyecto = new Proyecto( new ContextoGestorProyectos()) { Nombre = "proyecto de prueba" };
             etapa.AgregarTarea(tareaCompuesta);
             proyecto.AgregarEtapa(etapa);
             using(var db = new ContextoGestorProyectos())

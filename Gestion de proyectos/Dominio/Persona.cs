@@ -13,5 +13,10 @@ namespace Dominio
         {
             return this.Nombre.Equals(p.Nombre);
         }
+
+        public override string ToString()
+        {
+            return Nombre+" ["+Rol+"]";
+        }
     }
 }
