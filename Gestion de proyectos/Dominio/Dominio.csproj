@@ -93,12 +93,16 @@
   <ItemGroup>
     <Compile Include="Interfaces\IContextoGestorProyectos.cs" />
     <Compile Include="Interfaces\IDuracionCalculable.cs" />
+    <Compile Include="Interfaces\IEtapa.cs" />
     <Compile Include="Interfaces\INombrable.cs" />
     <Compile Include="Interfaces\IFechas.cs" />
     <Compile Include="Etapa.cs" />
     <Compile Include="Excepciones\FechaInvalida.cs" />
+    <Compile Include="Interfaces\IPersona.cs" />
     <Compile Include="Interfaces\IPersonificable.cs" />
     <Compile Include="Interfaces\IDuracionEstimable.cs" />
+    <Compile Include="Interfaces\IProyecto.cs" />
+    <Compile Include="Interfaces\ITarea.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Proyecto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

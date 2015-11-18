@@ -2,15 +2,17 @@
 using System.Windows.Forms;
 using System;
 using InterfazGrafica.Utiles;
+using PersistenciaInterfaz;
+using DominioInterfaz;
 
 namespace InterfazGrafica
 {
     public partial class VentanaAgregarNuevaPersona : Form
     {
         private IContextoGestorProyectos contexto;
-        private Tarea tarea;
+        private ITarea tarea;
 
-        public VentanaAgregarNuevaPersona(Tarea tarea, IContextoGestorProyectos contexto)
+        public VentanaAgregarNuevaPersona(ITarea tarea, IContextoGestorProyectos contexto)
         {
             InitializeComponent();
             this.contexto = contexto;

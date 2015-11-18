@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DominioInterfaz;
+using PersistenciaInterfaz;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,7 +8,7 @@ using System.Text;
 
 namespace Dominio
 {
-    public abstract class Tarea : IFechas, INombrable, IDuracionPendienteCalculable, IPersonificable, IDuracionEstimable
+    public abstract class Tarea : IFechas, INombrable, IDuracionPendienteCalculable, IPersonificable, IDuracionEstimable, ITarea
     {
         public const int PRIORIDAD_BAJA = 0;
         public const int PRIORIDAD_MEDIA = 1;
@@ -136,10 +138,7 @@ namespace Dominio
         }
 
 
-        public bool FechaEsMenor(DateTime primera, DateTime segunda)
-        {
-            return DateTime.Compare(primera, segunda) < 0;
-        }
+        
 
         public bool FechaEsIgual(DateTime primera, DateTime segunda)
         {

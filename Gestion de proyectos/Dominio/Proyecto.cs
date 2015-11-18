@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DominioInterfaz;
+using PersistenciaInterfaz;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Dominio
 {
     [Table("Proyectos")]
-    public class Proyecto : IFechas, INombrable, IDuracionPendienteCalculable, IPersonificable, IDuracionEstimable
+    public class Proyecto : IProyecto, IFechas, INombrable, IDuracionPendienteCalculable, IDuracionEstimable
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -38,7 +40,6 @@ namespace Dominio
             }
         }
         public virtual List<Etapa> Etapas { get; set; }
-        public virtual List<Persona> Personas { get; set; }
 
         public int DuracionEstimada {get;set;}
 
@@ -55,14 +56,12 @@ namespace Dominio
         public Proyecto()
         {
             Etapas = new List<Etapa>();
-            Personas = new List<Persona>();
             FechaInicio = Tarea.FECHA_NULA;
         }
 
         public Proyecto(IContextoGestorProyectos contexto)
         {
             Etapas = new List<Etapa>();
-            Personas = new List<Persona>();
             FechaInicio = Tarea.FECHA_NULA;
             this.Contexto = contexto;
         }
@@ -130,10 +129,6 @@ namespace Dominio
             return mayorFecha;
         }
 
-        public void AgregarPersona(Persona persona)
-        {
-            Personas.Add(persona);
-        }
 
     }
 }

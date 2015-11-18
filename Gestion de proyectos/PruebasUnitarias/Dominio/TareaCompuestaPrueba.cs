@@ -3,6 +3,7 @@ using Xunit;
 using Dominio;
 using Dominio.Excepciones;
 using PersistenciaImp;
+using DominioInterfaz;
 
 namespace PruebasUnitarias
 {
@@ -461,7 +462,7 @@ namespace PruebasUnitarias
                 Nombre = nombre,
                 FechaInicio = DateTime.Parse(fechaInicio)
             };
-            Tarea tareaClonada = tarea.Clonar();
+            ITarea tareaClonada = tarea.Clonar();
             Assert.Equal(tarea,tareaClonada);
         }
 

@@ -2,6 +2,7 @@
 using Xunit;
 using PersistenciaImp;
 using System;
+using DominioInterfaz;
 
 namespace PruebasUnitarias
 {
@@ -26,44 +27,13 @@ namespace PruebasUnitarias
                     FechaInicio = DateTime.Now
                 };
                 int id = db.AgregarProyecto(p);
-                Proyecto proyectoRetorno = db.ObtenerProyecto(id);
+                IProyecto proyectoRetorno = db.ObtenerProyecto(id);
                 Assert.Equal(p, proyectoRetorno);
 
             }
 
         }
 
-        [Theory]
-        [InlineData("Proyecto con persona 1", "Objetivo", "Jorge", "Admin")]
-        [InlineData("Proyecto con persona 2", "Objetivo 2", "Jorge", "Limpiador")]
-        [InlineData("Proyecto con persona 3", "Objetivo 3", "Mario", "Desarrollador")]
-        [InlineData("Proyecto con persona 4", "Objetivo 4", "Sandrio", "Mirador")]
-        [InlineData("Proyecto con persona 5", "Objetivo 5", "Dario", "Fotografo")]
-        public void AgregarProyectoConPersona(string nombreProyecto, string objetivo, string nombrePersona, string rol)
-        {
-            
-            
-            using (var db = new ContextoGestorProyectos())
-            {
-                Proyecto proyecto = new Proyecto(db)
-                {
-                    Nombre = nombreProyecto,
-                    Objetivo = objetivo,
-                    FechaInicio = DateTime.Now
-                };
-                Persona persona = new Persona()
-                {
-                    Nombre = nombrePersona,
-                    Rol = rol
-                };
-                proyecto.AgregarPersona(persona);
-                int id = db.AgregarProyecto(proyecto);
-                Proyecto proyectoRetorno = db.ObtenerProyecto(id);
-                Assert.True(proyectoRetorno.Personas.Contains(persona));
-                Assert.Equal(proyecto, proyectoRetorno);
-            }
-
-        }
 
         [Theory]
         [InlineData("Proyecto con persona 1", "Objetivo", "Jorge", "Admin")]
@@ -87,7 +57,6 @@ namespace PruebasUnitarias
                     Nombre = nombrePersona,
                     Rol = rol
                 };
-                proyecto.AgregarPersona(persona);
                 Etapa etapa = new Etapa()
                 {
                     Nombre = "Una etapa",
@@ -95,9 +64,8 @@ namespace PruebasUnitarias
                 };
                 proyecto.AgregarEtapa(etapa);
                 int id = db.AgregarProyecto(proyecto);
-                Proyecto unProyecto = db.ObtenerProyecto(id);
+                IProyecto unProyecto = db.ObtenerProyecto(id);
                 Assert.True(unProyecto.Etapas.Contains(etapa));
-                Assert.True(unProyecto.Personas.Contains(persona));
                 Assert.Equal(proyecto, unProyecto);
             }
 
@@ -119,7 +87,7 @@ namespace PruebasUnitarias
             using (var db = new ContextoGestorProyectos())
             {
                 int id = db.AgregarEtapa(etapa);
-                Etapa unaEtapa = db.ObtenerEtapa(id);
+                IEtapa unaEtapa = db.ObtenerEtapa(id);
                 Assert.Equal(etapa, unaEtapa);
             }
         }
@@ -130,24 +98,17 @@ namespace PruebasUnitarias
         [InlineData("Etapa 3")]
         [InlineData("Etapa 4")]
         [InlineData("Etapa 5")]
-        public void AgregarEtapaConPersona(string nombre)
+        public void AgregarEtapaFecha(string nombre)
         {
             Etapa etapa = new Etapa()
             {
                 Nombre = nombre,
                 FechaInicio = DateTime.Now
             };
-            Persona p = new Persona()
-            {
-                Nombre = "Roger",
-                Rol = "Un rol"
-            };
-            etapa.AgregarPersona(p);
             using (var db = new ContextoGestorProyectos())
             {
                 int id = db.AgregarEtapa(etapa);
-                Etapa unaEtapa = db.ObtenerEtapa(id);
-                Assert.Contains(p, unaEtapa.Personas);
+                IEtapa unaEtapa = db.ObtenerEtapa(id);
                 Assert.Equal(etapa, unaEtapa);
             }
         }
@@ -222,7 +183,7 @@ namespace PruebasUnitarias
             using (var db = new ContextoGestorProyectos())
             {
                 int id = db.AgregarPersona(p);
-                Persona pRetorno = db.ObtenerPersona(id);
+                IPersona pRetorno = db.ObtenerPersona(id);
                 Assert.Equal(p, pRetorno);
             }
         }

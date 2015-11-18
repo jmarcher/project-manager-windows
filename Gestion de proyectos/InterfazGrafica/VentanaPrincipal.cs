@@ -6,6 +6,8 @@ using Dominio;
 using InterfazGrafica.Utiles;
 using System.Collections.Generic;
 using PersistenciaImp;
+using PersistenciaInterfaz;
+using DominioInterfaz;
 
 namespace InterfazGrafica
 {
@@ -154,18 +156,18 @@ namespace InterfazGrafica
 
         private void listViewProyectos_DoubleClick(object sender, EventArgs e)
         {
-            Proyecto proyecto = proyectoSeleccionado();
+            IProyecto proyecto = proyectoSeleccionado();
             abrirVentanaDetallesProyecto(proyecto);
         }
 
-        private void abrirVentanaDetallesProyecto(Proyecto proyecto)
+        private void abrirVentanaDetallesProyecto(IProyecto proyecto)
         {
             VentanaDetallesProyecto ventana = new VentanaDetallesProyecto(proyecto.ProyectoID, Contexto);
             ventana.ShowDialog(this);
             actualizarListaDeProyectosConCondicion(new CondicionDeActualizacion(estaCerradaVentanaDetallesProyecto));
         }
 
-        private Proyecto proyectoSeleccionado()
+        private IProyecto proyectoSeleccionado()
         {
                 return Contexto.ObtenerProyecto(devolverIdentificadorSeleccionado());
         }

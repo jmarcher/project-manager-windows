@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using DominioInterfaz;
 using PersistenciaImp;
 using System;
 using Xunit;
@@ -12,7 +13,7 @@ namespace PruebasUnitarias
         public void FechaFinalizacionCorrecta()
         {
             DateTime fechaEsperada = new DateTime(2015, 12, 20);
-            Etapa imprimeCuenta = CrearEtapaConSubTarea();
+            IEtapa imprimeCuenta = CrearEtapaConSubTarea();
             Assert.Equal(fechaEsperada.Date, imprimeCuenta.FechaFinalizacion.Date);
         }
 
@@ -21,7 +22,7 @@ namespace PruebasUnitarias
         {
             Tarea tarea = new TareaSimple(new ContextoGestorProyectos()) { Nombre = "Tarea" };
             tarea.MarcarFinalizada();
-            Etapa etapa = new Etapa();
+            IEtapa etapa = new Etapa();
             etapa.AgregarTarea(tarea);
             etapa.MarcarFinalizada();
             Assert.True(etapa.EstaFinalizada);
@@ -31,7 +32,7 @@ namespace PruebasUnitarias
         public void MarcarEtapaComoFinalizadaConTareaSinFinalizar()
         {
             Tarea tarea = new TareaSimple(new ContextoGestorProyectos()) { Nombre = "Tarea" };
-            Etapa etapa = new Etapa();
+            IEtapa etapa = new Etapa();
             etapa.AgregarTarea(tarea);
             etapa.MarcarFinalizada();
             Assert.False(etapa.EstaFinalizada);
@@ -43,7 +44,7 @@ namespace PruebasUnitarias
             Tarea tareaNoFinalizada = new TareaSimple(new ContextoGestorProyectos()) { Nombre = "Tarea sin terminar" };
             Tarea tareaFinalizada = new TareaSimple(new ContextoGestorProyectos()) { Nombre = "Tarea terminada" };
             tareaFinalizada.MarcarFinalizada();
-            Etapa etapa = new Etapa();
+            IEtapa etapa = new Etapa();
             etapa.AgregarTarea(tareaNoFinalizada);
             etapa.AgregarTarea(tareaFinalizada);
             etapa.MarcarFinalizada();
@@ -53,12 +54,12 @@ namespace PruebasUnitarias
         [Fact]
         public void CalcularDuracionPendiente()
         {
-            Etapa imprimeCuenta = CrearEtapaConSubTarea();
+            IEtapa imprimeCuenta = CrearEtapaConSubTarea();
 
             Assert.Equal(111, imprimeCuenta.CalcularDuracionPendiente());
         }
 
-        private static Etapa CrearEtapaConSubTarea()
+        private static IEtapa CrearEtapaConSubTarea()
         {
             TareaSimple T1 = new TareaSimple(new ContextoGestorProyectos())
             {
@@ -98,7 +99,7 @@ namespace PruebasUnitarias
             T3.AgregarAntecesora(T2);
             T4.AgregarAntecesora(T1);
 
-            Etapa etapaPrueba = new Etapa()
+            IEtapa etapaPrueba = new Etapa()
             {
                 EtapaID = 1,
                 Nombre = "Imprime una cuenta",
@@ -123,7 +124,7 @@ namespace PruebasUnitarias
                 FechaFinalizacion = DateTime.Now.AddDays(2000),
                 DuracionPendiente = 1000
             };
-            Etapa etapa = new Etapa()
+            IEtapa etapa = new Etapa()
             {
                 FechaInicio = DateTime.Now,
                 DuracionEstimada = 10,
@@ -141,7 +142,7 @@ namespace PruebasUnitarias
                 FechaFinalizacion = DateTime.Now,
                 DuracionPendiente = 1000
             };
-            Etapa etapa = new Etapa()
+            IEtapa etapa = new Etapa()
             {
                 FechaInicio = DateTime.Now
             };
@@ -152,7 +153,7 @@ namespace PruebasUnitarias
         [Fact]
         public void EliminarUnaTarea()
         {
-            Etapa etapa = CrearEtapaConSubTarea();
+            IEtapa etapa = CrearEtapaConSubTarea();
             Tarea aEliminar = etapa.Tareas[0];
             etapa.EliminarTarea(aEliminar);
             Assert.False(etapa.Tareas.Contains(aEliminar));
@@ -177,24 +178,6 @@ namespace PruebasUnitarias
             Assert.Equal(nombre, etapa.Nombre);
         }
 
-        [Theory]
-        [InlineData("Juan","Administrador")]
-        [InlineData("José", "Administrador")]
-        [InlineData("Robert", "Investigador")]
-        [InlineData("Django", "Desarrollador")]
-        [InlineData("Peter", "Limpiador")]
-        [InlineData("Mario", "Cafetero")]
-        public void AgregarPersonaAEtapa(string nombre, string rol)
-        {
-            Persona persona = new Persona()
-            {
-                Nombre = nombre,
-                Rol = rol
-            };
-            Etapa etapa = CrearEtapaConSubTarea();
-            etapa.AgregarPersona(persona);
-            Assert.True(etapa.Personas.Contains(persona));
-        }
 
     }
 }

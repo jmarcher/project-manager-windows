@@ -6,12 +6,14 @@ using System.Windows.Forms;
 using PersistenciaImp;
 using System.Drawing.Imaging;
 using System.Drawing;
+using DominioInterfaz;
+using PersistenciaInterfaz;
 
 namespace InterfazGrafica
 {
     public partial class VentanaDetallesProyecto : Form
     {
-        private Proyecto proyecto;
+        private IProyecto proyecto;
         private int proyectoID;
         private OrdenadorListView ordenadorListView;
         private IContextoGestorProyectos Contexto;
@@ -92,7 +94,7 @@ namespace InterfazGrafica
         {
             etapasListView.Items.Clear();
             proyecto = Contexto.ObtenerProyecto(proyectoID);
-            foreach (Etapa etapa in proyecto.Etapas)
+            foreach (IEtapa etapa in proyecto.Etapas)
             {
                 ListViewItem elementoListView = CrearNuevoItemListView(etapa);
                 etapasListView.Items.Add(elementoListView);
@@ -100,7 +102,7 @@ namespace InterfazGrafica
             }
         }
 
-        private static ListViewItem CrearNuevoItemListView(Etapa etapa)
+        private static ListViewItem CrearNuevoItemListView(IEtapa etapa)
         {
             ListViewItem elementoListView = new ListViewItem();
             elementoListView.Text = (etapa.EtapaID) + "";
@@ -182,7 +184,7 @@ namespace InterfazGrafica
             }
         }
 
-        private void editarEtapaVentana(Etapa etapa)
+        private void editarEtapaVentana(IEtapa etapa)
         {
             VentanaDetallesEtapa ventanaDetalles = new VentanaDetallesEtapa(etapa.EtapaID,Contexto);
             ventanaDetalles.ShowDialog(this);
@@ -294,7 +296,7 @@ namespace InterfazGrafica
 
         private bool fechaDeInicioValida()
         {
-            foreach(Etapa etapa in proyecto.Etapas)
+            foreach(IEtapa etapa in proyecto.Etapas)
             {
                 if(etapa.FechaInicio < dateTimePickerFechaInicio.Value)
                 {

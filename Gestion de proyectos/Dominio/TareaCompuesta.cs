@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.ComponentModel.DataAnnotations;
+using PersistenciaInterfaz;
 
 namespace Dominio
 {
@@ -73,6 +74,10 @@ namespace Dominio
             return tarea.FechaFinalizacion;
         }
 
+        public bool FechaEsMenor(DateTime primera, DateTime segunda)
+        {
+            return DateTime.Compare(primera, segunda) < 0;
+        }
 
         private bool tareaIniciaDespues(Tarea tarea)
         {

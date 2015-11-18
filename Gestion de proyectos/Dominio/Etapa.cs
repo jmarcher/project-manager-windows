@@ -1,3 +1,4 @@
+using DominioInterfaz;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -5,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
-    public class Etapa : IFechas, INombrable, IDuracionPendienteCalculable, IPersonificable, IDuracionEstimable
+    public class Etapa : IFechas, INombrable, IDuracionPendienteCalculable, IDuracionEstimable, IEtapa
     {
         public String Nombre { get; set; }
 
@@ -14,7 +15,6 @@ namespace Dominio
         public int EtapaID { get; set; }
         public int DuracionEstimada { get; set; }
         public virtual List<Tarea> Tareas { get; set; }
-        public virtual List<Persona> Personas { get; set; }
         public bool EstaFinalizada { get; private set; }
         public bool EstaAtrasada
         {
@@ -42,7 +42,6 @@ namespace Dominio
             Nombre = "[Nombre por defecto]";
             EstaFinalizada = false;
             Tareas = new List<Tarea>();
-            Personas = new List<Persona>();
             FechaInicio = Tarea.FECHA_NULA;
             DuracionEstimada = 0;
         }
@@ -50,7 +49,7 @@ namespace Dominio
 
         public override bool Equals(object obj)
         {
-            Etapa etapa = (Etapa)obj;
+            IEtapa etapa = (IEtapa)obj;
             return etapa.EtapaID == this.EtapaID;
         }
 
@@ -133,11 +132,6 @@ namespace Dominio
             {
                 Tareas.Remove(tarea);
             }
-        }
-
-        public void AgregarPersona(Persona persona)
-        {
-            Personas.Add(persona);
         }
 
     }

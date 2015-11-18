@@ -5,6 +5,8 @@ using Dominio;
 using InterfazGrafica.Utiles;
 using PersistenciaImp;
 using System.Drawing;
+using DominioInterfaz;
+using PersistenciaInterfaz;
 
 namespace InterfazGrafica
 {
@@ -13,7 +15,7 @@ namespace InterfazGrafica
         private const int ICONO_TAREA_COMPUESTA = 0;
         private const int ICONO_TAREA_SIMPLE = 1;
 
-        private Tarea tarea;
+        private ITarea tarea;
         private bool esNuevaTarea;
         private IContextoGestorProyectos contexto;
         public VentanaDetallesTarea()
@@ -21,17 +23,17 @@ namespace InterfazGrafica
             InitializeComponent();
         }
 
-        public VentanaDetallesTarea(Tarea tarea, bool esNueva, IContextoGestorProyectos contexto)
+        public VentanaDetallesTarea(ITarea tarea, bool esNueva, IContextoGestorProyectos contexto)
         {
             InitializeComponent();
             this.contexto = contexto;
             this.tarea =  contexto.ObtenerTarea(tarea.TareaID);
             this.tarea.Contexto = contexto;
             this.esNuevaTarea = esNueva;
-            InicializarComponentes(tarea);
+            InicializarComponentes();
         }
 
-        private void InicializarComponentes(Tarea tarea)
+        private void InicializarComponentes()
         {
             refrescarPantalla();
         }
@@ -135,13 +137,13 @@ namespace InterfazGrafica
 
         private void popularArbolConNodosSubtareas()
         {
-            foreach (Tarea tareaActual in ((TareaCompuesta)tarea).Subtareas)
+            foreach (ITarea tareaActual in ((TareaCompuesta)tarea).Subtareas)
             {
                 treeViewSubtareas.Nodes.Add(generarNodoArbol(tareaActual));
             }
         }
 
-        private TreeNode generarNodoArbol(Tarea tarea)
+        private TreeNode generarNodoArbol(ITarea tarea)
         {
             TreeNode nodoRetorno = new TreeNode();
             if (esCompuesta(tarea))
@@ -159,7 +161,7 @@ namespace InterfazGrafica
         {
             TreeNode[] rama = new TreeNode[tareas.Count];
             int indice = 0;
-            foreach (Tarea tarea in tareas)
+            foreach (ITarea tarea in tareas)
             {
                 if (esCompuesta(tarea))
                 {
@@ -189,7 +191,7 @@ namespace InterfazGrafica
             nodoRetorno.SelectedImageIndex = ICONO_TAREA_COMPUESTA;
         }
 
-        private TreeNode generarNodoArbolTareaSimple(Tarea tarea)
+        private TreeNode generarNodoArbolTareaSimple(ITarea tarea)
         {
             TreeNode nodoRetorno = new TreeNode(generarTextoAMostrar(tarea));
             nodoRetorno.Tag = tarea;
@@ -204,7 +206,7 @@ namespace InterfazGrafica
             nodoArbol.ImageIndex = ICONO_TAREA_SIMPLE;
             nodoArbol.SelectedImageIndex = ICONO_TAREA_SIMPLE;
         }
-        private string generarTextoAMostrar(Tarea tarea)
+        private string generarTextoAMostrar(ITarea tarea)
         {
             return tarea.ToString();
         }
@@ -226,13 +228,13 @@ namespace InterfazGrafica
         private void inicializarListViewAntecesoras()
         {
             listViewAntecesoras.Items.Clear();
-            foreach (Tarea tareaActual in tarea.Antecesoras)
+            foreach (ITarea tareaActual in tarea.Antecesoras)
             {
                 agregarElementoListaAntecesoras(tareaActual);
             }
         }
 
-        private void agregarElementoListaAntecesoras(Tarea tarea)
+        private void agregarElementoListaAntecesoras(ITarea tarea)
         {
             ListViewItem elementoLista = generarElementoListView(tarea);
             elementoLista.ImageIndex = iconoTarea(tarea);
@@ -252,7 +254,7 @@ namespace InterfazGrafica
             listViewPersonas.Items.Add(elementoLista);
         }
 
-        private int iconoTarea(Tarea tarea)
+        private int iconoTarea(ITarea tarea)
         {
             if (esCompuesta(tarea))
             {
@@ -264,14 +266,14 @@ namespace InterfazGrafica
             }
         }
 
-        private bool esCompuesta(Tarea tarea)
+        private bool esCompuesta(ITarea tarea)
         {
             return tarea.GetType() == typeof(TareaCompuesta) || tarea.GetType().BaseType == typeof(TareaCompuesta);
         }
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
-            Tarea tareaAnterior = tarea.Clonar();
+            ITarea tareaAnterior = tarea.Clonar();
             bool confirmacion = AyudanteVisual.CartelConfirmacion(crearMensaje(), "Impacto en la duracion del proyecto");
             if (!confirmacion && esNuevaTarea)
             {
@@ -280,7 +282,7 @@ namespace InterfazGrafica
             }
             else if (!(confirmacion || esNuevaTarea))
             {
-                InicializarComponentes(tarea);
+                InicializarComponentes();
             }
             else if (confirmacion)
             {
@@ -297,7 +299,7 @@ namespace InterfazGrafica
             cambiarPrioridadTarea();
             cambiarDescripcionTarea();
             cambiarFechaDeInicio();
-            Proyecto padre = tarea.ObtenerProyectoPadre();
+            IProyecto padre = tarea.ObtenerProyectoPadre();
             String modificacion = "La duración pendiente se modificó de " + padre.CalcularDuracionPendiente();
             if (!esCompuesta(tarea))
             {
@@ -387,7 +389,7 @@ namespace InterfazGrafica
 
         private string crearMensaje()
         {
-            Proyecto padre = tarea.ObtenerProyectoPadre();
+            IProyecto padre = tarea.ObtenerProyectoPadre();
             string mensaje;
             if (padre == null)
                 mensaje = "La fecha del proyecto se modificará.";
@@ -397,9 +399,9 @@ namespace InterfazGrafica
         }
         private void eliminarTareaActual()
         {
-            foreach (Proyecto proyecto in contexto.DevolverProyectos())
+            foreach (IProyecto proyecto in contexto.DevolverProyectos())
             {
-                foreach (Etapa etapa in proyecto.Etapas)
+                foreach (IEtapa etapa in proyecto.Etapas)
                 {
                     foreach (Tarea tareaRecorrida in etapa.Tareas)
                     {
@@ -442,7 +444,7 @@ namespace InterfazGrafica
             return treeViewSubtareas.SelectedNode != null;
         }
 
-        private void editarTareaVentana(Tarea tarea, bool esNuevaTarea)
+        private void editarTareaVentana(ITarea tarea, bool esNuevaTarea)
         {
             VentanaDetallesTarea ventanaDetalles = new VentanaDetallesTarea(tarea, esNuevaTarea, contexto);
             ventanaDetalles.ShowDialog(this);
@@ -481,14 +483,14 @@ namespace InterfazGrafica
 
         private void borrarAntecesora()
         {
-            Tarea seleccionada = antecesoraSeleccionada();
+            ITarea seleccionada = antecesoraSeleccionada();
             agregarAntecesorasAntesElminacion(seleccionada);
             tarea.Antecesoras.Remove(antecesoraSeleccionada());
             tarea.AgregarModificacion("Eliminada antecesora " + seleccionada.ToString());
             contexto.ModificarTarea(tarea);
         }
 
-        private void agregarAntecesorasAntesElminacion(Tarea seleccionada)
+        private void agregarAntecesorasAntesElminacion(ITarea seleccionada)
         {
             foreach (Tarea antecesora in seleccionada.Antecesoras)
             {
@@ -549,7 +551,7 @@ namespace InterfazGrafica
         {
             if (tareaCompuesta.Subtareas.Count == 0)
             {
-                tarea = new TareaSimple(new ContextoGestorProyectos())
+                tarea = new TareaSimple(contexto)
                 {
                     Nombre = tarea.Nombre,
                     FechaInicio = tareaCompuesta.FechaInicio,
@@ -558,13 +560,15 @@ namespace InterfazGrafica
                     Prioridad = tareaCompuesta.Prioridad,
                     Antecesoras = tareaCompuesta.Antecesoras,
                     Descripcion = tareaCompuesta.Descripcion,
-                    Objetivo = tareaCompuesta.Objetivo
+                    Objetivo = tareaCompuesta.Objetivo,
+                    Personas = tareaCompuesta.Personas
+                   
                 };
             }
         }
 
 
-        private string crearMensajeElminacion(Tarea tarea)
+        private string crearMensajeElminacion(ITarea tarea)
         {
             if (esCompuesta(tarea))
             {
@@ -647,7 +651,7 @@ namespace InterfazGrafica
 
         private Persona personaSeleccionada()
         {
-            return (Persona)listViewPersonas.SelectedItems[0].Tag;
+            return (Persona) listViewPersonas.SelectedItems[0].Tag;
         }
 
         private bool hayPersonaSeleccionada()

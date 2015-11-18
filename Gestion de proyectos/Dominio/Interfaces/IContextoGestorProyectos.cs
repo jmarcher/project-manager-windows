@@ -1,7 +1,9 @@
 ﻿using System.Data.Entity;
 using System.Linq;
+using Dominio;
+using DominioInterfaz;
 
-namespace Dominio
+namespace PersistenciaInterfaz
 {
     public interface IContextoGestorProyectos
     {
@@ -19,13 +21,13 @@ namespace Dominio
         void EliminarPersona(int id);
         void EliminarProyecto(int id);
         void EliminarTarea(int id);
-        Etapa ObtenerEtapa(int id);
-        Persona ObtenerPersona(int id);
-        Proyecto ObtenerProyecto(int proyectoID);
-        Tarea ObtenerTarea(int id);
+        IEtapa ObtenerEtapa(int id);
+        IPersona ObtenerPersona(int id);
+        IProyecto ObtenerProyecto(int proyectoID);
+        ITarea ObtenerTarea(int id);
         void VaciarBaseDeDatos();
-        void ModificarProyecto(Proyecto proyecto);
-        void ModificarEtapa(Etapa etapa);
-        void ModificarTarea(Tarea tarea);
+        void ModificarProyecto(IProyecto proyecto);
+        void ModificarEtapa(IEtapa etapa);
+        void ModificarTarea(ITarea tarea);
     }
 }

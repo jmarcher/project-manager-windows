@@ -56,7 +56,6 @@ namespace PruebasUnitarias.Persistencia
                 db.AgregarEtapa(etapa);
                 etapa.DuracionEstimada = 15;
                 etapa.Nombre = "Raul";
-                etapa.AgregarPersona(new Persona());
                 db.ModificarEtapa(etapa);
                 Assert.Equal(etapa.Nombre, db.ObtenerEtapa(etapa.EtapaID).Nombre);
             }

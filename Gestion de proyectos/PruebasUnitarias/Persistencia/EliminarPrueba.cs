@@ -58,7 +58,7 @@ namespace PruebasUnitarias.Persistencia
                     DuracionPendiente = 10
                 };
                 etapa.AgregarTarea(tarea);
-                p.AgregarPersona(persona);
+                tarea.AgregarPersona(persona);
                 p.AgregarEtapa(etapa);
                 int id = db.AgregarProyecto(p);
                 db.EliminarProyecto(id);
@@ -90,7 +90,7 @@ namespace PruebasUnitarias.Persistencia
                 Objetivo = "Objetivo",
                 DuracionPendiente = 10
             };
-            etapa.AgregarPersona(p);
+            tarea.AgregarPersona(p);
             etapa.AgregarTarea(tarea);
             using (var db = new ContextoGestorProyectos())
             {

@@ -3,6 +3,8 @@ using System.Data.Entity;
 using Dominio;
 using System.Linq;
 using System.Collections.Generic;
+using PersistenciaInterfaz;
+using DominioInterfaz;
 
 namespace PersistenciaImp
 {
@@ -39,11 +41,10 @@ namespace PersistenciaImp
             return proyecto.ProyectoID;
         }
 
-        public Proyecto ObtenerProyecto(int proyectoID)
+        public IProyecto ObtenerProyecto(int proyectoID)
         {
             var consulta = from p in Proyectos
                            .Include(ENTIDAD_ETAPA)
-                           .Include(ENTIDAD_PERSONA)
                            .Include(ENTIDAD_TAREA_PROYECTOS)
                            where p.ProyectoID == proyectoID
                            select p;
@@ -57,10 +58,10 @@ namespace PersistenciaImp
             return etapa.EtapaID;
         }
 
-        public Etapa ObtenerEtapa(int id)
+        public IEtapa ObtenerEtapa(int id)
         {
 
-            var consulta = from e in Etapas.Include(ENTIDAD_PERSONA).Include(ENTIDAD_TAREA_ETAPAS)
+            var consulta = from e in Etapas.Include(ENTIDAD_TAREA_ETAPAS)
                            where e.EtapaID == id
                            select e;
             return consulta.FirstOrDefault<Etapa>();
@@ -73,13 +74,13 @@ namespace PersistenciaImp
             return tarea.TareaID;
         }
 
-        public Tarea ObtenerTarea(int id)
+        public ITarea ObtenerTarea(int id)
         {
-            Tarea t = null;
+            ITarea t = null;
             var tareas = from r in Tareas.Include(ENTIDAD_PERSONA)
                          where r.TareaID == id
                          select r;
-            foreach (Tarea ta in tareas)
+            foreach (ITarea ta in tareas)
             {
                 t = ta;
             }
@@ -93,7 +94,7 @@ namespace PersistenciaImp
             return p.PersonaID;
         }
 
-        public Persona ObtenerPersona(int id)
+        public IPersona ObtenerPersona(int id)
         {
             return Personas.Find(id);
         }
@@ -108,60 +109,52 @@ namespace PersistenciaImp
         public void EliminarProyecto(int id)
         {
             Configuration.LazyLoadingEnabled = false;
-            Proyecto proyecto = ObtenerProyecto(id);
-            for (int i = proyecto.Personas.Count - 1; i >= 0; i--)
-            {
-                EliminarPersona(proyecto.Personas[i].PersonaID);
-            }
+            IProyecto proyecto = ObtenerProyecto(id);
             for (int i = proyecto.Etapas.Count - 1; i >= 0; i--)
             {
                 EliminarEtapa(proyecto.Etapas[i].EtapaID);
             }
-            Proyectos.Remove(proyecto);
+            Proyectos.Remove(Proyectos.Find(id));
             SaveChanges();
         }
 
         public IQueryable<Proyecto> DevolverProyectos()
         {
-            return from pro in Proyectos.Include(ENTIDAD_ETAPA).Include(ENTIDAD_PERSONA).Include(ENTIDAD_TAREA_PROYECTOS)
+            return from pro in Proyectos.Include(ENTIDAD_ETAPA).Include(ENTIDAD_TAREA_PROYECTOS)
                    select pro;
         }
 
         public void EliminarEtapa(int id)
         {
-            Etapa etapa = ObtenerEtapa(id);
-            for (int i = etapa.Personas.Count - 1; i >= 0; i--)
-            {
-                EliminarPersona(etapa.Personas[i].PersonaID);
-            }
+            IEtapa etapa = ObtenerEtapa(id);
+
             for (int i = etapa.Tareas.Count - 1; i >= 0; i--)
             {
                 EliminarTarea(etapa.Tareas[i].TareaID);
             }
-            etapa.Personas = new List<Persona>();
             etapa.Tareas = new List<Tarea>();
-            Etapas.Remove(etapa);
+            Etapas.Remove(Etapas.Find(id));
             SaveChanges();
         }
         public void EliminarTarea(int id)
         {
-            Tarea tarea = ObtenerTarea(id);
+            ITarea tarea = ObtenerTarea(id);
             eliminarPersonasEnTarea(tarea);
             eliminarAntecesoras(tarea);
             eliminarSubtareasSiTiene(tarea);
 
-            Tareas.Remove(tarea);
+            Tareas.Remove(Tareas.Find(id));
             SaveChanges();
 
         }
 
 
-        private static bool esTareaCompuesta(Tarea tarea)
+        private static bool esTareaCompuesta(ITarea tarea)
         {
             return tarea.GetType() == typeof(TareaCompuesta) || tarea.GetType().BaseType == typeof(TareaCompuesta);
         }
 
-        private void eliminarPersonasEnTarea(Tarea tarea)
+        private void eliminarPersonasEnTarea(ITarea tarea)
         {
             for (int i = tarea.Personas.Count - 1; i >= 0; i--)
             {
@@ -169,7 +162,7 @@ namespace PersistenciaImp
             }
         }
 
-        private void eliminarAntecesoras(Tarea tarea)
+        private void eliminarAntecesoras(ITarea tarea)
         {
             for (int i = tarea.Antecesoras.Count - 1; i >= 0; i--)
             {
@@ -177,7 +170,7 @@ namespace PersistenciaImp
             }
         }
 
-        private void eliminarSubtareasSiTiene(Tarea tarea)
+        private void eliminarSubtareasSiTiene(ITarea tarea)
         {
             if (esTareaCompuesta(tarea))
             {
@@ -189,7 +182,7 @@ namespace PersistenciaImp
 
         }
 
-        public void ModificarProyecto(Proyecto proyecto)
+        public void ModificarProyecto(IProyecto proyecto)
         {
             var proyectoAEditar = Proyectos.Find(proyecto.ProyectoID);
             proyectoAEditar.Nombre = proyecto.Nombre;
@@ -199,7 +192,7 @@ namespace PersistenciaImp
             SaveChanges();
         }
 
-        public void ModificarEtapa(Etapa etapa)
+        public void ModificarEtapa(IEtapa etapa)
         {
             var etapaAEditar = Etapas.Find(etapa.EtapaID);
             etapaAEditar.Nombre = etapa.Nombre;
@@ -209,7 +202,7 @@ namespace PersistenciaImp
             SaveChanges();
         }
 
-        public void ModificarTarea(Tarea tarea)
+        public void ModificarTarea(ITarea tarea)
         {
             var t = Tareas.Find(tarea.TareaID);
             t.Nombre = tarea.Nombre;

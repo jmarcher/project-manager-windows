@@ -3,6 +3,7 @@ using Dominio;
 using System;
 using System.Text;
 using PersistenciaImp;
+using DominioInterfaz;
 
 namespace PruebasUnitarias
 {
@@ -113,7 +114,7 @@ namespace PruebasUnitarias
                 FechaFinalizacion = DateTime.Parse(fechaFinalizacion)
             };
 
-            Tarea tareaCloneada = tarea.Clonar();
+            ITarea tareaCloneada = tarea.Clonar();
             Assert.Equal(tarea, tareaCloneada);
         }
     }

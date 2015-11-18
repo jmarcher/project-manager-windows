@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using PersistenciaImp;
 using System.Collections.Generic;
 using System.Drawing;
+using DominioInterfaz;
+using PersistenciaInterfaz;
 
 namespace InterfazGrafica
 {
@@ -12,7 +14,7 @@ namespace InterfazGrafica
     {
         private const int ICONO_TAREA_COMPUESTA = 0;
         private const int ICONO_TAREA_SIMPLE = 1;
-        private Etapa etapa;
+        private IEtapa etapa;
         private IContextoGestorProyectos contexto;
         private bool mostrandoCaminoCritico =false;
         public VentanaDetallesEtapa()
@@ -101,7 +103,7 @@ namespace InterfazGrafica
         {
             arbolDeTareas.Nodes.Clear();
             List<Tarea> listaARecorrer = obtenerListaARecorrer();
-            foreach (Tarea tarea in listaARecorrer)
+            foreach (ITarea tarea in listaARecorrer)
             {
                 if (EsUnaTareaSimple(tarea))
                 {
@@ -132,7 +134,7 @@ namespace InterfazGrafica
             nodoArbol.SelectedImageIndex = ICONO_TAREA_COMPUESTA;
         }
 
-        private TreeNode GenerarNodoArbolTareaSimple(Tarea tarea)
+        private TreeNode GenerarNodoArbolTareaSimple(ITarea tarea)
         {
             TreeNode nodoArbol = new TreeNode(GenerarTextoAMostrar(tarea));
             nodoArbol.Tag = tarea;
@@ -146,7 +148,7 @@ namespace InterfazGrafica
             nodoArbol.SelectedImageIndex = ICONO_TAREA_SIMPLE;
         }
 
-        private static String GenerarTextoAMostrar(Tarea tarea)
+        private static String GenerarTextoAMostrar(ITarea tarea)
         {
             return tarea.ToString();
         }
@@ -155,7 +157,7 @@ namespace InterfazGrafica
         {
             TreeNode[] arbolNodos = new TreeNode[tareaCompuesta.Subtareas.Count];
             int posicion = 0;
-            foreach (Tarea tarea in tareaCompuesta.Subtareas)
+            foreach (ITarea tarea in tareaCompuesta.Subtareas)
             {
                 if (EsUnaTareaSimple(tarea))
                 {
@@ -170,7 +172,7 @@ namespace InterfazGrafica
             return arbolNodos;
         }
 
-        private void AgregarSubArbolTareaSimple(TreeNode[] arbolNodos, int posicion, Tarea tarea)
+        private void AgregarSubArbolTareaSimple(TreeNode[] arbolNodos, int posicion, ITarea tarea)
         {
             TreeNode hojaArbol = GenerarNodoArbolTareaSimple(tarea);
             hojaArbol.Tag = tarea;
@@ -193,7 +195,7 @@ namespace InterfazGrafica
             return nodoSimple;
         }
 
-        private static bool EsUnaTareaSimple(Tarea tarea)
+        private static bool EsUnaTareaSimple(ITarea tarea)
         {
             return tarea.GetType() == typeof(TareaSimple) || tarea.GetType().BaseType == typeof(TareaSimple);
         }
@@ -320,7 +322,7 @@ namespace InterfazGrafica
             }
         }
 
-        private void editarTareaVentana(Tarea tarea , bool esNuevaTarea)
+        private void editarTareaVentana(ITarea tarea , bool esNuevaTarea)
         {
             VentanaDetallesTarea ventanaDetalles = new VentanaDetallesTarea(tarea, esNuevaTarea, contexto);
             ventanaDetalles.ShowDialog(this);

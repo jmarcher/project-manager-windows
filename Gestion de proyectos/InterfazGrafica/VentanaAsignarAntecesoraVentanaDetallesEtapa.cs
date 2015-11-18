@@ -1,5 +1,7 @@
 ﻿using Dominio;
+using DominioInterfaz;
 using InterfazGrafica.Utiles;
+using PersistenciaInterfaz;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,10 +16,10 @@ namespace InterfazGrafica
 {
     public partial class VentanaAsignarAntecesoraVentanaDetallesEtapa : Form
     {
-        private Etapa etapa;
-        private Tarea tarea;
+        private IEtapa etapa;
+        private ITarea tarea;
         private IContextoGestorProyectos contexto;
-        public VentanaAsignarAntecesoraVentanaDetallesEtapa(Etapa etapa, Tarea tarea,IContextoGestorProyectos contexto)
+        public VentanaAsignarAntecesoraVentanaDetallesEtapa(IEtapa etapa, ITarea tarea,IContextoGestorProyectos contexto)
         {
             this.contexto = contexto;
             InitializeComponent();
