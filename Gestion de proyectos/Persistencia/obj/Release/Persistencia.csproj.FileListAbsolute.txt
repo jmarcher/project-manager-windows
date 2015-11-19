@@ -1,0 +1,15 @@
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\bin\Release\xunit.runner.visualstudio.testadapter.dll
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\bin\Release\xunit.runner.utility.desktop.dll
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\bin\Release\xunit.abstractions.dll
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\bin\Release\Persistencia.dll.config
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\bin\Release\Persistencia.dll
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\bin\Release\Persistencia.pdb
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\bin\Release\Dominio.dll
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\bin\Release\EntityFramework.dll
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\bin\Release\Dominio.pdb
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\bin\Release\EntityFramework.xml
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\obj\Release\Persistencia.csprojResolveAssemblyReference.cache
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\obj\Release\Persistencia.dll
+C:\Users\Gordo\Documents\marchermuse\Gestion de proyectos\Persistencia\obj\Release\Persistencia.pdb

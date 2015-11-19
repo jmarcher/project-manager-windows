@@ -34,9 +34,6 @@
             this.barraMenu = new System.Windows.Forms.MenuStrip();
             this.proyectoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.crearNuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.datosDePruebaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cargarDatosDePruebaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.borrarDatosDePruebaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.leyendaDeColoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +50,7 @@
             this.listViewProyectos.Margin = new System.Windows.Forms.Padding(2);
             this.listViewProyectos.MultiSelect = false;
             this.listViewProyectos.Name = "listViewProyectos";
-            this.listViewProyectos.Size = new System.Drawing.Size(659, 361);
+            this.listViewProyectos.Size = new System.Drawing.Size(659, 360);
             this.listViewProyectos.TabIndex = 0;
             this.listViewProyectos.UseCompatibleStateImageBehavior = false;
             this.listViewProyectos.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewProyectos_ColumnClick);
@@ -62,7 +59,7 @@
             // buttonAgregarNuevoProyecto
             // 
             this.buttonAgregarNuevoProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAgregarNuevoProyecto.Location = new System.Drawing.Point(564, 392);
+            this.buttonAgregarNuevoProyecto.Location = new System.Drawing.Point(564, 391);
             this.buttonAgregarNuevoProyecto.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAgregarNuevoProyecto.Name = "buttonAgregarNuevoProyecto";
             this.buttonAgregarNuevoProyecto.Size = new System.Drawing.Size(104, 23);
@@ -75,7 +72,6 @@
             // 
             this.barraMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.proyectoToolStripMenuItem,
-            this.datosDePruebaToolStripMenuItem,
             this.ayudaToolStripMenuItem});
             this.barraMenu.Location = new System.Drawing.Point(0, 0);
             this.barraMenu.Name = "barraMenu";
@@ -83,6 +79,7 @@
             this.barraMenu.Size = new System.Drawing.Size(679, 24);
             this.barraMenu.TabIndex = 6;
             this.barraMenu.Text = "menuStrip1";
+            this.barraMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.barraMenu_ItemClicked);
             // 
             // proyectoToolStripMenuItem
             // 
@@ -99,31 +96,6 @@
             this.crearNuevoToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.crearNuevoToolStripMenuItem.Text = "&Crear nuevo";
             this.crearNuevoToolStripMenuItem.Click += new System.EventHandler(this.crearNuevoToolStripMenuItem_Click);
-            // 
-            // datosDePruebaToolStripMenuItem
-            // 
-            this.datosDePruebaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cargarDatosDePruebaToolStripMenuItem,
-            this.borrarDatosDePruebaToolStripMenuItem});
-            this.datosDePruebaToolStripMenuItem.Name = "datosDePruebaToolStripMenuItem";
-            this.datosDePruebaToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
-            this.datosDePruebaToolStripMenuItem.Text = "&Datos de prueba";
-            // 
-            // cargarDatosDePruebaToolStripMenuItem
-            // 
-            this.cargarDatosDePruebaToolStripMenuItem.Name = "cargarDatosDePruebaToolStripMenuItem";
-            this.cargarDatosDePruebaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.cargarDatosDePruebaToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
-            this.cargarDatosDePruebaToolStripMenuItem.Text = "&Cargar datos de prueba";
-            this.cargarDatosDePruebaToolStripMenuItem.Click += new System.EventHandler(this.cargarDatosDePruebaToolStripMenuItem_Click);
-            // 
-            // borrarDatosDePruebaToolStripMenuItem
-            // 
-            this.borrarDatosDePruebaToolStripMenuItem.Name = "borrarDatosDePruebaToolStripMenuItem";
-            this.borrarDatosDePruebaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.borrarDatosDePruebaToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
-            this.borrarDatosDePruebaToolStripMenuItem.Text = "&Borrar datos de prueba";
-            this.borrarDatosDePruebaToolStripMenuItem.Click += new System.EventHandler(this.borrarDatosDePruebaToolStripMenuItem_Click);
             // 
             // ayudaToolStripMenuItem
             // 
@@ -152,7 +124,8 @@
             // 
             // buttonEliminarProyecto
             // 
-            this.buttonEliminarProyecto.Location = new System.Drawing.Point(453, 392);
+            this.buttonEliminarProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonEliminarProyecto.Location = new System.Drawing.Point(453, 391);
             this.buttonEliminarProyecto.Name = "buttonEliminarProyecto";
             this.buttonEliminarProyecto.Size = new System.Drawing.Size(106, 23);
             this.buttonEliminarProyecto.TabIndex = 7;
@@ -164,7 +137,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(679, 423);
+            this.ClientSize = new System.Drawing.Size(679, 422);
             this.Controls.Add(this.buttonEliminarProyecto);
             this.Controls.Add(this.buttonAgregarNuevoProyecto);
             this.Controls.Add(this.listViewProyectos);
@@ -194,8 +167,5 @@
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem leyendaDeColoresToolStripMenuItem;
         private System.Windows.Forms.Button buttonEliminarProyecto;
-        private System.Windows.Forms.ToolStripMenuItem datosDePruebaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cargarDatosDePruebaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem borrarDatosDePruebaToolStripMenuItem;
     }
 }

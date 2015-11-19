@@ -1,18 +1,20 @@
 ﻿using Dominio.Excepciones;
 using System.Collections.Generic;
 using System;
+using System.ComponentModel.DataAnnotations;
+using PersistenciaInterfaz;
 
 namespace Dominio
 {
     public class TareaCompuesta : Tarea
     {
-        public List<Tarea> Subtareas { get; private set; }
 
+        public virtual List<Tarea> Subtareas { get; set; }
         public override DateTime FechaFinalizacion
         {
             get
             {
-                return FechaMayorDeSubtarea();
+                return fechaMayorDeSubtarea();
             }
 
             set
@@ -34,12 +36,14 @@ namespace Dominio
             }
         }
 
-        public TareaCompuesta() : base()
+        public TareaCompuesta() : base() { Subtareas = new List<Tarea>(); }
+
+        public TareaCompuesta(IContextoGestorProyectos contexto) : base(contexto)
         {
             Subtareas = new List<Tarea>();
         }
 
-        public TareaCompuesta(Tarea tareaSimple) : base()
+        public TareaCompuesta(Tarea tareaSimple) : base(tareaSimple.Contexto)
         {
             Subtareas = new List<Tarea>();
             Antecesoras = tareaSimple.Antecesoras;
@@ -62,7 +66,7 @@ namespace Dominio
             return tareaMayor;
         }
 
-        private DateTime FechaMayorDeSubtarea()
+        private DateTime fechaMayorDeSubtarea()
         {
             Tarea tarea = tareaFechaMayor();
             if (tarea == null)
@@ -70,8 +74,12 @@ namespace Dominio
             return tarea.FechaFinalizacion;
         }
 
+        public bool FechaEsMenor(DateTime primera, DateTime segunda)
+        {
+            return DateTime.Compare(primera, segunda) < 0;
+        }
 
-        private bool TareaIniciaDespues(Tarea tarea)
+        private bool tareaIniciaDespues(Tarea tarea)
         {
             return FechaEsMenor(this.FechaInicio, tarea.FechaInicio)
                 || FechaEsIgual(this.FechaInicio, tarea.FechaInicio);
@@ -81,7 +89,7 @@ namespace Dominio
         {
             if (Equals(subtarea))
                 return false;
-            if (TareaIniciaDespues(subtarea))
+            if (tareaIniciaDespues(subtarea))
                 Subtareas.Add(subtarea);
             else
                 throw new FechaInvalida();
@@ -100,7 +108,7 @@ namespace Dominio
             return valorRetorno;
         }
 
-        private bool TodasSubTareasFinalizadas()
+        private bool todasSubTareasFinalizadas()
         {
             bool valorRetorno = true;
             foreach (Tarea tarea in Subtareas)
@@ -113,7 +121,7 @@ namespace Dominio
 
         public override void MarcarFinalizada()
         {
-            if (TodasSubTareasFinalizadas())
+            if (todasSubTareasFinalizadas())
                 EstaFinalizada = true;
         }
 
@@ -126,7 +134,7 @@ namespace Dominio
         }
         public override Tarea Clonar() 
         {
-            TareaCompuesta copia = new TareaCompuesta
+            TareaCompuesta copia = new TareaCompuesta(Contexto)
             {
                 Nombre = this.Nombre,
                 Objetivo = this.Objetivo,
@@ -140,6 +148,19 @@ namespace Dominio
           return copia;
         }
 
-        
+        public override bool EstaEnSubtareas(Tarea tarea)
+        {
+            TareaCompuesta tareaCompuesta = ((TareaCompuesta)this);
+            if (tareaCompuesta.Subtareas.Contains(tarea))
+            {
+                return true;
+            }
+            foreach (Tarea tareaActual in tareaCompuesta.Subtareas)
+            {
+                return tareaActual.EstaEnSubtareas(tarea);
+            }
+            return false;
+        }
+
     }
 }

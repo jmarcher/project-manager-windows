@@ -1,23 +1,20 @@
 ﻿using Dominio;
+using DominioInterfaz;
 using InterfazGrafica.Utiles;
+using PersistenciaInterfaz;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace InterfazGrafica
 {
     public partial class VentanaAsignarAntecesoraVentanaDetallesEtapa : Form
     {
-        private Etapa etapa;
-        private Tarea tarea;
-        public VentanaAsignarAntecesoraVentanaDetallesEtapa(Etapa etapa, Tarea tarea)
+        private IEtapa etapa;
+        private ITarea tarea;
+        private IContextoGestorProyectos contexto;
+        public VentanaAsignarAntecesoraVentanaDetallesEtapa(IEtapa etapa, ITarea tarea,IContextoGestorProyectos contexto)
         {
+            this.contexto = contexto;
             InitializeComponent();
             this.etapa = etapa;
             this.tarea = tarea;
@@ -64,6 +61,7 @@ namespace InterfazGrafica
             if (hayTareaSeleccionada())
             {
                 this.tarea.AgregarAntecesora(tareaSeleccionada());
+                contexto.ModificarTarea(tarea);
                 this.Close();
             }
             else

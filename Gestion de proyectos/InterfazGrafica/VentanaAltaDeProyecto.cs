@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Windows.Forms;
 using Dominio;
+using PersistenciaInterfaz;
 
 namespace InterfazGrafica
 {
     public partial class VentanaAltaDeProyecto : Form
     {
-        public VentanaAltaDeProyecto()
+        private IContextoGestorProyectos contexto;
+        public VentanaAltaDeProyecto(IContextoGestorProyectos contexto)
         {
+            this.contexto = contexto;
             InitializeComponent();
             InicializarComboPrioridad();
         }
@@ -24,6 +27,7 @@ namespace InterfazGrafica
         private void buttonSiguienteNuevoProyecto_Click(object sender, EventArgs e)
         {
             this.panelEtapaDeNuevoProyecto.Visible = true;
+            limitarFechaInicioEtapa();
         }
 
         private void buttonAtrasNuevoProyecto_Click(object sender, EventArgs e)
@@ -34,6 +38,7 @@ namespace InterfazGrafica
         private void buttonSiguienteEtapaNuevoProyecto_Click(object sender, EventArgs e)
         {
             this.panelTareaNuevoProyecto.Visible = true;
+            limitarFechaTarea();
         }
 
         private void buttonAtrasEtapaNuevoProyecto_Click(object sender, EventArgs e)
@@ -51,47 +56,116 @@ namespace InterfazGrafica
 
         private void buttonGuardarNuevoProyecto_Click(object sender, EventArgs e)
         {
-            try
-            {
-                crearNuevoProyecto();
-                this.Close();
-            }
-            catch (FormatException f)
-            {
-                Console.WriteLine("Error no se ingreso un numero: " + f.Message);
-            }
+            
         }
 
         private void crearNuevoProyecto()
         {
-            Tarea tareaNuevoProyecto = new TareaSimple()
+            Tarea tareaNuevoProyecto = new TareaSimple(contexto)
             {
                 Nombre = this.textBoxNombreTareaNuevoProyecto.Text,
                 Objetivo = this.textBoxObjetivoTareaNuevoProyecto.Text,
                 Descripcion = this.richTextBoxDescripcionTareaNuevoProyecto.Text,
                 FechaInicio = monthCalendarFechaInicioTareaNuevoProyecto.SelectionStart,
                 FechaFinalizacion = monthCalendarFechaFinTareaNuevoProyecto.SelectionStart,
-                DuracionPendiente = Int32.Parse(this.textBoxDuracionPendienteNuevoProyecto.Text) 
+                DuracionPendiente = Int32.Parse(this.textBoxDuracionPendienteNuevoProyecto.Text),
+                DuracionEstimada = Int32.Parse(textBoxDuracionEstimadaTarea.Text)
             };
             tareaNuevoProyecto.DefinirPrioridad(comboBoxPrioridadNuevoProyecto.SelectedItem.ToString());
             Etapa etapaNuevoProyecto = new Etapa()
             {
                 Nombre = this.textBoxNombreEtapaNuevoProyecto.Text,
-                Identificacion = Int32.Parse(this.textBoxIdEtapaNuevoProyecto.Text),
-                FechaInicio = this.monthCalendarFechaInicioEtapa.SelectionStart
+                FechaInicio = this.monthCalendarFechaInicioEtapa.SelectionStart,
+                DuracionEstimada = Int32.Parse(textBoxDurcionEstimadaEtapa.Text)
             };
-            Proyecto nuevoProyecto = new Proyecto()
+            Proyecto nuevoProyecto = new Proyecto(contexto)
             {
                 Nombre = textBoxNombreDelNuevoProyecto.Text,
                 Objetivo = this.richTextBoxObjetivoDelNuevoProyecto.Text,
-                FechaInicio = this.monthCalendarFechaInicioProyecto.SelectionStart
+                FechaInicio = this.monthCalendarFechaInicioProyecto.SelectionStart,
+                DuracionEstimada = Int32.Parse(textBoxDuracionEstimadaProyecto.Text)
             };
 
             etapaNuevoProyecto.AgregarTarea(tareaNuevoProyecto);
 
             nuevoProyecto.AgregarEtapa(etapaNuevoProyecto);
-            InstanciaUnica.Instancia.AgregarProyecto(nuevoProyecto);
+            contexto.AgregarProyecto(nuevoProyecto);
+            
 
+        }
+
+        private void textBoxDuracionPendienteNuevoProyecto_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxDuracionPendienteNuevoProyecto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxDuracionEstimadaProyecto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxDuracionEstimadaTarea_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void buttonGuardarNuevoProyecto_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                crearNuevoProyecto();
+                this.Close();
+            }
+            catch (FormatException)
+            {
+                Utiles.AyudanteVisual.CartelExclamacion("Los números no pueden ser superiores a  2.147.483.647", "Numero grande");
+            }
+        }
+
+        private void textBoxDuracionPendienteNuevoProyecto_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void monthCalendarFechaInicioProyecto_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            limitarFechaInicioEtapa();
+        }
+
+        private void limitarFechaInicioEtapa()
+        {
+            monthCalendarFechaInicioEtapa.MinDate = monthCalendarFechaInicioProyecto.SelectionStart;
+        }
+
+        private void monthCalendarFechaInicioEtapa_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            limitarFechaTarea();
+        }
+
+        private void limitarFechaTarea()
+        {
+            monthCalendarFechaInicioTareaNuevoProyecto.MinDate = monthCalendarFechaInicioEtapa.SelectionStart;
+            monthCalendarFechaFinTareaNuevoProyecto.MinDate = monthCalendarFechaInicioEtapa.SelectionStart;
         }
     }
 }

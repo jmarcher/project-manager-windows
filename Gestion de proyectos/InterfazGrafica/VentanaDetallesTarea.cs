@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Dominio;
 using InterfazGrafica.Utiles;
+using System.Drawing;
+using PersistenciaInterfaz;
+using DominioInterfaz;
+
 namespace InterfazGrafica
 {
     public partial class VentanaDetallesTarea : Form
@@ -10,27 +14,41 @@ namespace InterfazGrafica
         private const int ICONO_TAREA_COMPUESTA = 0;
         private const int ICONO_TAREA_SIMPLE = 1;
 
-        private Tarea tarea;
+        private ITarea tarea;
         private bool esNuevaTarea;
+        private IContextoGestorProyectos contexto;
         public VentanaDetallesTarea()
         {
             InitializeComponent();
         }
 
-        public VentanaDetallesTarea(Tarea tarea, bool esNueva)
+        public VentanaDetallesTarea(ITarea tarea, bool esNueva, IContextoGestorProyectos contexto)
         {
             InitializeComponent();
-            this.tarea = tarea;
+            this.contexto = contexto;
+            this.tarea =  contexto.ObtenerTarea(tarea.TareaID);
+            this.tarea.Contexto = contexto;
             this.esNuevaTarea = esNueva;
-            InicializarComponentes(tarea);
+            InicializarComponentes();
         }
 
-        private void InicializarComponentes(Tarea tarea)
+        private void InicializarComponentes()
         {
             refrescarPantalla();
         }
 
         private void refrescarPantalla()
+        {
+            inicializarCampos();
+            deshabilitarControlesParaTareaCompuesta();
+            deshabilitarControlesSiEsTareaEditada();
+            inicializarListViewAntecesoras();
+            inicializarArbolSubtareas();
+            inicializarListViewPersonas();
+            inicializarAvance();
+        }
+
+        private void inicializarCampos()
         {
             Text = "Tarea: " + tarea.Nombre + ", fecha inicio: " + tarea.FechaInicio.ToShortDateString();
             textBoxNombre.Text = tarea.Nombre;
@@ -40,12 +58,53 @@ namespace InterfazGrafica
             dateTimePickerFechaInicio.Value = tarea.FechaInicio;
             dateTimePickerFechaFinalizacion.Value = tarea.FechaFinalizacion;
             comboBoxPrioridad.SelectedIndex = tarea.Prioridad;
-
-            DeshabilitarControlesParaTareaCompuesta();
-            deshabilitarControlesSiEsTareaEditada();
-            InicializarListViewAntecesoras();
-            InicializarArbolSubtareas();
+            textBoxDuracionEstimada.Text = tarea.DuracionEstimada.ToString();
+            dateTimePickerFechaInicio.MinDate = tarea.ObtenerProyectoPadre().FechaInicio;
+            dateTimePickerFechaFinalizacion.MinDate = tarea.ObtenerProyectoPadre().FechaInicio;
         }
+
+        private void inicializarAvance()
+        {
+            if (tarea.DuracionEstimada != 0)
+            {
+                labelAvance.Text = "Avance: " + calcularAvance().ToString() + "%";
+                inicializarColorAvance();
+            }
+            else
+                labelAvance.Text = String.Empty;
+        }
+
+        private void inicializarColorAvance()
+        {
+            if (calcularAvance() < 10)
+            {
+                labelAvance.ForeColor = Color.Red;
+            }
+            else if (calcularAvance() > 50)
+            {
+                labelAvance.ForeColor = Color.Orange;
+            }
+            else if (calcularAvance() > 80)
+            {
+                labelAvance.ForeColor = Color.Green;
+            }
+        }
+
+        private int calcularAvance()
+        {
+            return ((DateTime.Now.Subtract(tarea.FechaInicio).Days * 100)
+                            / tarea.DuracionEstimada) % 101;
+        }
+
+        private void inicializarListViewPersonas()
+        {
+            listViewPersonas.Items.Clear();
+            foreach (Persona personaActual in tarea.Personas)
+            {
+                agregarElementoListaPersonas(personaActual);
+            }
+        }
+
 
         private void deshabilitarControlesSiEsTareaEditada()
         {
@@ -53,111 +112,113 @@ namespace InterfazGrafica
             {
                 dateTimePickerFechaFinalizacion.Enabled = false;
                 dateTimePickerFechaInicio.Enabled = false;
+                textBoxDuracionEstimada.ReadOnly = true;
             }
             else
             {
                 dateTimePickerFechaFinalizacion.Enabled = true;
                 dateTimePickerFechaInicio.Enabled = true;
+                textBoxDuracionEstimada.ReadOnly = false;
             }
         }
 
-        private void InicializarArbolSubtareas()
+        private void inicializarArbolSubtareas()
         {
             treeViewSubtareas.Nodes.Clear();
-            if (EsCompuesta(tarea))
+            if (esCompuesta(tarea))
             {
-                PopularArbolConNodosSubtareas();
+                popularArbolConNodosSubtareas();
             }
             else
             {
-                DeshabilitarArbolSubtareas();
+                seshabilitarArbolSubtareas();
             }
         }
 
-        private void DeshabilitarArbolSubtareas()
+        private void seshabilitarArbolSubtareas()
         {
             treeViewSubtareas.Enabled = false;
         }
 
-        private void PopularArbolConNodosSubtareas()
+        private void popularArbolConNodosSubtareas()
         {
-            foreach (Tarea tareaActual in ((TareaCompuesta)tarea).Subtareas)
+            foreach (ITarea tareaActual in ((TareaCompuesta)tarea).Subtareas)
             {
-                treeViewSubtareas.Nodes.Add(GenerarNodoArbol(tareaActual));
+                treeViewSubtareas.Nodes.Add(generarNodoArbol(tareaActual));
             }
         }
 
-        private TreeNode GenerarNodoArbol(Tarea tarea)
+        private TreeNode generarNodoArbol(ITarea tarea)
         {
             TreeNode nodoRetorno = new TreeNode();
-            if (EsCompuesta(tarea))
+            if (esCompuesta(tarea))
             {
-                nodoRetorno = GenerarNodoArbolTareaCompuesta((TareaCompuesta)tarea);
+                nodoRetorno = generarNodoArbolTareaCompuesta((TareaCompuesta)tarea);
             }
             else
             {
-                nodoRetorno = GenerarNodoArbolTareaSimple(tarea);
+                nodoRetorno = generarNodoArbolTareaSimple(tarea);
             }
             return nodoRetorno;
         }
 
-        private TreeNode[] GenerarArregloNodosListaTareas(List<Tarea> tareas)
+        private TreeNode[] generarArregloNodosListaTareas(List<Tarea> tareas)
         {
             TreeNode[] rama = new TreeNode[tareas.Count];
             int indice = 0;
-            foreach (Tarea tarea in tareas)
+            foreach (ITarea tarea in tareas)
             {
-                if (EsCompuesta(tarea))
+                if (esCompuesta(tarea))
                 {
-                    rama[indice] = GenerarNodoArbolTareaCompuesta((TareaCompuesta)tarea);
+                    rama[indice] = generarNodoArbolTareaCompuesta((TareaCompuesta)tarea);
                 }
                 else
                 {
-                    rama[indice] = GenerarNodoArbolTareaSimple(tarea);
+                    rama[indice] = generarNodoArbolTareaSimple(tarea);
                 }
                 indice++;
             }
             return rama;
         }
 
-        private TreeNode GenerarNodoArbolTareaCompuesta(TareaCompuesta tarea)
+        private TreeNode generarNodoArbolTareaCompuesta(TareaCompuesta tarea)
         {
-            TreeNode nodoRetorno = new TreeNode(GenerarTextoAMostrar(tarea),
-                GenerarArregloNodosListaTareas(tarea.Subtareas));
+            TreeNode nodoRetorno = new TreeNode(generarTextoAMostrar(tarea),
+                generarArregloNodosListaTareas(tarea.Subtareas));
             nodoRetorno.Tag = tarea;
-            AsignarIconosTareaCompuesta(nodoRetorno);
+            asignarIconosTareaCompuesta(nodoRetorno);
             return nodoRetorno;
         }
 
-        private void AsignarIconosTareaCompuesta(TreeNode nodoRetorno)
+        private void asignarIconosTareaCompuesta(TreeNode nodoRetorno)
         {
             nodoRetorno.ImageIndex = ICONO_TAREA_COMPUESTA;
             nodoRetorno.SelectedImageIndex = ICONO_TAREA_COMPUESTA;
         }
 
-        private TreeNode GenerarNodoArbolTareaSimple(Tarea tarea)
+        private TreeNode generarNodoArbolTareaSimple(ITarea tarea)
         {
-            TreeNode nodoRetorno = new TreeNode(GenerarTextoAMostrar(tarea));
+            TreeNode nodoRetorno = new TreeNode(generarTextoAMostrar(tarea));
             nodoRetorno.Tag = tarea;
-            AsignarIconosTareaSimple(nodoRetorno);
+            asignarIconosTareaSimple(nodoRetorno);
             return nodoRetorno;
         }
 
 
 
-        private static void AsignarIconosTareaSimple(TreeNode nodoArbol)
+        private static void asignarIconosTareaSimple(TreeNode nodoArbol)
         {
             nodoArbol.ImageIndex = ICONO_TAREA_SIMPLE;
             nodoArbol.SelectedImageIndex = ICONO_TAREA_SIMPLE;
         }
-        private string GenerarTextoAMostrar(Tarea tarea)
+        private string generarTextoAMostrar(ITarea tarea)
         {
             return tarea.ToString();
         }
 
-        private void DeshabilitarControlesParaTareaCompuesta()
+        private void deshabilitarControlesParaTareaCompuesta()
         {
-            if (EsCompuesta(tarea))
+            if (esCompuesta(tarea))
             {
                 dateTimePickerFechaFinalizacion.Enabled = false;
                 textBoxDuracionPendiente.ReadOnly = true;
@@ -169,26 +230,38 @@ namespace InterfazGrafica
             }
         }
 
-        private void InicializarListViewAntecesoras()
+        private void inicializarListViewAntecesoras()
         {
             listViewAntecesoras.Items.Clear();
-            foreach (Tarea tareaActual in tarea.Antecesoras)
+            foreach (ITarea tareaActual in tarea.Antecesoras)
             {
-                AgregarElemento(tareaActual);
+                agregarElementoListaAntecesoras(tareaActual);
             }
         }
 
-        private void AgregarElemento(Tarea tarea)
+        private void agregarElementoListaAntecesoras(ITarea tarea)
         {
-            ListViewItem elementoLista = new ListViewItem(tarea.ToString());
-            elementoLista.ImageIndex = IconoTarea(tarea);
-            elementoLista.Tag = tarea;
+            ListViewItem elementoLista = generarElementoListView(tarea);
+            elementoLista.ImageIndex = iconoTarea(tarea);
             listViewAntecesoras.Items.Add(elementoLista);
         }
 
-        private int IconoTarea(Tarea tarea)
+        private ListViewItem generarElementoListView(object obj)
         {
-            if (EsCompuesta(tarea))
+            ListViewItem elementoLista = new ListViewItem(obj.ToString());
+            elementoLista.Tag = obj;
+            return elementoLista;
+        }
+
+        private void agregarElementoListaPersonas(Persona personaActual)
+        {
+            ListViewItem elementoLista = generarElementoListView(personaActual);
+            listViewPersonas.Items.Add(elementoLista);
+        }
+
+        private int iconoTarea(ITarea tarea)
+        {
+            if (esCompuesta(tarea))
             {
                 return 0;
             }
@@ -198,55 +271,130 @@ namespace InterfazGrafica
             }
         }
 
-        private bool EsCompuesta(Tarea tarea)
+        private bool esCompuesta(ITarea tarea)
         {
-            return tarea.GetType() == typeof(TareaCompuesta);
+            return tarea.GetType() == typeof(TareaCompuesta) || tarea.GetType().BaseType == typeof(TareaCompuesta);
         }
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
-            Tarea tareaAnterior = tarea.Clonar();
-
-
-
-
-            bool confirmacion = AyudanteVisual.CartelConfirmacion(CrearMensaje(), "Impacto en la duracion del proyecto");
+            ITarea tareaAnterior = tarea.Clonar();
+            bool confirmacion = AyudanteVisual.CartelConfirmacion(crearMensaje(), "Impacto en la duracion del proyecto");
             if (!confirmacion && esNuevaTarea)
             {
-                EliminarTareaActual();
+                eliminarTareaActual();
                 this.Close();
             }
             else if (!(confirmacion || esNuevaTarea))
             {
-                InicializarComponentes(tarea);
+                InicializarComponentes();
             }
             else if (confirmacion)
             {
                 asignarValoresTarea();
             }
+            Close();
         }
 
 
         private void asignarValoresTarea()
         {
-            tarea.Nombre = textBoxNombre.Text;
-            tarea.Objetivo = textBoxNombre.Text;
-            tarea.DefinirPrioridad(comboBoxPrioridad.Text);
-            tarea.Descripcion = textBoxDescripcion.Text;
-            tarea.FechaInicio = dateTimePickerFechaInicio.Value;
-
-            if (!EsCompuesta(tarea))
+            cambiarNombreTarea();
+            cambiarObjetivoTarea();
+            cambiarPrioridadTarea();
+            cambiarDescripcionTarea();
+            cambiarFechaDeInicio();
+            IProyecto padre = tarea.ObtenerProyectoPadre();
+            String modificacion = "La duración pendiente se modificó de " + padre.CalcularDuracionPendiente();
+            if (!esCompuesta(tarea))
             {
+                
                 TareaSimple tareaSimple = (TareaSimple)tarea;
-                tareaSimple.DuracionPendiente = Int32.Parse(textBoxDuracionPendiente.Text);
-                tareaSimple.FechaFinalizacion = dateTimePickerFechaFinalizacion.Value;
+                cambiarDuracionPendiente(tareaSimple);
+                cambiarFechaFinalizacion(tareaSimple);
                 tarea = tareaSimple;
+            }
+            tarea.DuracionEstimada = Int32.Parse(textBoxDuracionEstimada.Text);
+            contexto.ModificarTarea(tarea);
+            padre = tarea.ObtenerProyectoPadre();
+            modificacion += " a " + padre.CalcularDuracionPendiente();
+            padre.AgregarModificacion(modificacion);
+            contexto.ModificarProyecto(padre);
+        }
+
+        private void cambiarFechaFinalizacion(TareaSimple tareaSimple)
+        {
+            if(tareaSimple.FechaFinalizacion != dateTimePickerFechaFinalizacion.Value)
+            {
+                tareaSimple.AgregarModificacion("Cambiada la fecha de finalización de " + tareaSimple.FechaFinalizacion.ToShortDateString()
+                    + " a " + dateTimePickerFechaFinalizacion.Value.ToShortDateString());
+                tareaSimple.FechaFinalizacion = dateTimePickerFechaFinalizacion.Value;
             }
         }
 
-        private string CrearMensaje()
+        private void cambiarDuracionPendiente(TareaSimple tareaSimple)
         {
-            Proyecto padre = tarea.ObtenerProyectoPadre();
+            if(tareaSimple.DuracionPendiente != Int32.Parse(textBoxDuracionPendiente.Text))
+            {
+                tareaSimple.AgregarModificacion("Cambiada la duración de "+tareaSimple.DuracionPendiente.ToString()
+                    +" a "+ textBoxDuracionPendiente.Text);
+                tareaSimple.DuracionPendiente = Int32.Parse(textBoxDuracionPendiente.Text);
+            }
+        }
+
+        private void cambiarFechaDeInicio()
+        {
+            if (tarea.FechaInicio != dateTimePickerFechaInicio.Value)
+            {
+                tarea.AgregarModificacion("Cambiada la fecha de inicio de "+tarea.FechaInicio.ToShortDateString()
+                    + " a "+ dateTimePickerFechaInicio.Value.ToShortDateString());
+                tarea.FechaInicio = dateTimePickerFechaInicio.Value;
+            }
+        }
+
+        private void cambiarDescripcionTarea()
+        {
+            if (!tarea.Descripcion.Equals(textBoxDescripcion.Text))
+            {
+                tarea.AgregarModificacion("Cambiada la descripcion de ''"
+                    + tarea.Descripcion + "'' a ''" + textBoxDescripcion.Text + "''");
+                tarea.Descripcion = textBoxDescripcion.Text;
+            }
+        }
+
+        private void cambiarPrioridadTarea()
+        {
+            if (!tarea.prioridadAString().Equals(comboBoxPrioridad.Text))
+            {
+                tarea.AgregarModificacion("Prioridad cambiada de " + tarea.prioridadAString()
+                    + " a " + comboBoxPrioridad.Text);
+                tarea.DefinirPrioridad(comboBoxPrioridad.Text);
+            }
+        }
+
+        private void cambiarObjetivoTarea()
+        {
+            if (!tarea.Objetivo.Equals(textBoxObjetivo.Text))
+            {
+                tarea.AgregarModificacion("Cambiado el objetivo de ''"
+                    + tarea.Objetivo + "'' a ''" + textBoxObjetivo.Text + "''");
+                tarea.Objetivo = textBoxObjetivo.Text;
+            }
+        }
+
+        private void cambiarNombreTarea()
+        {
+            if (!tarea.Nombre.Equals(textBoxNombre.Text))
+            {
+                tarea.AgregarModificacion("Cambiado nombre de ''"
+                    + tarea.Nombre + "'' a ''" + textBoxNombre.Text + "''");
+                    tarea.Nombre = textBoxNombre.Text;
+            }
+        }
+
+        private string crearMensaje()
+        {
+            IProyecto padre = tarea.ObtenerProyectoPadre();
             string mensaje;
             if (padre == null)
                 mensaje = "La fecha del proyecto se modificará.";
@@ -254,17 +402,18 @@ namespace InterfazGrafica
                 mensaje = "La fecha del Proyecto se modificara  a: " + padre.FechaFinalizacion + " y su duracion a: " + padre.CalcularDuracionPendiente() + " dias ";
             return mensaje;
         }
-        private void EliminarTareaActual()
+        private void eliminarTareaActual()
         {
-            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos())
+            foreach (IProyecto proyecto in contexto.DevolverProyectos())
             {
-                foreach (Etapa etapa in proyecto.Etapas)
+                foreach (IEtapa etapa in proyecto.Etapas)
                 {
                     foreach (Tarea tareaRecorrida in etapa.Tareas)
                     {
                         if (tareaRecorrida.Equals(this.tarea))
                         {
                             etapa.Tareas.Remove(tareaRecorrida);
+                            contexto.ModificarEtapa(etapa);
                             break;
                         }
                     }
@@ -272,53 +421,37 @@ namespace InterfazGrafica
             }
         }
 
-        private void DeshacerCambiosEnTarea(Tarea tareaAnterior)
-        {
-            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos())
-            {
-                foreach (Etapa etapa in proyecto.Etapas)
-                {
-                    foreach (Tarea tareaRecorrida in etapa.Tareas)
-                    {
-                        if (tareaRecorrida.Equals(this.tarea))
-                        {
-                            Tarea tareaAModificar = tareaRecorrida;
-                            tareaAModificar = tareaAnterior;
-                        }
-                    }
-                }
-            }
-        }
+        
 
         private void treeViewSubtareas_DoubleClick(object sender, EventArgs e)
         {
-            if (HayTareaSeleccionadaTreeView())
+            if (hayTareaSeleccionadaTreeView())
             {
-                if(TareaSeleccionada().GetType() == typeof(TareaCompuesta))
+                if(esCompuesta(tareaSeleccionada()))
                 {
-                    EditarTareaVentana((TareaCompuesta)TareaSeleccionada(), false);
+                    editarTareaVentana((TareaCompuesta)tareaSeleccionada(), false);
                 }
                 else
                 {
-                    EditarTareaVentana((TareaSimple)TareaSeleccionada(), false);
+                    editarTareaVentana((TareaSimple)tareaSeleccionada(), false);
                 }
                 
             }
         }
 
-        private Tarea TareaSeleccionada()
+        private Tarea tareaSeleccionada()
         {
             return (Tarea)treeViewSubtareas.SelectedNode.Tag;
         }
 
-        private bool HayTareaSeleccionadaTreeView()
+        private bool hayTareaSeleccionadaTreeView()
         {
             return treeViewSubtareas.SelectedNode != null;
         }
 
-        private void EditarTareaVentana(Tarea tarea, bool esNuevaTarea)
+        private void editarTareaVentana(ITarea tarea, bool esNuevaTarea)
         {
-            VentanaDetallesTarea ventanaDetalles = new VentanaDetallesTarea(tarea, esNuevaTarea);
+            VentanaDetallesTarea ventanaDetalles = new VentanaDetallesTarea(tarea, esNuevaTarea, contexto);
             ventanaDetalles.ShowDialog(this);
             refrescarVentanaAlCerrarseDialogo();
         }
@@ -327,7 +460,7 @@ namespace InterfazGrafica
         {
             foreach (Form formulario in Application.OpenForms)
             {
-                if (EstaCerradaVentanaDetallesTarea(formulario))
+                if (estaCerradaVentanaDetallesTarea(formulario))
                 {
                     refrescarPantalla();
                     break;
@@ -335,19 +468,19 @@ namespace InterfazGrafica
             }
         }
 
-        private bool EstaCerradaVentanaDetallesTarea(Form formulario)
+        private bool estaCerradaVentanaDetallesTarea(Form formulario)
         {
             return !(formulario.GetType() == typeof(VentanaDetallesTarea));
         }
 
         private void buttonEliminarAntecesora_Click(object sender, EventArgs e)
         {
-            if (HayAntecesoraSeleccionadaListView())
+            if (hayAntecesoraSeleccionadaListView())
             {
                 if (AyudanteVisual.CartelConfirmacion("¿Seguro desea eliminar esta tarea antecesora?", "Eliminación"))
                 {
                     borrarAntecesora();
-                    InicializarListViewAntecesoras();
+                    inicializarListViewAntecesoras();
                     inicializarBotonEliminarAntecesora();
                 }
             }
@@ -355,12 +488,14 @@ namespace InterfazGrafica
 
         private void borrarAntecesora()
         {
-            Tarea seleccionada = antecesoraSeleccionada();
+            ITarea seleccionada = antecesoraSeleccionada();
             agregarAntecesorasAntesElminacion(seleccionada);
             tarea.Antecesoras.Remove(antecesoraSeleccionada());
+            tarea.AgregarModificacion("Eliminada antecesora " + seleccionada.ToString());
+            contexto.ModificarTarea(tarea);
         }
 
-        private void agregarAntecesorasAntesElminacion(Tarea seleccionada)
+        private void agregarAntecesorasAntesElminacion(ITarea seleccionada)
         {
             foreach (Tarea antecesora in seleccionada.Antecesoras)
             {
@@ -376,7 +511,7 @@ namespace InterfazGrafica
             return (Tarea)listViewAntecesoras.SelectedItems[0].Tag;
         }
 
-        private bool HayAntecesoraSeleccionadaListView()
+        private bool hayAntecesoraSeleccionadaListView()
         {
             return listViewAntecesoras.SelectedItems.Count > 0;
         }
@@ -388,7 +523,7 @@ namespace InterfazGrafica
 
         private void inicializarBotonEliminarAntecesora()
         {
-            if (listViewAntecesoras.Items.Count > 0 && HayAntecesoraSeleccionadaListView())
+            if (listViewAntecesoras.Items.Count > 0 && hayAntecesoraSeleccionadaListView())
             {
                 buttonEliminarAntecesora.Enabled = true;
             }
@@ -400,15 +535,18 @@ namespace InterfazGrafica
 
         private void buttonEliminarSubtarea_Click(object sender, EventArgs e)
         {
-            if (HayTareaSeleccionadaTreeView())
+            if (hayTareaSeleccionadaTreeView())
             {
-                if(AyudanteVisual.CartelConfirmacion(CrearMensajeElminacion(TareaSeleccionada()), "Eliminación"))
+                if(AyudanteVisual.CartelConfirmacion(crearMensajeElminacion(tareaSeleccionada()), "Eliminación"))
                 {
                     TareaCompuesta tareaCompuesta = (TareaCompuesta)tarea;
                     DateTime fechaFinalizacion = tareaCompuesta.FechaFinalizacion;
                     int duracionPendiente = tareaCompuesta.CalcularDuracionPendiente();
-                    tareaCompuesta.EliminarSubtarea(TareaSeleccionada());
+                    tareaCompuesta.EliminarSubtarea(tareaSeleccionada());
+
                     cambiarATareaSimpleSimple(tareaCompuesta, fechaFinalizacion, duracionPendiente);
+                    tareaCompuesta.AgregarModificacion("Eliminada subtarea " + tareaSeleccionada().ToString());
+                    contexto.ModificarTarea(tareaCompuesta);
                     refrescarPantalla();
                 }
             }
@@ -418,7 +556,7 @@ namespace InterfazGrafica
         {
             if (tareaCompuesta.Subtareas.Count == 0)
             {
-                tarea = new TareaSimple()
+                tarea = new TareaSimple(contexto)
                 {
                     Nombre = tarea.Nombre,
                     FechaInicio = tareaCompuesta.FechaInicio,
@@ -427,15 +565,17 @@ namespace InterfazGrafica
                     Prioridad = tareaCompuesta.Prioridad,
                     Antecesoras = tareaCompuesta.Antecesoras,
                     Descripcion = tareaCompuesta.Descripcion,
-                    Objetivo = tareaCompuesta.Objetivo
+                    Objetivo = tareaCompuesta.Objetivo,
+                    Personas = tareaCompuesta.Personas
+                   
                 };
             }
         }
 
 
-        private string CrearMensajeElminacion(Tarea tarea)
+        private string crearMensajeElminacion(ITarea tarea)
         {
-            if (esTareaCompuesta(tarea))
+            if (esCompuesta(tarea))
             {
                 return "¿Seguro desea eliminar esta subtarea compuesta?\n" +
                     "Esto eliminará todas las subtareas que la componen.";
@@ -446,18 +586,16 @@ namespace InterfazGrafica
             }
         }
 
-        private static bool esTareaCompuesta(Tarea tarea)
-        {
-            return tarea.GetType() == typeof(TareaCompuesta);
-        }
 
         private void buttonAgregarSubtarea_Click(object sender, EventArgs e)
         {
-            if (esTareaCompuesta(tarea))
+            if (esCompuesta(tarea))
             {
-                Tarea tareaNueva = new TareaSimple();
+                Tarea tareaNueva = new TareaSimple(contexto);
                 ((TareaCompuesta)tarea).Subtareas.Add(tareaNueva);
-                VentanaDetallesTarea ventana = new VentanaDetallesTarea((TareaSimple)tareaNueva, true);
+                tarea.AgregarModificacion("Agregada una subtarea.");
+                contexto.ModificarTarea(tarea);
+                VentanaDetallesTarea ventana = new VentanaDetallesTarea((TareaSimple)tareaNueva, true, contexto);
                 ventana.ShowDialog();
                 refrescarVentanaAlCerrarseDialogo();
             }
@@ -467,5 +605,87 @@ namespace InterfazGrafica
             }
         }
 
+        private void buttonAgregarPersona_Click(object sender, EventArgs e)
+        {
+            VentanaAgregarNuevaPersona ventanaAgregarPersona = new VentanaAgregarNuevaPersona(tarea, contexto);
+            ventanaAgregarPersona.ShowDialog(this);
+            refrescarVentanaCuandoCierraVentanaPersona();
+        }
+
+        private void refrescarVentanaCuandoCierraVentanaPersona()
+        {
+            foreach (Form formulario in Application.OpenForms)
+            {
+                if (estaCerradaVentanaPersona(formulario))
+                {
+                    refrescarPantalla();
+                    break;
+                }
+            }
+        }
+
+        private static bool estaCerradaVentanaPersona(Form formulario)
+        {
+            return !(formulario.GetType() == typeof(VentanaAgregarNuevaPersona));
+        }
+
+        private void buttonVerHistorial_Click(object sender, EventArgs e)
+        {
+            VentanaVerHistorialTarea ventanaHistorial = new VentanaVerHistorialTarea(tarea);
+            ventanaHistorial.ShowDialog(this);
+        }
+
+        private void buttonEliminarPersona_Click(object sender, EventArgs e)
+        {
+            if (hayPersonaSeleccionada())
+            {
+                if (AyudanteVisual.CartelConfirmacion("¿Seguro desea eliminar esta persona?", "Eliminación"))
+                {
+                    borrarPersona();
+                    inicializarListViewPersonas();
+                }
+            }
+        }
+
+        private void borrarPersona()
+        {
+            tarea.Personas.Remove(personaSeleccionada());
+            tarea.AgregarModificacion("Eliminada la persona " + personaSeleccionada().ToString());
+            contexto.ModificarTarea(tarea);
+        }
+
+        private Persona personaSeleccionada()
+        {
+            return (Persona) listViewPersonas.SelectedItems[0].Tag;
+        }
+
+        private bool hayPersonaSeleccionada()
+        {
+            return listViewPersonas.SelectedItems.Count > 0;
+        }
+
+        private void textBoxDuracionPendiente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void textBoxDuracionEstimada_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void dateTimePickerFechaInicio_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void VentanaDetallesTarea_Leave(object sender, EventArgs e)
+        {
+        }
+
+        private void VentanaDetallesTarea_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
     }
 }

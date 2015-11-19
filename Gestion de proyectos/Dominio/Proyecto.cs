@@ -1,14 +1,18 @@
-﻿using System;
+﻿using DominioInterfaz;
+using PersistenciaInterfaz;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
-    public class Proyecto : IFechas, INombrable, IDuracionPendienteCalculable
+    [Table("Proyectos")]
+    public class Proyecto : IProyecto, IFechas, INombrable, IDuracionPendienteCalculable, IDuracionEstimable
     {
-        public int Identificador { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public int ProyectoID { get; set; }
         public String Nombre { get; set; }
         public String Objetivo { get; set; }
         public DateTime FechaInicio { get; set; }
@@ -16,7 +20,7 @@ namespace Dominio
         {
             get
             {
-                return UltimaFechaDeEtapa();
+                return ultimaFechaDeEtapa();
             }
         }
 
@@ -35,12 +39,31 @@ namespace Dominio
                 return false;
             }
         }
-        public List<Etapa> Etapas { get; set; }
+        public virtual List<Etapa> Etapas { get; set; }
+
+        public int DuracionEstimada {get;set;}
+
+        public IContextoGestorProyectos Contexto { get; set; }
+
+        public String Historial { get; set; }
+
+
+        public void AgregarModificacion(String cambio)
+        {
+            Historial += "[" + DateTime.Now + "] "+ cambio+" \r\n";
+        }
 
         public Proyecto()
         {
             Etapas = new List<Etapa>();
             FechaInicio = Tarea.FECHA_NULA;
+        }
+
+        public Proyecto(IContextoGestorProyectos contexto)
+        {
+            Etapas = new List<Etapa>();
+            FechaInicio = Tarea.FECHA_NULA;
+            this.Contexto = contexto;
         }
 
         public void AgregarEtapa(Etapa etapa)
@@ -61,7 +84,7 @@ namespace Dominio
         public override bool Equals(object obj)
         {
             Proyecto proyecto = (Proyecto)obj;
-            return proyecto.Identificador == this.Identificador;
+            return proyecto.ProyectoID == this.ProyectoID;
         }
 
         public int CalcularDuracionPendiente()
@@ -81,10 +104,10 @@ namespace Dominio
 
         public void MarcarFinalizado()
         {
-            if (TodasEtapasFinalizadas())
+            if (todasEtapasFinalizadas())
                 EstaFinalizado = true;
         }
-        private bool TodasEtapasFinalizadas()
+        private bool todasEtapasFinalizadas()
         {
             bool valorRetorno = true;
             foreach (Etapa etapa in Etapas)
@@ -95,7 +118,7 @@ namespace Dominio
             return valorRetorno;
         }
 
-        private DateTime UltimaFechaDeEtapa()
+        private DateTime ultimaFechaDeEtapa()
         {
             DateTime mayorFecha = DateTime.MinValue;
             foreach (Etapa etapa in Etapas)

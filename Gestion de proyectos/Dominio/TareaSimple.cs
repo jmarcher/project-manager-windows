@@ -1,11 +1,17 @@
-﻿using System;
+﻿using PersistenciaInterfaz;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
     public class TareaSimple : Tarea
     {
+        [Required]
         private DateTime _FechaFinalizacion;
         public int DuracionPendiente { get; set; }
+        
 
         public override DateTime FechaFinalizacion
         {
@@ -16,17 +22,7 @@ namespace Dominio
 
             set
             {
-                if (FechaNula(FechaInicio) 
-                    || (!FechaNula(FechaInicio) 
-                    && (FechaEsMenor(FechaInicio, value) || FechaEsIgual(value,FechaInicio))))
-                {
                     _FechaFinalizacion = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-
             }
 
         }
@@ -39,7 +35,11 @@ namespace Dominio
             }
         }
 
-        public TareaSimple() : base()
+        public TareaSimple() : base() {
+            _FechaFinalizacion = FECHA_NULA;
+        }
+
+        public TareaSimple(IContextoGestorProyectos contexto) : base(contexto)
         {
             _FechaFinalizacion = FECHA_NULA;
         }
@@ -53,9 +53,15 @@ namespace Dominio
         {
             EstaFinalizada = true;
         }
+
+        public override bool EstaEnSubtareas(Tarea tarea)
+        {
+            return false;
+        }
+
         public override Tarea Clonar() 
         {
-            TareaSimple copia = new TareaSimple { 
+            TareaSimple copia = new TareaSimple(Contexto) { 
             Nombre = this.Nombre,
             Descripcion = this.Descripcion,
             Objetivo = this.Objetivo,

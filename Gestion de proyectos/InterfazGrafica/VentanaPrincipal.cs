@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
 using Dominio;
 using InterfazGrafica.Utiles;
 using System.Collections.Generic;
+using PersistenciaImp;
+using PersistenciaInterfaz;
+using DominioInterfaz;
 
 namespace InterfazGrafica
 {
@@ -11,14 +15,18 @@ namespace InterfazGrafica
     {
         private OrdenadorListView ordenadorListView;
         private const int ID_COLUMNA_FECHA_FIN = 4;
+        private IContextoGestorProyectos Contexto;
 
         public VentanaPrincipal()
         {
+            
             InitializeComponent();
             try
             {
+
+                Contexto = new ContextoGestorProyectos();
                 configurarListViewProyectos();
-                ActualizarListaDeProyectos();
+                actualizarListaDeProyectos();
             }
             catch (NullReferenceException)
             {
@@ -28,7 +36,7 @@ namespace InterfazGrafica
 
         private void configurarListViewProyectos()
         {
-            InicializarOrdenadorListView();
+            inicializarOrdenadorListView();
 
             listViewProyectos.View = View.Details;
             listViewProyectos.FullRowSelect = true;
@@ -43,26 +51,38 @@ namespace InterfazGrafica
             listViewProyectos.Columns.Add("Duración pendiente (dias)", 80, HorizontalAlignment.Left);
         }
 
-        private void InicializarOrdenadorListView()
+        private void inicializarOrdenadorListView()
         {
             this.ordenadorListView = new OrdenadorListView();
             listViewProyectos.ListViewItemSorter = ordenadorListView;
         }
 
-        private void ActualizarListaDeProyectos()
+        private void actualizarListaDeProyectos()
         {
             listViewProyectos.Items.Clear();
-            foreach(Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos())
+            foreach(Proyecto proyecto in obtenerListaProyectos())
             {
                 ListViewItem nuevoItemLista = crearNuevoItemListaProyectos(proyecto);
                 listViewProyectos.Items.Add(nuevoItemLista);
             }
         }
 
+        private List<Proyecto> obtenerListaProyectos()
+        {
+            List<Proyecto> retorno = new List<Proyecto>();
+                var proyectos = Contexto.DevolverProyectos();
+                foreach(Proyecto p in proyectos)
+                {
+                    p.Contexto = Contexto;
+                    retorno.Add(p);
+                }
+            return retorno;
+        }
+
         private static ListViewItem crearNuevoItemListaProyectos(Proyecto proyecto)
         {
             ListViewItem nuevoItemLista = new ListViewItem();
-            string identificador = proyecto.Identificador.ToString();
+            string identificador = proyecto.ProyectoID.ToString();
             agregarIdentificadorALista(nuevoItemLista, identificador);
             agregarNombreALista(proyecto, nuevoItemLista);
             agregarObjetivoALista(proyecto, nuevoItemLista);
@@ -103,38 +123,53 @@ namespace InterfazGrafica
         {
             if (proyecto.EstaFinalizado)
             {
-                nuevoItemLista.SubItems.Add("Proyecto Finalizado").Tag = OrdenadorListView.STRING;
-                nuevoItemLista.ForeColor = Color.Red;
+                marcarProyectoFinalizado(nuevoItemLista);
             }
             else if (proyecto.EstaAtrasado)
             {
-                nuevoItemLista.SubItems.Add("Proyecto Atrasado").Tag = OrdenadorListView.STRING;
-                nuevoItemLista.ForeColor = Color.Orange;
+                marcarProyectoAtrasado(nuevoItemLista);
             }
             else
             {
-                string fechaFinalizacion = proyecto.FechaFinalizacion.ToString();
-                nuevoItemLista.SubItems.Add(fechaFinalizacion).Tag = OrdenadorListView.DATETIME;
-                nuevoItemLista.ForeColor = Color.Green;
+                mostrarFechaFinalizacionProyecto(proyecto, nuevoItemLista);
             }
+        }
+
+        private static void mostrarFechaFinalizacionProyecto(Proyecto proyecto, ListViewItem nuevoItemLista)
+        {
+            string fechaFinalizacion = proyecto.FechaFinalizacion.ToString();
+            nuevoItemLista.SubItems.Add(fechaFinalizacion).Tag = OrdenadorListView.DATETIME;
+            nuevoItemLista.ForeColor = Color.Green;
+        }
+
+        private static void marcarProyectoAtrasado(ListViewItem nuevoItemLista)
+        {
+            nuevoItemLista.SubItems.Add("Proyecto Atrasado").Tag = OrdenadorListView.STRING;
+            nuevoItemLista.ForeColor = Color.Orange;
+        }
+
+        private static void marcarProyectoFinalizado(ListViewItem nuevoItemLista)
+        {
+            nuevoItemLista.SubItems.Add("Proyecto Finalizado").Tag = OrdenadorListView.STRING;
+            nuevoItemLista.ForeColor = Color.Red;
         }
 
         private void listViewProyectos_DoubleClick(object sender, EventArgs e)
         {
-            Proyecto proyecto = proyectoSeleccionado();
+            IProyecto proyecto = proyectoSeleccionado();
             abrirVentanaDetallesProyecto(proyecto);
         }
 
-        private void abrirVentanaDetallesProyecto(Proyecto proyecto)
+        private void abrirVentanaDetallesProyecto(IProyecto proyecto)
         {
-            VentanaDetallesProyecto ventana = new VentanaDetallesProyecto(proyecto);
+            VentanaDetallesProyecto ventana = new VentanaDetallesProyecto(proyecto.ProyectoID, Contexto);
             ventana.ShowDialog(this);
-            ActualizarListaDeProyectosConCondicion(new CondicionDeActualizacion(EstaCerradaVentanaDetallesProyecto));
+            actualizarListaDeProyectosConCondicion(new CondicionDeActualizacion(estaCerradaVentanaDetallesProyecto));
         }
 
-        private Proyecto proyectoSeleccionado()
+        private IProyecto proyectoSeleccionado()
         {
-            return InstanciaUnica.Instancia.DevolverProyectos().Find(x => x.Identificador == devolverIdentificadorSeleccionado());
+                return Contexto.ObtenerProyecto(devolverIdentificadorSeleccionado());
         }
 
         private int devolverIdentificadorSeleccionado()
@@ -144,30 +179,30 @@ namespace InterfazGrafica
 
         private void buttonAgregarNuevoProyecto_Click(object sender, EventArgs e)
         {
-            VentanaAltaDeProyecto ventanaAlta = new VentanaAltaDeProyecto();
+            VentanaAltaDeProyecto ventanaAlta = new VentanaAltaDeProyecto(Contexto);
             ventanaAlta.ShowDialog();
-            ActualizarListaDeProyectosConCondicion(new CondicionDeActualizacion(EstaCerradaVentanaAltaDeProyecto));
+            actualizarListaDeProyectosConCondicion(new CondicionDeActualizacion(estaCerradaVentanaAltaDeProyecto));
         }
 
         public delegate bool CondicionDeActualizacion(Form formulario);
-        private void ActualizarListaDeProyectosConCondicion(CondicionDeActualizacion metodo)
+        private void actualizarListaDeProyectosConCondicion(CondicionDeActualizacion metodo)
         {
             foreach (Form frm in Application.OpenForms)
             {
                 if (metodo(frm))
                 {
-                    ActualizarListaDeProyectos();
+                    actualizarListaDeProyectos();
                     break;
                 }
             }
         }
 
-        private bool EstaCerradaVentanaAltaDeProyecto(Form frm)
+        private bool estaCerradaVentanaAltaDeProyecto(Form frm)
         {
             return !(frm.GetType() == typeof(VentanaAltaDeProyecto));
         }
 
-        private bool EstaCerradaVentanaDetallesProyecto(Form frm)
+        private bool estaCerradaVentanaDetallesProyecto(Form frm)
         {
             return !(frm.GetType() == typeof(VentanaDetallesProyecto));
         }
@@ -200,8 +235,8 @@ namespace InterfazGrafica
                 if (AyudanteVisual.CartelConfirmacion("¿Seguro desea eliminar este proyecto?\n" +
                     "La siguiente acción, eliminará el pryecto con todas sus etapas y tareas.", "Eliminación de proyecto"))
                 {
-                    InstanciaUnica.Instancia.DevolverProyectos().Remove(proyectoSeleccionado());
-                    ActualizarListaDeProyectos();
+                    Contexto.EliminarProyecto(proyectoSeleccionado().ProyectoID);
+                    actualizarListaDeProyectos();
                 }
             }
         }
@@ -213,7 +248,7 @@ namespace InterfazGrafica
 
         private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AyudanteVisual.CartelInformacion("Obligatorio 1\n"+
+            AyudanteVisual.CartelInformacion("Obligatorio 2\n"+
                 "Diseño de aplicaciones 1\n"+
                 "Universidad ORT\n"+
                 "Joaquín Marcher\n"+
@@ -225,22 +260,9 @@ namespace InterfazGrafica
             listViewProyectos_ColumnClick(sender, new ColumnClickEventArgs(ID_COLUMNA_FECHA_FIN));
         }
 
-        private void borrarDatosDePruebaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void barraMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            InstanciaUnica.Instancia.AgregarProyectos(listaVacia());
-            ActualizarListaDeProyectos();
-        }
 
-        private static List<Proyecto> listaVacia()
-        {
-            return new List<Proyecto>();
-        }
-
-        private void cargarDatosDePruebaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DatosDePrueba dp = new DatosDePrueba();
-            InstanciaUnica.Instancia.AgregarProyectos(dp.ObtenerUnaListaProyectos());
-            ActualizarListaDeProyectos();
         }
     }
 }

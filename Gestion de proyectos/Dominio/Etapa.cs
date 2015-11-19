@@ -1,13 +1,20 @@
+using DominioInterfaz;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
-    public class Etapa : IFechas, INombrable, IDuracionPendienteCalculable
+    public class Etapa : IFechas, INombrable, IDuracionPendienteCalculable, IDuracionEstimable, IEtapa
     {
         public String Nombre { get; set; }
-        public int Identificacion { get; set; }
-        public List<Tarea> Tareas { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public int EtapaID { get; set; }
+        public int DuracionEstimada { get; set; }
+        public virtual List<Tarea> Tareas { get; set; }
         public bool EstaFinalizada { get; private set; }
         public bool EstaAtrasada
         {
@@ -25,10 +32,9 @@ namespace Dominio
         public DateTime FechaFinalizacion {
             get
             {
-                return UltimaFechaDeTareas();
+                return ultimaFechaDeTareas();
             }
         }
-
         
 
         public Etapa()
@@ -37,28 +43,43 @@ namespace Dominio
             EstaFinalizada = false;
             Tareas = new List<Tarea>();
             FechaInicio = Tarea.FECHA_NULA;
+            DuracionEstimada = 0;
         }
         
 
         public override bool Equals(object obj)
         {
-            Etapa etapa = (Etapa)obj;
-            return etapa.Identificacion == this.Identificacion;
+            IEtapa etapa = (IEtapa)obj;
+            return etapa.EtapaID == this.EtapaID;
+        }
+
+        public List<Tarea> ObtenerCaminoCritico()
+        {
+            List<Tarea> retorno = new List<Tarea>();
+            Tarea tareaMasGrande = tareaQueFinalizaUltima();
+            if (tareaMasGrande != null)
+                retorno.Add(tareaMasGrande);
+            while (esTareaAntecesora(tareaMasGrande))
+            {
+                tareaMasGrande = tareaMasGrande.UltimaAntecesora();
+                if(tareaMasGrande != null)
+                    retorno.Add(tareaMasGrande);
+            }
+            return retorno;
         }
 
         public int CalcularDuracionPendiente()
         {
             int mayorDuracionPendiente = 0;
-            Tarea tareaMasGrande = TareaQueFinalizaUltima();
-            while (EsTareaAntecesora(tareaMasGrande))
+            foreach (Tarea t in ObtenerCaminoCritico())
             {
-                mayorDuracionPendiente += tareaMasGrande.CalcularDuracionPendiente();
-                tareaMasGrande = tareaMasGrande.UltimaAntecesora();
+                if(esTareaAntecesora(t))
+                    mayorDuracionPendiente += t.CalcularDuracionPendiente();
             }
             return mayorDuracionPendiente;
         }
 
-        private bool EsTareaAntecesora(Tarea tareaMasGrande)
+        private bool esTareaAntecesora(Tarea tareaMasGrande)
         {
             return tareaMasGrande!=null;
         }
@@ -68,12 +89,12 @@ namespace Dominio
             Tareas.Add(tarea);
         }
         public void MarcarFinalizada() {
-            if (TodasTareasFinalizadas())
+            if (todasTareasFinalizadas())
             {
                 EstaFinalizada = true;
             }
         }
-        private bool TodasTareasFinalizadas()
+        private bool todasTareasFinalizadas()
         {
             bool valorRetorno = true;
             foreach (Tarea tarea in Tareas)
@@ -84,7 +105,7 @@ namespace Dominio
             return valorRetorno;
         }
 
-        private Tarea TareaQueFinalizaUltima()
+        private Tarea tareaQueFinalizaUltima()
         {
             Tarea tareaRetorno = new TareaSimple();
             DateTime mayorFecha = DateTime.MinValue;
@@ -99,9 +120,9 @@ namespace Dominio
             return tareaRetorno;
         }
 
-        private DateTime UltimaFechaDeTareas()
+        private DateTime ultimaFechaDeTareas()
         {
-            DateTime mayorFecha = TareaQueFinalizaUltima().FechaFinalizacion;
+            DateTime mayorFecha = tareaQueFinalizaUltima().FechaFinalizacion;
             return mayorFecha;
         }
 
@@ -112,5 +133,6 @@ namespace Dominio
                 Tareas.Remove(tarea);
             }
         }
+
     }
 }

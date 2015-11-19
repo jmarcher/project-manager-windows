@@ -1,15 +1,12 @@
 ﻿using Dominio;
 using InterfazGrafica.Utiles;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using PersistenciaImp;
+using System.Collections.Generic;
+using System.Drawing;
+using DominioInterfaz;
+using PersistenciaInterfaz;
 
 namespace InterfazGrafica
 {
@@ -17,32 +14,78 @@ namespace InterfazGrafica
     {
         private const int ICONO_TAREA_COMPUESTA = 0;
         private const int ICONO_TAREA_SIMPLE = 1;
-        private Etapa etapa;
-
+        private const string MOSTRAR_TAREAS_CAMINO_CRITICO = "Mostrar solo tareas del camino crítico";
+        private const string MOSTRAR_TODAS_TAREAS = "Mostrar todas las tareas";
+        private IEtapa etapa;
+        private IContextoGestorProyectos contexto;
+        private bool mostrandoCaminoCritico =false;
         public VentanaDetallesEtapa()
         {
             InitializeComponent();
         }
 
-        public VentanaDetallesEtapa(Etapa etapa)
+        public VentanaDetallesEtapa(int etapaID, IContextoGestorProyectos contexto)
         {
             InitializeComponent();
-            this.etapa = etapa;
-            InicializarComponentes();
-            ActualizarArbolTareas();
+            this.contexto = contexto;
+            etapa=contexto.ObtenerEtapa(etapaID);
+            inicializarComponentes();
         }
 
-        private void InicializarComponentes()
+        private void inicializarComponentes()
         {
-            InicializarArbolTareas();
+            inicializarArbolTareas();
             this.Text = "Detalles de la etapa: " + etapa.Nombre;
-            labelIdentifiacion.Text = etapa.Identificacion.ToString();
+            labelIdentifiacion.Text = etapa.EtapaID.ToString();
             textBoxNombre.Text = etapa.Nombre;
             dateTimePickerFechaInicio.Value = etapa.FechaInicio;
             textBoxFechaFin.Text = etapa.FechaFinalizacion.ToString();
             labelDuracionPendiente.Text = etapa.CalcularDuracionPendiente().ToString() + " días.";
             buttonEliminar.Enabled = false;
+            if (fueCambiadaDuracionEstimada())
+                textBoxDuracionEstimada.ReadOnly = true;
+            textBoxDuracionEstimada.Text = etapa.DuracionEstimada.ToString();
             inicializarBotonAsignarAntecesora();
+            actualizarArbolTareas();
+            inicializarAvance();
+        }
+
+        private void inicializarAvance()
+        {
+            if (etapa.DuracionEstimada != 0)
+            {
+                labelAvance.Text = "Avance: " + calcularAvance().ToString() + "%";
+                inicializarColorAvance();
+            }
+            else
+                labelAvance.Text = String.Empty;
+        }
+
+        private void inicializarColorAvance()
+        {
+            if (calcularAvance() < 10)
+            {
+                labelAvance.ForeColor = Color.Red;
+            }
+            else if (calcularAvance() > 50)
+            {
+                labelAvance.ForeColor = Color.Orange;
+            }
+            else if (calcularAvance() > 80)
+            {
+                labelAvance.ForeColor = Color.Green;
+            }
+        }
+
+        private int calcularAvance()
+        {
+            return ((DateTime.Now.Subtract(etapa.FechaInicio).Days * 100)
+                            / etapa.DuracionEstimada) % 101;
+        }
+
+        private bool fueCambiadaDuracionEstimada()
+        {
+            return etapa.DuracionEstimada > 0;
         }
 
         private void inicializarBotonAsignarAntecesora()
@@ -53,15 +96,16 @@ namespace InterfazGrafica
                 buttonAsignarAntecesora.Enabled = false;
         }
 
-        private void InicializarArbolTareas()
+        private void inicializarArbolTareas()
         {
             arbolDeTareas.ImageList = listaImagenes;
         }
 
-        private void ActualizarArbolTareas()
+        private void actualizarArbolTareas()
         {
             arbolDeTareas.Nodes.Clear();
-            foreach (Tarea tarea in etapa.Tareas)
+            List<Tarea> listaARecorrer = obtenerListaARecorrer();
+            foreach (ITarea tarea in listaARecorrer)
             {
                 if (EsUnaTareaSimple(tarea))
                 {
@@ -78,13 +122,21 @@ namespace InterfazGrafica
             }
         }
 
+        private List<Tarea> obtenerListaARecorrer()
+        {
+            if (mostrandoCaminoCritico)
+                return etapa.ObtenerCaminoCritico();
+            else
+                return etapa.Tareas;
+        }
+
         private static void AsignarIconosTareaCompuesta(TreeNode nodoArbol)
         {
             nodoArbol.ImageIndex = ICONO_TAREA_COMPUESTA;
             nodoArbol.SelectedImageIndex = ICONO_TAREA_COMPUESTA;
         }
 
-        private TreeNode GenerarNodoArbolTareaSimple(Tarea tarea)
+        private TreeNode GenerarNodoArbolTareaSimple(ITarea tarea)
         {
             TreeNode nodoArbol = new TreeNode(GenerarTextoAMostrar(tarea));
             nodoArbol.Tag = tarea;
@@ -98,7 +150,7 @@ namespace InterfazGrafica
             nodoArbol.SelectedImageIndex = ICONO_TAREA_SIMPLE;
         }
 
-        private static String GenerarTextoAMostrar(Tarea tarea)
+        private static String GenerarTextoAMostrar(ITarea tarea)
         {
             return tarea.ToString();
         }
@@ -107,7 +159,7 @@ namespace InterfazGrafica
         {
             TreeNode[] arbolNodos = new TreeNode[tareaCompuesta.Subtareas.Count];
             int posicion = 0;
-            foreach (Tarea tarea in tareaCompuesta.Subtareas)
+            foreach (ITarea tarea in tareaCompuesta.Subtareas)
             {
                 if (EsUnaTareaSimple(tarea))
                 {
@@ -122,7 +174,7 @@ namespace InterfazGrafica
             return arbolNodos;
         }
 
-        private void AgregarSubArbolTareaSimple(TreeNode[] arbolNodos, int posicion, Tarea tarea)
+        private void AgregarSubArbolTareaSimple(TreeNode[] arbolNodos, int posicion, ITarea tarea)
         {
             TreeNode hojaArbol = GenerarNodoArbolTareaSimple(tarea);
             hojaArbol.Tag = tarea;
@@ -145,9 +197,9 @@ namespace InterfazGrafica
             return nodoSimple;
         }
 
-        private static bool EsUnaTareaSimple(Tarea tarea)
+        private static bool EsUnaTareaSimple(ITarea tarea)
         {
-            return tarea.GetType() == typeof(TareaSimple);
+            return tarea.GetType() == typeof(TareaSimple) || tarea.GetType().BaseType == typeof(TareaSimple);
         }
 
         private bool HayTareaSeleccionada()
@@ -161,7 +213,7 @@ namespace InterfazGrafica
             {
                 if (EstaTareaSeleccionadaEnEtapa())
                 {
-                    EliminarTareaDeEtapa();
+                    eliminarTareaDeEtapa();
                 }
                 else
                 {
@@ -171,12 +223,13 @@ namespace InterfazGrafica
             }
         }
 
-        private void EliminarTareaDeEtapa()
+        private void eliminarTareaDeEtapa()
         {
             if (ApretoSiEnMensajeDeConfirmacion())
             {
                 etapa.EliminarTarea(TareaSeleccionada());
-                ActualizarArbolTareas();
+                contexto.ModificarEtapa(etapa);
+                inicializarComponentes();
             }
         }
 
@@ -209,12 +262,12 @@ namespace InterfazGrafica
 
         private void textBoxNombre_TextChanged(object sender, EventArgs e)
         {
-            HabilitarBotonGuardar();
+            habilitarBotonGuardar();
         }
 
-        private void HabilitarBotonGuardar()
+        private void habilitarBotonGuardar()
         {
-            if (AlgunCampoCambio())
+            if (algunCampoCambio())
             {
                 buttonGuardar.Enabled = true;
             }
@@ -224,17 +277,28 @@ namespace InterfazGrafica
             }
         }
 
-        private bool AlgunCampoCambio()
+        private bool algunCampoCambio()
         {
-            return !EsTextoIgualNombreEtapa() || NoCambioFechaInicio();
+            return !esTextoIgualNombreEtapa() || noCambioFechaInicio() || cambioDuracionEstimada();
         }
 
-        private bool NoCambioFechaInicio()
+        private bool cambioDuracionEstimada()
+        {
+            try {
+                return Int32.Parse(textBoxDuracionEstimada.Text) != etapa.DuracionEstimada;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+
+        private bool noCambioFechaInicio()
         {
             return !(dateTimePickerFechaInicio.Value.Date.CompareTo(etapa.FechaInicio.Date) == 0);
         }
 
-        private bool EsTextoIgualNombreEtapa()
+        private bool esTextoIgualNombreEtapa()
         {
             return textBoxNombre.Text.Equals(etapa.Nombre);
         }
@@ -243,8 +307,11 @@ namespace InterfazGrafica
         {
             etapa.Nombre = textBoxNombre.Text;
             etapa.FechaInicio = dateTimePickerFechaInicio.Value;
-            InicializarComponentes();
+            etapa.DuracionEstimada = Int32.Parse(textBoxDuracionEstimada.Text);
+            contexto.ModificarEtapa(etapa);
+            inicializarComponentes();
             buttonGuardar.Enabled = false;
+            Close();
             
         }
 
@@ -252,49 +319,43 @@ namespace InterfazGrafica
         {
             if (HayTareaSeleccionada())
             {
-                if(TareaSeleccionada().GetType() == typeof(TareaCompuesta))
-                {
-                    EditarTareaVentana((TareaCompuesta)TareaSeleccionada(), false);
-                }
-                else
-                {
-                    EditarTareaVentana((TareaSimple)TareaSeleccionada(), false);
-                }
+                    editarTareaVentana(TareaSeleccionada(), false);
                 
             }
         }
 
-        private void EditarTareaVentana(Tarea tarea , bool esNuevaTarea)
+        private void editarTareaVentana(ITarea tarea , bool esNuevaTarea)
         {
-            VentanaDetallesTarea ventanaDetalles = new VentanaDetallesTarea(tarea, esNuevaTarea);
+            VentanaDetallesTarea ventanaDetalles = new VentanaDetallesTarea(tarea, esNuevaTarea, contexto);
             ventanaDetalles.ShowDialog(this);
             foreach (Form formulario in Application.OpenForms)
             {
-                if (EstaCerradaVentanaDetallesTarea(formulario))
+                if (estaCerradaVentanaDetallesTarea(formulario))
                 {
-                    ActualizarArbolTareas();
+                    inicializarComponentes();
                     break;
                 }
             }
         }
 
-        private bool EstaCerradaVentanaDetallesTarea(Form formulario)
+        private bool estaCerradaVentanaDetallesTarea(Form formulario)
         {
             return !(formulario.GetType() == typeof(VentanaDetallesTarea));
         }
 
         private void buttonAgregarTarea_Click(object sender, EventArgs e)
         {
-            TareaSimple tarea = new TareaSimple();
+            TareaSimple tarea = new TareaSimple(new ContextoGestorProyectos());
             etapa.AgregarTarea(tarea);
-            EditarTareaVentana(tarea , true);
-            ActualizarArbolTareas();
+            contexto.ModificarEtapa(etapa);
+            editarTareaVentana(tarea , true);
+            inicializarComponentes();
 
         }
 
         private void dateTimePickerFechaInicio_ValueChanged(object sender, EventArgs e)
         {
-            HabilitarBotonGuardar();
+            habilitarBotonGuardar();
         }
 
         private void arbolDeTareas_AfterSelect(object sender, TreeViewEventArgs e)
@@ -316,17 +377,52 @@ namespace InterfazGrafica
             if (HayTareaSeleccionada())
             {
                 VentanaAsignarAntecesoraVentanaDetallesEtapa ventana =
-                    new VentanaAsignarAntecesoraVentanaDetallesEtapa(etapa, TareaSeleccionada());
+                    new VentanaAsignarAntecesoraVentanaDetallesEtapa(etapa, TareaSeleccionada(), contexto);
                 ventana.ShowDialog();
             }
         }
 
         private void buttonAgregarTareaCompuesta_Click(object sender, EventArgs e)
         {
-            TareaCompuesta tarea = new TareaCompuesta();
+            TareaCompuesta tarea = new TareaCompuesta(new ContextoGestorProyectos());
             etapa.AgregarTarea(tarea);
-            EditarTareaVentana(tarea, true);
-            ActualizarArbolTareas();
+            contexto.ModificarEtapa(etapa);
+            editarTareaVentana(tarea, true);
+            inicializarComponentes();
+        }
+
+        private void textBoxDuracionEstimada_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void textBoxDuracionEstimada_TextChanged(object sender, EventArgs e)
+        {
+            habilitarBotonGuardar();
+        }
+
+        private void buttonMostrarCaminoCritico_Click(object sender, EventArgs e)
+        {
+            if (mostrandoCaminoCritico)
+            {
+                mostrandoCaminoCritico = false;
+                buttonMostrarCaminoCritico.Text = MOSTRAR_TAREAS_CAMINO_CRITICO;
+            }
+            else
+            {
+                mostrandoCaminoCritico = true;
+                buttonMostrarCaminoCritico.Text = MOSTRAR_TODAS_TAREAS;
+            }
+            inicializarComponentes();
+        }
+
+        private void VentanaDetallesEtapa_Leave(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void VentanaDetallesEtapa_FormClosing(object sender, FormClosingEventArgs e)
+        {
         }
     }
 }

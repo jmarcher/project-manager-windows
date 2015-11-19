@@ -1,30 +1,35 @@
-﻿using Dominio.Excepciones;
+﻿using Dominio;
+using DominioInterfaz;
+using PersistenciaInterfaz;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public abstract class Tarea : IFechas, INombrable, IDuracionPendienteCalculable
+    public abstract class Tarea : IFechas, INombrable, IDuracionPendienteCalculable, IPersonificable, IDuracionEstimable, ITarea
     {
         public const int PRIORIDAD_BAJA = 0;
         public const int PRIORIDAD_MEDIA = 1;
         public const int PRIORIDAD_ALTA = 2;
-        public static readonly DateTime FECHA_NULA = new DateTime(2001, 1, 1);
+        public static readonly DateTime FECHA_NULA = new DateTime(2010, 1, 1);
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public int TareaID { get; set; }
+        public DateTime FechaModificada { get; set; }
         public int Prioridad { get; set; }
+
+        public int DuracionEstimada { get; set; }
 
         public String Nombre { get; set; }
         public String Objetivo { get; set; }
         public String Descripcion { get; set; }
-
-
-        public List<Tarea> Antecesoras { get; set; }
-
+        public virtual List<Tarea> Antecesoras { get; set; }
+        public virtual List<Persona> Personas { get; set; }
         private DateTime _FechaInicio;
-
         public bool EstaFinalizada { get; protected set; }
 
         public abstract bool EstaAtrasada { get; }
@@ -37,32 +42,46 @@ namespace Dominio
             }
             set
             {
-                if (FechaNula(FechaFinalizacion) || (!FechaNula(FechaFinalizacion) &&
-                    (FechaEsMenor(value, FechaFinalizacion) || FechaEsIgual(value, FechaFinalizacion))))
-                {
-                    _FechaInicio = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
+                _FechaInicio = value;
             }
         }
         public abstract DateTime FechaFinalizacion { get; set; }
 
+        public IContextoGestorProyectos Contexto { get; set; }
+
+        public String Historial { get; set; }
+
         public Tarea()
         {
             Antecesoras = new List<Tarea>();
+            Personas = new List<Persona>();
             Prioridad = PRIORIDAD_MEDIA;
             _FechaInicio = FECHA_NULA;
             Nombre = "[Nombre por defecto]";
             Objetivo = "Objetivo";
+            Descripcion = String.Empty;
             EstaFinalizada = false;
+            FechaModificada = DateTime.Now.Date;
+        }
+
+        public Tarea(IContextoGestorProyectos contexto)
+        {
+            Antecesoras = new List<Tarea>();
+            Personas = new List<Persona>();
+            Prioridad = PRIORIDAD_MEDIA;
+            _FechaInicio = FECHA_NULA;
+            Nombre = "[Nombre por defecto]";
+            Objetivo = "Objetivo";
+            Descripcion = String.Empty;
+            EstaFinalizada = false;
+            FechaModificada = DateTime.Now.Date;
+            Contexto = contexto;
         }
 
         public abstract int CalcularDuracionPendiente();
         public abstract Tarea Clonar();
         public abstract void MarcarFinalizada();
+        public abstract bool EstaEnSubtareas(Tarea tarea);
 
         public void DefinirPrioridad(String prioridad)
         {
@@ -96,10 +115,13 @@ namespace Dominio
             if (Convert.IsDBNull(obj))
                 return false;
             Tarea tarea = (Tarea)obj;
-            return tarea.Nombre.Equals(this.Nombre)
-                && tarea.Objetivo.Equals(Objetivo)
-                && tarea.FechaEsIgual(tarea.FechaInicio, this.FechaInicio)
-                && tarea.Prioridad == this.Prioridad;
+            if(TareaID == 0)
+                return tarea.Nombre.Equals(this.Nombre)
+                    && tarea.Objetivo.Equals(Objetivo)
+                    && tarea.FechaEsIgual(tarea.FechaInicio, this.FechaInicio)
+                    && tarea.Prioridad == this.Prioridad;
+            else
+                return tarea.TareaID == TareaID;
         }
 
         public Tarea UltimaAntecesora()
@@ -117,15 +139,8 @@ namespace Dominio
             return antecesoraMasGrande;
         }
 
-        public bool FechaNula(DateTime fecha)
-        {
-            return FechaEsIgual(FECHA_NULA, fecha);
-        }
 
-        public bool FechaEsMenor(DateTime primera, DateTime segunda)
-        {
-            return DateTime.Compare(primera, segunda) < 0;
-        }
+        
 
         public bool FechaEsIgual(DateTime primera, DateTime segunda)
         {
@@ -136,20 +151,19 @@ namespace Dominio
 
         public Proyecto ObtenerProyectoPadre()
         {
-            foreach (Proyecto proyecto in InstanciaUnica.Instancia.DevolverProyectos())
-            {
-                foreach (Etapa etapa in proyecto.Etapas)
+                foreach (Proyecto proyecto in Contexto.DevolverProyectos())
                 {
-                    foreach (Tarea tarea in etapa.Tareas)
+                    foreach (Etapa etapa in proyecto.Etapas)
                     {
-
-                        if (tarea.Equals(this) || estaEnSubtareas(tarea))
+                        foreach (Tarea tarea in etapa.Tareas)
                         {
-                            return proyecto;
+                            if (tarea.Equals(this) || tarea.EstaEnSubtareas(this))
+                            {
+                                return proyecto;
+                            }
                         }
                     }
                 }
-            }
 
             return null;
         }
@@ -163,14 +177,14 @@ namespace Dominio
             valorRetorno.Append(", Duración pendiente: ");
             valorRetorno.Append(CalcularDuracionPendiente().ToString());
             valorRetorno.Append(", Inicio: ");
-            valorRetorno.Append(FechaInicio.Date.ToString());
+            valorRetorno.Append(FechaInicio.Date.ToShortDateString());
             valorRetorno.Append(", Fin: ");
-            valorRetorno.Append(FechaFinalizacion.Date.ToString());
+            valorRetorno.Append(FechaFinalizacion.Date.ToShortDateString());
             valorRetorno.Append("]");
             return valorRetorno.ToString();
         }
 
-        private string prioridadAString()
+        public string prioridadAString()
         {
             if (Prioridad == PRIORIDAD_ALTA)
                 return "Alta";
@@ -180,25 +194,14 @@ namespace Dominio
                 return "Baja";
         }
 
-
-        public bool estaEnSubtareas(Tarea tarea)
+        public void AgregarPersona(Persona persona)
         {
-            if (this.GetType() == typeof(TareaCompuesta))
-            {
-                TareaCompuesta tareaCompuesta = ((TareaCompuesta)this);
-                if (tareaCompuesta.Subtareas.Contains(tarea))
-                {
-                    return true;
-                }
-                else
-                {
-                    foreach (Tarea tareaActual in tareaCompuesta.Subtareas)
-                    {
-                        return tareaActual.estaEnSubtareas(tarea);
-                    }
-                }
-            }
-            return false;
+            Personas.Add(persona);
+        }
+
+        public void AgregarModificacion(string modificacion)
+        {
+            Historial += "["+DateTime.Now+"] " + modificacion+"\r\n";
         }
 
     }
