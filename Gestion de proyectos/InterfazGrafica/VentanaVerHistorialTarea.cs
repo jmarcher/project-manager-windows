@@ -1,6 +1,4 @@
-﻿using System;
-using Dominio;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using DominioInterfaz;
 
 namespace InterfazGrafica

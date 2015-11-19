@@ -253,7 +253,7 @@
             this.buttonMostrarCaminoCritico.Name = "buttonMostrarCaminoCritico";
             this.buttonMostrarCaminoCritico.Size = new System.Drawing.Size(192, 23);
             this.buttonMostrarCaminoCritico.TabIndex = 21;
-            this.buttonMostrarCaminoCritico.Text = "Mostrar solo tareas camino crítico";
+            this.buttonMostrarCaminoCritico.Text = "Mostrar solo tareas del camino crítico";
             this.buttonMostrarCaminoCritico.UseVisualStyleBackColor = true;
             this.buttonMostrarCaminoCritico.Click += new System.EventHandler(this.buttonMostrarCaminoCritico_Click);
             // 
@@ -296,7 +296,9 @@
             this.Name = "VentanaDetallesEtapa";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "VentanaTarea";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VentanaDetallesEtapa_FormClosing);
             this.Load += new System.EventHandler(this.VentanaDetallesEtapa_Load);
+            this.Leave += new System.EventHandler(this.VentanaDetallesEtapa_Leave);
             this.ResumeLayout(false);
             this.PerformLayout();
 

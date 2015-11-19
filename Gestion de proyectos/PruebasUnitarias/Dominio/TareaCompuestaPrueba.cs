@@ -162,7 +162,7 @@ namespace PruebasUnitarias
             };
             tareaCompuesta.AgregarSubtarea(tarea);
             tareaCompuesta.MarcarFinalizada();
-            Assert.True(tareaCompuesta.estaEnSubtareas(tarea));
+            Assert.True(tareaCompuesta.EstaEnSubtareas(tarea));
         }
 
         [Fact]
@@ -177,7 +177,7 @@ namespace PruebasUnitarias
             {
                 Nombre = "Tarea Compuesta"
             };
-            Assert.False(tareaCompuesta.estaEnSubtareas(tarea));
+            Assert.False(tareaCompuesta.EstaEnSubtareas(tarea));
         }
 
         [Fact]
@@ -216,7 +216,7 @@ namespace PruebasUnitarias
                 FechaInicio = DateTime.Now
             };
             tareaCompuesta.AgregarSubtarea(tareaCompuestaOtra);
-            Assert.True(tareaCompuesta.estaEnSubtareas(tarea));
+            Assert.True(tareaCompuesta.EstaEnSubtareas(tarea));
         }
 
         [Fact]
@@ -426,6 +426,28 @@ namespace PruebasUnitarias
             compuesta.AgregarSubtarea(tarea);
             compuesta.EliminarSubtarea(tarea);
             Assert.False(compuesta.Subtareas.Contains(tarea));
+
+        }
+
+
+        [Fact]
+        public void MarcarComoFinalizadaNoPuede()
+        {
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos())
+            {
+                Nombre = "Tarea simple"
+            };
+
+            Tarea tareaTerminada = new TareaSimple(new ContextoGestorProyectos())
+            {
+                Nombre = "Tarea simple"
+            };
+            tareaTerminada.MarcarFinalizada();
+            TareaCompuesta tc = new TareaCompuesta() { Nombre = "Compuesta" };
+            tc.AgregarSubtarea(tarea);
+            tc.AgregarSubtarea(tareaTerminada);
+            tc.MarcarFinalizada();
+            Assert.False(tc.EstaFinalizada);
 
         }
 

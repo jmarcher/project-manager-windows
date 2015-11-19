@@ -388,6 +388,7 @@
             this.monthCalendarFechaInicioEtapa.Margin = new System.Windows.Forms.Padding(7);
             this.monthCalendarFechaInicioEtapa.Name = "monthCalendarFechaInicioEtapa";
             this.monthCalendarFechaInicioEtapa.TabIndex = 10002;
+            this.monthCalendarFechaInicioEtapa.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendarFechaInicioEtapa_DateChanged);
             // 
             // buttonSiguienteEtapaNuevoProyecto
             // 
@@ -457,6 +458,7 @@
             this.monthCalendarFechaInicioProyecto.MinDate = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
             this.monthCalendarFechaInicioProyecto.Name = "monthCalendarFechaInicioProyecto";
             this.monthCalendarFechaInicioProyecto.TabIndex = 4;
+            this.monthCalendarFechaInicioProyecto.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendarFechaInicioProyecto_DateChanged);
             // 
             // label15
             // 

@@ -248,7 +248,7 @@ namespace InterfazGrafica
 
         private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AyudanteVisual.CartelInformacion("Obligatorio 1\n"+
+            AyudanteVisual.CartelInformacion("Obligatorio 2\n"+
                 "Diseño de aplicaciones 1\n"+
                 "Universidad ORT\n"+
                 "Joaquín Marcher\n"+

@@ -1,4 +1,5 @@
-﻿using DominioInterfaz;
+﻿using Dominio;
+using DominioInterfaz;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio

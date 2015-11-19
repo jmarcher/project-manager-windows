@@ -99,7 +99,26 @@ namespace PruebasUnitarias
             proyecto.MarcarFinalizado();
             Assert.True(proyecto.EstaFinalizado);
         }
-        
+
+
+        [Fact]
+        public void MarcarProyectoComoFinalizadoCuando()
+        {
+            Tarea tarea = new TareaSimple(new ContextoGestorProyectos()) { Nombre = "Tarea" };
+            tarea.MarcarFinalizada();
+            Etapa etapa = new Etapa();
+            etapa.AgregarTarea(tarea);
+            etapa.MarcarFinalizada();
+
+            Tarea tarea2 = new TareaSimple(new ContextoGestorProyectos()) { Nombre = "Tarea" };
+            Etapa etapa2 = new Etapa();
+            etapa2.AgregarTarea(tarea);
+            Proyecto proyecto = new Proyecto(new ContextoGestorProyectos());
+            proyecto.AgregarEtapa(etapa2);
+            proyecto.AgregarEtapa(etapa);
+            proyecto.MarcarFinalizado();
+            Assert.False(proyecto.EstaFinalizado);
+        }
 
         [Fact]
         public void MarcarProyectoComoFinalizadoConEtapaSinFinalizar()

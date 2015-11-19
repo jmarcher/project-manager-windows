@@ -1,4 +1,4 @@
-﻿namespace Dominio
+﻿namespace DominioInterfaz
 {
     public interface IDuracionEstimable
     {

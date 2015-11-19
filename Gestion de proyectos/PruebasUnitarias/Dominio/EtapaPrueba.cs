@@ -27,7 +27,20 @@ namespace PruebasUnitarias
             etapa.MarcarFinalizada();
             Assert.True(etapa.EstaFinalizada);
         }
-		
+
+        [Fact]
+        public void MarcarEtapaComoFinalizadaUnaNoFinaliza()
+        {
+            Tarea tareaNoFinaliza = new TareaSimple(new ContextoGestorProyectos()) { Nombre = "TareaNoFinaliza" };
+            TareaCompuesta tarea = new TareaCompuesta(new ContextoGestorProyectos()) { Nombre = "Tarea" };
+            tarea.AgregarSubtarea(tareaNoFinaliza);
+            tarea.MarcarFinalizada();
+            IEtapa etapa = new Etapa();
+            etapa.AgregarTarea(tarea);
+            etapa.MarcarFinalizada();
+            Assert.False(etapa.EstaFinalizada);
+        }
+
         [Fact]
         public void MarcarEtapaComoFinalizadaConTareaSinFinalizar()
         {

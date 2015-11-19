@@ -55,7 +55,7 @@ namespace InterfazGrafica
             }
             else if (calcularAvance() > 50)
             {
-                labelAvance.ForeColor = Color.Yellow;
+                labelAvance.ForeColor = Color.Orange;
             }else if (calcularAvance() > 80)
             {
                 labelAvance.ForeColor = Color.Green;
@@ -319,6 +319,15 @@ namespace InterfazGrafica
         {
             VentanaVerHistorialProyecto ventanaHistorial = new VentanaVerHistorialProyecto(proyecto);
             ventanaHistorial.ShowDialog(this);
+        }
+
+        private void VentanaDetallesProyecto_Leave(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void VentanaDetallesProyecto_FormClosing(object sender, FormClosingEventArgs e)
+        { 
         }
     }
 }

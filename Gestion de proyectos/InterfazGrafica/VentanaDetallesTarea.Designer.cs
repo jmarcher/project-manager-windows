@@ -134,6 +134,7 @@
             this.dateTimePickerFechaInicio.Name = "dateTimePickerFechaInicio";
             this.dateTimePickerFechaInicio.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerFechaInicio.TabIndex = 8;
+            this.dateTimePickerFechaInicio.ValueChanged += new System.EventHandler(this.dateTimePickerFechaInicio_ValueChanged);
             // 
             // dateTimePickerFechaFinalizacion
             // 
@@ -395,6 +396,8 @@
             this.Name = "VentanaDetallesTarea";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "VentanaDetallesTarea";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VentanaDetallesTarea_FormClosing);
+            this.Leave += new System.EventHandler(this.VentanaDetallesTarea_Leave);
             this.ResumeLayout(false);
             this.PerformLayout();
 

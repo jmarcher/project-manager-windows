@@ -8,8 +8,8 @@ namespace Dominio
 {
     public class TareaCompuesta : Tarea
     {
-        public virtual List<Tarea> Subtareas { get; set; }
 
+        public virtual List<Tarea> Subtareas { get; set; }
         public override DateTime FechaFinalizacion
         {
             get
@@ -148,7 +148,7 @@ namespace Dominio
           return copia;
         }
 
-        public override bool estaEnSubtareas(Tarea tarea)
+        public override bool EstaEnSubtareas(Tarea tarea)
         {
             TareaCompuesta tareaCompuesta = ((TareaCompuesta)this);
             if (tareaCompuesta.Subtareas.Contains(tarea))
@@ -157,7 +157,7 @@ namespace Dominio
             }
             foreach (Tarea tareaActual in tareaCompuesta.Subtareas)
             {
-                return tareaActual.estaEnSubtareas(tarea);
+                return tareaActual.EstaEnSubtareas(tarea);
             }
             return false;
         }

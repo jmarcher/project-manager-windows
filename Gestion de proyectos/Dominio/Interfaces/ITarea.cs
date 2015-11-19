@@ -30,7 +30,7 @@ namespace DominioInterfaz
         Tarea Clonar();
         void DefinirPrioridad(string prioridad);
         bool Equals(object obj);
-        bool estaEnSubtareas(Tarea tarea);
+        bool EstaEnSubtareas(Tarea tarea);
         bool FechaEsIgual(DateTime primera, DateTime segunda);
         void MarcarFinalizada();
         Proyecto ObtenerProyectoPadre();

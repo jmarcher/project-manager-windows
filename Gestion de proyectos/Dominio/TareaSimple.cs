@@ -54,6 +54,11 @@ namespace Dominio
             EstaFinalizada = true;
         }
 
+        public override bool EstaEnSubtareas(Tarea tarea)
+        {
+            return false;
+        }
+
         public override Tarea Clonar() 
         {
             TareaSimple copia = new TareaSimple(Contexto) { 

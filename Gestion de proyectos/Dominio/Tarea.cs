@@ -1,4 +1,5 @@
-﻿using DominioInterfaz;
+﻿using Dominio;
+using DominioInterfaz;
 using PersistenciaInterfaz;
 using System;
 using System.Collections.Generic;
@@ -80,6 +81,7 @@ namespace Dominio
         public abstract int CalcularDuracionPendiente();
         public abstract Tarea Clonar();
         public abstract void MarcarFinalizada();
+        public abstract bool EstaEnSubtareas(Tarea tarea);
 
         public void DefinirPrioridad(String prioridad)
         {
@@ -155,8 +157,7 @@ namespace Dominio
                     {
                         foreach (Tarea tarea in etapa.Tareas)
                         {
-
-                            if (tarea.Equals(this) || estaEnSubtareas(tarea))
+                            if (tarea.Equals(this) || tarea.EstaEnSubtareas(this))
                             {
                                 return proyecto;
                             }
@@ -191,12 +192,6 @@ namespace Dominio
                 return "Media";
             else
                 return "Baja";
-        }
-
-
-        public virtual bool estaEnSubtareas(Tarea tarea)
-        {
-            return false;
         }
 
         public void AgregarPersona(Persona persona)

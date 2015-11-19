@@ -27,6 +27,7 @@ namespace InterfazGrafica
         private void buttonSiguienteNuevoProyecto_Click(object sender, EventArgs e)
         {
             this.panelEtapaDeNuevoProyecto.Visible = true;
+            limitarFechaInicioEtapa();
         }
 
         private void buttonAtrasNuevoProyecto_Click(object sender, EventArgs e)
@@ -37,6 +38,7 @@ namespace InterfazGrafica
         private void buttonSiguienteEtapaNuevoProyecto_Click(object sender, EventArgs e)
         {
             this.panelTareaNuevoProyecto.Visible = true;
+            limitarFechaTarea();
         }
 
         private void buttonAtrasEtapaNuevoProyecto_Click(object sender, EventArgs e)
@@ -143,6 +145,27 @@ namespace InterfazGrafica
         private void textBoxDuracionPendienteNuevoProyecto_KeyPress_1(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void monthCalendarFechaInicioProyecto_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            limitarFechaInicioEtapa();
+        }
+
+        private void limitarFechaInicioEtapa()
+        {
+            monthCalendarFechaInicioEtapa.MinDate = monthCalendarFechaInicioProyecto.SelectionStart;
+        }
+
+        private void monthCalendarFechaInicioEtapa_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            limitarFechaTarea();
+        }
+
+        private void limitarFechaTarea()
+        {
+            monthCalendarFechaInicioTareaNuevoProyecto.MinDate = monthCalendarFechaInicioEtapa.SelectionStart;
+            monthCalendarFechaFinTareaNuevoProyecto.MinDate = monthCalendarFechaInicioEtapa.SelectionStart;
         }
     }
 }

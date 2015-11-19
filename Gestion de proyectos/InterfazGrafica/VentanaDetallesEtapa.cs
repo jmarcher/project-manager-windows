@@ -14,6 +14,8 @@ namespace InterfazGrafica
     {
         private const int ICONO_TAREA_COMPUESTA = 0;
         private const int ICONO_TAREA_SIMPLE = 1;
+        private const string MOSTRAR_TAREAS_CAMINO_CRITICO = "Mostrar solo tareas del camino crítico";
+        private const string MOSTRAR_TODAS_TAREAS = "Mostrar todas las tareas";
         private IEtapa etapa;
         private IContextoGestorProyectos contexto;
         private bool mostrandoCaminoCritico =false;
@@ -67,7 +69,7 @@ namespace InterfazGrafica
             }
             else if (calcularAvance() > 50)
             {
-                labelAvance.ForeColor = Color.Yellow;
+                labelAvance.ForeColor = Color.Orange;
             }
             else if (calcularAvance() > 80)
             {
@@ -404,14 +406,23 @@ namespace InterfazGrafica
             if (mostrandoCaminoCritico)
             {
                 mostrandoCaminoCritico = false;
-                buttonMostrarCaminoCritico.Text = "Mostrar solo tareas camino crítico";
+                buttonMostrarCaminoCritico.Text = MOSTRAR_TAREAS_CAMINO_CRITICO;
             }
             else
             {
                 mostrandoCaminoCritico = true;
-                buttonMostrarCaminoCritico.Text = "Mostrar todas las tareas";
+                buttonMostrarCaminoCritico.Text = MOSTRAR_TODAS_TAREAS;
             }
             inicializarComponentes();
+        }
+
+        private void VentanaDetallesEtapa_Leave(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void VentanaDetallesEtapa_FormClosing(object sender, FormClosingEventArgs e)
+        {
         }
     }
 }

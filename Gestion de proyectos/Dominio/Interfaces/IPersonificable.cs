@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Dominio;
 
-namespace Dominio
+namespace DominioInterfaz
 {
     public interface IPersonificable
     {

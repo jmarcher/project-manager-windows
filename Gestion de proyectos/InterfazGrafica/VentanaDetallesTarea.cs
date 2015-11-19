@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Dominio;
 using InterfazGrafica.Utiles;
-using PersistenciaImp;
 using System.Drawing;
-using DominioInterfaz;
 using PersistenciaInterfaz;
+using DominioInterfaz;
 
 namespace InterfazGrafica
 {
@@ -40,6 +39,17 @@ namespace InterfazGrafica
 
         private void refrescarPantalla()
         {
+            inicializarCampos();
+            deshabilitarControlesParaTareaCompuesta();
+            deshabilitarControlesSiEsTareaEditada();
+            inicializarListViewAntecesoras();
+            inicializarArbolSubtareas();
+            inicializarListViewPersonas();
+            inicializarAvance();
+        }
+
+        private void inicializarCampos()
+        {
             Text = "Tarea: " + tarea.Nombre + ", fecha inicio: " + tarea.FechaInicio.ToShortDateString();
             textBoxNombre.Text = tarea.Nombre;
             textBoxObjetivo.Text = tarea.Objetivo;
@@ -49,13 +59,8 @@ namespace InterfazGrafica
             dateTimePickerFechaFinalizacion.Value = tarea.FechaFinalizacion;
             comboBoxPrioridad.SelectedIndex = tarea.Prioridad;
             textBoxDuracionEstimada.Text = tarea.DuracionEstimada.ToString();
-
-            deshabilitarControlesParaTareaCompuesta();
-            deshabilitarControlesSiEsTareaEditada();
-            inicializarListViewAntecesoras();
-            inicializarArbolSubtareas();
-            inicializarListViewPersonas();
-            inicializarAvance();
+            dateTimePickerFechaInicio.MinDate = tarea.ObtenerProyectoPadre().FechaInicio;
+            dateTimePickerFechaFinalizacion.MinDate = tarea.ObtenerProyectoPadre().FechaInicio;
         }
 
         private void inicializarAvance()
@@ -77,7 +82,7 @@ namespace InterfazGrafica
             }
             else if (calcularAvance() > 50)
             {
-                labelAvance.ForeColor = Color.Yellow;
+                labelAvance.ForeColor = Color.Orange;
             }
             else if (calcularAvance() > 80)
             {
@@ -422,7 +427,7 @@ namespace InterfazGrafica
         {
             if (hayTareaSeleccionadaTreeView())
             {
-                if(tareaSeleccionada().GetType() == typeof(TareaCompuesta))
+                if(esCompuesta(tareaSeleccionada()))
                 {
                     editarTareaVentana((TareaCompuesta)tareaSeleccionada(), false);
                 }
@@ -667,6 +672,20 @@ namespace InterfazGrafica
         private void textBoxDuracionEstimada_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void dateTimePickerFechaInicio_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void VentanaDetallesTarea_Leave(object sender, EventArgs e)
+        {
+        }
+
+        private void VentanaDetallesTarea_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
         }
     }
 }

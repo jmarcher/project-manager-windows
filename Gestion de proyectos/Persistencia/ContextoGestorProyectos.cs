@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using Dominio;
 using System.Linq;
 using System.Collections.Generic;
@@ -77,10 +76,10 @@ namespace PersistenciaImp
         public ITarea ObtenerTarea(int id)
         {
             ITarea t = null;
-            var tareas = from r in Tareas.Include(ENTIDAD_PERSONA)
+            var tareas = from r in Tareas.Include(ENTIDAD_PERSONA)//.Include("Antecesoras").Include("Subtareas")
                          where r.TareaID == id
                          select r;
-            foreach (ITarea ta in tareas)
+            foreach (Tarea ta in tareas)
             {
                 t = ta;
             }

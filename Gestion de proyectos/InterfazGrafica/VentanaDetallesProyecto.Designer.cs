@@ -280,7 +280,9 @@
             this.Name = "VentanaDetallesProyecto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "VentanaDetallesProyecto";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VentanaDetallesProyecto_FormClosing);
             this.Load += new System.EventHandler(this.VentanaDetallesProyecto_Load);
+            this.Leave += new System.EventHandler(this.VentanaDetallesProyecto_Leave);
             this.ResumeLayout(false);
             this.PerformLayout();
 
